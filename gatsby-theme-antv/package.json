@@ -1,0 +1,21 @@
+{
+  "name": "@antv/gatsby-theme-antv",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "clean": "gatsby clean",
+    "develop": "gatsby develop"
+  },
+  "peerDependencies": {
+    "gatsby": "^2.15.34",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
+  },
+  "devDependencies": {
+    "gatsby": "^2.15.34",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
+  }
+}
