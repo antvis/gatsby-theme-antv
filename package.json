@@ -1,4 +1,7 @@
 {
   "private": true,
-  "workspaces": ["gatsby-theme-antv", "site"]
+  "workspaces": ["gatsby-theme-antv", "site"],
+  "scripts": {
+    "start": "yarn workspace site develop"
+  }
 }

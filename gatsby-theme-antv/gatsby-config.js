@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   siteMetadata: {
     title: `AntV`,
@@ -7,40 +9,7 @@ module.exports = {
       langs: ['en', 'zh'],
       defaultLangKey: 'zh',
     },
-    docs: [
-      {
-        slug: 'specification',
-        title: {
-          zh: '设计语言',
-          en: 'Specification',
-        },
-        order: 0,
-      },
-      {
-        slug: 'specification/category',
-        title: {
-          zh: '分类一',
-          en: 'category1',
-        },
-        order: 1,
-      },
-      {
-        slug: 'other',
-        title: {
-          zh: '其他文档',
-          en: 'other',
-        },
-        order: 0,
-      },
-      {
-        slug: 'other/category',
-        title: {
-          zh: '分类二',
-          en: 'category2',
-        },
-        order: 2,
-      },
-    ],
+    docs: [],
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -48,7 +17,8 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `docs`,
-        path: `${__dirname}/docs`,
+        path: path.resolve('./docs'),
+        ignore: [`**/\.*`],
       },
     },
     {
@@ -102,7 +72,7 @@ module.exports = {
         background_color: `#663399`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `src/images/favicon.png`, // This path is relative to the root of the site.
+        icon: require.resolve(`./src/images/favicon.png`), // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-typescript`,

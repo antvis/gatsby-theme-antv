@@ -1,12 +1,15 @@
 module.exports = {
+  plugins: [
+    {
+      resolve: `gatsby-theme-antv`,
+      options: {
+      },
+    },
+  ],
   siteMetadata: {
     title: `AntV test site`,
     siteUrl: `https://antvis.github.io`,
     description: `Ant Visualization solution home page`,
-    languages: {
-      langs: ['en', 'zh'],
-      defaultLangKey: 'zh',
-    },
     docs: [
       {
         slug: 'specification',
@@ -42,11 +45,4 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    {
-      resolve: `gatsby-theme-antv`,
-      options: {
-      },
-    },
-  ],
 };

@@ -6,7 +6,6 @@ order: 0
 [![](https://img.shields.io/travis/antvis/g2.svg)](https://travis-ci.org/antvis/g2)
 ![](https://img.shields.io/badge/language-javascript-red.svg)
 ![](https://img.shields.io/badge/license-MIT-000000.svg)
-
 [![NPM Package](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
 [![NPM Downloads](https://img.shields.io/npm/dm/@antv/g2.svg)](https://npmjs.org/package/@antv/g2)
 [![Percentage of issues still open](https://isitmaintained.com/badge/open/antvis/g2.svg)](https://isitmaintained.com/project/antvis/g2 'Percentage of issues still open')

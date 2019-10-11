@@ -6,11 +6,32 @@
 
 // You can delete this file if you're not using it
 const path = require(`path`);
+const fs = require('fs');
+const mkdirp = require('mkdirp');
 const { getSlugAndLang } = require('ptz-i18n');
 
+const documentTemplate = require.resolve(`./src/templates/document.tsx`);
+
+exports.onPreBootstrap = ({ store, reporter }) => {
+  const { program } = store.getState();
+
+  const dirs = [
+    path.join(program.directory, 'docs'),
+    path.join(program.directory, 'images'),
+  ];
+
+  dirs.forEach(dir => {
+    if (!fs.existsSync(dir)) {
+      reporter.log(`creating the ${dir} directory`);
+      mkdirp.sync(dir);
+    }
+  });
+};
+
 // Add custom url pathname for posts
-exports.onCreateNode = ({ node, actions, getNode }) => {
+exports.onCreateNode = ({ node, actions, getNode, store }) => {
   const { createNodeField } = actions;
+  const { program } = store.getState();
   if (node.internal.type === `File`) {
     createNodeField({
       node,
@@ -21,11 +42,14 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         langKeyForNull: 'any',
         langKeyDefault: 'none',
         useLangKeyLayout: false,
-        pagesPaths: [__dirname],
+        pagesPaths: [program.directory],
         prefixDefault: true,
       },
       node.fileAbsolutePath,
     );
+    if (!slug) {
+      return;
+    }
     createNodeField({
       node,
       name: `slug`,
@@ -44,14 +68,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const result = await graphql(`
     {
       allMarkdownRemark(
-        sort: { order: ASC, fields: [frontmatter___order] }
         limit: 1000
       ) {
         edges {
           node {
             fields {
               slug
-              langKey
             }
           }
         }
@@ -64,10 +86,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     return;
   }
   result.data.allMarkdownRemark.edges.forEach(({ node }) => {
-    const { slug, langKey } = node.fields;
+    const { slug } = node.fields;
     createPage({
       path: slug, // required
-      component: path.resolve(`src/templates/document.tsx`),
+      component: documentTemplate,
     });
   });
 };
