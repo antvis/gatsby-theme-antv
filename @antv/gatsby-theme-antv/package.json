@@ -80,8 +80,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "jest",
-    "prepublishOnly": "np"
+    "test": "jest"
   },
   "publishConfig": {
     "access": "public"
