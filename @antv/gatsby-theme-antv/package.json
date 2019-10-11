@@ -52,14 +52,15 @@
     "gatsby-source-filesystem": "^2.1.22",
     "gatsby-transformer-remark": "^2.6.24",
     "gatsby-transformer-sharp": "^2.2.14",
-    "jest": "^24.9.0",
     "i18next": "^17.0.16",
     "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
     "less": "^3.10.3",
     "lodash-es": "^4.17.15",
     "mkdirp": "^0.5.1",
     "moment": "^2.24.0",
     "normalize.css": "^8.0.1",
+    "np": "^5.1.0",
     "prism-themes": "^1.2.0",
     "prismjs": "^1.17.1",
     "ptz-i18n": "^1.0.0",
@@ -79,6 +80,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "np"
   }
 }

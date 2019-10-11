@@ -10,13 +10,13 @@
 ## Install
 
 ```bash
-npm install
+yarn install
 ```
 
 ## Preview
 
 ```bash
-npm start
+yarn start
 ```
 
 Visit https://localhost:8000
@@ -24,13 +24,20 @@ Visit https://localhost:8000
 ## Prettier
 
 ```bash
-npm run format
+yarn format
 ```
 
 ## Test
 
 ```bash
-npm test
+yarn test
+```
+
+## Publish to npm
+
+```bash
+cd @antv/gatsby-theme-antv
+npm publish
 ```
 
 ## Deploy
