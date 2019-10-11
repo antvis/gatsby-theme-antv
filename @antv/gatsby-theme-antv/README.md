@@ -1,6 +1,6 @@
 # Gatsby Theme for AntV 📈
 
-[![](https://flat.badgen.net/npm/v/@antv/gatsby-theme-antv?icon=npm)](https://www.npmjs.com/package/@antv/gatsby-theme-antv) [![](https://badgen.net/npm/v/@antv/gatsby-theme-antv)](https://www.npmjs.com/package/@antv/gatsby-theme-antv)
+[![](https://flat.badgen.net/npm/v/@antv/gatsby-theme-antv?icon=npm)](https://www.npmjs.com/package/@antv/gatsby-theme-antv)
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/gatsby-theme-antv.svg?style=flat-square)](http://npmjs.com/@antv/gatsby-theme-antv)
 ![CI status](https://github.com/antvis/gatsby-theme-antv/workflows/Node%20CI/badge.svg)
 [![Dependency Status](https://david-dm.org/antvis/gatsby-theme-antv.svg?style=flat-square)](https://david-dm.org/antvis/gatsby-theme-antv)
@@ -10,13 +10,13 @@
 ## Install
 
 ```bash
-npm install
+yarn install
 ```
 
 ## Preview
 
 ```bash
-npm start
+yarn start
 ```
 
 Visit https://localhost:8000
@@ -24,13 +24,20 @@ Visit https://localhost:8000
 ## Prettier
 
 ```bash
-npm run format
+yarn format
 ```
 
 ## Test
 
 ```bash
-npm test
+yarn test
+```
+
+## Publish to npm
+
+```bash
+cd @antv/gatsby-theme-antv
+npm publish
 ```
 
 ## Deploy
