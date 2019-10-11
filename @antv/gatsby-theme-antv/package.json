@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-theme-antv",
+  "name": "@antv/gatsby-theme-antv",
   "description": "Ant Visualization solution home page",
   "version": "0.1.0",
   "author": "AntV Team <antv@antfin.com>",
@@ -11,10 +11,10 @@
   "homepage": "https://antvis.github.io",
   "repository": {
     "type": "git",
-    "url": "https://github.com/antvis/antvis.github.io"
+    "url": "https://github.com/antvis/gatsby-theme-antv"
   },
   "bugs": {
-    "url": "https://github.com/antvis/antvis.github.io/issues"
+    "url": "https://github.com/antvis/gatsby-theme-antv/issues"
   },
   "dependencies": {
     "@hot-loader/react-dom": "^16.9.0+4.12.11",

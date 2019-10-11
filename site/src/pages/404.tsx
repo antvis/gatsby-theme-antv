@@ -1,8 +1,8 @@
 import React from 'react';
 import { Result, Button, Icon } from 'antd';
 import { Link } from 'gatsby';
-import Layout from 'gatsby-theme-antv/src/components/layout';
-import SEO from 'gatsby-theme-antv/src/components/seo';
+import Layout from '@antv/gatsby-theme-antv/src/components/layout';
+import SEO from '@antv/gatsby-theme-antv/src/components/seo';
 
 const NotFoundPage = () => (
   <Layout>

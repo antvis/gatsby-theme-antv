@@ -1,7 +1,7 @@
 import React from 'react';
 import { Skeleton } from 'antd';
-import Layout from 'gatsby-theme-antv/src/components/layout';
-import SEO from 'gatsby-theme-antv/src/components/seo';
+import Layout from '@antv/gatsby-theme-antv/src/components/layout';
+import SEO from '@antv/gatsby-theme-antv/src/components/seo';
 
 const IndexPage = () => (
   <Layout>

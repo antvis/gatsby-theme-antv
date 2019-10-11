@@ -9,7 +9,7 @@
     "url": "https://github.com/antvis/gatsby-theme-antv/issues"
   },
   "license": "MIT",
-  "workspaces": ["gatsby-theme-antv", "site"],
+  "workspaces": ["@antv/gatsby-theme-antv", "site"],
   "devDependencies": {
     "husky": "^3.0.5",
     "prettier": "^1.18.2",

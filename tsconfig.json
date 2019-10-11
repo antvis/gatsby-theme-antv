@@ -1,8 +1,5 @@
 {
-  "include": [
-    "gatsby-theme-antv",
-    "site"
-  ],
+  "include": ["@antv/gatsby-theme-antv", "site"],
   "compilerOptions": {
     "target": "esnext",
     "module": "commonjs",

@@ -1,7 +1,7 @@
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-theme-antv`,
+      resolve: `@antv/gatsby-theme-antv`,
       options: {},
     },
   ],
