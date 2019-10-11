@@ -82,5 +82,8 @@
     "serve": "gatsby serve",
     "test": "jest",
     "prepublishOnly": "np"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
