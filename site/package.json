@@ -3,6 +3,14 @@
   "name": "site",
   "version": "1.0.0",
   "license": "MIT",
+  "homepage": "https://antvis.github.io",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antvis/antvis.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/antvis/antvis.github.io/issues"
+  },
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
