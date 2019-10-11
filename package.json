@@ -12,15 +12,12 @@
   "workspaces": ["gatsby-theme-antv", "site"],
   "devDependencies": {
     "husky": "^3.0.5",
-    "jest": "^24.9.0",
     "prettier": "^1.18.2",
-    "pretty-quick": "^1.11.0",
-    "ts-jest": "^24.1.0"
+    "pretty-quick": "^1.11.0"
   },
   "scripts": {
     "start": "yarn workspace site develop",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,less}\"",
-    "test": "jest"
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,less}\""
   },
   "husky": {
     "hooks": {

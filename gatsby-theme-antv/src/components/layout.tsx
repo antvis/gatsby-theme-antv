@@ -40,6 +40,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
               en
             }
             order
+            redirect
           }
         }
       }

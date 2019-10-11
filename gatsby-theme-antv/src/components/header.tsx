@@ -16,7 +16,8 @@ export interface Doc {
   title: {
     [key: string]: string;
   };
-};
+  redirect?: string;
+}
 
 interface HeaderProps {
   siteTitle?: string;

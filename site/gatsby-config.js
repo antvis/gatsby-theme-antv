@@ -2,8 +2,7 @@ module.exports = {
   plugins: [
     {
       resolve: `gatsby-theme-antv`,
-      options: {
-      },
+      options: {},
     },
   ],
   siteMetadata: {
@@ -18,6 +17,7 @@ module.exports = {
           en: 'Specification',
         },
         order: 0,
+        redirect: 'getting-started',
       },
       {
         slug: 'specification/category',
@@ -34,6 +34,7 @@ module.exports = {
           en: 'other',
         },
         order: 0,
+        redirect: 'getting-started',
       },
       {
         slug: 'other/category',
