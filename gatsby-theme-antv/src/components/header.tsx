@@ -3,34 +3,27 @@ import React from 'react';
 import GithubCorner from 'react-github-corner';
 import { useTranslation } from 'react-i18next';
 import { Popover, Select } from 'antd';
-import classNames from 'classnames';
 import Search from './search';
 import Products from './products';
+import DocsMenuItems from './DocsMenuItems';
 import styles from './header.module.less';
 
 const { Option } = Select;
+
+export interface Doc {
+  slug: string;
+  order: number;
+  title: {
+    [key: string]: string;
+  };
+};
 
 interface HeaderProps {
   siteTitle?: string;
   location?: Location;
   currentLangKey?: string;
-  docs: Array<{
-    slug: string;
-    order: number;
-    title: {
-      zh: string;
-      en: string;
-    };
-  }>;
+  docs: Doc[];
 }
-
-const getDocument = (docs: any[], slug: string = '') => {
-  return (
-    docs.find(doc => doc.slug === slug) || {
-      title: {},
-    }
-  );
-};
 
 const Header: React.FC<HeaderProps> = ({
   siteTitle = '',
@@ -55,30 +48,7 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       <nav className={styles.nav}>
         <ul className={styles.menu}>
-          <li>
-            <Link
-              to={`/${currentLangKey}/docs/specification/getting-started`}
-              className={classNames({
-                [styles.active]: location.pathname.startsWith(
-                  `/${currentLangKey}/docs/specification`,
-                ),
-              })}
-            >
-              {getDocument(docs, 'specification').title[currentLangKey]}
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={`/${currentLangKey}/docs/other/getting-started`}
-              className={classNames({
-                [styles.active]: location.pathname.startsWith(
-                  `/${currentLangKey}/docs/other`,
-                ),
-              })}
-            >
-              {getDocument(docs, 'other').title[currentLangKey]}
-            </Link>
-          </li>
+          <DocsMenuItems docs={docs} currentLangKey={currentLangKey} />
           <li>
             <Popover
               title={null}
