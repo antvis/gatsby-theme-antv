@@ -27,6 +27,14 @@ module.exports = ({
         },
       },
       {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          name: `docs`,
+          path: path.resolve('./site/images'),
+          ignore: [`**/\.*`],
+        },
+      },
+      {
         resolve: 'gatsby-plugin-i18n',
         options: {
           langKeyDefault: 'zh',
@@ -66,8 +74,8 @@ module.exports = ({
           ],
         },
       },
-      `gatsby-transformer-sharp`,
       `gatsby-plugin-sharp`,
+      `gatsby-transformer-sharp`,
       `gatsby-plugin-offline`,
       {
         resolve: `gatsby-plugin-manifest`,
