@@ -6236,6 +6236,13 @@ gatsby-plugin-i18n@^1.0.1:
     graphql "^0.11.7"
     ptz-i18n "^1.0.0"
 
+gatsby-plugin-layout@^1.1.11:
+  version "1.1.11"
+  resolved "https://registry.npm.taobao.org/gatsby-plugin-layout/download/gatsby-plugin-layout-1.1.11.tgz#474e41ad6be0072ec495e14d0693240045f5c980"
+  integrity sha1-R05BrWvgBy7EleFNBpMkAEX1yYA=
+  dependencies:
+    "@babel/runtime" "^7.6.3"
+
 gatsby-plugin-less@^3.0.6:
   version "3.0.10"
   resolved "https://registry.npm.taobao.org/gatsby-plugin-less/download/gatsby-plugin-less-3.0.10.tgz#28e381df2d9a34f75e88f3b49e1598dd115e341a"

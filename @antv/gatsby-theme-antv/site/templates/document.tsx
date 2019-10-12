@@ -6,7 +6,6 @@ import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import { getCurrentLangKey } from 'ptz-i18n';
 import packageJson from '../../package.json';
-import Layout from '../components/layout';
 import Article from '../components/article';
 import SEO from '../components/seo';
 import styles from './markdown.module.less';
@@ -82,7 +81,7 @@ export default function Template({
   }, [i18n.language]);
 
   return (
-    <Layout>
+    <>
       <SEO title={frontmatter.title} lang={currentLangKey} />
       <AntLayout style={{ background: '#fff' }}>
         <AntLayout.Sider width={280} theme="light">
@@ -162,7 +161,7 @@ export default function Template({
           </div>
         </Article>
       </AntLayout>
-    </Layout>
+    </>
   );
 }
 

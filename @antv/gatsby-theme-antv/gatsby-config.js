@@ -123,6 +123,12 @@ module.exports = ({
           path: path.resolve(pagesPath),
         },
       },
+      {
+        resolve: `gatsby-plugin-layout`,
+        options: {
+          component: require.resolve(`./site/components/layout.tsx`),
+        },
+      },
     ],
   };
 };
