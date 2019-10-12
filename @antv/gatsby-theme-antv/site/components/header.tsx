@@ -21,13 +21,13 @@ export interface Doc {
 
 interface HeaderProps {
   siteTitle?: string;
-  location?: Location;
+  location: Location;
   docs: Doc[];
 }
 
 const Header: React.FC<HeaderProps> = ({
   siteTitle = '',
-  location = { pathname: '' },
+  location = { pathname: '' } as Location,
   docs = [],
 }) => {
   const { t, i18n } = useTranslation();
@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       <nav className={styles.nav}>
         <ul className={styles.menu}>
-          <DocsMenuItems docs={docs} />
+          <DocsMenuItems docs={docs} location={location} />
           <li>
             <Popover
               title={null}
