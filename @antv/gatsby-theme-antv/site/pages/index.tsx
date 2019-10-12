@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql, navigate, withPrefix } from 'gatsby';
+import { Spin } from 'antd';
 import { getUserLangKey } from 'ptz-i18n';
 
 class RedirectIndex extends React.PureComponent {
@@ -17,7 +18,11 @@ class RedirectIndex extends React.PureComponent {
   }
 
   render() {
-    return <div />;
+    return (
+      <div style={{ textAlign: 'center', margin: '200px auto' }}>
+        <Spin size="large" />
+      </div>
+    );
   }
 }
 

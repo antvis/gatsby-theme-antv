@@ -19,8 +19,8 @@ i18n
   });
 
 interface LayoutProps {
-  children?: React.ReactNode;
-  location?: Location;
+  children: React.ReactElement<any>;
+  location: Location;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, location }) => {
@@ -61,7 +61,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   const currentLangKey = getCurrentLangKey(
     langs,
     defaultLangKey,
-    location!.pathname,
+    location.pathname,
   );
 
   useEffect(() => {
@@ -70,14 +70,13 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     }
   }, [currentLangKey]);
 
+  if (location.pathname === '/') {
+    return children;
+  }
+
   return (
     <>
-      <Header
-        siteTitle={title}
-        location={location}
-        currentLangKey={currentLangKey}
-        docs={docs}
-      />
+      <Header siteTitle={title} location={location} docs={docs} />
       <main className={styles.main}>{children}</main>
       <Footer
         columns={footerColumns}

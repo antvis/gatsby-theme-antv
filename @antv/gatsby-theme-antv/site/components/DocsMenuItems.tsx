@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { Doc } from './header';
 import styles from './header.module.less';
 
@@ -11,13 +12,10 @@ const getDocument = (docs: Doc[], slug: string = '') =>
 
 interface DocsMenuItemsProps {
   docs: Doc[];
-  currentLangKey?: string;
 }
 
-const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({
-  docs = [],
-  currentLangKey = '',
-}) => {
+const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({ docs = [] }) => {
+  const { i18n } = useTranslation();
   return (
     <>
       {docs
@@ -27,14 +25,14 @@ const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({
           return (
             <li key={doc.slug}>
               <Link
-                to={`/${currentLangKey}/docs/${doc.slug}/${doc.redirect || ''}`}
+                to={`/${i18n.language}/docs/${doc.slug}/${doc.redirect || ''}`}
                 className={classNames({
                   [styles.active]: location.pathname.startsWith(
-                    `/${currentLangKey}/docs/${doc.slug}`,
+                    `/${i18n.language}/docs/${doc.slug}`,
                   ),
                 })}
               >
-                {getDocument(docs, slugPrefix).title[currentLangKey]}
+                {getDocument(docs, slugPrefix).title[i18n.language]}
               </Link>
             </li>
           );

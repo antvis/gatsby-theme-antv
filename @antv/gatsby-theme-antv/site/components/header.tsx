@@ -22,22 +22,20 @@ export interface Doc {
 interface HeaderProps {
   siteTitle?: string;
   location?: Location;
-  currentLangKey?: string;
   docs: Doc[];
 }
 
 const Header: React.FC<HeaderProps> = ({
   siteTitle = '',
   location = { pathname: '' },
-  currentLangKey = '',
   docs = [],
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   return (
     <header className={styles.header}>
       <div className={styles.left}>
         <h1>
-          <Link to="/">
+          <Link to={`/${i18n.language}`}>
             <img
               src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
               alt={siteTitle}
@@ -49,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       <nav className={styles.nav}>
         <ul className={styles.menu}>
-          <DocsMenuItems docs={docs} currentLangKey={currentLangKey} />
+          <DocsMenuItems docs={docs} />
           <li>
             <Popover
               title={null}
@@ -75,10 +73,10 @@ const Header: React.FC<HeaderProps> = ({
           size="small"
           style={{ width: 90, fontSize: 12 }}
           dropdownMatchSelectWidth={false}
-          value={currentLangKey}
+          value={i18n.language}
           onChange={(value: string) => {
             navigate(
-              location.pathname.replace(`/${currentLangKey}/`, `/${value}/`),
+              location.pathname.replace(`/${i18n.language}/`, `/${value}/`),
             );
           }}
         >
