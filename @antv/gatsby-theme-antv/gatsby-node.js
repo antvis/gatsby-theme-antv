@@ -10,7 +10,7 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const { getSlugAndLang } = require('ptz-i18n');
 
-const documentTemplate = require.resolve(`./src/templates/document.tsx`);
+const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 
 exports.onPreBootstrap = ({ store, reporter }) => {
   const { program } = store.getState();
