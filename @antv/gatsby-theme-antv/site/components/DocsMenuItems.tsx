@@ -12,9 +12,10 @@ const getDocument = (docs: Doc[], slug: string = '') =>
 
 interface DocsMenuItemsProps {
   docs: Doc[];
+  location: Location;
 }
 
-const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({ docs = [] }) => {
+const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({ docs = [], location }) => {
   const { i18n } = useTranslation();
   return (
     <>

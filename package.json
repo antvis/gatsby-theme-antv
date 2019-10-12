@@ -18,7 +18,8 @@
   "scripts": {
     "start": "yarn workspace example develop",
     "test": "yarn workspace @antv/gatsby-theme-antv test",
-    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,less}\""
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,less}\"",
+    "tsc": "tsc"
   },
   "husky": {
     "hooks": {
