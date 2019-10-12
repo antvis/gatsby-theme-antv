@@ -1,5 +1,5 @@
 ---
-title: 分类测试文章二
+title: test2
 order: 1
 ---
 

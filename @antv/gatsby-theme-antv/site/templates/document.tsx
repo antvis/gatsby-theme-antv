@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { graphql, Link } from 'gatsby';
 import { Layout as AntLayout, Menu, Icon, Tooltip, Affix, Tag } from 'antd';
 import { groupBy } from 'lodash-es';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
-import { getCurrentLangKey } from 'ptz-i18n';
 import packageJson from '../../package.json';
 import Article from '../components/article';
 import SEO from '../components/seo';
@@ -61,12 +60,9 @@ export default function Template({
   } = markdownRemark;
   const { edges = [] } = allMarkdownRemark;
   const {
-    siteMetadata: {
-      languages: { langs, defaultLangKey },
-      docs,
-    },
+    siteMetadata: { docs },
   } = site;
-  const currentLangKey = getCurrentLangKey(langs, defaultLangKey, path);
+  const { i18n } = useTranslation();
   const groupedEdges = groupBy(edges, ({ node: { fields: { slug } } }: any) =>
     slug
       .split('/')
@@ -74,15 +70,9 @@ export default function Template({
       .join('/'),
   );
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
-  const { i18n } = useTranslation();
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
-  useEffect(() => {
-    setCurrentLanguage(i18n.language);
-  }, [i18n.language]);
-
   return (
     <>
-      <SEO title={frontmatter.title} lang={currentLangKey} />
+      <SEO title={frontmatter.title} lang={i18n.language} />
       <AntLayout style={{ background: '#fff' }}>
         <AntLayout.Sider width={280} theme="light">
           <Menu
@@ -93,7 +83,7 @@ export default function Template({
             onOpenChange={openKeys => setOpenKeys(openKeys)}
           >
             {Object.keys(groupedEdges)
-              .filter(key => key.startsWith(`/${currentLangKey}/`))
+              .filter(key => key.startsWith(`/${i18n.language}/`))
               .sort((a: string, b: string) => {
                 const aKey = getMenuItemlocaleKey(a);
                 const bKey = getMenuItemlocaleKey(b);
@@ -119,7 +109,7 @@ export default function Template({
                       key={slug}
                       title={
                         doc && doc.title
-                          ? doc.title[currentLangKey]
+                          ? doc.title[i18n.language]
                           : menuItemlocaleKey
                       }
                     >
@@ -152,7 +142,7 @@ export default function Template({
             </h1>
             <div>
               <Tag>
-                {currentLanguage === 'zh'
+                {i18n.language === 'zh'
                   ? moment(readingTime.time).format('阅读时间约 M 分钟')
                   : readingTime.text}
               </Tag>
@@ -170,10 +160,6 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
-        languages {
-          langs
-          defaultLangKey
-        }
         docs {
           slug
           title {
