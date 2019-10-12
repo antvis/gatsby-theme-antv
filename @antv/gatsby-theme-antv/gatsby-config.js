@@ -1,6 +1,10 @@
 const path = require('path');
 
-module.exports = ({ pagesPath = './site/pages' }) => {
+module.exports = ({
+  pagesPath = './site/pages',
+  GATrackingId = `UA-148148901-1`,
+  primaryColor = '#722ED1',
+}) => {
   return {
     siteMetadata: {
       title: `AntV`,
@@ -71,8 +75,8 @@ module.exports = ({ pagesPath = './site/pages' }) => {
           name: `gatsby-starter-default`,
           short_name: `starter`,
           start_url: `/`,
-          background_color: `#663399`,
-          theme_color: `#663399`,
+          background_color: primaryColor,
+          theme_color: primaryColor,
           display: `minimal-ui`,
           icon: require.resolve(`./site/images/favicon.png`), // This path is relative to the root of the site.
         },
@@ -82,6 +86,9 @@ module.exports = ({ pagesPath = './site/pages' }) => {
         resolve: 'gatsby-plugin-less',
         options: {
           javascriptEnabled: true,
+          modifyVars: {
+            'primary-color': primaryColor,
+          },
         },
       },
       {
@@ -93,7 +100,7 @@ module.exports = ({ pagesPath = './site/pages' }) => {
       {
         resolve: `gatsby-plugin-google-analytics`,
         options: {
-          trackingId: `UA-148148901-1`,
+          trackingId: GATrackingId,
         },
       },
       `gatsby-plugin-catch-links`,
