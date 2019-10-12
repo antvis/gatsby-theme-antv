@@ -4,7 +4,6 @@ import { Layout as AntLayout, Menu, Icon, Tooltip, Affix, Tag } from 'antd';
 import { groupBy } from 'lodash-es';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
-import packageJson from '../../package.json';
 import Article from '../components/article';
 import SEO from '../components/seo';
 import styles from './markdown.module.less';
@@ -60,7 +59,7 @@ export default function Template({
   } = markdownRemark;
   const { edges = [] } = allMarkdownRemark;
   const {
-    siteMetadata: { docs },
+    siteMetadata: { docs, githubUrl },
   } = site;
   const { i18n } = useTranslation();
   const groupedEdges = groupBy(edges, ({ node: { fields: { slug } } }: any) =>
@@ -132,7 +131,7 @@ export default function Template({
               {frontmatter.title}
               <Tooltip title="在 GitHub 上编辑">
                 <a
-                  href={`${packageJson.repository.url}/edit/master/${relativePath}`}
+                  href={`${githubUrl}/edit/master/${relativePath}`}
                   target="_blank"
                   className={styles.editOnGtiHubButton}
                 >
@@ -160,6 +159,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        githubUrl
         docs {
           slug
           title {
