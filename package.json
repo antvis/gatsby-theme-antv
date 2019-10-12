@@ -9,14 +9,14 @@
     "url": "https://github.com/antvis/gatsby-theme-antv/issues"
   },
   "license": "MIT",
-  "workspaces": ["@antv/gatsby-theme-antv", "site"],
+  "workspaces": ["@antv/gatsby-theme-antv", "example"],
   "devDependencies": {
     "husky": "^3.0.5",
     "prettier": "^1.18.2",
     "pretty-quick": "^1.11.0"
   },
   "scripts": {
-    "start": "yarn workspace site develop",
+    "start": "yarn workspace example develop",
     "test": "yarn workspace @antv/gatsby-theme-antv test",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,less}\""
   },
