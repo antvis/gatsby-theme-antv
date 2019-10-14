@@ -23,7 +23,11 @@ module.exports = {
   plugins: [
     {
       resolve: `@antv/gatsby-theme-antv`,
-      options: {},
+      options: {
+        pagesPath: './site/pages',
+        GATrackingId: `UA-XXXXXXXXX-X`,
+        primaryColor: '#722ED1',
+      },
     },
   ],
   siteMetadata: {

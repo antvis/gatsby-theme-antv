@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = ({
   pagesPath = './site/pages',
-  GATrackingId = `UA-148148901-1`,
+  GATrackingId = '',
   primaryColor = '#722ED1',
 }) => {
   return {
