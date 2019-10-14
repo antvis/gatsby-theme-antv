@@ -6,7 +6,7 @@ import Header from '../header';
 describe(`Header`, () => {
   it(`renders menu`, () => {
     const siteTitle = `Hello World`;
-    const { getByText } = render(<Header siteTitle={siteTitle} />);
+    const { getByText } = render(<Header siteTitle={siteTitle} siteUrl="https://antvis.github.io/xxx" />);
     expect(getByText('所有产品')).toBeInTheDocument();
     expect(getByText('生态')).toBeInTheDocument();
   });

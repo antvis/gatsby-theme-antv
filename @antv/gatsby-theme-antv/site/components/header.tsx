@@ -28,7 +28,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({
   siteTitle = '',
-  siteUrl = 'https://antvis.github.io',
+  siteUrl = '',
   location = { pathname: '' } as Location,
   docs = [],
 }) => {
