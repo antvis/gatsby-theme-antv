@@ -7,31 +7,67 @@
 [![devDependencies Status](https://david-dm.org/antvis/gatsby-theme-antv/dev-status.svg)](https://david-dm.org/antvis/gatsby-theme-antv?type=dev)
 ![prettier code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
-## Install
+## Usage
+
+```bash
+npm install gatsby @antv/gatsby-theme-antv i18next react-i18next --save
+```
+
+Add `gatsby-config.js` and `gatsby-browser.js`:
+
+```js
+// gatsby-config.js
+const { homepage, repository } = require('./package.json');
+
+module.exports = {
+  plugins: [
+    {
+      resolve: `@antv/gatsby-theme-antv`,
+      options: {},
+    },
+  ],
+  siteMetadata: {
+    title: `AntV`,
+    description: `Ant Visualization solution home page`,
+    siteUrl: homepage,
+    githubUrl: repository.url,
+    languages: {
+      langs: ['en', 'zh'],
+      defaultLangKey: 'zh',
+    },
+    docs: [
+      {
+        slug: 'specification',
+        title: {
+          zh: '设计语言',
+          en: 'Specification',
+        },
+        order: 0,
+        redirect: 'getting-started',
+      },
+    ],
+  },
+};
+```
+
+```jsx
+// gatsby-browser.js
+import i18n from 'i18next';
+import locale from './site/locale.json';
+
+i18n.addResources('en', 'translation', locale.en.translation);
+```
+
+Sample repository: https://github.com/antvis/antvis.github.io/tree/27dd93115881b1bbebdb5cf98439dc8d07955fa5
+
+## Develop
 
 ```bash
 yarn install
-```
-
-## Preview
-
-```bash
 yarn start
 ```
 
-Visit https://localhost:8000
-
-## Prettier
-
-```bash
-yarn format
-```
-
-## Test
-
-```bash
-yarn test
-```
+Visit https://localhost:8000 to preview.
 
 ## Publish to npm
 
@@ -52,3 +88,7 @@ Not ready.
 - [Jest](https://jestjs.io/)
 - [Testing Library](https://testing-library.com/)
 - [react-i18next](https://react.i18next.com/)
+
+## Websites using it
+
+- https://github.com/antvis/antvis.github.io
