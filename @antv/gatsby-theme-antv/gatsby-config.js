@@ -97,6 +97,7 @@ module.exports = ({
           javascriptEnabled: true,
           modifyVars: {
             'primary-color': primaryColor,
+            'font-family': `Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif`,
           },
         },
       },

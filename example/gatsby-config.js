@@ -7,7 +7,7 @@ module.exports = {
   ],
   siteMetadata: {
     title: `AntV test site`,
-    siteUrl: `https://antvis.github.io`,
+    siteUrl: `https://antvis.github.io/g2plot`,
     description: `Ant Visualization solution home page`,
     githubUrl: 'https://github.com/antvis/antvis.github.io',
     docs: [

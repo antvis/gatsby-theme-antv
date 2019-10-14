@@ -21,12 +21,14 @@ export interface Doc {
 
 interface HeaderProps {
   siteTitle?: string;
+  siteUrl?: string;
   location: Location;
   docs: Doc[];
 }
 
 const Header: React.FC<HeaderProps> = ({
   siteTitle = '',
+  siteUrl = '',
   location = { pathname: '' } as Location,
   docs = [],
 }) => {
@@ -38,11 +40,14 @@ const Header: React.FC<HeaderProps> = ({
           <Link to={`/${i18n.language}`}>
             <img
               src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
-              alt={siteTitle}
+              alt="AntV"
             />
           </Link>
         </h1>
         <span className={styles.divider} />
+        <h2 className={styles.subProduceName}>
+          <Link to={siteUrl}>{siteTitle}</Link>
+        </h2>
         <Search />
       </div>
       <nav className={styles.nav}>
