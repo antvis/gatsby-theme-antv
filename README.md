@@ -10,7 +10,7 @@
 ## Usage
 
 ```bash
-npm install gatsby @antv/gatsby-theme-antv i18next react-i18next --save
+npm install gatsby @antv/gatsby-theme-antv i18next react-i18next --save-dev
 ```
 
 Add `gatsby-config.js` and `gatsby-browser.js`:
@@ -58,7 +58,7 @@ import locale from './site/locale.json';
 i18n.addResources('en', 'translation', locale.en.translation);
 ```
 
-Sample repository: https://github.com/antvis/antvis.github.io/tree/27dd93115881b1bbebdb5cf98439dc8d07955fa5
+Sample repository: https://github.com/antvis/antvis.github.io
 
 ## Develop
 
