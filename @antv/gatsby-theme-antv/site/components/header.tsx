@@ -33,6 +33,7 @@ const Header: React.FC<HeaderProps> = ({
   docs = [],
 }) => {
   const { t, i18n } = useTranslation();
+  const { pathname } = new URL(siteUrl);
   return (
     <header className={styles.header}>
       <div className={styles.left}>
@@ -44,10 +45,14 @@ const Header: React.FC<HeaderProps> = ({
             />
           </Link>
         </h1>
-        <span className={styles.divider} />
-        <h2 className={styles.subProduceName}>
-          <Link to={siteUrl}>{siteTitle}</Link>
-        </h2>
+        {pathname !== '/' && (
+          <>
+            <span className={styles.divider} />
+            <h2 className={styles.subProduceName}>
+              <Link to={pathname}>{siteTitle}</Link>
+            </h2>
+          </>
+        )}
         <Search />
       </div>
       <nav className={styles.nav}>
