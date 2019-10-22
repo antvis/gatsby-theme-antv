@@ -6,7 +6,6 @@ import { getCurrentLangKey } from 'ptz-i18n';
 import i18n from 'i18next';
 import { initReactI18next, useTranslation } from 'react-i18next';
 import Header from './header';
-import RedirectIndex from './RedirectIndex';
 import locale from '../locale.json';
 import footerColumns from './footerColumns';
 import styles from './layout.module.less';
@@ -65,13 +64,11 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     }
   }, [currentLangKey]);
 
-  console.log(location.pathname, withPrefix('/'));
-
   if (
     location.pathname === withPrefix('/') ||
-    location.pathname === `${withPrefix('/')}/`
+    `${location.pathname}/` === withPrefix('/')
   ) {
-    return <RedirectIndex />;
+    return children;
   }
 
   return (

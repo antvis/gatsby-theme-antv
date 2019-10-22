@@ -1,1 +1,3 @@
-export default () => null;
+import RedirectIndex from '../components/RedirectIndex';
+
+export default RedirectIndex;
