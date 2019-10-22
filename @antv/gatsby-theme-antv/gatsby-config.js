@@ -134,7 +134,7 @@ module.exports = ({
   };
 
   if (GATrackingId) {
-    config.push({
+    config.plugins.push({
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: GATrackingId,
