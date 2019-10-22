@@ -5,6 +5,7 @@ module.exports = {
       options: {},
     },
   ],
+  pathPrefix: '/blog',
   siteMetadata: {
     title: `AntV test site`,
     siteUrl: `https://antvis.github.io/g2plot`,
