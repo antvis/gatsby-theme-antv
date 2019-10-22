@@ -11,10 +11,6 @@ beforeEach(() => {
         title: `GatsbyJS`,
         description: `Ant Visualization solution home page`,
         githubUrl: 'https://github.com/antvis/gatsby-theme-antv',
-        languages: {
-          langs: ['en', 'zh'],
-          defaultLangKey: 'zh',
-        },
       },
     },
   }));
@@ -23,7 +19,7 @@ beforeEach(() => {
 describe(`Layout`, () => {
   fit(`renders a header`, () => {
     const { container } = render(
-      <Layout>
+      <Layout path="/xxx">
         <main>
           <h1>hello</h1>
         </main>
