@@ -19,10 +19,10 @@ i18n
 
 interface LayoutProps {
   children: React.ReactElement<any>;
-  path: string;
+  location: Location;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, path = '/' }) => {
+const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   const { i18n } = useTranslation();
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -50,11 +50,10 @@ const Layout: React.FC<LayoutProps> = ({ children, path = '/' }) => {
       pathPrefix,
     },
   } = data;
-
+  const path = location.pathname.replace(pathPrefix, '');
   const currentLangKey = getCurrentLangKey(['zh', 'en'], 'zh', path);
-
+  console.log('currentLangKey', currentLangKey);
   useSSR(locale, currentLangKey);
-
   useEffect(() => {
     if (i18n.language !== currentLangKey) {
       i18n.changeLanguage(currentLangKey);

@@ -44,10 +44,10 @@ const getDocument = (docs: any[], slug: string = '') => {
 
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
-  path,
+  location,
 }: {
   data: any;
-  path: string;
+  location: Location;
 }) {
   const { markdownRemark, allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
   const {
@@ -60,7 +60,9 @@ export default function Template({
   const { edges = [] } = allMarkdownRemark;
   const {
     siteMetadata: { docs, githubUrl },
+    pathPrefix,
   } = site;
+  const path = location.pathname.replace(pathPrefix, '');
   const { i18n } = useTranslation();
   const groupedEdges = groupBy(edges, ({ node: { fields: { slug } } }: any) =>
     slug
@@ -169,6 +171,7 @@ export const pageQuery = graphql`
           order
         }
       }
+      pathPrefix
     }
     markdownRemark(fields: { slug: { eq: $path } }) {
       html
