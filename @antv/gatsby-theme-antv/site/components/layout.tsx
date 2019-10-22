@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, withPrefix } from 'gatsby';
 import { Location as RouterLocation } from '@reach/router';
 import Footer from 'rc-footer';
 import { getCurrentLangKey } from 'ptz-i18n';
@@ -66,7 +66,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     }
   }, [currentLangKey]);
 
-  if (location.pathname === '/' || location.pathname.startsWith(pathPrefix)) {
+  if (location.pathname === withPrefix('/')) {
     return <RedirectIndex />;
   }
 

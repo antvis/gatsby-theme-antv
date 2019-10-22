@@ -10,10 +10,8 @@ class RedirectIndex extends React.PureComponent {
     // Skip build, Browsers only
     if (typeof window !== 'undefined') {
       const langKey = getUserLangKey(['zh', 'en'], 'zh');
-      const homeUrl = withPrefix(langKey);
-      console.log(langKey, homeUrl);
       // https://github.com/angeloocana/gatsby-plugin-i18n/issues/52#issuecomment-451590961
-      navigate(homeUrl);
+      navigate(langKey);
     }
   }
 
