@@ -1,11 +1,10 @@
 import React from 'react';
 import { Result, Button, Icon } from 'antd';
 import { Link } from 'gatsby';
-import Layout from '../components/layout';
 import SEO from '../components/seo';
 
 const NotFoundPage = () => (
-  <Layout>
+  <>
     <SEO title="404: Not found" />
     <Result
       status="404"
@@ -20,7 +19,7 @@ const NotFoundPage = () => (
         </Link>
       }
     />
-  </Layout>
+  </>
 );
 
 export default NotFoundPage;
