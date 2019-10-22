@@ -28,7 +28,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({
   siteTitle = '',
-  pathPrefix = '/',
+  pathPrefix,
   path,
   docs = [],
 }) => {
@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({
             />
           </a>
         </h1>
-        {pathPrefix !== '/' && (
+        {pathPrefix !== '' && (
           <>
             <span className={styles.divider} />
             <h2 className={styles.subProduceName}>

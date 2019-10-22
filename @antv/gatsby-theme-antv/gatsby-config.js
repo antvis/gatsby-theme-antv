@@ -4,7 +4,7 @@ module.exports = ({
   pagesPath = './site/pages',
   GATrackingId = '',
   primaryColor = '#722ED1',
-  pathPrefix = '/',
+  pathPrefix,
 }) => {
   return {
     siteMetadata: {

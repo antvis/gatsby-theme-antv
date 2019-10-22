@@ -47,7 +47,7 @@ const Layout: React.FC<LayoutProps> = ({ children, path = '/' }) => {
   const {
     site: {
       siteMetadata: { title, docs },
-      pathPrefix = '/',
+      pathPrefix,
     },
   } = data;
 
