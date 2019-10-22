@@ -27,6 +27,7 @@ module.exports = {
         pagesPath: './site/pages',
         GATrackingId: `UA-XXXXXXXXX-X`,
         primaryColor: '#722ED1',
+        pathPrefix: '/g2',
       },
     },
   ],
@@ -34,10 +35,6 @@ module.exports = {
     title: `AntV`,
     description: `Ant Visualization solution home page`,
     githubUrl: repository.url,
-    languages: {
-      langs: ['en', 'zh'],
-      defaultLangKey: 'zh',
-    },
     docs: [
       {
         slug: 'specification',
