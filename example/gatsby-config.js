@@ -1,11 +1,11 @@
 module.exports = {
+  pathPrefix: '/gatsby-theme-antv',
   plugins: [
     {
       resolve: `@antv/gatsby-theme-antv`,
       options: {},
     },
   ],
-  pathPrefix: '/gatsby-theme-antv',
   siteMetadata: {
     title: `AntV test site`,
     siteUrl: `https://antvis.github.io/g2plot`,
