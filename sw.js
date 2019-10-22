@@ -33,24 +33,24 @@ self.__precacheManifest = [
     "url": "styles.02971d007689e52cc522.css"
   },
   {
-    "url": "styles-0578d57499851cb97fbf.js"
+    "url": "styles-16905d469f5309945a42.js"
   },
   {
     "url": "commons-2ea6bf3acf87ff40f617.js"
   },
   {
-    "url": "app-dbf5de3a257770e79cde.js"
+    "url": "app-9af0b509cfa8099e034f.js"
   },
   {
     "url": "component---node-modules-gatsby-plugin-offline-app-shell-js-c5dc0292f93e9203d460.js"
   },
   {
     "url": "offline-plugin-app-shell-fallback/index.html",
-    "revision": "cbe0969b8b2f0fe2034f6e2b193982ee"
+    "revision": "4899cfbe043c0afcf248f1581c6ba763"
   },
   {
     "url": "page-data/offline-plugin-app-shell-fallback/page-data.json",
-    "revision": "217213727d12b7fed9e922b127471864"
+    "revision": "f2c011372aae4f5d24a10e90fd63ec88"
   },
   {
     "url": "manifest.webmanifest",
@@ -82,7 +82,7 @@ const navigationRoute = new NavigationRoute(async ({ event }) => {
   // Check for resources + the app bundle
   // The latter may not exist if the SW is updating to a new version
   const resources = await idbKeyval.get(`resources:${pathname}`)
-  if (!resources || !(await caches.match(`/gatsby-theme-antv/app-dbf5de3a257770e79cde.js`))) {
+  if (!resources || !(await caches.match(`/gatsby-theme-antv/app-9af0b509cfa8099e034f.js`))) {
     return await fetch(event.request)
   }
 
