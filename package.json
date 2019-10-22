@@ -20,6 +20,7 @@
   },
   "scripts": {
     "start": "yarn workspace example develop",
+    "build": "yarn workspace example build",
     "test": "yarn workspace @antv/gatsby-theme-antv test",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,less}\"",
     "tsc": "tsc"

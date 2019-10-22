@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql, navigate, withPrefix } from 'gatsby';
+import { navigate, withPrefix } from 'gatsby';
 import { Spin } from 'antd';
 import { getUserLangKey } from 'ptz-i18n';
 
@@ -9,8 +9,7 @@ class RedirectIndex extends React.PureComponent {
 
     // Skip build, Browsers only
     if (typeof window !== 'undefined') {
-      const { langs, defaultLangKey } = args.data.site.siteMetadata.languages;
-      const langKey = getUserLangKey(langs, defaultLangKey);
+      const langKey = getUserLangKey(['zh', 'en'], 'zh');
       const homeUrl = withPrefix(`/${langKey}/`);
       // https://github.com/angeloocana/gatsby-plugin-i18n/issues/52#issuecomment-451590961
       navigate(homeUrl);
@@ -27,16 +26,3 @@ class RedirectIndex extends React.PureComponent {
 }
 
 export default RedirectIndex;
-
-export const pageQuery = graphql`
-  query IndexQuery {
-    site {
-      siteMetadata {
-        languages {
-          defaultLangKey
-          langs
-        }
-      }
-    }
-  }
-`;
