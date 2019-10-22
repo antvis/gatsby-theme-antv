@@ -22,7 +22,7 @@ interface LayoutProps {
   path: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, path }) => {
+const Layout: React.FC<LayoutProps> = ({ children, path = '/' }) => {
   const { i18n } = useTranslation();
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
