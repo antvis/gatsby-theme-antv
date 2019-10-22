@@ -6,6 +6,7 @@ import { getCurrentLangKey } from 'ptz-i18n';
 import i18n from 'i18next';
 import { initReactI18next, useTranslation } from 'react-i18next';
 import Header from './header';
+import RedirectIndex from './RedirectIndex';
 import locale from '../locale.json';
 import footerColumns from './footerColumns';
 import styles from './layout.module.less';
@@ -41,24 +42,22 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
             redirect
           }
         }
+        pathPrefix
       }
     }
   `);
 
   const {
     site: {
-      siteMetadata: {
-        title,
-        siteUrl,
-        docs,
-      },
+      siteMetadata: { title, siteUrl, docs },
+      pathPrefix = '',
     },
   } = data;
 
   const currentLangKey = getCurrentLangKey(
     ['zh', 'en'],
     'zh',
-    location.pathname,
+    location.pathname.replace(pathPrefix, ''),
   );
 
   useEffect(() => {
@@ -67,13 +66,18 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     }
   }, [currentLangKey]);
 
-  if (location.pathname === '/') {
-    return children;
+  if (location.pathname === '/' || location.pathname === pathPrefix) {
+    return <RedirectIndex />;
   }
 
   return (
     <>
-      <Header siteTitle={title} siteUrl={siteUrl} location={location} docs={docs} />
+      <Header
+        siteTitle={title}
+        siteUrl={siteUrl}
+        location={location}
+        docs={docs}
+      />
       <main className={styles.main}>{children}</main>
       <Footer
         columns={footerColumns}
