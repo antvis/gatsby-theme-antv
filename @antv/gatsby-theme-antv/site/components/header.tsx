@@ -21,19 +21,18 @@ export interface Doc {
 
 interface HeaderProps {
   siteTitle?: string;
-  siteUrl?: string;
+  pathPrefix?: string;
   location: Location;
   docs: Doc[];
 }
 
 const Header: React.FC<HeaderProps> = ({
   siteTitle = '',
-  siteUrl = '',
+  pathPrefix = '/',
   location = { pathname: '' } as Location,
   docs = [],
 }) => {
   const { t, i18n } = useTranslation();
-  const { pathname } = new URL(siteUrl);
   return (
     <header className={styles.header}>
       <div className={styles.left}>
@@ -45,11 +44,11 @@ const Header: React.FC<HeaderProps> = ({
             />
           </Link>
         </h1>
-        {pathname !== '/' && (
+        {pathPrefix !== '/' && (
           <>
             <span className={styles.divider} />
             <h2 className={styles.subProduceName}>
-              <Link to={pathname}>{siteTitle}</Link>
+              <Link to={pathPrefix}>{siteTitle}</Link>
             </h2>
           </>
         )}
