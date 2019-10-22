@@ -5,7 +5,7 @@ module.exports = {
       options: {},
     },
   ],
-  pathPrefix: '/blog',
+  pathPrefix: '/gatsby-theme-antv',
   siteMetadata: {
     title: `AntV test site`,
     siteUrl: `https://antvis.github.io/g2plot`,
