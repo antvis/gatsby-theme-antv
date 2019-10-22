@@ -21,15 +21,15 @@ export interface Doc {
 
 interface HeaderProps {
   siteTitle?: string;
-  pathPrefix?: string;
-  location: Location;
+  pathPrefix: string;
+  path: string;
   docs: Doc[];
 }
 
 const Header: React.FC<HeaderProps> = ({
   siteTitle = '',
   pathPrefix = '/',
-  location = { pathname: '' } as Location,
+  path,
   docs = [],
 }) => {
   const { t, i18n } = useTranslation();
@@ -56,7 +56,7 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       <nav className={styles.nav}>
         <ul className={styles.menu}>
-          <DocsMenuItems docs={docs} location={location} />
+          <DocsMenuItems docs={docs} path={path} />
           <li>
             <Popover
               title={null}
@@ -80,12 +80,14 @@ const Header: React.FC<HeaderProps> = ({
         </ul>
         <Select
           size="small"
-          style={{ width: 90, fontSize: 12 }}
+          style={{ width: 92, fontSize: 12 }}
           dropdownMatchSelectWidth={false}
           value={i18n.language}
           onChange={(value: string) => {
             navigate(
-              location.pathname.replace(`/${i18n.language}/`, `/${value}/`),
+              path
+                .replace(pathPrefix, '')
+                .replace(`/${i18n.language}/`, `/${value}/`),
             );
           }}
         >

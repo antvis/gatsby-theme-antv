@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useStaticQuery, graphql, withPrefix } from 'gatsby';
-import { Location as RouterLocation } from '@reach/router';
 import Footer from 'rc-footer';
 import { getCurrentLangKey } from 'ptz-i18n';
 import i18n from 'i18next';
@@ -20,10 +19,10 @@ i18n
 
 interface LayoutProps {
   children: React.ReactElement<any>;
-  location: Location;
+  path: string;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, location }) => {
+const Layout: React.FC<LayoutProps> = ({ children, path }) => {
   const { i18n } = useTranslation();
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -52,11 +51,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     },
   } = data;
 
-  const currentLangKey = getCurrentLangKey(
-    ['zh', 'en'],
-    'zh',
-    location.pathname,
-  );
+  const currentLangKey = getCurrentLangKey(['zh', 'en'], 'zh', path);
 
   useEffect(() => {
     if (i18n.language !== currentLangKey) {
@@ -64,10 +59,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     }
   }, [currentLangKey]);
 
-  if (
-    location.pathname === withPrefix('/') ||
-    `${location.pathname}/` === withPrefix('/')
-  ) {
+  if (path === withPrefix('/') || `${path}/` === withPrefix('/')) {
     return children;
   }
 
@@ -75,7 +67,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     <>
       <Header
         siteTitle={title}
-        location={location}
+        path={path}
         pathPrefix={pathPrefix}
         docs={docs}
       />
@@ -94,11 +86,4 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   );
 };
 
-// here app catches the suspense from page in case translations are not yet loaded
-export default function App(props: any) {
-  return (
-    <RouterLocation>
-      {({ location }) => <Layout location={location} {...props} />}
-    </RouterLocation>
-  );
-}
+export default Layout;

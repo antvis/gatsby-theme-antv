@@ -12,10 +12,13 @@ const getDocument = (docs: Doc[], slug: string = '') =>
 
 interface DocsMenuItemsProps {
   docs: Doc[];
-  location: Location;
+  path: string;
 }
 
-const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({ docs = [], location }) => {
+const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({
+  docs = [],
+  path,
+}) => {
   const { i18n } = useTranslation();
   return (
     <>
@@ -28,7 +31,7 @@ const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({ docs = [], location 
               <Link
                 to={`/${i18n.language}/docs/${doc.slug}/${doc.redirect || ''}`}
                 className={classNames({
-                  [styles.active]: location.pathname.startsWith(
+                  [styles.active]: path.startsWith(
                     `/${i18n.language}/docs/${doc.slug}`,
                   ),
                 })}
