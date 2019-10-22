@@ -31,10 +31,6 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         siteMetadata {
           title
           siteUrl
-          languages {
-            langs
-            defaultLangKey
-          }
           docs {
             slug
             title {
@@ -54,15 +50,14 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
       siteMetadata: {
         title,
         siteUrl,
-        languages: { langs, defaultLangKey },
         docs,
       },
     },
   } = data;
 
   const currentLangKey = getCurrentLangKey(
-    langs,
-    defaultLangKey,
+    ['zh', 'en'],
+    'zh',
     location.pathname,
   );
 
