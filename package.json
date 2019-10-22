@@ -14,6 +14,7 @@
     "example"
   ],
   "devDependencies": {
+    "gh-pages": "^2.1.1",
     "husky": "^3.0.5",
     "prettier": "^1.18.2",
     "pretty-quick": "^2.0.0"
@@ -21,6 +22,7 @@
   "scripts": {
     "start": "yarn workspace example develop",
     "build": "yarn workspace example build",
+    "deploy": "npm run build && gh-pages -d example/public",
     "test": "yarn workspace @antv/gatsby-theme-antv test",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,less}\"",
     "tsc": "tsc"
