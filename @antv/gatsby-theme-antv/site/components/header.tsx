@@ -84,6 +84,9 @@ const Header: React.FC<HeaderProps> = ({
           dropdownMatchSelectWidth={false}
           value={i18n.language}
           onChange={(value: string) => {
+            if (path.endsWith(`/${i18n.language}`)) {
+              return navigate(`/${value}`);
+            }
             navigate(
               path
                 .replace(pathPrefix, '')
@@ -91,8 +94,8 @@ const Header: React.FC<HeaderProps> = ({
             );
           }}
         >
-          <Option value="en">🇺🇸 English</Option>
           <Option value="zh">🇨🇳 中文</Option>
+          <Option value="en">🇺🇸 English</Option>
         </Select>
         <GithubCorner href="https://github.com/antvis" size={64} />
       </nav>
