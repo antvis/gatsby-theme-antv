@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{549:function(n,u,o){"use strict";o.r(u),u.default=function(){return null}}}]);
-//# sourceMappingURL=component---antv-gatsby-theme-antv-site-pages-index-tsx-fe8fea21efd9bcb0c1f7.js.map
