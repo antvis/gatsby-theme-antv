@@ -17,7 +17,7 @@ Add `gatsby-config.js` and `gatsby-browser.js`:
 
 ```js
 // gatsby-config.js
-const { homepage, repository } = require('./package.json');
+const { repository } = require('./package.json');
 
 module.exports = {
   plugins: [
@@ -33,7 +33,6 @@ module.exports = {
   siteMetadata: {
     title: `AntV`,
     description: `Ant Visualization solution home page`,
-    siteUrl: homepage,
     githubUrl: repository.url,
     languages: {
       langs: ['en', 'zh'],

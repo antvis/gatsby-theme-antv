@@ -4,15 +4,16 @@ module.exports = ({
   pagesPath = './site/pages',
   GATrackingId = '',
   primaryColor = '#722ED1',
+  pathPrefix = '/',
 }) => {
   return {
     siteMetadata: {
       title: `AntV`,
-      siteUrl: `https://antvis.github.io`,
       description: `Ant Visualization solution home page`,
       githubUrl: 'https://github.com/antvis/gatsby-theme-antv',
       docs: [],
     },
+    pathPrefix,
     plugins: [
       `gatsby-plugin-react-helmet`,
       {

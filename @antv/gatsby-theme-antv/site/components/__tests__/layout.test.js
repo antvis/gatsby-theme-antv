@@ -9,7 +9,6 @@ beforeEach(() => {
     site: {
       siteMetadata: {
         title: `GatsbyJS`,
-        siteUrl: `https://antvis.github.io`,
         description: `Ant Visualization solution home page`,
         githubUrl: 'https://github.com/antvis/gatsby-theme-antv',
         languages: {

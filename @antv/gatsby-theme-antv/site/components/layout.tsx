@@ -31,7 +31,6 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
       site {
         siteMetadata {
           title
-          siteUrl
           docs {
             slug
             title {
@@ -49,15 +48,15 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
 
   const {
     site: {
-      siteMetadata: { title, siteUrl, docs },
-      pathPrefix = '',
+      siteMetadata: { title, docs },
+      pathPrefix = '/',
     },
   } = data;
 
   const currentLangKey = getCurrentLangKey(
     ['zh', 'en'],
     'zh',
-    location.pathname.replace(pathPrefix, ''),
+    location.pathname,
   );
 
   useEffect(() => {
@@ -74,8 +73,8 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     <>
       <Header
         siteTitle={title}
-        siteUrl={siteUrl}
         location={location}
+        pathPrefix={pathPrefix}
         docs={docs}
       />
       <main className={styles.main}>{children}</main>
