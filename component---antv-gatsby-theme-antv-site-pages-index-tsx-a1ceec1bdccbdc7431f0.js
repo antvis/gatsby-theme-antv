@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[4],{552:function(n,k,l){"use strict";l.r(k),k.default=function(){return"123j21l3j12l3kj12lk3j1lk23jkl213"}}}]);
-//# sourceMappingURL=component---antv-gatsby-theme-antv-site-pages-index-tsx-a1ceec1bdccbdc7431f0.js.map
