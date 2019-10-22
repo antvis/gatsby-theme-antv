@@ -2,11 +2,11 @@ const path = require('path');
 
 module.exports = ({
   pagesPath = './site/pages',
-  GATrackingId = '',
+  GATrackingId,
   primaryColor = '#722ED1',
   pathPrefix,
 }) => {
-  return {
+  const config = {
     siteMetadata: {
       title: `AntV`,
       description: `Ant Visualization solution home page`,
@@ -104,12 +104,6 @@ module.exports = ({
           style: true,
         },
       },
-      {
-        resolve: `gatsby-plugin-google-analytics`,
-        options: {
-          trackingId: GATrackingId,
-        },
-      },
       `gatsby-plugin-catch-links`,
       `gatsby-plugin-nprogress`,
       `gatsby-plugin-remove-trailing-slashes`,
@@ -138,4 +132,15 @@ module.exports = ({
       },
     ],
   };
+
+  if (GATrackingId) {
+    config.push({
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: GATrackingId,
+      },
+    });
+  }
+
+  return config;
 };
