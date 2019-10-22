@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "gatsby build --prefix-paths",
-    "develop": "gatsby develop",
+    "develop": "npm run clean && gatsby develop",
     "clean": "gatsby clean"
   },
   "dependencies": {

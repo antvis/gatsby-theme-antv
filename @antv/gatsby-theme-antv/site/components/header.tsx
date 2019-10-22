@@ -37,18 +37,18 @@ const Header: React.FC<HeaderProps> = ({
     <header className={styles.header}>
       <div className={styles.left}>
         <h1>
-          <Link to={`/${i18n.language}`}>
+          <a href="/">
             <img
               src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
               alt="AntV"
             />
-          </Link>
+          </a>
         </h1>
         {pathPrefix !== '/' && (
           <>
             <span className={styles.divider} />
             <h2 className={styles.subProduceName}>
-              <Link to={pathPrefix}>{siteTitle}</Link>
+              <Link to={`/${i18n.language}`}>{siteTitle}</Link>
             </h2>
           </>
         )}

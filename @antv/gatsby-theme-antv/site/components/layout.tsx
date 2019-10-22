@@ -65,7 +65,12 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     }
   }, [currentLangKey]);
 
-  if (location.pathname === withPrefix('/')) {
+  console.log(location.pathname, withPrefix('/'));
+
+  if (
+    location.pathname === withPrefix('/') ||
+    location.pathname === `${withPrefix('/')}/`
+  ) {
     return <RedirectIndex />;
   }
 
