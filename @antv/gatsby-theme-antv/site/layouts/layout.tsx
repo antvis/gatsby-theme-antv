@@ -32,7 +32,7 @@ i18n
     },
   });
 
-i18n.reloadResources(lngs);
+// i18n.reloadResources(lngs);
 
 interface LayoutProps {
   children: React.ReactElement<any>;
@@ -43,23 +43,15 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({
   children,
-  currentLangKey,
   siteData = {},
   location,
 }) => {
-  const { i18n } = useTranslation();
   const {
     siteMetadata: { title, docs },
     pathPrefix,
   } = siteData;
 
   const path = location.pathname.replace(pathPrefix, '');
-
-  useEffect(() => {
-    if (i18n.language !== currentLangKey) {
-      i18n.changeLanguage(currentLangKey);
-    }
-  }, [currentLangKey]);
 
   if (path === withPrefix('/') || `${path}/` === withPrefix('/')) {
     return children;
@@ -121,8 +113,13 @@ export default ({
   i18n.init({
     lng: currentLangKey,
   });
+  useEffect(() => {
+    i18n.reloadResources([currentLangKey]).then(() => {
+      i18n.changeLanguage(currentLangKey);
+    });
+  }, [currentLangKey]);
   return (
-    <Layout currentLangKey={currentLangKey} siteData={site} location={location}>
+    <Layout siteData={site} location={location}>
       {children}
     </Layout>
   );

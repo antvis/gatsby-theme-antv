@@ -134,13 +134,13 @@ module.exports = ({
         resolve: `gatsby-source-filesystem`,
         options: {
           name: `locales`,
-          path: `${__dirname}/site/locales/`,
+          path: path.resolve(`site/locales/`),
         },
       },
       {
         resolve: `gatsby-plugin-copy-files`,
         options: {
-          source: `${__dirname}/site/locales`,
+          source: path.resolve(`site/locales/`),
           destination: `/locales`,
         },
       },
