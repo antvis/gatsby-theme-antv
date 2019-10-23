@@ -3,7 +3,7 @@ import { useStaticQuery, graphql, withPrefix } from 'gatsby';
 import Footer from 'rc-footer';
 import { getCurrentLangKey } from 'ptz-i18n';
 import i18n from 'i18next';
-import { initReactI18next, useTranslation, useSSR } from 'react-i18next';
+import { initReactI18next, useTranslation } from 'react-i18next';
 import Header from '../components/header';
 import locale from '../locale.json';
 import footerColumns from '../components/footerColumns';
@@ -13,8 +13,6 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources: locale,
-    lng: 'zh',
-    fallbackLng: 'zh',
   });
 
 interface LayoutProps {
@@ -53,7 +51,10 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   const path = location.pathname.replace(pathPrefix, '');
   const currentLangKey = getCurrentLangKey(['zh', 'en'], 'zh', path);
 
-  useSSR(locale, currentLangKey);
+  i18n.init({
+    lng: currentLangKey,
+    fallbackLng: 'zh',
+  });
 
   useEffect(() => {
     if (i18n.language !== currentLangKey) {
@@ -64,8 +65,6 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   if (path === withPrefix('/') || `${path}/` === withPrefix('/')) {
     return children;
   }
-
-  console.log('currentLangKey', currentLangKey);
 
   return (
     <>
