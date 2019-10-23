@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import Header from '../header';
+import Header from '../components/header';
 
 describe(`Header`, () => {
   it(`renders menu`, () => {
