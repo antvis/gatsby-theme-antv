@@ -127,7 +127,7 @@ module.exports = ({
       {
         resolve: `gatsby-plugin-layout`,
         options: {
-          component: require.resolve(`./site/components/layout.tsx`),
+          component: require.resolve(`./site/layouts/layout.tsx`),
         },
       },
     ],
