@@ -130,6 +130,20 @@ module.exports = ({
           component: require.resolve(`./site/layouts/layout.tsx`),
         },
       },
+      {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          name: `locales`,
+          path: `${__dirname}/site/locales/`,
+        },
+      },
+      {
+        resolve: `gatsby-plugin-copy-files`,
+        options: {
+          source: `${__dirname}/site/locales`,
+          destination: `/locales`,
+        },
+      },
     ],
   };
 
