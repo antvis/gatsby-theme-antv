@@ -2,24 +2,24 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { useStaticQuery } from 'gatsby'; // mocked
 
-import Layout from '../layout';
-
-beforeEach(() => {
-  useStaticQuery.mockImplementationOnce(() => ({
-    site: {
-      siteMetadata: {
-        title: `GatsbyJS`,
-        description: `Ant Visualization solution home page`,
-        githubUrl: 'https://github.com/antvis/gatsby-theme-antv',
-      },
-    },
-  }));
-});
+import Layout from '../layouts/layout';
 
 describe(`Layout`, () => {
-  fit(`renders a header`, () => {
+  beforeEach(() => {
+    useStaticQuery.mockImplementation(() => ({
+      site: {
+        siteMetadata: {
+          title: `GatsbyJS`,
+          description: `Ant Visualization solution home page`,
+          githubUrl: 'https://github.com/antvis/gatsby-theme-antv',
+        },
+      },
+    }));
+  });
+
+  it(`renders a header`, () => {
     const { container } = render(
-      <Layout path="/xxx">
+      <Layout location={{ pathname: '/pathname ' }}>
         <main>
           <h1>hello</h1>
         </main>
@@ -32,7 +32,7 @@ describe(`Layout`, () => {
   it(`renders children`, () => {
     const text = `__Hello world__`;
     const { getByText } = render(
-      <Layout>
+      <Layout location={{ pathname: '/pathname ' }}>
         <main>
           <h1>{text}</h1>
         </main>
