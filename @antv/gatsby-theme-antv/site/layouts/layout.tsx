@@ -14,6 +14,7 @@ i18n
   .use(Backend)
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
+    fallbackLng: ['dev'],
     backend: {
       loadPath: '/locales/{{lng}}.json',
       fetch,
@@ -25,46 +26,24 @@ i18n
 
 interface LayoutProps {
   children: React.ReactElement<any>;
+  currentLangKey: string;
+  siteData: any;
   location: Location;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, location }) => {
+const Layout: React.FC<LayoutProps> = ({
+  children,
+  currentLangKey,
+  siteData = {},
+  location,
+}) => {
   const { i18n } = useTranslation();
-  const data = useStaticQuery(graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-          docs {
-            slug
-            title {
-              zh
-              en
-            }
-            order
-            redirect
-          }
-        }
-        pathPrefix
-      }
-    }
-  `);
-
   const {
-    site: {
-      siteMetadata: { title, docs },
-      pathPrefix,
-    },
-  } = data;
-  const path = location.pathname.replace(pathPrefix, '');
-  const currentLangKey = getCurrentLangKey(['zh', 'en'], 'zh', path);
+    siteMetadata: { title, docs },
+    pathPrefix,
+  } = siteData;
 
-  if (!i18n.isInitialized) {
-    i18n.init({
-      lng: currentLangKey,
-      fallbackLng: 'zh',
-    });
-  }
+  const path = location.pathname.replace(pathPrefix, '');
 
   useEffect(() => {
     if (i18n.language !== currentLangKey) {
@@ -99,4 +78,43 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   );
 };
 
-export default Layout;
+export default ({
+  location,
+  children,
+}: {
+  children: React.ReactElement<any>;
+  location: Location;
+}) => {
+  const query = graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          title
+          docs {
+            slug
+            title {
+              zh
+              en
+            }
+            order
+            redirect
+          }
+        }
+        pathPrefix
+      }
+    }
+  `;
+  const { site } = useStaticQuery(query);
+  const { pathPrefix } = site;
+  const path = location.pathname.replace(pathPrefix, '');
+  const currentLangKey = getCurrentLangKey(['zh', 'en'], 'zh', path);
+  console.log(currentLangKey, location.pathname);
+  i18n.init({
+    lng: currentLangKey,
+  });
+  return (
+    <Layout currentLangKey={currentLangKey} siteData={site} location={location}>
+      {children}
+    </Layout>
+  );
+};
