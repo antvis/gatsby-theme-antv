@@ -15,12 +15,12 @@ exports.replaceRenderer = ({ bodyComponent, replaceBodyHTMLString }) => {
     .use(Backend)
     .init({
       initImmediate: false,
+      debug: true,
       backend: {
-        loadPath: 'site/locales/{{lng}}.json',
+        loadPath: `site/locales/{{lng}}.json`,
       },
     });
-  // load the common namespace
-  i18n.loadLanguages([], () => {
+  i18n.loadLanguages(['zh', 'en'], () => {
     replaceBodyHTMLString(renderToString(bodyComponent));
   });
 };

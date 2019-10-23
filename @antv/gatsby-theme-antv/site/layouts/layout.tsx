@@ -36,7 +36,6 @@ i18n
 
 interface LayoutProps {
   children: React.ReactElement<any>;
-  currentLangKey: string;
   siteData: any;
   location: Location;
 }
@@ -87,6 +86,7 @@ export default ({
   children: React.ReactElement<any>;
   location: Location;
 }) => {
+  const { i18n } = useTranslation();
   const query = graphql`
     query SiteTitleQuery {
       site {
@@ -110,6 +110,7 @@ export default ({
   const { pathPrefix } = site;
   const path = location.pathname.replace(pathPrefix, '');
   const currentLangKey = getCurrentLangKey(lngs, 'zh', path);
+  console.log(path, currentLangKey);
   i18n.init({
     lng: currentLangKey,
   });
