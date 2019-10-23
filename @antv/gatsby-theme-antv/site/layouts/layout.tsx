@@ -51,10 +51,12 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   const path = location.pathname.replace(pathPrefix, '');
   const currentLangKey = getCurrentLangKey(['zh', 'en'], 'zh', path);
 
-  i18n.init({
-    lng: currentLangKey,
-    fallbackLng: 'zh',
-  });
+  if (!i18n.isInitialized) {
+    i18n.init({
+      lng: currentLangKey,
+      fallbackLng: 'zh',
+    });
+  }
 
   useEffect(() => {
     if (i18n.language !== currentLangKey) {
