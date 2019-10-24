@@ -58,6 +58,7 @@
     "gatsby-transformer-remark": "^2.6.24",
     "gatsby-transformer-sharp": "^2.2.14",
     "i18next": "^17.0.16",
+    "i18next-browser-languagedetector": "^4.0.0",
     "i18next-fetch-backend": "^2.2.0",
     "i18next-sync-fs-backend": "^1.1.1",
     "identity-obj-proxy": "^3.0.0",
