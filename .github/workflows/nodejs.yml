@@ -14,9 +14,9 @@ jobs:
           node-version: 10.x
       - name: npm install, test and build
         run: |
-          npm install
-          npm test
-          npm run tsc
-          npm run build
+          yarn install
+          yarn test
+          yarn tsc
+          yarn workspace example build
         env:
           CI: true
