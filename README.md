@@ -10,10 +10,10 @@
 ## Usage
 
 ```bash
-npm install gatsby @antv/gatsby-theme-antv i18next react-i18next --save-dev
+npm install gatsby @antv/gatsby-theme-antv react-i18next --save-dev
 ```
 
-Add `gatsby-config.js` and `gatsby-browser.js`:
+Add `gatsby-config.js`:
 
 ```js
 // gatsby-config.js
@@ -24,7 +24,7 @@ module.exports = {
     {
       resolve: `@antv/gatsby-theme-antv`,
       options: {
-        pagesPath: './site/pages',
+        // pagesPath: './site/pages',
         GATrackingId: `UA-XXXXXXXXX-X`,
         primaryColor: '#722ED1',
         pathPrefix: '/g2',
@@ -48,14 +48,6 @@ module.exports = {
     ],
   },
 };
-```
-
-```jsx
-// gatsby-browser.js
-import i18n from 'i18next';
-import locale from './site/locale.json';
-
-i18n.addResources('en', 'translation', locale.en.translation);
 ```
 
 Sample repository: https://github.com/antvis/antvis.github.io
