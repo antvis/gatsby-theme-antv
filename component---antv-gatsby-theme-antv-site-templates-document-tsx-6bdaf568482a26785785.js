@@ -80,7 +80,7 @@ var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__(50);
+var gatsby_browser_entry = __webpack_require__(54);
 
 // EXTERNAL MODULE: ../node_modules/core-js/modules/es6.regexp.constructor.js
 var es6_regexp_constructor = __webpack_require__(58);
@@ -7519,7 +7519,7 @@ function toArray(children) {
 "use strict";
 
 
-__webpack_require__(52);
+__webpack_require__(51);
 
 __webpack_require__(19);
 
@@ -8483,4 +8483,4 @@ exports.PresetColorTypes = PresetColorTypes;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---antv-gatsby-theme-antv-site-templates-document-tsx-88f05778bed2fde027ac.js.map
+//# sourceMappingURL=component---antv-gatsby-theme-antv-site-templates-document-tsx-6bdaf568482a26785785.js.map

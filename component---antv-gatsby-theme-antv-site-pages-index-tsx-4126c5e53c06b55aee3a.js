@@ -11,7 +11,7 @@ var react = __webpack_require__(0);
 var react_default = /*#__PURE__*/__webpack_require__.n(react);
 
 // EXTERNAL MODULE: ./.cache/gatsby-browser-entry.js
-var gatsby_browser_entry = __webpack_require__(50);
+var gatsby_browser_entry = __webpack_require__(54);
 
 // EXTERNAL MODULE: ../node_modules/antd/lib/skeleton/style/index.js
 var style = __webpack_require__(523);
@@ -78,4 +78,4 @@ function (_React$PureComponent) {
 /***/ })
 
 }]);
-//# sourceMappingURL=component---antv-gatsby-theme-antv-site-pages-index-tsx-55addf27c819dd8cf795.js.map
+//# sourceMappingURL=component---antv-gatsby-theme-antv-site-pages-index-tsx-4126c5e53c06b55aee3a.js.map

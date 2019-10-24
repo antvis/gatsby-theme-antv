@@ -19,7 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var antd_lib_icon__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(antd_lib_icon__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(50);
+/* harmony import */ var gatsby__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(54);
 /* harmony import */ var _components_seo__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(522);
 
 
@@ -1882,7 +1882,7 @@ __webpack_require__(8);
 
 __webpack_require__(33);
 
-__webpack_require__(52);
+__webpack_require__(51);
 
 __webpack_require__(9);
 
@@ -2568,4 +2568,4 @@ exports["default"] = _default;
 /***/ })
 
 }]);
-//# sourceMappingURL=component---antv-gatsby-theme-antv-site-pages-404-tsx-56b71a553aa9356124ab.js.map
+//# sourceMappingURL=component---antv-gatsby-theme-antv-site-pages-404-tsx-6399a49dc1850a759b49.js.map
