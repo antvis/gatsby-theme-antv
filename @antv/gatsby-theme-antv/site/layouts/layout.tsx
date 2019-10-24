@@ -1,11 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useStaticQuery, graphql, withPrefix } from 'gatsby';
 import Footer from 'rc-footer';
-import i18n from '../i18n';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 import { getCurrentLangKey } from 'ptz-i18n';
 import Header from '../components/header';
 import footerColumns from '../components/footerColumns';
 import styles from './layout.module.less';
+
+i18n
+  .use(initReactI18next) // passes i18n down to react-i18next
+  .init({
+    initImmediate: false,
+    // @ts-ignore
+    resources: I18NEXT_RESOURCES,
+    fallbackLng: 'zh',
+    react: {
+      useSuspense: false,
+    },
+  });
 
 const lngs = ['zh', 'en'];
 
@@ -84,9 +97,9 @@ export default ({
   const { pathPrefix } = site;
   const path = location.pathname.replace(pathPrefix, '');
   const currentLangKey = getCurrentLangKey(lngs, 'zh', path);
-  useEffect(() => {
-    i18n.changeLanguage(currentLangKey);
-  }, [currentLangKey]);
+  i18n.init({
+    lng: currentLangKey,
+  });
   return (
     <Layout siteData={site} location={location}>
       {children}
