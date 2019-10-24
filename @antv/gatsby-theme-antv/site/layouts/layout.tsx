@@ -24,23 +24,41 @@ const lngs = ['zh', 'en'];
 
 interface LayoutProps {
   children: React.ReactElement<any>;
-  siteData: any;
   location: Location;
 }
 
-const Layout: React.FC<LayoutProps> = ({
-  children,
-  siteData = {},
-  location,
-}) => {
+const Layout: React.FC<LayoutProps> = ({ children, location }) => {
+  const query = graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          title
+          docs {
+            slug
+            title {
+              zh
+              en
+            }
+            order
+            redirect
+          }
+        }
+      }
+    }
+  `;
+  const { site } = useStaticQuery(query);
   const {
     siteMetadata: { title, docs },
-    pathPrefix,
-  } = siteData;
-
+  } = site;
+  const pathPrefix = withPrefix('/').replace(/\/$/, '');
   const path = location.pathname.replace(pathPrefix, '');
+  const currentLangKey = getCurrentLangKey(lngs, 'zh', path);
 
-  if (path === withPrefix('/') || `${path}/` === withPrefix('/')) {
+  i18n.init({
+    lng: currentLangKey,
+  });
+
+  if (location.pathname === pathPrefix) {
     return children;
   }
 
@@ -67,42 +85,4 @@ const Layout: React.FC<LayoutProps> = ({
   );
 };
 
-export default ({
-  location,
-  children,
-}: {
-  children: React.ReactElement<any>;
-  location: Location;
-}) => {
-  const query = graphql`
-    query SiteTitleQuery {
-      site {
-        siteMetadata {
-          title
-          docs {
-            slug
-            title {
-              zh
-              en
-            }
-            order
-            redirect
-          }
-        }
-        pathPrefix
-      }
-    }
-  `;
-  const { site } = useStaticQuery(query);
-  const { pathPrefix } = site;
-  const path = location.pathname.replace(pathPrefix, '');
-  const currentLangKey = getCurrentLangKey(lngs, 'zh', path);
-  i18n.init({
-    lng: currentLangKey,
-  });
-  return (
-    <Layout siteData={site} location={location}>
-      {children}
-    </Layout>
-  );
-};
+export default Layout;
