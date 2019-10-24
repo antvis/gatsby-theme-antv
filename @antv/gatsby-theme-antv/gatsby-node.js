@@ -12,6 +12,22 @@ const { getSlugAndLang } = require('ptz-i18n');
 
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 
+let locale = {};
+try {
+  locale = JSON.parse(
+    fs.readFileSync(path.resolve(`site/locale.json`), `utf8`),
+  );
+} catch (e) {}
+
+const resources = {
+  en: {
+    translation: {
+      ...locale,
+      ...require('./site/common.json'),
+    },
+  },
+};
+
 exports.onPreBootstrap = ({ store, reporter }) => {
   const { program } = store.getState();
 
@@ -93,7 +109,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   });
 };
 
-exports.onCreateWebpackConfig = ({ getConfig, stage }) => {
+exports.onCreateWebpackConfig = ({ actions, getConfig, stage, plugins }) => {
   const config = getConfig();
   if (stage.startsWith('develop') && config.resolve) {
     config.resolve.alias = {
@@ -101,4 +117,10 @@ exports.onCreateWebpackConfig = ({ getConfig, stage }) => {
       'react-dom': '@hot-loader/react-dom',
     };
   }
+  config.plugins = [
+    ...config.plugins,
+    plugins.define({
+      I18NEXT_RESOURCES: JSON.stringify(resources),
+    }),
+  ];
 };
