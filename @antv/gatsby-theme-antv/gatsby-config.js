@@ -13,7 +13,6 @@ module.exports = ({
       githubUrl: 'https://github.com/antvis/gatsby-theme-antv',
       docs: [],
     },
-    pathPrefix,
     plugins: [
       `gatsby-plugin-react-helmet`,
       {
@@ -132,6 +131,12 @@ module.exports = ({
       },
     ],
   };
+
+  if ('GATSBY_PATH_PREFIX' in process.env) {
+    config.pathPrefix = process.env.GATSBY_PATH_PREFIX;
+  } else {
+    config.pathPrefix = pathPrefix;
+  }
 
   if (GATrackingId) {
     config.plugins.push({
