@@ -104,7 +104,7 @@ npm publish
 
 Not ready.
 
-> Set envoironment variable `GATSBY_PATH_PREFIX` in deploy service like netlify to preview pathPrefix site in root domain.
+> Set envoironment variable `GATSBY_PATH_PREFIX` to `/` in deploy service like netlify to preview pathPrefix site in root domain.
 
 ## Used libraries
 
