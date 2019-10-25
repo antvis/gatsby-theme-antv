@@ -35,15 +35,15 @@ interface HeaderProps {
   /** 切换语言的回调 */
   onLanguageChange?: (language: string) => void;
   /** 自定义 logo */
-  logo?: ReactNode;
+  logo?: React.ReactNode;
   /** github 仓库地址 */
   githubUrl?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
   subTitle = '',
-  pathPrefix,
-  path,
+  pathPrefix = '',
+  path = '',
   docs = [],
   showSearch = true,
   showGithubCorner = true,
