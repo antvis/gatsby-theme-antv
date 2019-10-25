@@ -1,6 +1,6 @@
 import React from 'react';
 import { Skeleton } from 'antd';
-import SEO from '@antv/gatsby-theme-antv/site/components/seo';
+import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
 import { useTranslation } from 'react-i18next';
 
 const IndexPage = () => {
