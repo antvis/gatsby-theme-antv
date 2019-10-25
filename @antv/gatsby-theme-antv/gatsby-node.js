@@ -123,4 +123,5 @@ exports.onCreateWebpackConfig = ({ actions, getConfig, stage, plugins }) => {
       I18NEXT_RESOURCES: JSON.stringify(resources),
     }),
   ];
+  console.log(config.module.rules);
 };
