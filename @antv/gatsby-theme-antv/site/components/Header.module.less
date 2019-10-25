@@ -50,6 +50,7 @@
       margin: 0;
       padding: 0;
       list-style: none;
+      white-space: nowrap;
 
       li {
         display: inline-block;
@@ -70,6 +71,16 @@
 
       .active {
         border-top: 2px solid #1890ff;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767.99px) {
+  .header {
+    .nav {
+      .menu {
+        display: none;
       }
     }
   }
