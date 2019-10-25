@@ -20,17 +20,37 @@ export interface Doc {
 }
 
 interface HeaderProps {
-  siteTitle?: string;
-  pathPrefix: string;
-  path: string;
-  docs: Doc[];
+  pathPrefix?: string;
+  path?: string;
+  /** 子标题 */
+  subTitle?: string;
+  /** 文档菜单数据 */
+  docs?: Doc[];
+  /** 是否显示搜索框 */
+  showSearch?: boolean;
+  /** 是否显示搜索框 */
+  showGithubCorner?: boolean;
+  /** 是否显示切换语言选项 */
+  showLanguageSwitcher?: boolean;
+  /** 切换语言的回调 */
+  onLanguageChange?: (language: string) => void;
+  /** 自定义 logo */
+  logo?: ReactNode;
+  /** github 仓库地址 */
+  githubUrl?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
-  siteTitle = '',
+  subTitle = '',
   pathPrefix,
   path,
   docs = [],
+  showSearch = true,
+  showGithubCorner = true,
+  showLanguageSwitcher = true,
+  logo,
+  onLanguageChange,
+  githubUrl = 'https://github.com/antvis',
 }) => {
   const { t, i18n } = useTranslation();
   return (
@@ -38,25 +58,31 @@ const Header: React.FC<HeaderProps> = ({
       <div className={styles.left}>
         <h1>
           <a href="/">
-            <img
-              src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
-              alt="AntV"
-            />
+            {typeof logo === 'undefined' ? (
+              <img
+                src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
+                alt="AntV"
+              />
+            ) : (
+              logo
+            )}
           </a>
         </h1>
-        {pathPrefix !== '' && (
+        {subTitle && (
           <>
             <span className={styles.divider} />
             <h2 className={styles.subProduceName}>
-              <Link to={`/${i18n.language}`}>{siteTitle}</Link>
+              <Link to={`/${i18n.language}` || '/'}>{subTitle}</Link>
             </h2>
           </>
         )}
-        <Search />
+        {showSearch && <Search />}
       </div>
       <nav className={styles.nav}>
         <ul className={styles.menu}>
-          <DocsMenuItems docs={docs} path={path} />
+          {docs && docs.length ? (
+            <DocsMenuItems docs={docs} path={path} />
+          ) : null}
           <li>
             <Popover
               title={null}
@@ -78,26 +104,31 @@ const Header: React.FC<HeaderProps> = ({
             </Popover>
           </li>
         </ul>
-        <Select
-          size="small"
-          style={{ width: 92, fontSize: 12 }}
-          dropdownMatchSelectWidth={false}
-          value={i18n.language}
-          onChange={(value: string) => {
-            if (path.endsWith(`/${i18n.language}`)) {
-              return navigate(`/${value}`);
-            }
-            navigate(
-              path
-                .replace(pathPrefix, '')
-                .replace(`/${i18n.language}/`, `/${value}/`),
-            );
-          }}
-        >
-          <Option value="zh">🇨🇳 中文</Option>
-          <Option value="en">🇺🇸 English</Option>
-        </Select>
-        <GithubCorner href="https://github.com/antvis" size={64} />
+        {showLanguageSwitcher && (
+          <Select
+            size="small"
+            style={{ width: 92, fontSize: 12 }}
+            dropdownMatchSelectWidth={false}
+            value={i18n.language}
+            onChange={(value: string) => {
+              if (onLanguageChange) {
+                return onLanguageChange(value);
+              }
+              if (path.endsWith(`/${i18n.language}`)) {
+                return navigate(`/${value}`);
+              }
+              navigate(
+                path
+                  .replace(pathPrefix, '')
+                  .replace(`/${i18n.language}/`, `/${value}/`),
+              );
+            }}
+          >
+            <Option value="zh">🇨🇳 中文</Option>
+            <Option value="en">🇺🇸 English</Option>
+          </Select>
+        )}
+        {showGithubCorner && <GithubCorner href={githubUrl} size={64} />}
       </nav>
     </header>
   );

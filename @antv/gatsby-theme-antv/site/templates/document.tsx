@@ -4,8 +4,8 @@ import { Layout as AntLayout, Menu, Icon, Tooltip, Affix, Tag } from 'antd';
 import { groupBy } from 'lodash-es';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
-import Article from '../components/article';
-import SEO from '../components/seo';
+import Article from '../components/Article';
+import SEO from '../components/Seo';
 import styles from './markdown.module.less';
 
 const renderMenuItems = (edges: any[]) =>
