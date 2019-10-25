@@ -26,6 +26,7 @@ const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({
         .filter((doc: Doc) => (doc.slug || '').split('/').length === 1)
         .map((doc: Doc) => {
           const slugPrefix = (doc.slug || '').split('/')[0];
+          console.log(path, `/${i18n.language}/docs/${doc.slug}`);
           return (
             <li key={doc.slug}>
               <Link
