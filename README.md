@@ -52,6 +52,38 @@ module.exports = {
 
 Sample repository: https://github.com/antvis/antvis.github.io
 
+## Components
+
+```jsx
+import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
+import Header from '@antv/gatsby-theme-antv/site/components/Header';
+import Footer from '@antv/gatsby-theme-antv/site/components/Footer';
+
+const Layout = () => {
+  return (
+    <>
+      <SEO title={蚂蚁数据可视化} lang="zh" />
+      <Header
+        subTitle="子产品名"
+        logo={<img src="url" />}
+        githubUrl="https://github.com/antvis/g2"
+        // docs={[]}
+        showSearch={false}
+        showGithubCorner={false}
+        showLanguageSwitcher={false}
+        onLanguageChange={language => {
+          console.log(language);
+        }}
+      />
+      <Footer
+      // columns={[]}
+      // bottom={<div>powered by antv</div>}
+      />
+    </>
+  );
+};
+```
+
 ## Develop
 
 ```bash
