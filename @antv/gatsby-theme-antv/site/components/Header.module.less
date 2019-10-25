@@ -55,13 +55,16 @@
       li {
         display: inline-block;
         margin-right: 32px;
-        line-height: 60px;
+        transition: box-shadow 0.3s;
+
+        &.activeItem {
+          box-shadow: 0 2px 0 @primary-color inset;
+        }
 
         a {
           color: rgba(0, 0, 0, 0.65);
-          transition: all 0.3s;
+          transition: color 0.3s;
           display: block;
-          border-top: 2px solid transparent;
 
           &:hover {
             color: @primary-color;

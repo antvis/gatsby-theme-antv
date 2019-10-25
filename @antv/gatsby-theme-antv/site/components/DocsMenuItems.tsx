@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Doc } from './Header';
+import styles from './Header.module.less';
 
 const getDocument = (docs: Doc[], slug: string = '') =>
   docs.find(doc => doc.slug === slug) || {
@@ -23,18 +24,16 @@ const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({
     <>
       {docs
         .filter((doc: Doc) => (doc.slug || '').split('/').length === 1)
-        .map((doc: Doc) => {
+        .map((doc: Doc, i) => {
           const slugPrefix = (doc.slug || '').split('/')[0];
+          const className = classNames({
+            [styles.activeItem]: path.startsWith(
+              `/${i18n.language}/docs/${doc.slug}`,
+            ),
+          });
           return (
-            <li key={doc.slug}>
-              <Link
-                to={`/${i18n.language}/docs/${doc.slug}/${doc.redirect || ''}`}
-                className={classNames({
-                  activeMenuItem: path.startsWith(
-                    `/${i18n.language}/docs/${doc.slug}`,
-                  ),
-                })}
-              >
+            <li key={i} className={className}>
+              <Link to={`/${i18n.language}/docs/${doc.slug}/${doc.redirect || ''}`}>
                 {getDocument(docs, slugPrefix).title[i18n.language]}
               </Link>
             </li>
