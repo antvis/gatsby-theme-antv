@@ -102,7 +102,9 @@ npm publish
 
 ## Deploy
 
-Not ready.
+```bash
+npm run deploy
+```
 
 > Set envoironment variable `GATSBY_PATH_PREFIX` to `/` in deploy service like netlify to preview pathPrefix site in root domain.
 
