@@ -133,7 +133,19 @@ module.exports = ({
   };
 
   if ('GATSBY_PATH_PREFIX' in process.env) {
-    config.pathPrefix = process.env.GATSBY_PATH_PREFIX;
+    console.log(
+      `'GATSBY_PATH_PREFIX' in process.env: ${process.env.GATSBY_PATH_PREFIX}`,
+    );
+    console.log(
+      `typeof process.env.GATSBY_PATH_PREFIX: ${typeof process.env
+        .GATSBY_PATH_PREFIX}`,
+    );
+    if (
+      process.env.GATSBY_PATH_PREFIX &&
+      process.env.GATSBY_PATH_PREFIX !== '/'
+    ) {
+      config.pathPrefix = process.env.GATSBY_PATH_PREFIX;
+    }
   } else {
     config.pathPrefix = pathPrefix;
   }
