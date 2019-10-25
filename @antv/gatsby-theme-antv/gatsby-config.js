@@ -129,6 +129,13 @@ module.exports = ({
           component: require.resolve(`./site/layouts/layout.tsx`),
         },
       },
+      {
+        resolve: `gatsby-plugin-nprogress`,
+        options: {
+          // Setting a color is optional.
+          color: primaryColor,
+        },
+      },
     ],
   };
 

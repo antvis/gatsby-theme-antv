@@ -6321,10 +6321,10 @@ gatsby-plugin-manifest@^2.2.16:
     semver "^5.7.1"
     sharp "^0.23.1"
 
-gatsby-plugin-nprogress@^2.1.9:
+gatsby-plugin-nprogress@^2.1.12:
   version "2.1.12"
-  resolved "https://registry.npmjs.org/gatsby-plugin-nprogress/-/gatsby-plugin-nprogress-2.1.12.tgz#70e3f8be65fc55ee29772927763dc067b712e8b9"
-  integrity sha512-UNYOQ7HnbUTpC964ElXFsFI50/CLEj9+o0zeZOj5HtbcpAtLZD/kT4R23noazW+L4Q3Q0/gPFT1CHfd8ewlBQA==
+  resolved "https://registry.npm.taobao.org/gatsby-plugin-nprogress/download/gatsby-plugin-nprogress-2.1.12.tgz#70e3f8be65fc55ee29772927763dc067b712e8b9"
+  integrity sha1-cOP4vmX8Ve4pdykndj3AZ7cS6Lk=
   dependencies:
     "@babel/runtime" "^7.6.3"
     nprogress "^0.2.0"
