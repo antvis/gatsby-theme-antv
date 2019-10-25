@@ -1,6 +1,7 @@
 import React from 'react';
+import Footer from 'rc-footer';
 
-export default [
+export const defaultColumns = [
   {
     title: 'G2',
     items: [
@@ -142,3 +143,14 @@ export default [
     ],
   },
 ];
+
+export default ({
+  columns = defaultColumns,
+  bottom = (
+    <div>
+      © {new Date().getFullYear()}, Built with
+      {` `}
+      <a href="https://xtech.antfin.com/">AFX</a>
+    </div>
+  ),
+}) => <Footer columns={columns} bottom={bottom} />;

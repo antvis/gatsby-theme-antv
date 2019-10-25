@@ -1,7 +1,7 @@
 import React from 'react';
 import { Result, Button, Icon } from 'antd';
 import { Link } from 'gatsby';
-import SEO from '../components/seo';
+import SEO from '../components/Seo';
 
 const NotFoundPage = () => (
   <>

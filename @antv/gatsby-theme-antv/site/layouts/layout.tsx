@@ -1,11 +1,10 @@
 import React from 'react';
 import { useStaticQuery, graphql, withPrefix } from 'gatsby';
-import Footer from 'rc-footer';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getCurrentLangKey } from 'ptz-i18n';
-import Header from '../components/header';
-import footerColumns from '../components/footerColumns';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import styles from './layout.module.less';
 
 i18n
@@ -33,6 +32,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
       site {
         siteMetadata {
           title
+          githubUrl
           docs {
             slug
             title {
@@ -48,7 +48,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   `;
   const { site } = useStaticQuery(query);
   const {
-    siteMetadata: { title, docs },
+    siteMetadata: { title, docs, githubUrl },
   } = site;
   const pathPrefix = withPrefix('/').replace(/\/$/, '');
   const path = location.pathname.replace(pathPrefix, '');
@@ -65,22 +65,14 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   return (
     <>
       <Header
-        siteTitle={title}
+        subTitle={pathPrefix === '' ? '' : title}
         path={path}
         pathPrefix={pathPrefix}
         docs={docs}
+        githubUrl={githubUrl}
       />
       <main className={styles.main}>{children}</main>
-      <Footer
-        columns={footerColumns}
-        bottom={
-          <div>
-            © {new Date().getFullYear()}, Built with
-            {` `}
-            <a href="https://xtech.antfin.com/">AFX</a>
-          </div>
-        }
-      />
+      <Footer />
     </>
   );
 };
