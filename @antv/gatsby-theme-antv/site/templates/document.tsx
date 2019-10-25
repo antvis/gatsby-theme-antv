@@ -74,7 +74,7 @@ export default function Template({
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
-      <AntLayout style={{ background: '#fff' }}>
+      <AntLayout style={{ background: '#fff' }} hasSider>
         <AntLayout.Sider width={280} theme="light">
           <Menu
             mode="inline"
