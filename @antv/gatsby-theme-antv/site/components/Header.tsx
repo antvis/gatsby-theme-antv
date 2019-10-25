@@ -57,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({
     <header className={styles.header}>
       <div className={styles.left}>
         <h1>
-          <a href="/">
+          <a href={`/${i18n.language}`}>
             {typeof logo === 'undefined' ? (
               <img
                 src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
