@@ -8,7 +8,7 @@ const IndexPage = () => {
   return (
     <>
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
-      <div style={{ margin: '0 auto', padding: '0 80px' }}>
+      <div style={{ margin: '0 auto', padding: '0 60px' }}>
         {t('中文首页')}
         {t('项目里的国际化')}
         <Skeleton />
