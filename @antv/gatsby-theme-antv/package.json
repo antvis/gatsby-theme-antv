@@ -83,7 +83,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "tsc": "tsc",
+    "tsc": "../../node_modules/.bin/tsc",
     "prepublishOnly": "npm run tsc",
     "test": "jest"
   },
