@@ -69,4 +69,6 @@ yarn-error.log
 .yarn-integrity
 
 @antv/gatsby-theme-antv/site/**/*.js
+@antv/gatsby-theme-antv/site/**/*.d.ts
 example/site/**/*.js
+example/site/**/*.d.ts
