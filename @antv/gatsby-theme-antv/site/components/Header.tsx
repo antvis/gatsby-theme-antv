@@ -1,4 +1,4 @@
-import { Link, navigate } from 'gatsby';
+import { navigate } from 'gatsby';
 import React from 'react';
 import GithubCorner from 'react-github-corner';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +38,8 @@ interface HeaderProps {
   logo?: React.ReactNode;
   /** github 仓库地址 */
   githubUrl?: string;
+  /** 跳转用的 Link */
+  Link?: React.ComponentType<any>;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -51,6 +53,7 @@ const Header: React.FC<HeaderProps> = ({
   logo,
   onLanguageChange,
   githubUrl = 'https://github.com/antvis',
+  Link = 'a',
 }) => {
   const { t, i18n } = useTranslation();
   return (
