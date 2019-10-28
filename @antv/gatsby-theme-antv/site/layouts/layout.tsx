@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStaticQuery, graphql, withPrefix } from 'gatsby';
+import { useStaticQuery, graphql, withPrefix, Link } from 'gatsby';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getCurrentLangKey } from 'ptz-i18n';
@@ -70,6 +70,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         pathPrefix={pathPrefix}
         docs={docs}
         githubUrl={githubUrl}
+        Link={Link}
       />
       <main className={styles.main}>{children}</main>
       <Footer />

@@ -1,4 +1,4 @@
-import { Link, navigate } from 'gatsby';
+import { navigate } from 'gatsby';
 import React from 'react';
 import GithubCorner from 'react-github-corner';
 import { useTranslation } from 'react-i18next';
@@ -35,11 +35,16 @@ interface HeaderProps {
   /** 切换语言的回调 */
   onLanguageChange?: (language: string) => void;
   /** 自定义 logo */
-  logo?: React.ReactNode;
+  logo?: {
+    img?: React.ReactNode;
+    link?: string;
+  };
   /** github 仓库地址 */
   githubUrl?: string;
   /** 默认语言 */
   defaultLanguage?: 'zh' | 'en';
+  /** 自定义 Link */
+  Link?: React.ComponentType<any>;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -50,10 +55,20 @@ const Header: React.FC<HeaderProps> = ({
   showSearch = true,
   showGithubCorner = true,
   showLanguageSwitcher = true,
-  logo,
+  logo: { img, link } = {
+    img: (
+      <img
+        src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
+        alt="AntV"
+        width="94"
+      />
+    ),
+    link: '',
+  },
   onLanguageChange,
   githubUrl = 'https://github.com/antvis',
   defaultLanguage,
+  Link = 'a',
 }) => {
   const { t, i18n } = useTranslation();
   const lang =
@@ -64,23 +79,25 @@ const Header: React.FC<HeaderProps> = ({
     <header className={styles.header}>
       <div className={styles.left}>
         <h1>
-          <a href={`/${lang}`}>
-            {typeof logo === 'undefined' ? (
-              <img
-                src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
-                alt="AntV"
-                width="94"
-              />
-            ) : (
-              logo
-            )}
-          </a>
+          {React.createElement(
+            Link,
+            {
+              [Link === 'a' ? 'href' : 'to']: link || `/${lang}`,
+            },
+            img,
+          )}
         </h1>
         {subTitle && (
           <>
             <span className={styles.divider} />
             <h2 className={styles.subProduceName}>
-              <Link to={`/${lang}` || '/'}>{subTitle}</Link>
+              {React.createElement(
+                Link,
+                {
+                  [Link === 'a' ? 'href' : 'to']: `/${lang}`,
+                },
+                subTitle,
+              )}
             </h2>
           </>
         )}

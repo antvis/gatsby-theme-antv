@@ -65,7 +65,10 @@ const Layout = () => {
       <SEO title="蚂蚁数据可视化" lang="zh" />
       <Header
         subTitle="子产品名"
-        logo={<img src="url" />}
+        logo={{
+          link: 'https://antv.alipay.com',
+          img: <img src="url" />,
+        }}
         githubUrl="https://github.com/antvis/g2"
         // docs={[]}
         showSearch={false}
