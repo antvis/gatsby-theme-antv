@@ -1,7 +1,7 @@
 {
   "name": "@antv/gatsby-theme-antv",
   "description": "Ant Visualization solution home page",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": "AntV Team <antv@antfin.com>",
   "keywords": [
     "gatsby",
@@ -83,7 +83,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "compile:components": "../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && mv .tmp/@antv/gatsby-theme-antv/site/components components",
+    "compile:components": "rm -rf .tmp components && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && mv .tmp/@antv/gatsby-theme-antv/site/components components && cp site/components/*.less ./components",
     "prepublishOnly": "npm run compile:components",
     "test": "jest"
   },
