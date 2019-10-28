@@ -55,9 +55,9 @@ Sample repository: https://github.com/antvis/antvis.github.io
 ## Components
 
 ```jsx
-import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
-import Header from '@antv/gatsby-theme-antv/site/components/Header';
-import Footer from '@antv/gatsby-theme-antv/site/components/Footer';
+import SEO from '@antv/gatsby-theme-antv/components/Seo';
+import Header from '@antv/gatsby-theme-antv/components/Header';
+import Footer from '@antv/gatsby-theme-antv/components/Footer';
 
 const Layout = () => {
   return (
@@ -74,6 +74,7 @@ const Layout = () => {
         onLanguageChange={language => {
           console.log(language);
         }}
+        defaultLanguage="zh"
       />
       <Footer
       // columns={[]}
@@ -102,7 +103,9 @@ npm publish
 
 ## Deploy
 
-Not ready.
+```bash
+npm run deploy
+```
 
 > Set envoironment variable `GATSBY_PATH_PREFIX` to `/` in deploy service like netlify to preview pathPrefix site in root domain.
 
