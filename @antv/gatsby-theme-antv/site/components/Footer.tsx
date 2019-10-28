@@ -1,5 +1,6 @@
 import React from 'react';
 import Footer from 'rc-footer';
+import 'rc-footer/assets/index.less';
 
 export const defaultColumns = [
   {
