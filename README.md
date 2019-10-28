@@ -74,6 +74,7 @@ const Layout = () => {
         onLanguageChange={language => {
           console.log(language);
         }}
+        defaultLanguage="zh"
       />
       <Footer
       // columns={[]}

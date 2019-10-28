@@ -1,4 +1,4 @@
-import { navigate } from 'gatsby';
+import { Link, navigate } from 'gatsby';
 import React from 'react';
 import GithubCorner from 'react-github-corner';
 import { useTranslation } from 'react-i18next';
@@ -38,8 +38,8 @@ interface HeaderProps {
   logo?: React.ReactNode;
   /** github 仓库地址 */
   githubUrl?: string;
-  /** 跳转用的 Link */
-  Link?: React.ComponentType<any>;
+  /** 默认语言 */
+  defaultLanguage?: 'zh' | 'en';
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -53,14 +53,18 @@ const Header: React.FC<HeaderProps> = ({
   logo,
   onLanguageChange,
   githubUrl = 'https://github.com/antvis',
-  Link = 'a',
+  defaultLanguage,
 }) => {
   const { t, i18n } = useTranslation();
+  const lang =
+    typeof defaultLanguage !== 'undefined'
+      ? defaultLanguage
+      : i18n.language || '';
   return (
     <header className={styles.header}>
       <div className={styles.left}>
         <h1>
-          <a href={`/${i18n.language}`}>
+          <a href={`/${lang}`}>
             {typeof logo === 'undefined' ? (
               <img
                 src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
@@ -75,7 +79,7 @@ const Header: React.FC<HeaderProps> = ({
           <>
             <span className={styles.divider} />
             <h2 className={styles.subProduceName}>
-              <Link to={`/${i18n.language}` || '/'}>{subTitle}</Link>
+              <Link to={`/${lang}` || '/'}>{subTitle}</Link>
             </h2>
           </>
         )}
@@ -112,18 +116,16 @@ const Header: React.FC<HeaderProps> = ({
             size="small"
             style={{ width: 92, fontSize: 12 }}
             dropdownMatchSelectWidth={false}
-            value={i18n.language}
+            value={lang}
             onChange={(value: string) => {
               if (onLanguageChange) {
                 return onLanguageChange(value);
               }
-              if (path.endsWith(`/${i18n.language}`)) {
+              if (path.endsWith(`/${lang}`)) {
                 return navigate(`/${value}`);
               }
               navigate(
-                path
-                  .replace(pathPrefix, '')
-                  .replace(`/${i18n.language}/`, `/${value}/`),
+                path.replace(pathPrefix, '').replace(`/${lang}/`, `/${value}/`),
               );
             }}
           >
