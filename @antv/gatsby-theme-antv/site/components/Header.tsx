@@ -24,7 +24,7 @@ interface HeaderProps {
   path?: string;
   /** 子标题 */
   subTitle?: string;
-  /** 文档菜单数据 */
+  /** 文档和演示的菜单数据 */
   docs?: Doc[];
   /** 是否显示搜索框 */
   showSearch?: boolean;

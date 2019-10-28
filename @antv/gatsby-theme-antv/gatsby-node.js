@@ -11,6 +11,7 @@ const mkdirp = require('mkdirp');
 const { getSlugAndLang } = require('ptz-i18n');
 
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
+const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
 
 let locale = {};
 try {
@@ -104,7 +105,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     const { slug } = node.fields;
     createPage({
       path: slug, // required
-      component: documentTemplate,
+      component:
+        slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`)
+          ? exampleTemplate
+          : documentTemplate,
     });
   });
 };

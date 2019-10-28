@@ -28,12 +28,18 @@ const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({
           const slugPrefix = (doc.slug || '').split('/')[0];
           const className = classNames({
             [styles.activeItem]: path.startsWith(
-              `/${i18n.language}/docs/${doc.slug}`,
+              `/${i18n.language}/${doc.slug === 'examples' ? '' : '/docs'}${
+                doc.slug
+              }`,
             ),
           });
           return (
             <li key={i} className={className}>
-              <Link to={`/${i18n.language}/docs/${doc.slug}/${doc.redirect || ''}`}>
+              <Link
+                to={`/${i18n.language}/${
+                  doc.slug === 'examples' ? '' : 'docs/'
+                }${doc.slug}/${doc.redirect || ''}`}
+              >
                 {getDocument(docs, slugPrefix).title[i18n.language]}
               </Link>
             </li>
