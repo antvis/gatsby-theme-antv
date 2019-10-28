@@ -72,3 +72,4 @@ yarn-error.log
 @antv/gatsby-theme-antv/site/**/*.d.ts
 example/site/**/*.js
 example/site/**/*.d.ts
+!*.test.js
