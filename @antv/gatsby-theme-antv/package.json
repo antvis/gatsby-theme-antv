@@ -83,6 +83,8 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
+    "tsc": "tsc",
+    "prepublishOnly": "npm run tsc",
     "test": "jest"
   },
   "publishConfig": {

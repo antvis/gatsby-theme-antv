@@ -9,7 +9,6 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true
   }
