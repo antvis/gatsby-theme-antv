@@ -48,7 +48,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({ source, babeledSource }) => {
   return (
     <div className={styles.container}>
       <div id="container" ref={container} />
-      {source}
+      <pre>{source}</pre>
     </div>
   );
 };
