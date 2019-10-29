@@ -101,14 +101,21 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     reporter.panicOnBuild(`Error while running GraphQL query.`);
     return;
   }
-  result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+  const posts = result.data.allMarkdownRemark.edges;
+  posts.forEach(({ node }, index) => {
     const { slug } = node.fields;
+    const prev = index === 0 ? false : posts[index - 1].node;
+    const next = index === posts.length - 1 ? false : posts[index + 1].node;
     createPage({
       path: slug, // required
       component:
         slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`)
           ? exampleTemplate
           : documentTemplate,
+      context: {
+        prev,
+        next,
+      },
     });
   });
 };
