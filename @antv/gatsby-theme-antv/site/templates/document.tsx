@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { graphql, Link } from 'gatsby';
-import { Layout as AntLayout, Menu, Icon, Tooltip, Affix, Tag } from 'antd';
+import { Layout as AntLayout, Menu, Icon, Tooltip, Affix } from 'antd';
 import { groupBy } from 'lodash-es';
-import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import Article from '../components/Article';
+import ReadingTime from '../components/ReadingTime';
 import SEO from '../components/Seo';
 import styles from './markdown.module.less';
 
@@ -148,11 +148,7 @@ export default function Template({
               </Tooltip>
             </h1>
             <div>
-              <Tag>
-                {i18n.language === 'zh'
-                  ? moment(readingTime.time).format('阅读时间约 M 分钟')
-                  : readingTime.text}
-              </Tag>
+              <ReadingTime readingTime={readingTime} />
             </div>
             <div dangerouslySetInnerHTML={{ __html: html }} />
           </div>

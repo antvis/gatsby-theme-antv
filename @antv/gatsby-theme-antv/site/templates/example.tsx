@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { graphql, Link, navigate } from 'gatsby';
-import { Layout as AntLayout, Menu, Icon, Tooltip, Affix, Tag } from 'antd';
+import { Layout as AntLayout, Menu, Icon, Tooltip, Affix } from 'antd';
 import { groupBy } from 'lodash-es';
 import classNames from 'classnames';
-import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import Article from '../components/Article';
 import SEO from '../components/Seo';
@@ -157,13 +156,6 @@ export default function Template({
                 </a>
               </Tooltip>
             </h1>
-            <div>
-              <Tag>
-                {i18n.language === 'zh'
-                  ? moment(readingTime.time).format('阅读时间约 M 分钟')
-                  : readingTime.text}
-              </Tag>
-            </div>
             <div dangerouslySetInnerHTML={{ __html: html }} />
             <ul className={exampleStyles.tabs}>
               <li
