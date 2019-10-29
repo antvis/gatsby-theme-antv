@@ -69,7 +69,7 @@ export default function Template({
     pathPrefix,
   } = site;
   const path = location.pathname.replace(pathPrefix, '');
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const groupedEdges = groupBy(edges, ({ node: { fields: { slug } } }: any) =>
     slug
       .split('/')
@@ -137,7 +137,7 @@ export default function Template({
           <div className={styles.main}>
             <h1>
               {frontmatter.title}
-              <Tooltip title="在 GitHub 上编辑">
+              <Tooltip title={t('在 GitHub 上编辑')}>
                 <a
                   href={`${githubUrl}/edit/master/${relativePath}`}
                   target="_blank"
