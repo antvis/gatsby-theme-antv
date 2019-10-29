@@ -28,7 +28,7 @@ const DocsMenuItemsProps: React.FC<DocsMenuItemsProps> = ({
           const slugPrefix = (doc.slug || '').split('/')[0];
           const className = classNames({
             [styles.activeItem]: path.startsWith(
-              `/${i18n.language}/${doc.slug === 'examples' ? '' : '/docs'}${
+              `/${i18n.language}/${doc.slug === 'examples' ? '' : 'docs/'}${
                 doc.slug
               }`,
             ),
