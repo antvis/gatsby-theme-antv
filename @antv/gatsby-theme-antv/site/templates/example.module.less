@@ -1,0 +1,38 @@
+@import '~antd/es/style/themes/default.less';
+
+ul.tabs {
+  font-size: 24px;
+  margin: 40px 0 24px;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    padding: 0 0 12px 0;
+    margin-right: 36px;
+    margin-left: 0;
+    list-style: none;
+    display: inline-block;
+    line-height: 1;
+    cursor: pointer;
+    color: #697b8c;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+
+    &:hover {
+      color: #274057;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.active {
+      color: @primary-color;
+      border-color: @primary-color;
+
+      &:hover {
+        color: @primary-color;
+      }
+    }
+  }
+}
