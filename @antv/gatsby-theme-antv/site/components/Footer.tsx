@@ -1,5 +1,6 @@
 import React from 'react';
 import Footer from 'rc-footer';
+import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
 
 export const defaultColumns = [
@@ -154,4 +155,4 @@ export default ({
       <a href="https://xtech.antfin.com/">AFX</a>
     </div>
   ),
-}) => <Footer columns={columns} bottom={bottom} />;
+}) => <Footer columns={columns} bottom={bottom} className={styles.footer} />;
