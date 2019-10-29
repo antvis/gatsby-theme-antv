@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql, Link, navigate } from 'gatsby';
 import { Layout as AntLayout, Menu, Icon, Tooltip, Affix, Tag } from 'antd';
 import { groupBy } from 'lodash-es';
 import classNames from 'classnames';
@@ -50,9 +50,15 @@ const getDocument = (docs: any[], slug: string = '') => {
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
   location,
+  pageContext,
 }: {
   data: any;
   location: Location;
+  pageContext: {
+    prev: any;
+    next: any;
+    exampleSections: any;
+  };
 }) {
   const { markdownRemark, allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
   const {
@@ -76,7 +82,11 @@ export default function Template({
       .join('/'),
   );
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
-  const [activeTab, setActiveTab] = useState('');
+  const activeTab = location.hash.replace(/^#/, '') || 'examples';
+  const setActiveTabWithHash = (tab: 'examples' | 'API' | 'design') => {
+    navigate(`${location.pathname}#${tab}`);
+  };
+  const { exampleSections } = pageContext;
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -158,9 +168,9 @@ export default function Template({
             <ul className={exampleStyles.tabs}>
               <li
                 className={classNames({
-                  [exampleStyles.active]: activeTab === '',
+                  [exampleStyles.active]: activeTab === 'examples',
                 })}
-                onClick={() => setActiveTab('')}
+                onClick={() => setActiveTabWithHash('examples')}
               >
                 代码演示
               </li>
@@ -168,7 +178,7 @@ export default function Template({
                 className={classNames({
                   [exampleStyles.active]: activeTab === 'API',
                 })}
-                onClick={() => setActiveTab('API')}
+                onClick={() => setActiveTabWithHash('API')}
               >
                 API
               </li>
@@ -176,12 +186,34 @@ export default function Template({
                 className={classNames({
                   [exampleStyles.active]: activeTab === 'design',
                 })}
-                onClick={() => setActiveTab('design')}
+                onClick={() => setActiveTabWithHash('design')}
               >
                 设计指引
               </li>
             </ul>
-            <div>内容</div>
+            {exampleSections.examples && (
+              <div
+                style={{ display: activeTab === 'examples' ? 'block' : 'none' }}
+              >
+                {exampleSections.examples}
+              </div>
+            )}
+            {exampleSections.API && (
+              <div
+                style={{ display: activeTab === 'API' ? 'block' : 'none' }}
+                dangerouslySetInnerHTML={{
+                  __html: exampleSections.API.node.html,
+                }}
+              />
+            )}
+            {exampleSections.design && (
+              <div
+                style={{ display: activeTab === 'design' ? 'block' : 'none' }}
+                dangerouslySetInnerHTML={{
+                  __html: exampleSections.design.node.html,
+                }}
+              />
+            )}
           </div>
         </Article>
       </AntLayout>

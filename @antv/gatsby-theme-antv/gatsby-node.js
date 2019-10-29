@@ -91,6 +91,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             fields {
               slug
             }
+            html
           }
         }
       }
@@ -106,16 +107,31 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     const { slug } = node.fields;
     const prev = index === 0 ? false : posts[index - 1].node;
     const next = index === posts.length - 1 ? false : posts[index + 1].node;
+    const isExamplePage =
+      slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`);
+    const context = {
+      prev,
+      next,
+    };
+    if (isExamplePage) {
+      const design = posts.find(({ node }) => {
+        const { slug: postSlug } = node.fields;
+        return postSlug === `${slug}/design`;
+      });
+      const API = posts.find(({ node }) => {
+        const { slug: postSlug } = node.fields;
+        return postSlug === `${slug}/API`;
+      });
+      context.exampleSections = {
+        examples: '<div>example</div>',
+        design,
+        API,
+      };
+    }
     createPage({
       path: slug, // required
-      component:
-        slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`)
-          ? exampleTemplate
-          : documentTemplate,
-      context: {
-        prev,
-        next,
-      },
+      component: isExamplePage ? exampleTemplate : documentTemplate,
+      context,
     });
   });
 };
