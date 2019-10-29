@@ -49,7 +49,10 @@ export default function Template({
 }: {
   data: any;
   location: Location;
-  pageContext: any;
+  pageContext: {
+    prev: any;
+    next: any;
+  };
 }) {
   console.log(pageContext);
   const { markdownRemark, allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
