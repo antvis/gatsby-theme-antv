@@ -75,14 +75,15 @@ const Header: React.FC<HeaderProps> = ({
     typeof defaultLanguage !== 'undefined'
       ? defaultLanguage
       : i18n.language || '';
+  const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
   return (
     <header className={styles.header}>
       <div className={styles.left}>
         <h1>
           {React.createElement(
-            Link,
+            LogoLink,
             {
-              [Link === 'a' ? 'href' : 'to']: link || `/${lang}`,
+              [LogoLink === 'a' ? 'href' : 'to']: link || `/${lang}`,
             },
             img,
           )}
