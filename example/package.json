@@ -17,12 +17,13 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "gatsby": "^2.15.34",
+    "@antv/g2": "^3.5.9",
     "@antv/gatsby-theme-antv": "*",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "gatsby": "^2.15.34",
     "ptz-i18n": "^1.0.0",
     "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.0"
+    "react-dom": "^16.10.2"
   }
 }
