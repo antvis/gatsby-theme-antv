@@ -17,6 +17,10 @@
     "url": "https://github.com/antvis/gatsby-theme-antv/issues"
   },
   "dependencies": {
+    "@babel/plugin-transform-modules-umd": "^7.2.0",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.3",
+    "@babel/preset-typescript": "^7.6.0",
     "@hot-loader/react-dom": "^16.9.0+4.12.11",
     "@testing-library/jest-dom": "^4.1.0",
     "@testing-library/react": "^9.1.4",
