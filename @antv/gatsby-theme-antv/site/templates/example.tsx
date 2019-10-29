@@ -64,7 +64,7 @@ export default function Template({
     frontmatter,
     html,
     tableOfContents,
-    fields: { slug, readingTime },
+    fields: { slug },
     parent: { relativePath },
   } = markdownRemark;
   const { edges = [] } = allMarkdownRemark;
