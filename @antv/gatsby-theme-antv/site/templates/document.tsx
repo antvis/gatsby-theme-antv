@@ -45,7 +45,6 @@ const getDocument = (docs: any[], slug: string = '') => {
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
   location,
-  pageContext,
 }: {
   data: any;
   location: Location;
@@ -54,7 +53,6 @@ export default function Template({
     next: any;
   };
 }) {
-  console.log(pageContext);
   const { markdownRemark, allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
   const {
     frontmatter,

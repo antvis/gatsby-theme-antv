@@ -9,7 +9,7 @@ const path = require(`path`);
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const { getSlugAndLang } = require('ptz-i18n');
-
+const { transformSync } = require('@babel/core');
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
 
@@ -95,6 +95,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           }
         }
       }
+      allFile(limit: 1000) {
+        nodes {
+          relativePath
+          absolutePath
+        }
+      }
     }
   `);
   // Handle errors
@@ -103,6 +109,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     return;
   }
   const posts = result.data.allMarkdownRemark.edges;
+  const demoPaths = result.data.allFile.nodes.filter(node =>
+    /demo\/(.*)\.[t|j]sx?$/.test(node.relativePath),
+  );
   posts.forEach(({ node }, index) => {
     const { slug } = node.fields;
     const prev = index === 0 ? false : posts[index - 1].node;
@@ -122,8 +131,29 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         const { slug: postSlug } = node.fields;
         return postSlug === `${slug}/API`;
       });
+      const examples = demoPaths
+        .filter(item =>
+          `${slug}/demo`.endsWith(path.dirname(item.relativePath)),
+        )
+        .map(item => {
+          const source = fs.readFileSync(item.absolutePath, 'utf8');
+          const { code } = transformSync(source, {
+            filename: item.absolutePath,
+            presets: [
+              '@babel/preset-typescript',
+              '@babel/preset-react',
+              '@babel/preset-env',
+            ],
+            plugins: ['@babel/plugin-transform-modules-umd'],
+          });
+          return {
+            ...item,
+            source,
+            babeledSource: code,
+          };
+        });
       context.exampleSections = {
-        examples: '<div>example</div>',
+        examples,
         design,
         API,
       };
