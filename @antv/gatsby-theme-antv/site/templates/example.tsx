@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { graphql, Link } from 'gatsby';
 import { Layout as AntLayout, Menu, Icon, Tooltip, Affix, Tag } from 'antd';
 import { groupBy } from 'lodash-es';
+import classNames from 'classnames';
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
 import Article from '../components/Article';
 import SEO from '../components/Seo';
 import styles from './markdown.module.less';
+import exampleStyles from './example.module.less';
 
 const renderMenuItems = (edges: any[]) =>
   edges.map((edge: any) => {
@@ -74,6 +76,7 @@ export default function Template({
       .join('/'),
   );
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
+  const [activeTab, setActiveTab] = useState('');
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -152,6 +155,33 @@ export default function Template({
               </Tag>
             </div>
             <div dangerouslySetInnerHTML={{ __html: html }} />
+            <ul className={exampleStyles.tabs}>
+              <li
+                className={classNames({
+                  [exampleStyles.active]: activeTab === '',
+                })}
+                onClick={() => setActiveTab('')}
+              >
+                代码演示
+              </li>
+              <li
+                className={classNames({
+                  [exampleStyles.active]: activeTab === 'API',
+                })}
+                onClick={() => setActiveTab('API')}
+              >
+                API
+              </li>
+              <li
+                className={classNames({
+                  [exampleStyles.active]: activeTab === 'design',
+                })}
+                onClick={() => setActiveTab('design')}
+              >
+                设计指引
+              </li>
+            </ul>
+            <div>内容</div>
           </div>
         </Article>
       </AntLayout>
