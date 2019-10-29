@@ -11,6 +11,7 @@
     "emitDecoratorMetadata": true,
     "noEmit": true,
     "resolveJsonModule": true,
+    "allowJs": true,
     "skipLibCheck": true
   }
 }

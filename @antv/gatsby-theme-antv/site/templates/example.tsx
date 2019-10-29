@@ -73,7 +73,7 @@ export default function Template({
     pathPrefix,
   } = site;
   const path = location.pathname.replace(pathPrefix, '');
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const groupedEdges = groupBy(edges, ({ node: { fields: { slug } } }: any) =>
     slug
       .split('/')
@@ -164,7 +164,7 @@ export default function Template({
                 })}
                 onClick={() => setActiveTabWithHash('examples')}
               >
-                代码演示
+                {t('代码演示')}
               </li>
               <li
                 className={classNames({
@@ -180,7 +180,7 @@ export default function Template({
                 })}
                 onClick={() => setActiveTabWithHash('design')}
               >
-                设计指引
+                {t('设计指引')}
               </li>
             </ul>
             {exampleSections.examples && (
