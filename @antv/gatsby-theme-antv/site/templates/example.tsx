@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Article from '../components/Article';
 import SEO from '../components/Seo';
-import PlayGround from '../components/PlayGround';
+import PlayGrounds from '../components/PlayGrounds';
 import styles from './markdown.module.less';
 import exampleStyles from './example.module.less';
 
@@ -188,7 +188,7 @@ export default function Template({
               <div
                 style={{ display: activeTab === 'examples' ? 'block' : 'none' }}
               >
-                <PlayGround examples={exampleSections.examples} />
+                <PlayGrounds examples={exampleSections.examples} />
               </div>
             )}
             {exampleSections.API && (
