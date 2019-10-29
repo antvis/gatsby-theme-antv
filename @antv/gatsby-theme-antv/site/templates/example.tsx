@@ -146,7 +146,7 @@ export default function Template({
           <div className={styles.main}>
             <h1>
               {frontmatter.title}
-              <Tooltip title="在 GitHub 上编辑">
+              <Tooltip title={t('在 GitHub 上编辑')}>
                 <a
                   href={`${githubUrl}/edit/master/${relativePath}`}
                   target="_blank"
