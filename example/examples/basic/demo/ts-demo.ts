@@ -1,13 +1,13 @@
-// en: Example One
-// zh: 演示一
+// en: Example Two
+// zh: 演示二
 import G2 from '@antv/g2';
 
 const data = [
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 1150 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
+  { genre: 'Sports', sold: 100 },
+  { genre: 'Strategy', sold: 100 },
+  { genre: 'Action', sold: 100 },
+  { genre: 'Shooter', sold: 100 },
+  { genre: 'Other', sold: 100 },
 ];
 
 const chart = new G2.Chart({

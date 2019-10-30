@@ -10,6 +10,7 @@ export interface PlayGroundProps {
   babeledSource: string;
   absolutePath?: string;
   relativePath?: string;
+  screenshot?: string;
 }
 
 const PlayGround: React.FC<PlayGroundProps> = ({
@@ -17,36 +18,42 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   babeledSource,
   relativePath,
 }) => {
-  const playground = useRef<HTMLDivElement>(null);
+  const playpround = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
+
   // @ts-ignore
   window.__reportErrorInPlayGround = useCallback((e: Error) => {
     console.error(e);
     setError(e);
-  }, []);
+  });
+
   useEffect(() => {
+    if (!compiledCode || !playpround || !playpround.current) {
+      return;
+    }
+    playpround.current.innerHTML = '<div id="container" />';
     const script = document.createElement('script');
     script.innerHTML = `
       try {
-        ${compiledCode}
+        setTimeout(function() {
+          ${compiledCode}
+        }, 0);
       } catch(e) {
         if (window.__reportErrorInPlayGround) {
           window.__reportErrorInPlayGround(e);
         }
       }
     `;
-    if (playground && playground.current) {
-      playground.current.appendChild(script);
-    }
+    setTimeout(() => {
+      playpround!.current!.appendChild(script);
+    }, 0);
     return () => {
-      if (playground && playground.current) {
-        playground.current.removeChild(script);
-      }
+      playpround!.current!.innerHTML = '<div id="container" />';
     };
   }, [compiledCode]);
   return (
-    <div className={styles.playground} ref={playground}>
+    <div className={styles.playground}>
       {error ? (
         <Result
           status="error"
@@ -54,7 +61,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
           subTitle={error && error.message}
         />
       ) : (
-        <div id="container" />
+        <div ref={playpround} />
       )}
       <CodeMirror
         value={source}
