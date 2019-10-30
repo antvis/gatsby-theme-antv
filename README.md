@@ -55,9 +55,11 @@ Sample repository: https://github.com/antvis/antvis.github.io
 ## Components
 
 ```jsx
-import SEO from '@antv/gatsby-theme-antv/components/Seo';
-import Header from '@antv/gatsby-theme-antv/components/Header';
-import Footer from '@antv/gatsby-theme-antv/components/Footer';
+import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
+import Header from '@antv/gatsby-theme-antv/site/components/Header';
+import Footer from '@antv/gatsby-theme-antv/site/components/Footer';
+
+// @antv/gatsby-theme-antv/components/Header for commonjs version
 
 const Layout = () => {
   return (
