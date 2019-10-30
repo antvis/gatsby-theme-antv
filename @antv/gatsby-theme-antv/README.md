@@ -55,9 +55,11 @@ Sample repository: https://github.com/antvis/antvis.github.io
 ## Components
 
 ```jsx
-import SEO from '@antv/gatsby-theme-antv/components/Seo';
-import Header from '@antv/gatsby-theme-antv/components/Header';
-import Footer from '@antv/gatsby-theme-antv/components/Footer';
+import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
+import Header from '@antv/gatsby-theme-antv/site/components/Header';
+import Footer from '@antv/gatsby-theme-antv/site/components/Footer';
+
+// @antv/gatsby-theme-antv/components/Header for commonjs version
 
 const Layout = () => {
   return (
@@ -65,7 +67,10 @@ const Layout = () => {
       <SEO title="蚂蚁数据可视化" lang="zh" />
       <Header
         subTitle="子产品名"
-        logo={<img src="url" />}
+        logo={{
+          link: 'https://antv.alipay.com',
+          img: <img src="url" />,
+        }}
         githubUrl="https://github.com/antvis/g2"
         // docs={[]}
         showSearch={false}
