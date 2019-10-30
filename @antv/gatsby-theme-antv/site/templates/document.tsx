@@ -182,7 +182,6 @@ export const pageQuery = graphql`
       tableOfContents
       fields {
         slug
-        langKey
         readingTime {
           text
           time
@@ -205,7 +204,6 @@ export const pageQuery = graphql`
         node {
           fields {
             slug
-            langKey
           }
           frontmatter {
             title
