@@ -1,16 +1,25 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
+import { UnControlled as CodeMirror } from 'react-codemirror2';
+import { transform } from '@babel/standalone';
 import { Result } from 'antd';
 
 import styles from './PlayGround.module.less';
 
-interface PlayGroundProps {
+export interface PlayGroundProps {
   source: string;
   babeledSource: string;
+  absolutePath?: string;
+  relativePath?: string;
 }
 
-const PlayGround: React.FC<PlayGroundProps> = ({ source, babeledSource }) => {
-  const container = useRef<HTMLDivElement>(null);
+const PlayGround: React.FC<PlayGroundProps> = ({
+  source,
+  babeledSource,
+  relativePath,
+}) => {
+  const playground = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error>();
+  const [compiledCode, updateCompiledCode] = useState(babeledSource);
   // @ts-ignore
   window.__reportErrorInPlayGround = useCallback((e: Error) => {
     console.error(e);
@@ -20,35 +29,52 @@ const PlayGround: React.FC<PlayGroundProps> = ({ source, babeledSource }) => {
     const script = document.createElement('script');
     script.innerHTML = `
       try {
-        ${babeledSource}
+        ${compiledCode}
       } catch(e) {
         if (window.__reportErrorInPlayGround) {
           window.__reportErrorInPlayGround(e);
         }
       }
     `;
-    if (container && container.current) {
-      container.current.appendChild(script);
+    if (playground && playground.current) {
+      playground.current.appendChild(script);
     }
     return () => {
-      if (container && container.current) {
-        container.current.removeChild(script);
+      if (playground && playground.current) {
+        playground.current.removeChild(script);
       }
     };
-  }, [container]);
-  if (error) {
-    return (
-      <Result
-        status="error"
-        title="演示代码报错，请检查"
-        subTitle={error && error.message}
-      />
-    );
-  }
+  }, [compiledCode]);
   return (
-    <div className={styles.container}>
-      <div id="container" ref={container} />
-      <pre>{source}</pre>
+    <div className={styles.playground} ref={playground}>
+      {error ? (
+        <Result
+          status="error"
+          title="演示代码报错，请检查"
+          subTitle={error && error.message}
+        />
+      ) : (
+        <div id="container" />
+      )}
+      <CodeMirror
+        value={source}
+        options={{
+          mode: 'javascript',
+          theme: 'mdn-like',
+        }}
+        onBeforeChange={(_: any, __: any, value: string) => {
+          try {
+            const { code } = transform(value, {
+              filename: relativePath,
+              presets: ['react', 'typescript', 'es2015', 'stage-3'],
+              plugins: ['transform-modules-umd'],
+            });
+            updateCompiledCode(code);
+          } catch (e) {
+            console.error(e);
+          }
+        }}
+      />
     </div>
   );
 };

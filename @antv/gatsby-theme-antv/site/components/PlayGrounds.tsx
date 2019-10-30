@@ -1,14 +1,9 @@
 import React from 'react';
-import PlayGround from './PlayGround';
+import PlayGround, { PlayGroundProps } from './PlayGround';
 import styles from './PlayGrounds.module.less';
 
 interface PlayGroundsProps {
-  examples: Array<{
-    source: string;
-    babeledSource: string;
-    absolutePath: string;
-    relativePath: string;
-  }>;
+  examples: PlayGroundProps[];
 }
 
 const PlayGrounds: React.FC<PlayGroundsProps> = ({ examples = [] }) => (
@@ -16,6 +11,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({ examples = [] }) => (
     {examples.map(example => (
       <PlayGround
         key={example.relativePath}
+        relativePath={example.relativePath}
         source={example.source}
         babeledSource={example.babeledSource}
       />

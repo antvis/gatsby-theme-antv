@@ -5,9 +5,12 @@
  */
 
 // You can delete this file if you're not using it
+import 'codemirror/mode/javascript/javascript';
 import 'normalize.css/normalize.css';
 import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css';
 import 'prismjs/plugins/command-line/prism-command-line.css';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/theme/mdn-like.css';
 
 import './site/global.less';
 
