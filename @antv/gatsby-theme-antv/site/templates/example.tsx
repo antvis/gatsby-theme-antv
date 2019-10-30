@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { graphql, Link, navigate } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import { Layout as AntLayout, Menu, Icon, Tooltip } from 'antd';
 import { groupBy } from 'lodash-es';
 import classNames from 'classnames';
@@ -60,14 +60,26 @@ export default function Template({
     exampleSections: any;
   };
 }) {
-  const { markdownRemark, allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
+  const { allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
+  const { edges = [] } = allMarkdownRemark;
+  const { node: markdownRemark } = edges.find((edge: any) => {
+    const {
+      fields: { slug },
+    } = edge.node;
+    if (
+      /\/examples\/.*\/API$/.test(location.pathname) ||
+      /\/examples\/.*\/desgin$/.test(location.pathname)
+    ) {
+      return location.pathname.startsWith(slug);
+    }
+    return location.pathname === slug;
+  });
   const {
     frontmatter,
     html,
     fields: { slug },
     parent: { relativePath },
   } = markdownRemark;
-  const { edges = [] } = allMarkdownRemark;
   const {
     siteMetadata: { docs, githubUrl },
     pathPrefix,
@@ -81,10 +93,15 @@ export default function Template({
       .join('/'),
   );
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
-  const activeTab = location.hash.replace(/^#/, '') || 'examples';
-  const setActiveTabWithHash = (tab: 'examples' | 'API' | 'design') => {
-    navigate(`${location.pathname}#${tab}`);
-  };
+  let activeTab = 'examples';
+  let exampleRootSlug = slug;
+  if (/\/examples\/.*\/API$/.test(location.pathname)) {
+    activeTab = 'API';
+    exampleRootSlug = exampleRootSlug.replace(/\/API$/, '');
+  } else if (/\/examples\/.*\/design$/.test(location.pathname)) {
+    activeTab = 'design';
+    exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
+  }
   const { exampleSections } = pageContext;
   return (
     <>
@@ -160,25 +177,22 @@ export default function Template({
                 className={classNames({
                   [exampleStyles.active]: activeTab === 'examples',
                 })}
-                onClick={() => setActiveTabWithHash('examples')}
               >
-                {t('代码演示')}
+                <Link to={exampleRootSlug}>{t('代码演示')}</Link>
               </li>
               <li
                 className={classNames({
                   [exampleStyles.active]: activeTab === 'API',
                 })}
-                onClick={() => setActiveTabWithHash('API')}
               >
-                API
+                <Link to={`${exampleRootSlug}/API`}>API</Link>
               </li>
               <li
                 className={classNames({
                   [exampleStyles.active]: activeTab === 'design',
                 })}
-                onClick={() => setActiveTabWithHash('design')}
               >
-                {t('设计指引')}
+                <Link to={`${exampleRootSlug}/design`}>{t('设计指引')}</Link>
               </li>
             </ul>
             {exampleSections.examples && (
@@ -212,7 +226,7 @@ export default function Template({
 }
 
 export const pageQuery = graphql`
-  query($path: String!) {
+  query {
     site {
       siteMetadata {
         title
@@ -228,38 +242,29 @@ export const pageQuery = graphql`
       }
       pathPrefix
     }
-    markdownRemark(fields: { slug: { eq: $path } }) {
-      html
-      tableOfContents
-      fields {
-        slug
-        langKey
-        readingTime {
-          text
-          time
-        }
-      }
-      frontmatter {
-        title
-      }
-      parent {
-        ... on File {
-          relativePath
-        }
-      }
-    }
     allMarkdownRemark(
       sort: { order: ASC, fields: [frontmatter___order] }
       limit: 1000
     ) {
       edges {
         node {
+          html
+          tableOfContents
           fields {
             slug
             langKey
+            readingTime {
+              text
+              time
+            }
           }
           frontmatter {
             title
+          }
+          parent {
+            ... on File {
+              relativePath
+            }
           }
         }
       }
