@@ -68,7 +68,7 @@ export default function Template({
     } = edge.node;
     if (
       /\/examples\/.*\/API$/.test(location.pathname) ||
-      /\/examples\/.*\/desgin$/.test(location.pathname)
+      /\/examples\/.*\/design$/.test(location.pathname)
     ) {
       return location.pathname.startsWith(slug);
     }
@@ -95,6 +95,7 @@ export default function Template({
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
   let activeTab = 'examples';
   let exampleRootSlug = slug;
+  console.log(location.pathname);
   if (/\/examples\/.*\/API$/.test(location.pathname)) {
     activeTab = 'API';
     exampleRootSlug = exampleRootSlug.replace(/\/API$/, '');
