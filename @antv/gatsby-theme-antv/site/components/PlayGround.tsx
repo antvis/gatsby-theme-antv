@@ -1,9 +1,16 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
+import { Typography } from 'antd';
+import {
+  useTranslation,
+  withTranslation,
+  WithTranslation,
+} from 'react-i18next';
 import { transform } from '@babel/standalone';
 import { Result } from 'antd';
-
 import styles from './PlayGround.module.less';
+
+const { Paragraph } = Typography;
 
 export interface PlayGroundProps {
   source: string;
@@ -19,9 +26,11 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   babeledSource,
   relativePath,
 }) => {
+  const { t } = useTranslation();
   const playpround = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
+  const [currentSourceCode, updateCurrentSourceCode] = useState(source);
 
   // @ts-ignore
   window.__reportErrorInPlayGround = useCallback((e: Error) => {
@@ -57,7 +66,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
         {error ? (
           <Result
             status="error"
-            title="演示代码报错，请检查"
+            title={t('演示代码报错，请检查')}
             subTitle={<pre>{error && error.message}</pre>}
           />
         ) : (
@@ -65,23 +74,26 @@ const PlayGround: React.FC<PlayGroundProps> = ({
         )}
       </div>
       <div className={styles.editor}>
-        <div className={styles.toolbar} />
+        <div className={styles.toolbar}>
+          <Paragraph copyable={{ text: currentSourceCode }} />
+        </div>
         <div className={styles.codemirror}>
           <CodeMirror
             value={source}
             options={{
               mode: 'javascript',
               theme: 'mdn-like',
-              indentUnit: 4, // 缩进单位为4
-              styleActiveLine: true, // 当前行背景高亮
-              styleActiveSelected: true,
+              indentUnit: 2, // 缩进单位为 2
+              styleActiveLine: { nonEmpty: true }, // 当前行背景高亮
               matchBrackets: true, // 括号匹配
               autoCloseBrackets: true,
+              autofocus: false,
               matchTags: {
                 bothTags: true,
               },
             }}
             onChange={(_: any, __: any, value: string) => {
+              updateCurrentSourceCode(value);
               try {
                 const { code } = transform(value, {
                   filename: relativePath,
@@ -104,7 +116,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
 };
 
 class ErrorHandlerPlayGround extends React.Component<
-  PlayGroundProps,
+  PlayGroundProps & WithTranslation,
   { hasError: boolean }
 > {
   state = {
@@ -115,12 +127,13 @@ class ErrorHandlerPlayGround extends React.Component<
     return { hasError: true };
   }
   render() {
+    const { t } = this.props;
     if (this.state.hasError) {
       // 你可以自定义降级后的 UI 并渲染
-      return <Result status="error" title="演示代码报错，请检查" />;
+      return <Result status="error" title={t('演示代码报错，请检查')} />;
     }
     return <PlayGround {...this.props} />;
   }
 }
 
-export default ErrorHandlerPlayGround;
+export default withTranslation()(ErrorHandlerPlayGround);
