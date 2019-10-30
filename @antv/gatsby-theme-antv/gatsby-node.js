@@ -116,14 +116,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       const source = fs.readFileSync(item.absolutePath, 'utf8');
       let meta;
       try {
-        console.log(path.join(path.dirname(item.absolutePath), 'meta.json'));
         meta = JSON.parse(
           fs.readFileSync(
             path.join(path.dirname(item.absolutePath), 'meta.json'),
             'utf8',
           ) || '{}',
         );
-        console.log(meta);
       } catch (e) {
         meta = {};
       }
@@ -136,12 +134,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         ],
         plugins: ['@babel/plugin-transform-modules-umd'],
       });
-      console.log(meta.demos, path.basename(item.relativePath));
       const order = (meta.demos || []).findIndex(
         ({ filename }) => filename === path.basename(item.relativePath),
       );
       const demoInfo = (meta.demos || [])[order] || {};
-      console.log(order, demoInfo, meta.demos);
       return {
         ...item,
         source,
@@ -161,17 +157,23 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       next,
     };
     if (isExamplePage) {
+      let exampleRootSlug = slug;
+      if (/\/examples\/.*\/API$/.test(location.pathname)) {
+        exampleRootSlug = exampleRootSlug.replace(/\/API$/, '');
+      } else if (/\/examples\/.*\/design$/.test(location.pathname)) {
+        exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
+      }
       const design = posts.find(({ node }) => {
         const { slug: postSlug } = node.fields;
-        return postSlug === `${slug}/design`;
+        return postSlug === `${exampleRootSlug}/design`;
       });
       const API = posts.find(({ node }) => {
         const { slug: postSlug } = node.fields;
-        return postSlug === `${slug}/API`;
+        return postSlug === `${exampleRootSlug}/API`;
       });
       const examples = allDemos
         .filter(item =>
-          `${slug}/demo`.endsWith(path.dirname(item.relativePath)),
+          `${exampleRootSlug}/demo`.endsWith(path.dirname(item.relativePath)),
         )
         .sort((a, b) => a.order - b.order);
       context.exampleSections = {
