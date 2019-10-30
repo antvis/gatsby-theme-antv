@@ -199,7 +199,10 @@ export default function Template({
               <div
                 style={{ display: activeTab === 'examples' ? 'block' : 'none' }}
               >
-                <PlayGrounds examples={exampleSections.examples} />
+                <PlayGrounds
+                  examples={exampleSections.examples}
+                  location={location}
+                />
               </div>
             )}
             {exampleSections.API && (
