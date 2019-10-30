@@ -165,3 +165,34 @@
     }
   }
 }
+
+.sider {
+  width: 280px !important;
+}
+
+@media only screen and (max-width: 991.99px) {
+  .markdown {
+    .main {
+      width: 100%;
+    }
+    .toc {
+      display: none;
+    }
+  }
+
+  .sider {
+    width: 240px !important;
+  }
+}
+
+@media only screen and (max-width: 767.99px) {
+  .layout {
+    flex-direction: column !important;
+  }
+  .sider {
+    width: 100% !important;
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+}

@@ -152,7 +152,11 @@ const Header: React.FC<HeaderProps> = ({
             <Option value="en">🇺🇸 English</Option>
           </Select>
         )}
-        {showGithubCorner && <GithubCorner href={githubUrl} size={64} />}
+        {showGithubCorner && (
+          <span className={styles.githubCorner}>
+            <GithubCorner href={githubUrl} size={64} />
+          </span>
+        )}
       </nav>
     </header>
   );

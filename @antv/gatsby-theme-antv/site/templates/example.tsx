@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { graphql, Link, navigate } from 'gatsby';
-import { Layout as AntLayout, Menu, Icon, Tooltip, Affix } from 'antd';
+import { Layout as AntLayout, Menu, Icon, Tooltip } from 'antd';
 import { groupBy } from 'lodash-es';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -64,7 +64,6 @@ export default function Template({
   const {
     frontmatter,
     html,
-    tableOfContents,
     fields: { slug },
     parent: { relativePath },
   } = markdownRemark;
@@ -90,8 +89,12 @@ export default function Template({
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
-      <AntLayout style={{ background: '#fff' }} hasSider>
-        <AntLayout.Sider width={280} theme="light">
+      <AntLayout
+        style={{ background: '#fff' }}
+        hasSider
+        className={styles.layout}
+      >
+        <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
           <Menu
             mode="inline"
             selectedKeys={[slug]}
@@ -138,13 +141,7 @@ export default function Template({
           </Menu>
         </AntLayout.Sider>
         <Article className={styles.markdown}>
-          <Affix>
-            <div
-              className={styles.toc}
-              dangerouslySetInnerHTML={{ __html: tableOfContents }}
-            />
-          </Affix>
-          <div className={styles.main}>
+          <div className={styles.main} style={{ width: '100%' }}>
             <h1>
               {frontmatter.title}
               <Tooltip title={t('在 GitHub 上编辑')}>
