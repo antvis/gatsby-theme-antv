@@ -66,11 +66,12 @@ export default function Template({
     const {
       fields: { slug },
     } = edge.node;
+    console.log(location.pathname);
     if (
       /\/examples\/.*\/API$/.test(location.pathname) ||
       /\/examples\/.*\/design$/.test(location.pathname)
     ) {
-      return location.pathname.startsWith(slug);
+      return location.pathname.indexOf(slug) >= 0;
     }
     return location.pathname === slug;
   });
