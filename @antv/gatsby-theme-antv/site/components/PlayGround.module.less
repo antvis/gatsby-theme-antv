@@ -7,7 +7,8 @@
 
   .preview,
   .editor {
-    height: 540px;
+    height: 520px;
+    box-sizing: content-box;
   }
 
   .preview {
@@ -19,6 +20,7 @@
 
   .editor {
     flex: 1.5;
+    overflow: hidden;
 
     .toolbar {
       height: 32px;
@@ -27,12 +29,28 @@
       width: 100%;
     }
 
-    :global(.CodeMirror) {
-      background-image: none;
-      height: calc(100% - 32px);
-      line-height: 1.5;
-      padding: 16px;
-      overflow: auto;
+    .codemirror {
+      height: 100%;
+      overflow: hidden;
+
+      :global(.react-codemirror2) {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      :global(.CodeMirror-scroll) {
+        box-sizing: content-box;
+        padding-top: 16px;
+        padding-bottom: 32px;
+        margin-right: -32px;
+      }
+
+      :global(.CodeMirror) {
+        background-image: none;
+        line-height: 1.5;
+        height: calc(100% - 32px);
+        padding: 0 16px;
+      }
     }
   }
 }
