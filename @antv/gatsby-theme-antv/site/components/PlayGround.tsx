@@ -19,6 +19,7 @@ export interface PlayGroundProps {
   relativePath?: string;
   screenshot?: string;
   recommended?: boolean;
+  filename: string;
 }
 
 const PlayGround: React.FC<PlayGroundProps> = ({

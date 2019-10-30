@@ -1,23 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import PlayGround, { PlayGroundProps } from './PlayGround';
 import styles from './PlayGrounds.module.less';
 
 interface PlayGroundsProps {
   examples: PlayGroundProps[];
+  location: Location;
 }
 
-const PlayGrounds: React.FC<PlayGroundsProps> = ({ examples = [] }) => {
-  const [currentExample, updateCurrentExample] = useState<PlayGroundProps>(
-    examples[0],
-  );
+const PlayGrounds: React.FC<PlayGroundsProps> = ({
+  examples = [],
+  location,
+}) => {
+  const defaultExample =
+    examples.find(
+      item => `#${item.filename.split('.')[0]}` === location.hash,
+    ) || examples[0];
+  const [currentExample, updateCurrentExample] = useState(defaultExample);
   return (
     <div className={styles.container}>
       <ul className={styles.cards}>
         {examples.map(example => (
           <li
             key={example.relativePath}
-            onClick={() => updateCurrentExample(example)}
+            onClick={() => {
+              window.location.hash = currentExample.filename.split('.')[0];
+              updateCurrentExample(example);
+            }}
             role="button"
             className={classNames(styles.card, {
               [styles.current]:
@@ -33,6 +42,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({ examples = [] }) => {
         relativePath={currentExample.relativePath}
         source={currentExample.source}
         babeledSource={currentExample.babeledSource}
+        filename={currentExample.filename}
       />
     </div>
   );
