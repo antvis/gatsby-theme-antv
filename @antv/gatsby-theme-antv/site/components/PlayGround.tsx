@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
-import { Typography } from 'antd';
+import { Typography, Icon, Tooltip } from 'antd';
 import {
   useTranslation,
   withTranslation,
@@ -28,7 +28,9 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   relativePath,
 }) => {
   const { t } = useTranslation();
+  const fullscreenNode = useRef<HTMLDivElement>(null);
   const playpround = useRef<HTMLDivElement>(null);
+  const [isFullScreen, updateIsFullScreen] = useState(false);
   const [error, setError] = useState<Error | null>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
   const [currentSourceCode, updateCurrentSourceCode] = useState(source);
@@ -38,6 +40,17 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     console.error(e);
     setError(e);
   });
+
+  const toggleFullscreen = () => {
+    updateIsFullScreen(!isFullScreen);
+    if (fullscreenNode.current) {
+      if (!isFullScreen && !document.fullscreenElement) {
+        fullscreenNode.current.requestFullscreen();
+      } else if (document.exitFullscreen) {
+        document.exitFullscreen();
+      }
+    }
+  };
 
   useEffect(() => {
     if (!compiledCode || !playpround || !playpround.current) {
@@ -62,7 +75,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     };
   }, [compiledCode, error]);
   return (
-    <div className={styles.playground}>
+    <div className={styles.playground} ref={fullscreenNode}>
       <div className={styles.preview}>
         {error ? (
           <Result
@@ -76,6 +89,12 @@ const PlayGround: React.FC<PlayGroundProps> = ({
       </div>
       <div className={styles.editor}>
         <div className={styles.toolbar}>
+          <Tooltip title={isFullScreen ? t('离开全屏') : t('进入全屏')}>
+            <Icon
+              type={isFullScreen ? 'fullscreen-exit' : 'fullscreen'}
+              onClick={toggleFullscreen}
+            />
+          </Tooltip>
           <Paragraph copyable={{ text: currentSourceCode }} />
         </div>
         <div className={styles.codemirror}>
