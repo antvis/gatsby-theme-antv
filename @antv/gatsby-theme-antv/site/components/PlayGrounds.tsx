@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import PlayGround, { PlayGroundProps } from './PlayGround';
 import styles from './PlayGrounds.module.less';
@@ -12,6 +12,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
   examples = [],
   location,
 }) => {
+  console.log(examples);
   const defaultExample =
     examples.find(
       item => `#${item.filename.split('.')[0]}` === location.hash,
@@ -33,7 +34,13 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
                 example.relativePath === currentExample.relativePath,
             })}
           >
-            <img src={example.screenshot} alt={example.relativePath} />
+            <img
+              src={
+                example.screenshot ||
+                'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
+              }
+              alt={example.relativePath}
+            />
           </li>
         ))}
       </ul>
