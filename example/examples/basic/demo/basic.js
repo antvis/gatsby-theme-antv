@@ -1,5 +1,3 @@
-// en: Example One
-// zh: 演示一
 import G2 from '@antv/g2';
 
 const data = [

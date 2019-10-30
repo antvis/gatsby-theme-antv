@@ -1,6 +1,13 @@
 .container {
   margin: 0;
 
+  .cards {
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+  }
+
   .card {
     display: inline-block;
     width: 144px;
@@ -8,6 +15,7 @@
     margin: 0 16px 0 0;
     cursor: pointer;
     padding: 0;
+    overflow: hidden;
 
     img {
       display: block;

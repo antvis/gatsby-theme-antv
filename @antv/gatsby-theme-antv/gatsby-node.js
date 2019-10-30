@@ -109,9 +109,46 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     return;
   }
   const posts = result.data.allMarkdownRemark.edges;
-  const demoPaths = result.data.allFile.nodes.filter(node =>
-    /demo\/(.*)\.[t|j]sx?$/.test(node.relativePath),
-  );
+  const allDemos = result.data.allFile.nodes
+    .filter(node => /demo\/(.*)\.[t|j]sx?$/.test(node.relativePath))
+    .map(item => {
+      const source = fs.readFileSync(item.absolutePath, 'utf8');
+      let meta;
+      try {
+        console.log(path.join(path.dirname(item.absolutePath), 'meta.json'));
+        meta = JSON.parse(
+          fs.readFileSync(
+            path.join(path.dirname(item.absolutePath), 'meta.json'),
+            'utf8',
+          ) || '{}',
+        );
+        console.log(meta);
+      } catch (e) {
+        meta = {};
+      }
+      const { code } = transformSync(source, {
+        filename: item.absolutePath,
+        presets: [
+          '@babel/preset-typescript',
+          '@babel/preset-react',
+          '@babel/preset-env',
+        ],
+        plugins: ['@babel/plugin-transform-modules-umd'],
+      });
+      console.log(meta.demos, path.basename(item.relativePath));
+      const order = (meta.demos || []).findIndex(
+        ({ filename }) => filename === path.basename(item.relativePath),
+      );
+      const demoInfo = (meta.demos || [])[order] || {};
+      console.log(order, demoInfo, meta.demos);
+      return {
+        ...item,
+        source,
+        babeledSource: code,
+        order: order || 0,
+        ...demoInfo,
+      };
+    });
   posts.forEach(({ node }, index) => {
     const { slug } = node.fields;
     const prev = index === 0 ? false : posts[index - 1].node;
@@ -131,27 +168,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         const { slug: postSlug } = node.fields;
         return postSlug === `${slug}/API`;
       });
-      const examples = demoPaths
+      const examples = allDemos
         .filter(item =>
           `${slug}/demo`.endsWith(path.dirname(item.relativePath)),
         )
-        .map(item => {
-          const source = fs.readFileSync(item.absolutePath, 'utf8');
-          const { code } = transformSync(source, {
-            filename: item.absolutePath,
-            presets: [
-              '@babel/preset-typescript',
-              '@babel/preset-react',
-              '@babel/preset-env',
-            ],
-            plugins: ['@babel/plugin-transform-modules-umd'],
-          });
-          return {
-            ...item,
-            source,
-            babeledSource: code,
-          };
-        });
+        .sort((a, b) => a.order - b.order);
       context.exampleSections = {
         examples,
         design,

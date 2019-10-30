@@ -12,7 +12,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({ examples = [] }) => {
   );
   return (
     <div className={styles.container}>
-      <ul>
+      <ul className={styles.cards}>
         {examples.map(example => (
           <li
             key={example.relativePath}
@@ -20,10 +20,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({ examples = [] }) => {
             role="button"
             className={styles.card}
           >
-            <img
-              src="https://gw.alipayobjects.com/os/s/prod/antv/assets/dist/3.0.0/g2/3.x/line/basic-b9ffb.png"
-              alt="scrrenshot"
-            />
+            <img src={example.screenshot} alt={example.relativePath} />
           </li>
         ))}
         <PlayGround
