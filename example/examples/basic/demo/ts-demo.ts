@@ -9,7 +9,7 @@ const data = [
 ];
 
 const chart = new G2.Chart({
-  container: document.getElementById('container'),
+  container: document.getElementById('container') as HTMLDivElement,
   width: 500,
   height: 500,
 });
