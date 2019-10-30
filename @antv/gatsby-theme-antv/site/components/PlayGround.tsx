@@ -20,6 +20,7 @@ export interface PlayGroundProps {
   screenshot?: string;
   recommended?: boolean;
   filename: string;
+  title?: string;
 }
 
 const PlayGround: React.FC<PlayGroundProps> = ({
