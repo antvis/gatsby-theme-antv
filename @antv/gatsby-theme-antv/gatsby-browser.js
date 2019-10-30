@@ -6,6 +6,10 @@
 
 // You can delete this file if you're not using it
 import 'codemirror/mode/javascript/javascript';
+import 'codemirror/addon/selection/active-line';
+import 'codemirror/addon/edit/matchbrackets';
+import 'codemirror/addon/edit/closebrackets';
+import 'codemirror/addon/edit/matchtags';
 import 'normalize.css/normalize.css';
 import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css';
 import 'prismjs/plugins/command-line/prism-command-line.css';

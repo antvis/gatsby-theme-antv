@@ -20,7 +20,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   relativePath,
 }) => {
   const playpround = useRef<HTMLDivElement>(null);
-  const [error, setError] = useState<Error>();
+  const [error, setError] = useState<Error | null>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
 
   // @ts-ignore
@@ -50,7 +50,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
         playpround.current.innerHTML = '<div id="container" />';
       }
     };
-  }, [compiledCode]);
+  }, [compiledCode, error]);
   return (
     <div className={styles.playground}>
       <div className={styles.preview}>
@@ -58,7 +58,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
           <Result
             status="error"
             title="演示代码报错，请检查"
-            subTitle={error && error.message}
+            subTitle={<pre>{error && error.message}</pre>}
           />
         ) : (
           <div ref={playpround} />
@@ -72,6 +72,14 @@ const PlayGround: React.FC<PlayGroundProps> = ({
             options={{
               mode: 'javascript',
               theme: 'mdn-like',
+              indentUnit: 4, // 缩进单位为4
+              styleActiveLine: true, // 当前行背景高亮
+              styleActiveSelected: true,
+              matchBrackets: true, // 括号匹配
+              autoCloseBrackets: true,
+              matchTags: {
+                bothTags: true,
+              },
             }}
             onChange={(_: any, __: any, value: string) => {
               try {
@@ -83,7 +91,10 @@ const PlayGround: React.FC<PlayGroundProps> = ({
                 updateCompiledCode(code);
               } catch (e) {
                 console.error(e);
+                setError(e);
+                return;
               }
+              setError(null);
             }}
           />
         </div>
