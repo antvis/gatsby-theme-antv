@@ -1,3 +1,5 @@
+@editor-height: 520px;
+
 .playground {
   margin: 0;
   padding: 0;
@@ -7,7 +9,7 @@
 
   .preview,
   .editor {
-    height: 520px;
+    height: @editor-height;
     box-sizing: content-box;
   }
 
@@ -21,6 +23,7 @@
   .editor {
     flex: 1.5;
     overflow: hidden;
+    height: 100%;
 
     .toolbar {
       height: 32px;
@@ -30,17 +33,20 @@
     }
 
     .codemirror {
-      height: 100%;
       overflow: hidden;
+      height: 100%;
 
       :global(.react-codemirror2) {
         height: 100%;
         overflow: hidden;
+        box-sizing: content-box;
+
+        * {
+          box-sizing: content-box;
+        }
       }
 
       :global(.CodeMirror-scroll) {
-        box-sizing: content-box;
-        padding-top: 16px;
         padding-bottom: 32px;
         margin-right: -32px;
       }
@@ -48,8 +54,8 @@
       :global(.CodeMirror) {
         background-image: none;
         line-height: 1.5;
-        height: calc(100% - 32px);
-        padding: 0 16px;
+        height: calc(@editor-height - 32px);
+        padding: 16px;
       }
     }
   }

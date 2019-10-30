@@ -46,7 +46,9 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     `;
     playpround!.current!.appendChild(script);
     return () => {
-      playpround!.current!.innerHTML = '<div id="container" />';
+      if (playpround && playpround.current) {
+        playpround.current.innerHTML = '<div id="container" />';
+      }
     };
   }, [compiledCode]);
   return (
