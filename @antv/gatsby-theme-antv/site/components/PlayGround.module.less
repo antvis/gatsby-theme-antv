@@ -6,11 +6,12 @@
   border: 1px solid #efefef;
   border-radius: 4px;
   display: flex;
+  background: #fff;
+  height: @editor-height;
 
   .preview,
   .editor {
-    height: @editor-height;
-    box-sizing: content-box;
+    height: 100%;
   }
 
   .preview {
@@ -32,6 +33,16 @@
       width: 100%;
       padding: 0 16px;
       text-align: right;
+      color: #777;
+
+      > * {
+        display: inline-block;
+        margin-left: 2px;
+      }
+
+      :global(.ant-typography-copy) {
+        color: #777;
+      }
     }
 
     .codemirror {
@@ -58,8 +69,8 @@
       :global(.CodeMirror) {
         background-image: none;
         line-height: 1.6;
-        height: calc(@editor-height - 32px);
-        padding: 16px;
+        padding: 8px 16px;
+        height: calc(100% - 54px);
       }
     }
   }
