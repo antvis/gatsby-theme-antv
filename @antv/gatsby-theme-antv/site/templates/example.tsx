@@ -252,14 +252,8 @@ export const pageQuery = graphql`
       edges {
         node {
           html
-          tableOfContents
           fields {
             slug
-            langKey
-            readingTime {
-              text
-              time
-            }
           }
           frontmatter {
             title

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import { Typography, Icon, Tooltip } from 'antd';
 import {
@@ -36,11 +36,13 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
   const [currentSourceCode, updateCurrentSourceCode] = useState(source);
 
-  // @ts-ignore
-  window.__reportErrorInPlayGround = useCallback((e: Error) => {
-    console.error(e);
-    setError(e);
-  });
+  if (typeof window !== 'undefined') {
+    // @ts-ignore
+    window.__reportErrorInPlayGround = (e: Error) => {
+      console.error(e);
+      setError(e);
+    };
+  }
 
   const toggleFullscreen = () => {
     updateIsFullScreen(!isFullScreen);
