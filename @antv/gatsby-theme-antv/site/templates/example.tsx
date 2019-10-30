@@ -72,7 +72,7 @@ export default function Template({
     ) {
       return location.pathname.indexOf(slug) >= 0;
     }
-    return location.pathname === slug;
+    return location.pathname === slug || location.pathname.endsWith(slug);
   });
   const {
     frontmatter,
