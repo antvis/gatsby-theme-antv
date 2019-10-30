@@ -12,7 +12,6 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
   examples = [],
   location,
 }) => {
-  console.log(examples);
   const defaultExample =
     examples.find(
       item => `#${item.filename.split('.')[0]}` === location.hash,
@@ -33,6 +32,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
               [styles.current]:
                 example.relativePath === currentExample.relativePath,
             })}
+            title={example.title || currentExample.relativePath}
           >
             <img
               src={
