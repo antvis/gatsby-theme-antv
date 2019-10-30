@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import PlayGround, { PlayGroundProps } from './PlayGround';
 import styles from './PlayGrounds.module.less';
 
@@ -7,7 +8,7 @@ interface PlayGroundsProps {
 }
 
 const PlayGrounds: React.FC<PlayGroundsProps> = ({ examples = [] }) => {
-  const [example, updateCurrentExample] = useState<PlayGroundProps>(
+  const [currentExample, updateCurrentExample] = useState<PlayGroundProps>(
     examples[0],
   );
   return (
@@ -18,18 +19,21 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({ examples = [] }) => {
             key={example.relativePath}
             onClick={() => updateCurrentExample(example)}
             role="button"
-            className={styles.card}
+            className={classNames(styles.card, {
+              [styles.current]:
+                example.relativePath === currentExample.relativePath,
+            })}
           >
             <img src={example.screenshot} alt={example.relativePath} />
           </li>
         ))}
-        <PlayGround
-          key={example.relativePath}
-          relativePath={example.relativePath}
-          source={example.source}
-          babeledSource={example.babeledSource}
-        />
       </ul>
+      <PlayGround
+        key={currentExample.relativePath}
+        relativePath={currentExample.relativePath}
+        source={currentExample.source}
+        babeledSource={currentExample.babeledSource}
+      />
     </div>
   );
 };

@@ -55,34 +55,39 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   }, [compiledCode]);
   return (
     <div className={styles.playground}>
-      {error ? (
-        <Result
-          status="error"
-          title="演示代码报错，请检查"
-          subTitle={error && error.message}
+      <div className={styles.preview}>
+        {error ? (
+          <Result
+            status="error"
+            title="演示代码报错，请检查"
+            subTitle={error && error.message}
+          />
+        ) : (
+          <div ref={playpround} />
+        )}
+      </div>
+      <div className={styles.editor}>
+        <div className={styles.toolbar} />
+        <CodeMirror
+          value={source}
+          options={{
+            mode: 'javascript',
+            theme: 'mdn-like',
+          }}
+          onBeforeChange={(_: any, __: any, value: string) => {
+            try {
+              const { code } = transform(value, {
+                filename: relativePath,
+                presets: ['react', 'typescript', 'es2015', 'stage-3'],
+                plugins: ['transform-modules-umd'],
+              });
+              updateCompiledCode(code);
+            } catch (e) {
+              console.error(e);
+            }
+          }}
         />
-      ) : (
-        <div ref={playpround} />
-      )}
-      <CodeMirror
-        value={source}
-        options={{
-          mode: 'javascript',
-          theme: 'mdn-like',
-        }}
-        onBeforeChange={(_: any, __: any, value: string) => {
-          try {
-            const { code } = transform(value, {
-              filename: relativePath,
-              presets: ['react', 'typescript', 'es2015', 'stage-3'],
-              plugins: ['transform-modules-umd'],
-            });
-            updateCompiledCode(code);
-          } catch (e) {
-            console.error(e);
-          }
-        }}
-      />
+      </div>
     </div>
   );
 };
