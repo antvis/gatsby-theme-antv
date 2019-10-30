@@ -143,6 +143,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         source,
         babeledSource: code,
         order: order || 0,
+        filename: path.basename(item.relativePath),
         ...demoInfo,
       };
     });
@@ -158,9 +159,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     };
     if (isExamplePage) {
       let exampleRootSlug = slug;
-      if (/\/examples\/.*\/API$/.test(location.pathname)) {
+      if (/\/examples\/.*\/API$/.test(slug)) {
         exampleRootSlug = exampleRootSlug.replace(/\/API$/, '');
-      } else if (/\/examples\/.*\/design$/.test(location.pathname)) {
+      } else if (/\/examples\/.*\/design$/.test(slug)) {
         exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
       }
       const design = posts.find(({ node }) => {
