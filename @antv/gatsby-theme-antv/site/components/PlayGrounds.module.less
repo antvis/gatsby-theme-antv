@@ -6,6 +6,8 @@
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
+    padding: 1px;
+    margin-bottom: 12px;
   }
 
   .card {
@@ -15,7 +17,24 @@
     margin: 0 16px 0 0;
     cursor: pointer;
     padding: 0;
-    overflow: hidden;
+    position: relative;
+    border: 1px solid #efefef;
+    border-radius: 2px;
+    transition: all 0.3s;
+
+    &:after {
+      transition: all 0.3s;
+      background-color: transparent;
+      border: 2px solid transparent;
+      border-radius: 4px;
+      content: '';
+      position: absolute;
+      z-index: 10;
+      top: -2px;
+      bottom: -2px;
+      right: -2px;
+      left: -2px;
+    }
 
     img {
       display: block;
@@ -24,6 +43,11 @@
 
     &:last-child {
       margin-right: 0;
+    }
+
+    &.current::after {
+      background-color: rgba(24, 144, 255, 0.1);
+      border-color: #1890ff;
     }
   }
 }
