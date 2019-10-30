@@ -37,18 +37,14 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     const script = document.createElement('script');
     script.innerHTML = `
       try {
-        setTimeout(function() {
-          ${compiledCode}
-        }, 0);
+        ${compiledCode}
       } catch(e) {
         if (window.__reportErrorInPlayGround) {
           window.__reportErrorInPlayGround(e);
         }
       }
     `;
-    setTimeout(() => {
-      playpround!.current!.appendChild(script);
-    }, 0);
+    playpround!.current!.appendChild(script);
     return () => {
       playpround!.current!.innerHTML = '<div id="container" />';
     };
@@ -68,25 +64,27 @@ const PlayGround: React.FC<PlayGroundProps> = ({
       </div>
       <div className={styles.editor}>
         <div className={styles.toolbar} />
-        <CodeMirror
-          value={source}
-          options={{
-            mode: 'javascript',
-            theme: 'mdn-like',
-          }}
-          onBeforeChange={(_: any, __: any, value: string) => {
-            try {
-              const { code } = transform(value, {
-                filename: relativePath,
-                presets: ['react', 'typescript', 'es2015', 'stage-3'],
-                plugins: ['transform-modules-umd'],
-              });
-              updateCompiledCode(code);
-            } catch (e) {
-              console.error(e);
-            }
-          }}
-        />
+        <div className={styles.codemirror}>
+          <CodeMirror
+            value={source}
+            options={{
+              mode: 'javascript',
+              theme: 'mdn-like',
+            }}
+            onChange={(_: any, __: any, value: string) => {
+              try {
+                const { code } = transform(value, {
+                  filename: relativePath,
+                  presets: ['react', 'typescript', 'es2015', 'stage-3'],
+                  plugins: ['transform-modules-umd'],
+                });
+                updateCompiledCode(code);
+              } catch (e) {
+                console.error(e);
+              }
+            }}
+          />
+        </div>
       </div>
     </div>
   );
