@@ -78,8 +78,12 @@ export default function Template({
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
-      <AntLayout style={{ background: '#fff' }} hasSider>
-        <AntLayout.Sider width={280} theme="light">
+      <AntLayout
+        style={{ background: '#fff' }}
+        hasSider
+        className={styles.layout}
+      >
+        <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
           <Menu
             mode="inline"
             selectedKeys={[slug]}
