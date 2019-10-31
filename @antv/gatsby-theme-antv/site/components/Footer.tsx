@@ -155,4 +155,12 @@ export default ({
       <a href="https://xtech.antfin.com/">AFX</a>
     </div>
   ),
-}) => <Footer columns={columns} bottom={bottom} className={styles.footer} />;
+  theme = 'dark' as 'dark',
+}) => (
+  <Footer
+    theme={theme}
+    columns={columns}
+    bottom={bottom}
+    className={styles.footer}
+  />
+);

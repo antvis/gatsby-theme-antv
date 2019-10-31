@@ -82,8 +82,9 @@ const Layout = () => {
         defaultLanguage="zh"
       />
       <Footer
-      // columns={[]}
-      // bottom={<div>powered by antv</div>}
+        theme="dark" // or light
+        // columns={[]}
+        // bottom={<div>powered by antv</div>}
       />
     </>
   );
