@@ -104,16 +104,20 @@ const PlayGround: React.FC<PlayGroundProps> = ({
           <CodeMirror
             value={source}
             options={{
-              mode: 'javascript',
+              mode: 'jsx',
               theme: 'mdn-like',
-              indentUnit: 2, // 缩进单位为 2
-              styleActiveLine: { nonEmpty: true }, // 当前行背景高亮
+              tabSize: 2,
+              styleActiveLine: true, // 当前行背景高亮
               matchBrackets: true, // 括号匹配
               autoCloseBrackets: true,
               autofocus: false,
               matchTags: {
                 bothTags: true,
               },
+            }}
+            cursor={{
+              line: -1,
+              ch: -1,
             }}
             onChange={(_: any, __: any, value: string) => {
               updateCurrentSourceCode(value);

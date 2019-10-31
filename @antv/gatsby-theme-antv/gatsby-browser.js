@@ -6,6 +6,8 @@
 
 // You can delete this file if you're not using it
 import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/jsx/jsx';
+import 'codemirror/mode/htmlembedded/htmlembedded';
 import 'codemirror/addon/selection/active-line';
 import 'codemirror/addon/edit/matchbrackets';
 import 'codemirror/addon/edit/closebrackets';
