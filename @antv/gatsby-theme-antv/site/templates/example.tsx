@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { graphql, Link } from 'gatsby';
 import { Layout as AntLayout, Menu, Icon, Tooltip } from 'antd';
 import { groupBy } from 'lodash-es';
-import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Article from '../components/Article';
 import SEO from '../components/Seo';
+import Tabs from '../components/Tabs';
 import PlayGrounds from '../components/PlayGrounds';
 import styles from './markdown.module.less';
-import exampleStyles from './example.module.less';
 
 const renderMenuItems = (edges: any[]) =>
   edges.map((edge: any) => {
@@ -93,7 +92,7 @@ export default function Template({
       .join('/'),
   );
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
-  let activeTab = 'examples';
+  let activeTab = 'examples' as 'examples' | 'API' | 'design';
   let exampleRootSlug = slug;
   if (/\/examples\/.*\/API$/.test(location.pathname)) {
     activeTab = 'API';
@@ -172,29 +171,7 @@ export default function Template({
               </Tooltip>
             </h1>
             <div dangerouslySetInnerHTML={{ __html: html }} />
-            <ul className={exampleStyles.tabs}>
-              <li
-                className={classNames({
-                  [exampleStyles.active]: activeTab === 'examples',
-                })}
-              >
-                <Link to={exampleRootSlug}>{t('代码演示')}</Link>
-              </li>
-              <li
-                className={classNames({
-                  [exampleStyles.active]: activeTab === 'API',
-                })}
-              >
-                <Link to={`${exampleRootSlug}/API`}>API</Link>
-              </li>
-              <li
-                className={classNames({
-                  [exampleStyles.active]: activeTab === 'design',
-                })}
-              >
-                <Link to={`${exampleRootSlug}/design`}>{t('设计指引')}</Link>
-              </li>
-            </ul>
+            <Tabs slug={exampleRootSlug} active={activeTab} />
             {exampleSections.examples && (
               <div
                 style={{ display: activeTab === 'examples' ? 'block' : 'none' }}

@@ -14,11 +14,14 @@ ul.tabs {
     display: inline-block;
     line-height: 1;
     cursor: pointer;
-    color: #697b8c;
     transition: all 0.3s;
     border-bottom: 2px solid transparent;
 
-    &:hover {
+    a {
+      color: #697b8c;
+    }
+
+    &:hover a {
       color: #274057;
     }
 
@@ -27,11 +30,14 @@ ul.tabs {
     }
 
     &.active {
-      color: @primary-color;
-      border-color: @primary-color;
+      border-color: @blue-6;
 
-      &:hover {
-        color: @primary-color;
+      a {
+        color: @blue-6;
+      }
+
+      &:hover a {
+        color: @blue-6;
       }
     }
   }
