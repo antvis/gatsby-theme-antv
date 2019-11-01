@@ -24,7 +24,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
           <li
             key={example.relativePath}
             onClick={() => {
-              window.location.hash = currentExample.filename.split('.')[0];
+              window.location.hash = example.filename.split('.')[0];
               updateCurrentExample(example);
             }}
             role="button"
