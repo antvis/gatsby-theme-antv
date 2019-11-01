@@ -110,13 +110,17 @@ export default function Template({
     const {
       fields: { slug },
     } = edge.node;
+    const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
     if (
-      /\/examples\/.*\/API$/.test(location.pathname) ||
-      /\/examples\/.*\/design$/.test(location.pathname)
+      /\/examples\/.*\/API$/.test(pathWithoutTrailingSlashes) ||
+      /\/examples\/.*\/design$/.test(pathWithoutTrailingSlashes)
     ) {
-      return location.pathname.indexOf(slug) >= 0;
+      return pathWithoutTrailingSlashes.indexOf(slug) >= 0;
     }
-    return location.pathname === slug || location.pathname.endsWith(slug);
+    return (
+      pathWithoutTrailingSlashes === slug ||
+      pathWithoutTrailingSlashes.endsWith(slug)
+    );
   });
   const {
     frontmatter,
@@ -308,7 +312,6 @@ export const pageQuery = graphql`
           }
           frontmatter {
             title
-            icon
             order
           }
           parent {
