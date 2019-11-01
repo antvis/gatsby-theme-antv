@@ -43,7 +43,14 @@ module.exports = ({
         resolve: 'gatsby-plugin-copy-files',
         options: {
           source: path.resolve('./examples/data'),
-          destination: `./data`,
+          destination: `zh/examples/data`,
+        },
+      },
+      {
+        resolve: 'gatsby-plugin-copy-files',
+        options: {
+          source: path.resolve('./examples/data'),
+          destination: `en/examples/data`,
         },
       },
       {
