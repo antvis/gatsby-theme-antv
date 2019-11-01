@@ -84,7 +84,6 @@ export default function Template({
         .join('/'),
   );
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
-  console.log(openKeys);
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
