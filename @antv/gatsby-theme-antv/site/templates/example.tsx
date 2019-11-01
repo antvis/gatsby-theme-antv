@@ -14,27 +14,49 @@ const MenuIcon = Icon.createFromIconfontCN({
 });
 
 const renderMenuItems = (edges: any[]) =>
-  edges.map((edge: any) => {
-    const {
-      node: {
-        frontmatter: { title, icon },
-        fields: { slug },
-      },
-    } = edge;
-    if (slug.endsWith('/API') || slug.endsWith('/design')) {
-      return null;
-    }
-    return (
-      <Menu.Item key={slug}>
-        <Link to={slug}>
-          {icon && (
-            <MenuIcon className={styles.menuIcon} type={`icon-${icon}`} />
-          )}
-          <span>{title}</span>
-        </Link>
-      </Menu.Item>
-    );
-  });
+  edges
+    .filter((edge: any) => {
+      const {
+        node: {
+          fields: { slug },
+        },
+      } = edge;
+      if (slug.endsWith('/API') || slug.endsWith('/design')) {
+        return false;
+      }
+      return true;
+    })
+    .sort((a: any, b: any) => {
+      const {
+        node: {
+          frontmatter: { order: aOrder },
+        },
+      } = a;
+      const {
+        node: {
+          frontmatter: { order: bOrder },
+        },
+      } = b;
+      return aOrder - bOrder;
+    })
+    .map((edge: any) => {
+      const {
+        node: {
+          frontmatter: { title, icon },
+          fields: { slug },
+        },
+      } = edge;
+      return (
+        <Menu.Item key={slug}>
+          <Link to={slug}>
+            {icon && (
+              <MenuIcon className={styles.menuIcon} type={`icon-${icon}`} />
+            )}
+            <span>{title}</span>
+          </Link>
+        </Menu.Item>
+      );
+    });
 
 const getMenuItemLocaleKey = (slug: string = '') => {
   const slugPieces = slug.split('/');
@@ -58,7 +80,7 @@ const getExampleOrder = ({
 }): number => {
   const key = getMenuItemLocaleKey(groupedEdgeKey);
   if (examples.find(item => item.slug === key)) {
-    return examples.find(item => item.slug === key).order || 0;
+    return (examples.findIndex(item => item.slug === key) || 0) + 100;
   }
   if (!groupedEdges[groupedEdgeKey] && !groupedEdges[groupedEdgeKey].length) {
     return 0;
@@ -270,7 +292,6 @@ export const pageQuery = graphql`
             zh
             en
           }
-          order
         }
       }
       pathPrefix

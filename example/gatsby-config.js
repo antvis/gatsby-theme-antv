@@ -64,7 +64,6 @@ module.exports = {
           zh: '饼图分类',
           en: 'Category',
         },
-        order: 2,
       },
     ],
   },
