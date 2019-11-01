@@ -13,7 +13,7 @@
   },
   "scripts": {
     "build": "npm run clean && gatsby build --prefix-paths --no-uglify",
-    "develop": "npm run clean && gatsby develop",
+    "develop": "npm run clean && gatsby develop -H 0.0.0.0",
     "clean": "gatsby clean"
   },
   "dependencies": {
