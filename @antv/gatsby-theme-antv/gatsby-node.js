@@ -149,8 +149,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   posts.forEach(({ node }, index) => {
     const { slug } = node.fields;
-    const prev = index === 0 ? false : posts[index - 1].node;
-    const next = index === posts.length - 1 ? false : posts[index + 1].node;
+    const prev = index === 0 ? null : posts[index - 1].node;
+    const next = index === posts.length - 1 ? null : posts[index + 1].node;
     const isExamplePage =
       slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`);
     const context = {
