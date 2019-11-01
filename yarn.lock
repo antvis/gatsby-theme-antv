@@ -6306,7 +6306,7 @@ fs-exists-cached@1.0.0, fs-exists-cached@^1.0.0:
   resolved "https://registry.npmjs.org/fs-exists-cached/-/fs-exists-cached-1.0.0.tgz#cf25554ca050dc49ae6656b41de42258989dcbce"
   integrity sha1-zyVVTKBQ3EmuZla0HeQiWJidy84=
 
-fs-extra@^4.0.2:
+fs-extra@^4.0.0, fs-extra@^4.0.2:
   version "4.0.3"
   resolved "https://registry.npmjs.org/fs-extra/-/fs-extra-4.0.3.tgz#0d852122e5bc5beb453fb028e9c0c9bf36340c94"
   integrity sha512-q6rbdDd1o2mAnQreO7YADIxf/Whx4AHBiRf6d+/cVT8h44ss+lHgxf1FemcqDnQt9X3ct4McHr+JMGlYSsK7Cg==
@@ -6485,6 +6485,13 @@ gatsby-plugin-catch-links@^2.1.12:
   dependencies:
     "@babel/runtime" "^7.6.3"
     escape-string-regexp "^1.0.5"
+
+gatsby-plugin-copy-files@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.npm.taobao.org/gatsby-plugin-copy-files/download/gatsby-plugin-copy-files-1.0.3.tgz#391fb465324c3709a6b433fb2d4990a37f2a7dce"
+  integrity sha1-OR+0ZTJMNwmmtDP7LUmQo38qfc4=
+  dependencies:
+    fs-extra "^4.0.0"
 
 gatsby-plugin-google-analytics@^2.1.16:
   version "2.1.23"

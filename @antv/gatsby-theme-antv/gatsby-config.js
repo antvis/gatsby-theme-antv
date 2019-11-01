@@ -40,6 +40,13 @@ module.exports = ({
         },
       },
       {
+        resolve: 'gatsby-plugin-copy-files',
+        options: {
+          source: path.resolve('./examples/data'),
+          destination: `./data`,
+        },
+      },
+      {
         resolve: 'gatsby-plugin-i18n',
         options: {
           langKeyDefault: 'zh',
