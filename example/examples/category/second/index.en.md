@@ -1,7 +1,6 @@
 ---
-title: Component
-order: 0
-icon: column
+title: Component Two
+order: 1
 ---
 
 Description about this component.

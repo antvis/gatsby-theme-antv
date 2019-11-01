@@ -36,6 +36,7 @@ exports.onPreBootstrap = ({ store, reporter }) => {
     path.join(program.directory, 'docs'),
     path.join(program.directory, 'site'),
     path.join(program.directory, 'examples'),
+    path.join(program.directory, 'examples/data'),
     path.join(program.directory, 'site/images'),
   ];
 
@@ -173,9 +174,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         return postSlug === `${exampleRootSlug}/API`;
       });
       const examples = allDemos
-        .filter(item =>
-          `${exampleRootSlug}/demo`.endsWith(path.dirname(item.relativePath)),
-        )
+        .filter(item => {
+          return `${exampleRootSlug}/demo`.endsWith(
+            path.join('examples', path.dirname(item.relativePath)),
+          );
+        })
         .sort((a, b) => a.order - b.order);
       context.exampleSections = {
         examples,

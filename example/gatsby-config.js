@@ -56,5 +56,16 @@ module.exports = {
         redirect: 'basic',
       },
     ],
+    examples: [
+      {
+        slug: 'examples/category',
+        icon: 'pie',
+        title: {
+          zh: '饼图分类',
+          en: 'Category',
+        },
+        order: 2,
+      },
+    ],
   },
 };

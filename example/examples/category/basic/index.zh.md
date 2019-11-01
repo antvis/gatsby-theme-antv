@@ -1,7 +1,6 @@
 ---
-title: 图表演示
+title: 分类里的图表演示
 order: 0
-icon: column
 ---
 
 图表的基本描述。

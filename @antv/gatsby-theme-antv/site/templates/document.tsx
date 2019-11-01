@@ -29,13 +29,13 @@ const shouldBeShown = (slug: string, path: string) => {
   return slugPieces[0] === pathPieces[0];
 };
 
-const getMenuItemlocaleKey = (slug: string = '') => {
+const getMenuItemLocaleKey = (slug: string = '') => {
   const slugPieces = slug.split('/');
-  const menuItemlocaleKey = slugPieces
+  const menuItemLocaleKey = slugPieces
     .slice(slugPieces.indexOf('docs') + 1)
     .filter(key => key)
     .join('/');
-  return menuItemlocaleKey;
+  return menuItemLocaleKey;
 };
 
 const getDocument = (docs: any[], slug: string = '') => {
@@ -62,19 +62,29 @@ export default function Template({
     parent: { relativePath },
   } = markdownRemark;
   const { edges = [] } = allMarkdownRemark;
+  const edgesInDocs = edges.filter((item: any) =>
+    item.node.fields.slug.includes('/docs/'),
+  );
   const {
     siteMetadata: { docs, githubUrl },
     pathPrefix,
   } = site;
   const path = location.pathname.replace(pathPrefix, '');
   const { t, i18n } = useTranslation();
-  const groupedEdges = groupBy(edges, ({ node: { fields: { slug } } }: any) =>
-    slug
-      .split('/')
-      .slice(0, -1)
-      .join('/'),
+  const groupedEdges = groupBy(
+    edgesInDocs,
+    ({
+      node: {
+        fields: { slug },
+      },
+    }: any) =>
+      slug
+        .split('/')
+        .slice(0, -1)
+        .join('/'),
   );
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
+  console.log(openKeys);
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -94,8 +104,8 @@ export default function Template({
             {Object.keys(groupedEdges)
               .filter(key => key.startsWith(`/${i18n.language}/`))
               .sort((a: string, b: string) => {
-                const aKey = getMenuItemlocaleKey(a);
-                const bKey = getMenuItemlocaleKey(b);
+                const aKey = getMenuItemLocaleKey(a);
+                const bKey = getMenuItemLocaleKey(b);
                 const aDoc = getDocument(docs, aKey);
                 const bDoc = getDocument(docs, bKey);
                 if (aDoc && bDoc) {
@@ -111,15 +121,15 @@ export default function Template({
                 if (slugPieces.length <= 4) {
                   return renderMenuItems(groupedEdges[slug]);
                 } else {
-                  const menuItemlocaleKey = getMenuItemlocaleKey(slug);
-                  const doc = getDocument(docs, menuItemlocaleKey);
+                  const menuItemLocaleKey = getMenuItemLocaleKey(slug);
+                  const doc = getDocument(docs, menuItemLocaleKey);
                   return (
                     <Menu.SubMenu
                       key={slug}
                       title={
                         doc && doc.title
                           ? doc.title[i18n.language]
-                          : menuItemlocaleKey
+                          : menuItemLocaleKey
                       }
                     >
                       {renderMenuItems(groupedEdges[slug])}

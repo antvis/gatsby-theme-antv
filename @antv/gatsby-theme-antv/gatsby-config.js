@@ -12,6 +12,7 @@ module.exports = ({
       description: `Ant Visualization solution home page`,
       githubUrl: 'https://github.com/antvis/gatsby-theme-antv',
       docs: [],
+      examples: [],
     },
     plugins: [
       `gatsby-plugin-react-helmet`,
