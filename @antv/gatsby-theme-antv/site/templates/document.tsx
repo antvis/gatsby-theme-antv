@@ -66,7 +66,7 @@ export default function Template({
     item.node.fields.slug.includes('/docs/'),
   );
   const {
-    siteMetadata: { docs, githubUrl },
+    siteMetadata: { docs = [], githubUrl },
     pathPrefix,
   } = site;
   const path = location.pathname.replace(pathPrefix, '');

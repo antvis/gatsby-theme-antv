@@ -233,29 +233,32 @@ exports.sourceNodes = ({ actions, schema }) => {
     }
 
     type SiteSiteMetadataDocs implements Node {
-      slug: String
-      title: SiteSiteMetadataTitle
+      slug: String!
+      title: SiteSiteMetadataTitle!
       order: Int
     }
 
     type SiteSiteMetadataExamples implements Node {
-      slug: String
+      slug: String!
+      title: SiteSiteMetadataTitle!
       icon: String
-      title: SiteSiteMetadataTitle
       order: Int
     }
 
     type SiteSiteMetadataNavs implements Node {
+      slug: String!
+      title: SiteSiteMetadataTitle!
       redirect: String
       target: String
-      slug: String
-      title: SiteSiteMetadataTitle
     }
 
     type SiteSiteMetadata implements Node {
-      navs: [SiteSiteMetadataNavs]!
-      docs: [SiteSiteMetadataDocs]!
-      examples: [SiteSiteMetadataExamples]!
+      title: String!
+      description: String!
+      githubUrl: String!
+      navs: [SiteSiteMetadataNavs]
+      docs: [SiteSiteMetadataDocs]
+      examples: [SiteSiteMetadataExamples]
     }
 
     type Site implements Node {

@@ -129,7 +129,7 @@ export default function Template({
     parent: { relativePath },
   } = markdownRemark;
   const {
-    siteMetadata: { examples, githubUrl },
+    siteMetadata: { examples = [], githubUrl },
   } = site;
   const { t, i18n } = useTranslation();
   const groupedEdges = groupBy(

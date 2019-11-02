@@ -48,7 +48,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   `;
   const { site } = useStaticQuery(query);
   const {
-    siteMetadata: { title, navs, githubUrl },
+    siteMetadata: { title, navs = [], githubUrl },
   } = site;
   const pathPrefix = withPrefix('/').replace(/\/$/, '');
   const path = location.pathname.replace(pathPrefix, '');
