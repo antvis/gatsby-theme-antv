@@ -69,7 +69,10 @@ export default function Template({
     siteMetadata: { docs = [], githubUrl },
     pathPrefix,
   } = site;
-  const path = location.pathname.replace(pathPrefix, '');
+  const pathWithoutPrefix = location.pathname.replace(
+    new RegExp(`^${pathPrefix}`),
+    '',
+  );
   const { t, i18n } = useTranslation();
   const groupedEdges = groupBy(
     edgesInDocs,
@@ -113,7 +116,7 @@ export default function Template({
                 return 0;
               })
               .map(slug => {
-                if (!shouldBeShown(slug, path)) {
+                if (!shouldBeShown(slug, pathWithoutPrefix)) {
                   return null;
                 }
                 const slugPieces = slug.split('/');
