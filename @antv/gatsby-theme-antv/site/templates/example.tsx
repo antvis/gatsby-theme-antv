@@ -61,7 +61,7 @@ const renderMenuItems = (edges: any[]) =>
 const getMenuItemLocaleKey = (slug: string = '') => {
   const slugPieces = slug.split('/');
   const menuItemLocaleKey = slugPieces
-    .slice(slugPieces.indexOf('examples'))
+    .slice(slugPieces.indexOf('examples') + 1)
     .filter(key => key)
     .join('/');
   return menuItemLocaleKey;
