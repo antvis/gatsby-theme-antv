@@ -15,7 +15,6 @@ export interface Nav {
   title: {
     [key: string]: string;
   };
-  redirect?: string;
   target?: '_blank';
 }
 
@@ -29,10 +28,9 @@ const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
   return (
     <>
       {navs.map((nav: Nav, i) => {
-        const prefix = `/${i18n.language}/${nav.slug}`;
-        const href = `${prefix}${nav.redirect ? `/${nav.redirect}` : ''}`;
+        const href = `/${i18n.language}/${nav.slug}`;
         const className = classNames({
-          [styles.activeItem]: path.startsWith(prefix),
+          [styles.activeItem]: path.startsWith(href),
         });
         return (
           <li key={i} className={className}>

@@ -219,6 +219,7 @@ exports.sourceNodes = ({ actions, schema }) => {
     type MarkdownRemarkFrontmatter {
       icon: String
       order: Int
+      redirect_from: [String]
     }
 
     type MarkdownRemark implements Node {
@@ -248,7 +249,6 @@ exports.sourceNodes = ({ actions, schema }) => {
     type SiteSiteMetadataNavs implements Node {
       slug: String!
       title: SiteSiteMetadataTitle!
-      redirect: String
       target: String
     }
 

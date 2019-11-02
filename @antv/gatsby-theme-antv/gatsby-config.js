@@ -190,5 +190,8 @@ module.exports = ({
     });
   }
 
+  config.plugins.push('gatsby-redirect-from');
+  config.plugins.push('gatsby-plugin-meta-redirect');
+
   return config;
 };

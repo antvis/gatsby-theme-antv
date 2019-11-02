@@ -39,7 +39,6 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
               zh
               en
             }
-            redirect
             target
           }
         }

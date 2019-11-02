@@ -18,7 +18,6 @@ module.exports = {
           zh: '设计语言',
           en: 'Specification',
         },
-        redirect: 'getting-started',
       },
       {
         slug: 'docs/other',
@@ -26,7 +25,6 @@ module.exports = {
           zh: '其他文档',
           en: 'other',
         },
-        redirect: 'getting-started',
       },
       {
         slug: 'examples',
@@ -34,7 +32,6 @@ module.exports = {
           zh: '图表演示',
           en: 'Examples',
         },
-        redirect: 'basic',
       },
       {
         slug: 'independent',
