@@ -11,6 +11,7 @@ module.exports = ({
       title: `AntV`,
       description: `Ant Visualization solution home page`,
       githubUrl: 'https://github.com/antvis/gatsby-theme-antv',
+      navs: [],
       docs: [],
       examples: [],
     },

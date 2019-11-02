@@ -33,13 +33,12 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         siteMetadata {
           title
           githubUrl
-          docs {
+          navs {
             slug
             title {
               zh
               en
             }
-            order
             redirect
           }
         }
@@ -48,7 +47,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   `;
   const { site } = useStaticQuery(query);
   const {
-    siteMetadata: { title, docs, githubUrl },
+    siteMetadata: { title, navs, githubUrl },
   } = site;
   const pathPrefix = withPrefix('/').replace(/\/$/, '');
   const path = location.pathname.replace(pathPrefix, '');
@@ -68,7 +67,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         subTitle={pathPrefix === '' ? '' : title}
         path={path}
         pathPrefix={pathPrefix}
-        docs={docs}
+        navs={navs}
         githubUrl={githubUrl}
         Link={Link}
       />

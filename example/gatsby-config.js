@@ -11,16 +11,40 @@ module.exports = {
     title: 'AntV test site',
     description: 'Ant Visualization solution home page',
     githubUrl: 'https://github.com/antvis/antvis.github.io',
-    docs: [
+    navs: [
       {
-        slug: 'specification',
+        slug: 'docs/specification',
         title: {
           zh: '设计语言',
           en: 'Specification',
         },
-        order: 0,
         redirect: 'getting-started',
       },
+      {
+        slug: 'docs/other',
+        title: {
+          zh: '其他文档',
+          en: 'other',
+        },
+        redirect: 'getting-started',
+      },
+      {
+        slug: 'examples',
+        title: {
+          zh: '图表演示',
+          en: 'Examples',
+        },
+        redirect: 'basic',
+      },
+      {
+        slug: 'independent',
+        title: {
+          zh: '独立',
+          en: 'MyApp',
+        },
+      },
+    ],
+    docs: [
       {
         slug: 'specification/category',
         title: {
@@ -30,15 +54,6 @@ module.exports = {
         order: 1,
       },
       {
-        slug: 'other',
-        title: {
-          zh: '其他文档',
-          en: 'other',
-        },
-        order: 0,
-        redirect: 'getting-started',
-      },
-      {
         slug: 'other/category',
         title: {
           zh: '分类二',
@@ -46,19 +61,10 @@ module.exports = {
         },
         order: 2,
       },
-      {
-        slug: 'examples',
-        title: {
-          zh: '图表演示',
-          en: 'Examples',
-        },
-        order: 100,
-        redirect: 'basic',
-      },
     ],
     examples: [
       {
-        slug: 'examples/category',
+        slug: 'category',
         icon: 'pie',
         title: {
           zh: '饼图分类',

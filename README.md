@@ -7,7 +7,6 @@
 [![devDependencies Status](https://david-dm.org/antvis/gatsby-theme-antv/dev-status.svg?style=flat-square&path=@antv/gatsby-theme-antv)](https://david-dm.org/antvis/gatsby-theme-antv?type=dev&path=@antv/gatsby-theme-antv)
 ![prettier code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
-
 ## Usage
 
 ✨ AntV 站点[接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442)
@@ -38,7 +37,7 @@ module.exports = {
     title: `AntV`,
     description: `Ant Visualization solution home page`,
     githubUrl: repository.url,
-    docs: [
+    navs: [
       {
         slug: 'specification',
         title: {
@@ -49,6 +48,8 @@ module.exports = {
         redirect: 'getting-started',
       },
     ],
+    docs: [],
+    examples: [],
   },
 };
 ```
