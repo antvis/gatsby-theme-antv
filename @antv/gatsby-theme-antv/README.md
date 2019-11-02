@@ -7,6 +7,11 @@
 [![devDependencies Status](https://david-dm.org/antvis/gatsby-theme-antv/dev-status.svg?style=flat-square&path=@antv/gatsby-theme-antv)](https://david-dm.org/antvis/gatsby-theme-antv?type=dev&path=@antv/gatsby-theme-antv)
 ![prettier code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
+## How to Usage it
+
+- ✨ AntV 站点 [接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442)
+- 参考例子: https://github.com/antvis/gatsby-theme-antv/tree/master/example
+
 ## Usage
 
 ```bash
@@ -35,7 +40,7 @@ module.exports = {
     title: `AntV`,
     description: `Ant Visualization solution home page`,
     githubUrl: repository.url,
-    docs: [
+    navs: [
       {
         slug: 'specification',
         title: {
@@ -46,13 +51,19 @@ module.exports = {
         redirect: 'getting-started',
       },
     ],
+    docs: [],
+    examples: [],
   },
 };
 ```
 
-Sample repository: https://github.com/antvis/antvis.github.io
+[navs/docs/examples props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/NavMenuItems.tsx#L12-L20)
 
 ## Components
+
+- [Header Props](https://github.com/antvis/gatsby-theme-antv/blob/master/%40antv/gatsby-theme-antv/site/components/Header.tsx#L13-L39)
+- [Footer Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Footer.tsx#L149-L159)
+- [SEO Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Seo.tsx#L12-L17)
 
 ```jsx
 import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
@@ -82,9 +93,8 @@ const Layout = () => {
         defaultLanguage="zh"
       />
       <Footer
-        theme="dark" // or light
-        // columns={[]}
-        // bottom={<div>powered by antv</div>}
+      // columns={[]}
+      // bottom={<div>powered by antv</div>}
       />
     </>
   );
