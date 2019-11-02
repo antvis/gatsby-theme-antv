@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next';
 import { Popover, Select } from 'antd';
 import Search from './Search';
 import Products from './Products';
-import DocsMenuItems from './DocsMenuItems';
+import NavMenuItems from './NavMenuItems';
 import styles from './Header.module.less';
 
 const { Option } = Select;
 
-export interface Doc {
+export interface Nav {
   slug: string;
   order: number;
   title: {
@@ -25,7 +25,7 @@ interface HeaderProps {
   /** 子标题 */
   subTitle?: React.ReactNode;
   /** 文档和演示的菜单数据 */
-  docs?: Doc[];
+  navs?: Nav[];
   /** 是否显示搜索框 */
   showSearch?: boolean;
   /** 是否显示搜索框 */
@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({
   subTitle = '',
   pathPrefix = '',
   path = '',
-  docs = [],
+  navs = [],
   showSearch = true,
   showGithubCorner = true,
   showLanguageSwitcher = true,
@@ -106,8 +106,8 @@ const Header: React.FC<HeaderProps> = ({
       </div>
       <nav className={styles.nav}>
         <ul className={styles.menu}>
-          {docs && docs.length ? (
-            <DocsMenuItems docs={docs} path={path} />
+          {navs && navs.length ? (
+            <NavMenuItems navs={navs} path={path} />
           ) : null}
           <li>
             <Popover
