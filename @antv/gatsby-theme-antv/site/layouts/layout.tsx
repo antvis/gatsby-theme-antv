@@ -40,6 +40,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
               en
             }
             redirect
+            target
           }
         }
       }
@@ -57,7 +58,10 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     lng: currentLangKey,
   });
 
-  if (location.pathname === pathPrefix) {
+  if (
+    location.pathname === pathPrefix ||
+    (children && children.type && (children as any).type.noLayout)
+  ) {
     return children;
   }
 

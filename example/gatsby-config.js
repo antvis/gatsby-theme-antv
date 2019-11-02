@@ -42,6 +42,7 @@ module.exports = {
           zh: '独立',
           en: 'MyApp',
         },
+        // target: '_blank',
       },
     ],
     docs: [
