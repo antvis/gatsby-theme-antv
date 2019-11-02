@@ -209,3 +209,57 @@ exports.onCreateWebpackConfig = ({ actions, getConfig, stage, plugins }) => {
     }),
   ];
 };
+
+// 补充默认值
+// https://stackoverflow.com/questions/50770217/how-to-give-gatsby-a-graphql-schema
+// https://graphql.org/learn/schema/
+exports.sourceNodes = ({ actions, schema }) => {
+  const { createTypes } = actions;
+  createTypes(`
+    type MarkdownRemarkFrontmatter {
+      icon: String
+      order: Int
+    }
+
+    type MarkdownRemark implements Node {
+      frontmatter: MarkdownRemarkFrontmatter
+    }
+  `);
+
+  createTypes(`
+    type SiteSiteMetadataTitle implements Node {
+      zh: String
+      en: String
+    }
+
+    type SiteSiteMetadataDocs implements Node {
+      slug: String
+      title: SiteSiteMetadataTitle
+      order: Int
+    }
+
+    type SiteSiteMetadataExamples implements Node {
+      slug: String
+      icon: String
+      title: SiteSiteMetadataTitle
+      order: Int
+    }
+
+    type SiteSiteMetadataNavs implements Node {
+      redirect: String
+      target: String
+      slug: String
+      title: SiteSiteMetadataTitle
+    }
+
+    type SiteSiteMetadata implements Node {
+      navs: [SiteSiteMetadataNavs]!
+      docs: [SiteSiteMetadataDocs]!
+      examples: [SiteSiteMetadataExamples]!
+    }
+
+    type Site implements Node {
+      siteMetadata: SiteSiteMetadata
+    }
+  `);
+};

@@ -313,6 +313,7 @@ export const pageQuery = graphql`
           frontmatter {
             title
             order
+            icon
           }
           parent {
             ... on File {
