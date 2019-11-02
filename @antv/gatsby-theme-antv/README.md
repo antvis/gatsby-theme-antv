@@ -7,7 +7,7 @@
 [![devDependencies Status](https://david-dm.org/antvis/gatsby-theme-antv/dev-status.svg?style=flat-square&path=@antv/gatsby-theme-antv)](https://david-dm.org/antvis/gatsby-theme-antv?type=dev&path=@antv/gatsby-theme-antv)
 ![prettier code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
-## How to Usage it
+## How to Usage d
 
 - ✨ AntV 站点 [接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442)
 - 参考例子: https://github.com/antvis/gatsby-theme-antv/tree/master/example
@@ -40,23 +40,16 @@ module.exports = {
     title: `AntV`,
     description: `Ant Visualization solution home page`,
     githubUrl: repository.url,
-    navs: [
-      {
-        slug: 'specification',
-        title: {
-          zh: '设计语言',
-          en: 'Specification',
-        },
-        redirect: 'getting-started',
-      },
-    ],
-    docs: [],
-    examples: [],
+    navs: [], // 用于定义顶部菜单
+    docs: [], // 用于定义文档页面的二级分类菜单
+    examples: [], // 用于定义演示页面的二级菜单，属性见下方
   },
 };
 ```
 
-[navs/docs/examples props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/NavMenuItems.tsx#L12-L20)
+- `navs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/72638a8be44f84b7afc6c2294fb7814eb13cff56/%40antv/gatsby-theme-antv/gatsby-node.js#L248)
+- `docs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/72638a8be44f84b7afc6c2294fb7814eb13cff56/%40antv/gatsby-theme-antv/gatsby-node.js#L235)
+- `examples`: [props](https://github.com/antvis/gatsby-theme-antv/blob/72638a8be44f84b7afc6c2294fb7814eb13cff56/%40antv/gatsby-theme-antv/gatsby-node.js#L241)
 
 ## Components
 
