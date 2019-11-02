@@ -5,19 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { Popover, Select } from 'antd';
 import Search from './Search';
 import Products from './Products';
-import NavMenuItems from './NavMenuItems';
+import NavMenuItems, { Nav } from './NavMenuItems';
 import styles from './Header.module.less';
 
 const { Option } = Select;
-
-export interface Nav {
-  slug: string;
-  order: number;
-  title: {
-    [key: string]: string;
-  };
-  redirect?: string;
-}
 
 interface HeaderProps {
   pathPrefix?: string;

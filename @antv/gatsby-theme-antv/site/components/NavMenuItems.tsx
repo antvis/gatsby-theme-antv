@@ -2,13 +2,22 @@ import React from 'react';
 import { Link } from 'gatsby';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { Nav } from './Header';
 import styles from './Header.module.less';
 
 const getDocument = (navs: Nav[], slug: string = '') =>
   navs.find(doc => doc.slug === slug) || {
     title: {} as { [key: string]: string },
   };
+
+export interface Nav {
+  slug: string;
+  order: number;
+  title: {
+    [key: string]: string;
+  };
+  redirect?: string;
+  target?: '_blank';
+}
 
 interface NavMenuItemsProps {
   navs: Nav[];
@@ -27,9 +36,15 @@ const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
         });
         return (
           <li key={i} className={className}>
-            <Link to={href}>
-              {getDocument(navs, nav.slug).title[i18n.language]}
-            </Link>
+            {nav.target === '_blank' ? (
+              <a href={href} target="_blank">
+                {getDocument(navs, nav.slug).title[i18n.language]}
+              </a>
+            ) : (
+              <Link to={href}>
+                {getDocument(navs, nav.slug).title[i18n.language]}
+              </Link>
+            )}
           </li>
         );
       })}

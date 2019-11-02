@@ -6,4 +6,6 @@ const Indepent = () => {
   return <>{t('独立页面')}</>;
 };
 
+Indepent.noLayout = true;
+
 export default Indepent;
