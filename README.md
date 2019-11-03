@@ -1,4 +1,4 @@
-# Gatsby Theme for AntV 📈
+# Gatsby Theme for AntV ⚛
 
 [![](https://flat.badgen.net/npm/v/@antv/gatsby-theme-antv?icon=npm)](https://www.npmjs.com/package/@antv/gatsby-theme-antv)
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/gatsby-theme-antv.svg?style=flat-square)](http://npmjs.com/@antv/gatsby-theme-antv)
@@ -7,7 +7,7 @@
 [![devDependencies Status](https://david-dm.org/antvis/gatsby-theme-antv/dev-status.svg?style=flat-square&path=@antv/gatsby-theme-antv)](https://david-dm.org/antvis/gatsby-theme-antv?type=dev&path=@antv/gatsby-theme-antv)
 ![prettier code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
-## How to Usage d
+## How to use it for AntV
 
 - ✨ AntV 站点 [接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442)
 - 参考例子: https://github.com/antvis/gatsby-theme-antv/tree/master/example
@@ -40,8 +40,8 @@ module.exports = {
     title: `AntV`,
     description: `Ant Visualization solution home page`,
     githubUrl: repository.url,
-    navs: [],     // 用于定义顶部菜单
-    docs: [],     // 用于定义文档页面的二级分类菜单
+    navs: [], // 用于定义顶部菜单
+    docs: [], // 用于定义文档页面的二级分类菜单
     examples: [], // 用于定义演示页面的二级菜单，属性见下方
   },
 };
