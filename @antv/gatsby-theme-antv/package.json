@@ -1,7 +1,7 @@
 {
   "name": "@antv/gatsby-theme-antv",
   "description": "Ant Visualization solution home page",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "author": "AntV Team <antv@antfin.com>",
   "keywords": [
     "gatsby",
@@ -23,16 +23,7 @@
     "@babel/preset-typescript": "^7.6.0",
     "@babel/standalone": "^7.6.4",
     "@hot-loader/react-dom": "^16.9.0+4.12.11",
-    "@testing-library/jest-dom": "^4.1.0",
-    "@testing-library/react": "^9.1.4",
-    "@types/classnames": "^2.2.9",
-    "@types/jest": "^24.0.18",
-    "@types/lodash-es": "^4.17.3",
-    "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.0",
-    "@types/react-helmet": "^5.0.10",
     "antd": "^3.23.3",
-    "babel-jest": "^24.9.0",
     "babel-preset-gatsby": "^0.2.13",
     "classnames": "^2.2.6",
     "codemirror": "^5.49.2",
@@ -65,8 +56,6 @@
     "gatsby-transformer-remark": "^2.6.24",
     "gatsby-transformer-sharp": "^2.2.14",
     "i18next": "^19.0.0",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.9.0",
     "less": "^3.10.3",
     "lodash-es": "^4.17.15",
     "mkdirp": "^0.5.1",
@@ -83,8 +72,6 @@
     "react-github-corner": "^2.3.0",
     "react-helmet": "^5.2.1",
     "react-i18next": "^11.0.0",
-    "react-test-renderer": "^16.9.0",
-    "ts-jest": "^24.1.0",
     "typescript": "^3.6.3"
   },
   "license": "MIT",
@@ -101,6 +88,19 @@
     "access": "public"
   },
   "devDependencies": {
-    "np": "^5.1.2"
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.1.4",
+    "@types/classnames": "^2.2.9",
+    "@types/jest": "^24.0.18",
+    "@types/lodash-es": "^4.17.3",
+    "@types/react": "^16.9.2",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-helmet": "^5.0.10",
+    "babel-jest": "^24.9.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
+    "np": "^5.1.2",
+    "react-test-renderer": "^16.9.0",
+    "ts-jest": "^24.1.0"
   }
 }
