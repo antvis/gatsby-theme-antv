@@ -8,11 +8,13 @@ import styles from './PlayGrounds.module.less';
 interface PlayGroundsProps {
   examples: PlayGroundProps[];
   location: Location;
+  exampleContainer?: string;
 }
 
 const PlayGrounds: React.FC<PlayGroundsProps> = ({
   examples = [],
   location,
+  exampleContainer,
 }) => {
   const { i18n } = useTranslation();
   const defaultExample =
@@ -63,6 +65,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
         source={currentExample.source}
         babeledSource={currentExample.babeledSource}
         filename={currentExample.filename}
+        exampleContainer={exampleContainer}
       />
     </div>
   );

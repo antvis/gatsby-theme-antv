@@ -133,6 +133,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           '@babel/preset-env',
         ],
         plugins: ['@babel/plugin-transform-modules-umd'],
+        babelrc: true,
       });
       const order = (meta.demos || []).findIndex(
         ({ filename }) => filename === path.basename(item.relativePath),
@@ -259,6 +260,7 @@ exports.sourceNodes = ({ actions, schema }) => {
       docs: [SiteSiteMetadataDocs]
       examples: [SiteSiteMetadataExamples]
       showLanguageSwitcher: Boolean
+      exampleContainer: String
     }
 
     type Site implements Node {

@@ -129,7 +129,7 @@ export default function Template({
     parent: { relativePath },
   } = markdownRemark;
   const {
-    siteMetadata: { examples = [], githubUrl },
+    siteMetadata: { examples = [], githubUrl, exampleContainer },
   } = site;
   const { t, i18n } = useTranslation();
   const groupedEdges = groupBy(
@@ -267,6 +267,11 @@ export default function Template({
                 <PlayGrounds
                   examples={exampleSections.examples}
                   location={location}
+                  exampleContainer={
+                    typeof exampleContainer === null
+                      ? undefined
+                      : exampleContainer
+                  }
                 />
               </div>
             )}
@@ -307,6 +312,7 @@ export const pageQuery = graphql`
             en
           }
         }
+        exampleContainer
       }
       pathPrefix
     }

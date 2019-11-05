@@ -21,12 +21,14 @@ export interface PlayGroundProps {
   recommended?: boolean;
   filename: string;
   title?: string;
+  exampleContainer?: string;
 }
 
 const PlayGround: React.FC<PlayGroundProps> = ({
   source,
   babeledSource,
   relativePath,
+  exampleContainer,
 }) => {
   const { t } = useTranslation();
   const fullscreenNode = useRef<HTMLDivElement>(null);
@@ -59,7 +61,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     if (!compiledCode || !playpround || !playpround.current) {
       return;
     }
-    playpround.current.innerHTML = '<div id="container" />';
+    playpround.current.innerHTML = exampleContainer || '<div id="container" />';
     const script = document.createElement('script');
     script.innerHTML = `
       try {
