@@ -49,9 +49,9 @@ module.exports = {
 };
 ```
 
-- `navs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/72638a8be44f84b7afc6c2294fb7814eb13cff56/%40antv/gatsby-theme-antv/gatsby-node.js#L248)
-- `docs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/72638a8be44f84b7afc6c2294fb7814eb13cff56/%40antv/gatsby-theme-antv/gatsby-node.js#L235)
-- `examples`: [props](https://github.com/antvis/gatsby-theme-antv/blob/72638a8be44f84b7afc6c2294fb7814eb13cff56/%40antv/gatsby-theme-antv/gatsby-node.js#L241)
+- `navs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/aa8cdd7e24e965174cbe7173a841fd7d23537e52/%40antv/gatsby-theme-antv/gatsby-node.js#L242-L264)
+- `docs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/aa8cdd7e24e965174cbe7173a841fd7d23537e52/%40antv/gatsby-theme-antv/gatsby-node.js#L242-L264)
+- `examples`: [props](https://github.com/antvis/gatsby-theme-antv/blob/aa8cdd7e24e965174cbe7173a841fd7d23537e52/%40antv/gatsby-theme-antv/gatsby-node.js#L242-L264)
 
 ## Components
 
