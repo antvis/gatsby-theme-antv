@@ -15,6 +15,8 @@ interface HeaderProps {
   path?: string;
   /** 子标题 */
   subTitle?: React.ReactNode;
+  /** 子标题的链接 */
+  subTitleHref?: string;
   /** 文档和演示的菜单数据 */
   navs?: Nav[];
   /** 是否显示搜索框 */
@@ -40,6 +42,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({
   subTitle = '',
+  subTitleHref,
   pathPrefix = '',
   path = '',
   navs = [],
@@ -66,15 +69,15 @@ const Header: React.FC<HeaderProps> = ({
     typeof defaultLanguage !== 'undefined'
       ? defaultLanguage
       : i18n.language || '';
-  const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
+  const HeaderLink = (link || '').startsWith('http') ? 'a' : Link;
   return (
     <header className={styles.header}>
       <div className={styles.left}>
         <h1>
           {React.createElement(
-            LogoLink,
+            HeaderLink,
             {
-              [LogoLink === 'a' ? 'href' : 'to']: link || `/${lang}`,
+              [HeaderLink === 'a' ? 'href' : 'to']: `/${lang}`,
             },
             img,
           )}
@@ -84,9 +87,12 @@ const Header: React.FC<HeaderProps> = ({
             <span className={styles.divider} />
             <h2 className={styles.subProduceName}>
               {React.createElement(
-                Link,
+                HeaderLink,
                 {
-                  [Link === 'a' ? 'href' : 'to']: `/${lang}`,
+                  [HeaderLink === 'a' ? 'href' : 'to']:
+                    typeof subTitleHref === 'undefined'
+                      ? `/${lang}`
+                      : subTitleHref,
                 },
                 subTitle,
               )}
