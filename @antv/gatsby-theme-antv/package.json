@@ -86,6 +86,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
+    "version": "git add package.json",
     "compile:components": "rm -rf .tmp components && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && mv .tmp/@antv/gatsby-theme-antv/site/components components && cp site/components/*.less ./components",
     "prepublishOnly": "npm run compile:components && np --yolo --no-publish",
     "test": "jest"
