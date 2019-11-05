@@ -89,7 +89,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
             subTitle={<pre>{error && error.message}</pre>}
           />
         ) : (
-          <div ref={playpround} />
+          <div ref={playpround} className={styles.exampleContainerWrapper} />
         )}
       </div>
       <div className={styles.editor}>

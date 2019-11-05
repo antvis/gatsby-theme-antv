@@ -68,6 +68,6 @@ module.exports = {
         },
       },
     ],
-    exampleContainer: '<canvas id="container" class="ok" />',
+    exampleContainer: '<div id="container" class="ok" />',
   },
 };
