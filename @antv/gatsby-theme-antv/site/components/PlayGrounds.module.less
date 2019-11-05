@@ -1,13 +1,40 @@
 .container {
   margin: 0;
 
+  .shadowWrapper {
+    position: relative;
+    margin-bottom: 16px;
+    overflow: hidden;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      height: 100%;
+      box-shadow: none;
+      width: 1px;
+      transition: all 0.3s;
+    }
+
+    &.rightInnerShadow::after {
+      right: -1px;
+      box-shadow: -1px 0px 6px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    &.leftInnerShadow::before {
+      left: -1px;
+      box-shadow: 1px 0px 6px 3px rgba(0, 0, 0, 0.2);
+    }
+  }
+
   .cards {
     max-width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
     white-space: nowrap;
+    font-size: 0;
     padding: 1px;
-    margin-bottom: 12px;
   }
 
   .card {
