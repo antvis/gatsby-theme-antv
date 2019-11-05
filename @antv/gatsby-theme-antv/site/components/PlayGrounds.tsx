@@ -15,7 +15,6 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
   location,
 }) => {
   const { i18n } = useTranslation();
-  console.log(i18n.language);
   const defaultExample =
     examples.find(
       item => `#${item.filename.split('.')[0]}` === location.hash,
@@ -25,7 +24,6 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
     <div className={styles.container}>
       <ul className={styles.cards}>
         {examples.map(example => {
-          console.log(example.title);
           const title =
             typeof example.title === 'object'
               ? example.title[i18n.language]
