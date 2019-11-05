@@ -33,6 +33,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         siteMetadata {
           title
           githubUrl
+          showLanguageSwitcher
           navs {
             slug
             title {
@@ -47,7 +48,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   `;
   const { site } = useStaticQuery(query);
   const {
-    siteMetadata: { title, navs = [], githubUrl },
+    siteMetadata: { title, navs = [], githubUrl, showLanguageSwitcher },
   } = site;
   const pathPrefix = withPrefix('/').replace(/\/$/, '');
   const path = location.pathname.replace(pathPrefix, '');
@@ -73,6 +74,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         navs={navs}
         githubUrl={githubUrl}
         Link={Link}
+        showLanguageSwitcher={showLanguageSwitcher === null ? undefined : showLanguageSwitcher}
       />
       <main className={styles.main}>{children}</main>
       <Footer />

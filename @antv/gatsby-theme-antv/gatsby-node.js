@@ -258,6 +258,7 @@ exports.sourceNodes = ({ actions, schema }) => {
       navs: [SiteSiteMetadataNavs]
       docs: [SiteSiteMetadataDocs]
       examples: [SiteSiteMetadataExamples]
+      showLanguageSwitcher: Boolean
     }
 
     type Site implements Node {
