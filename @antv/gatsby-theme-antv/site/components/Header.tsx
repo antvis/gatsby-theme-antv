@@ -67,15 +67,16 @@ const Header: React.FC<HeaderProps> = ({
     typeof defaultLanguage !== 'undefined'
       ? defaultLanguage
       : i18n.language || '';
-  const HeaderLink = (link || '').startsWith('http') ? 'a' : Link;
+  const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
+  const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
   return (
     <header className={styles.header}>
       <div className={styles.left}>
         <h1>
           {React.createElement(
-            HeaderLink,
+            LogoLink,
             {
-              [HeaderLink === 'a' ? 'href' : 'to']: link || `/${lang}`,
+              [LogoLink === 'a' ? 'href' : 'to']: link || `/${lang}`,
             },
             img,
           )}
@@ -85,9 +86,9 @@ const Header: React.FC<HeaderProps> = ({
             <span className={styles.divider} />
             <h2 className={styles.subProduceName}>
               {React.createElement(
-                HeaderLink,
+                SubTitleLink,
                 {
-                  [HeaderLink === 'a' ? 'href' : 'to']:
+                  [SubTitleLink === 'a' ? 'href' : 'to']:
                     typeof subTitleHref === 'undefined'
                       ? `/${lang}`
                       : subTitleHref,
