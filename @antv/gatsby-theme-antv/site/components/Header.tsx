@@ -2,13 +2,11 @@ import { navigate } from 'gatsby';
 import React from 'react';
 import GithubCorner from 'react-github-corner';
 import { useTranslation } from 'react-i18next';
-import { Popover, Select } from 'antd';
+import { Popover } from 'antd';
 import Search from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
 import styles from './Header.module.less';
-
-const { Option } = Select;
 
 interface HeaderProps {
   pathPrefix?: string;
@@ -126,29 +124,30 @@ const Header: React.FC<HeaderProps> = ({
               <a>{t('生态')}</a>
             </Popover>
           </li>
+          {showLanguageSwitcher && (
+            <li>
+              <a
+                onClick={e => {
+                  e.preventDefault();
+                  const value = lang === 'en' ? 'zh' : 'en';
+                  if (onLanguageChange) {
+                    return onLanguageChange(value);
+                  }
+                  if (path.endsWith(`/${lang}`)) {
+                    return navigate(`/${value}`);
+                  }
+                  navigate(
+                    path
+                      .replace(pathPrefix, '')
+                      .replace(`/${lang}/`, `/${value}/`),
+                  );
+                }}
+              >
+                {t('English')}
+              </a>
+            </li>
+          )}
         </ul>
-        {showLanguageSwitcher && (
-          <Select
-            size="small"
-            style={{ width: 92, fontSize: 12 }}
-            dropdownMatchSelectWidth={false}
-            value={lang}
-            onChange={(value: string) => {
-              if (onLanguageChange) {
-                return onLanguageChange(value);
-              }
-              if (path.endsWith(`/${lang}`)) {
-                return navigate(`/${value}`);
-              }
-              navigate(
-                path.replace(pathPrefix, '').replace(`/${lang}/`, `/${value}/`),
-              );
-            }}
-          >
-            <Option value="zh">🇨🇳 中文</Option>
-            <Option value="en">🇺🇸 English</Option>
-          </Select>
-        )}
         {showGithubCorner && (
           <span className={styles.githubCorner}>
             <GithubCorner href={githubUrl} size={64} />
