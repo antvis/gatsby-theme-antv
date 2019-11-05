@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({
           {React.createElement(
             HeaderLink,
             {
-              [HeaderLink === 'a' ? 'href' : 'to']: `/${lang}`,
+              [HeaderLink === 'a' ? 'href' : 'to']: link || `/${lang}`,
             },
             img,
           )}

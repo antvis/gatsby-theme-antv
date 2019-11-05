@@ -161,7 +161,7 @@ export default function Template({
                 </a>
               </Tooltip>
             </h1>
-            <div>
+            <div className={styles.meta}>
               <ReadingTime readingTime={readingTime} />
             </div>
             <div dangerouslySetInnerHTML={{ __html: html }} />
