@@ -23,7 +23,7 @@
     "@babel/preset-typescript": "^7.6.0",
     "@babel/standalone": "^7.6.4",
     "@hot-loader/react-dom": "^16.9.0+4.12.11",
-    "antd": "^3.23.3",
+    "antd": "^3.25.0",
     "babel-preset-gatsby": "^0.2.13",
     "classnames": "^2.2.6",
     "codemirror": "^5.49.2",
