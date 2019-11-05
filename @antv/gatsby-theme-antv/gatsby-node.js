@@ -133,7 +133,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           '@babel/preset-env',
         ],
         plugins: ['@babel/plugin-transform-modules-umd'],
-        babelrc: true,
+        babelrc: false,
       });
       const order = (meta.demos || []).findIndex(
         ({ filename }) => filename === path.basename(item.relativePath),
