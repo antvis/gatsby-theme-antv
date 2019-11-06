@@ -267,7 +267,7 @@ export default function Template({
                 <PlayGrounds
                   examples={exampleSections.examples}
                   location={location}
-                  playground={typeof playground === null ? {} : playground}
+                  playground={playground || {}}
                 />
               </div>
             )}
