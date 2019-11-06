@@ -18,7 +18,7 @@ i18n
     },
   });
 
-export default function witProvider<T>(
+export default function withProvider<T>(
   Element: React.ComponentType<T>,
 ): React.ComponentType<T> {
   return function(props) {
