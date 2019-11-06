@@ -52,6 +52,14 @@ module.exports = {
         order: 3,
       },
       {
+        slug: 'specification/category/three',
+        title: {
+          zh: '第三层',
+          en: 'three level',
+        },
+        order: 1,
+      },
+      {
         slug: 'other/category',
         title: {
           zh: '分类二',

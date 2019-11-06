@@ -48,6 +48,9 @@ const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
     const categoryKey = getMenuItemLocaleKey(key);
     const category = getDocument(docs, categoryKey, level);
     if (!category) {
+      if (categoryKey.split('/').length !== level + 1) {
+        return;
+      }
       edges.forEach((edge: any) => {
         const {
           node: {
@@ -63,6 +66,12 @@ const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
         });
       });
     } else {
+      const subGroupedEdges = {} as any;
+      Object.keys(groupedEdges).forEach((item: string) => {
+        if (item.startsWith(key)) {
+          subGroupedEdges[item] = groupedEdges[item];
+        }
+      });
       results.push({
         type: 'SubMenu',
         title:
@@ -72,9 +81,7 @@ const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
         slug: key,
         order: category.order || 0,
         children: getMenuData({
-          groupedEdges: {
-            [key]: groupedEdges[key],
-          },
+          groupedEdges: subGroupedEdges,
           language,
           docs,
           level: level + 1,
@@ -161,7 +168,6 @@ export default function Template({
   const [openKeys, setOpenKeys] = useState<string[]>(
     Object.keys(filterGroupedEdges).filter(key => slug.startsWith(key)),
   );
-  console.log(openKeys);
 
   const menuData = getMenuData({
     groupedEdges: filterGroupedEdges,
