@@ -36,7 +36,7 @@ const getDocument = (docs: any[], slug: string = '', level: number) => {
 interface MenuData {
   type: 'SubMenu' | 'Item';
   title: string;
-  slug?: string;
+  slug: string;
   order?: number;
   children?: MenuData[];
 }
@@ -69,6 +69,7 @@ const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
           category.title && category.title[language]
             ? category.title[language]
             : categoryKey,
+        slug: key,
         order: category.order || 0,
         children: getMenuData({
           groupedEdges: {
@@ -84,17 +85,18 @@ const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
   return results.sort((a: any, b: any) => a.order - b.order);
 };
 
-const renderMenu = menuData => {
+const renderMenu = (menuData: MenuData[]) => {
   return menuData.map((item: MenuData) => {
     if (item.type === 'Item') {
       return (
         <Menu.Item key={item.slug}>
-          <Link to={item.slug || ''}>{item.title}</Link>
+          <Link to={item.slug}>{item.title}</Link>
         </Menu.Item>
       );
     } else if (item.type === 'SubMenu') {
       return (
-        item.children && (
+        item.children &&
+        item.children.length > 0 && (
           <Menu.SubMenu key={item.slug} title={item.title}>
             {renderMenu(item.children)}
           </Menu.SubMenu>
@@ -148,7 +150,6 @@ export default function Template({
         .slice(0, -1)
         .join('/'),
   );
-  const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
 
   const filterGroupedEdges = {} as any;
   Object.keys(groupedEdges)
@@ -156,6 +157,12 @@ export default function Template({
     .forEach((key: string) => {
       filterGroupedEdges[key] = groupedEdges[key];
     });
+
+  const [openKeys, setOpenKeys] = useState<string[]>(
+    Object.keys(filterGroupedEdges),
+  );
+  console.log(openKeys);
+
   const menuData = getMenuData({
     groupedEdges: filterGroupedEdges,
     language: i18n.language,
