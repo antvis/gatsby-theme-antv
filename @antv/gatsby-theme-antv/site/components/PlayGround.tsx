@@ -51,6 +51,22 @@ const execute = debounce(
   500,
 );
 
+if (typeof window !== 'undefined') {
+  window.addEventListener(
+    'unhandledrejection',
+    (event: PromiseRejectionEvent) => {
+      // @ts-ignore
+      if (window.__reportErrorInPlayGround) {
+        // @ts-ignore
+        window.__reportErrorInPlayGround(event.reason);
+      }
+    },
+    {
+      once: true,
+    },
+  );
+}
+
 const PlayGround: React.FC<PlayGroundProps> = ({
   source,
   babeledSource,
@@ -169,20 +185,27 @@ const PlayGround: React.FC<PlayGroundProps> = ({
 
 class ErrorHandlerPlayGround extends React.Component<
   PlayGroundProps & WithTranslation,
-  { hasError: boolean }
+  { error?: Error }
 > {
   state = {
-    hasError: false,
+    error: undefined,
   };
-  static getDerivedStateFromError() {
+  static getDerivedStateFromError(error: Error) {
     // 更新 state 使下一次渲染能够显示降级后的 UI
-    return { hasError: true };
+    return { error };
   }
   render() {
     const { t } = this.props;
-    if (this.state.hasError) {
+    const { error } = this.state;
+    if (error) {
       // 你可以自定义降级后的 UI 并渲染
-      return <Result status="error" title={t('演示代码报错，请检查')} />;
+      return (
+        <Result
+          status="error"
+          title={t('演示代码报错，请检查')}
+          subTitle={<pre>{error && (error as any).message}</pre>}
+        />
+      );
     }
     return <PlayGround {...this.props} />;
   }
