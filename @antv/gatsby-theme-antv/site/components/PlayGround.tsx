@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useCallback } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import { Typography, Icon, Tooltip } from 'antd';
 import debounce from 'lodash/debounce';
@@ -22,11 +22,19 @@ export interface PlayGroundProps {
   recommended?: boolean;
   filename: string;
   title?: string;
-  exampleContainer?: string;
+  playground?: {
+    container?: string;
+    playgroundDidMount?: string;
+    playgroundWillUnmount?: string;
+  };
 }
 
 const execute = debounce(
-  (code: string, node: HTMLDivElement, exampleContainer) => {
+  (
+    code: string,
+    node: HTMLDivElement,
+    exampleContainer: string | undefined,
+  ) => {
     node.innerHTML = exampleContainer || '<div id="container" />';
     const script = document.createElement('script');
     script.innerHTML = `
@@ -47,7 +55,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   source,
   babeledSource,
   relativePath,
-  exampleContainer,
+  playground = {},
 }) => {
   const { t } = useTranslation();
   const fullscreenNode = useRef<HTMLDivElement>(null);
@@ -80,8 +88,20 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     if (!compiledCode || !playpround || !playpround.current) {
       return;
     }
-    execute(compiledCode, playpround.current, exampleContainer);
+    execute(compiledCode, playpround.current, playground.container);
   }, [compiledCode, error]);
+
+  useEffect(() => {
+    if (playground.playgroundDidMount) {
+      new Function(playground.playgroundDidMount)();
+    }
+    return () => {
+      if (playground.playgroundWillUnmount) {
+        new Function(playground.playgroundWillUnmount)();
+      }
+    };
+  }, []);
+
   return (
     <div className={styles.playground} ref={fullscreenNode}>
       <div className={styles.preview}>

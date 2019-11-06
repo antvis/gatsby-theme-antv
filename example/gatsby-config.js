@@ -78,6 +78,10 @@ module.exports = {
         },
       },
     ],
-    exampleContainer: '<div id="container" class="ok" />',
+    playground: {
+      container: '<div id="container" class="ok" />',
+      playgroundDidMount: 'console.log("playgroundDidMount");',
+      playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
+    },
   },
 };

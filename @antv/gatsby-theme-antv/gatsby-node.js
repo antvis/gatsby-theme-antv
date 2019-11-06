@@ -228,6 +228,12 @@ exports.sourceNodes = ({ actions, schema }) => {
   `);
 
   createTypes(`
+    type PlayGround implements Node {
+      container: String
+      playgroundDidMount: String
+      playgroundWillUnmount: String
+    }
+
     type SiteSiteMetadataTitle implements Node {
       zh: String
       en: String
@@ -260,7 +266,7 @@ exports.sourceNodes = ({ actions, schema }) => {
       docs: [SiteSiteMetadataDocs]
       examples: [SiteSiteMetadataExamples]
       showLanguageSwitcher: Boolean
-      exampleContainer: String
+      playground: PlayGround
     }
 
     type Site implements Node {
