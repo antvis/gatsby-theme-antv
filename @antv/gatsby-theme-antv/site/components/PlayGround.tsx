@@ -1,6 +1,7 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { UnControlled as CodeMirror } from 'react-codemirror2';
 import { Typography, Icon, Tooltip } from 'antd';
+import debounce from 'lodash/debounce';
 import {
   useTranslation,
   withTranslation,
@@ -23,6 +24,24 @@ export interface PlayGroundProps {
   title?: string;
   exampleContainer?: string;
 }
+
+const execute = debounce(
+  (code: string, node: HTMLDivElement, exampleContainer) => {
+    node.innerHTML = exampleContainer || '<div id="container" />';
+    const script = document.createElement('script');
+    script.innerHTML = `
+    try {
+      ${code}
+    } catch(e) {
+      if (window.__reportErrorInPlayGround) {
+        window.__reportErrorInPlayGround(e);
+      }
+    }
+  `;
+    node!.appendChild(script);
+  },
+  500,
+);
 
 const PlayGround: React.FC<PlayGroundProps> = ({
   source,
@@ -61,23 +80,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     if (!compiledCode || !playpround || !playpround.current) {
       return;
     }
-    playpround.current.innerHTML = exampleContainer || '<div id="container" />';
-    const script = document.createElement('script');
-    script.innerHTML = `
-      try {
-        ${compiledCode}
-      } catch(e) {
-        if (window.__reportErrorInPlayGround) {
-          window.__reportErrorInPlayGround(e);
-        }
-      }
-    `;
-    playpround!.current!.appendChild(script);
-    return () => {
-      if (playpround && playpround.current) {
-        playpround.current.innerHTML = '<div id="container" />';
-      }
-    };
+    execute(compiledCode, playpround.current, exampleContainer);
   }, [compiledCode, error]);
   return (
     <div className={styles.playground} ref={fullscreenNode}>
