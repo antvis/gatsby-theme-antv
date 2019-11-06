@@ -142,7 +142,7 @@ export default function Template({
           </Menu>
         </AntLayout.Sider>
         <Article className={styles.markdown}>
-          <Affix>
+          <Affix offsetTop={8} target={() => document.body}>
             <div
               className={styles.toc}
               dangerouslySetInnerHTML={{ __html: tableOfContents }}
