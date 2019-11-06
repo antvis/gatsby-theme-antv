@@ -26,12 +26,63 @@ const getMenuItemLocaleKey = (slug: string = '') => {
   return menuItemLocaleKey;
 };
 
-const getDocument = (docs: any[], slug: string = '') => {
-  return docs.find(doc => doc.slug === slug) || {};
+const getDocument = (docs: any[], slug: string = '', level: number) => {
+  if (slug.split('/').length !== level + 2) {
+    return;
+  }
+  return docs.find(doc => doc.slug === slug);
 };
 
-const isSlugFirstLevelMenuItem = (slug: string = '') =>
-  slug.split('/').length <= 4;
+interface MenuData {
+  type: 'SubMenu' | 'Item';
+  title: string;
+  slug?: string;
+  order?: number;
+  children?: MenuData[];
+}
+
+const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
+  const results = [] as MenuData[];
+  Object.keys(groupedEdges).forEach((key: string) => {
+    const edges = groupedEdges[key] || [];
+    const categoryKey = getMenuItemLocaleKey(key);
+    const category = getDocument(docs, categoryKey, level);
+    if (!category) {
+      edges.forEach((edge: any) => {
+        const {
+          node: {
+            frontmatter: { title, order },
+            fields: { slug },
+          },
+        } = edge;
+        results.push({
+          type: 'Item',
+          slug,
+          title,
+          order,
+        });
+      });
+    } else {
+      results.push({
+        type: 'SubMenu',
+        title:
+          category.title && category.title[language]
+            ? category.title[language]
+            : categoryKey,
+        order: category.order || 0,
+        children: getMenuData({
+          groupedEdges: {
+            [key]: groupedEdges[key],
+          },
+          language,
+          docs,
+          level: level + 1,
+        }),
+      });
+    }
+  });
+  return results.sort((a: any, b: any) => a.order - b.order);
+};
 
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
@@ -79,67 +130,19 @@ export default function Template({
   );
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
 
-  interface MenuData {
-    type: 'SubMenu' | 'Item';
-    title: string;
-    slug?: string;
-    order?: number;
-    children?: MenuData[];
-  }
-
-  const getMenuData = () => {
-    const results = [] as MenuData[];
+  const renderMenu = () => {
+    const filterGroupedEdges = {} as any;
     Object.keys(groupedEdges)
       .filter(key => shouldBeShown(key, pathWithoutPrefix, i18n.language))
-      .forEach(key => {
-        const edges = groupedEdges[key];
-        if (isSlugFirstLevelMenuItem(key)) {
-          edges.forEach(edge => {
-            const {
-              node: {
-                frontmatter: { title, order },
-                fields: { slug },
-              },
-            } = edge;
-            results.push({
-              type: 'Item',
-              slug,
-              title,
-              order,
-            });
-          });
-        } else {
-          const categroyKey = getMenuItemLocaleKey(key);
-          const categroy = getDocument(docs, categroyKey);
-          results.push({
-            type: 'SubMenu',
-            title:
-              categroy.title && categroy.title[i18n.language]
-                ? categroy.title[i18n.language]
-                : categroyKey,
-            order: categroy.order || 0,
-            children: edges.map(edge => {
-              const {
-                node: {
-                  frontmatter: { title, order },
-                  fields: { slug },
-                },
-              } = edge;
-              return {
-                type: 'Item',
-                slug,
-                title,
-                order,
-              };
-            }),
-          });
-        }
+      .forEach((key: string) => {
+        filterGroupedEdges[key] = groupedEdges[key];
       });
-    return results;
-  };
-
-  const renderMenu = () => {
-    console.log(getMenuData());
+    const data = getMenuData({
+      groupedEdges: filterGroupedEdges,
+      language: i18n.language,
+      docs,
+    });
+    console.log(data);
     return null;
   };
 
