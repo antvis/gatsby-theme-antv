@@ -113,7 +113,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
                       example.screenshot ||
                       'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
                     }
-                    alt={example.relativePath}
+                    alt={title || example.relativePath}
                   />
                 </li>
               </Tooltip>
