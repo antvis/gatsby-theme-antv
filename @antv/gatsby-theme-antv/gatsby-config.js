@@ -72,9 +72,15 @@ module.exports = ({
               options: {
                 // Look for local .prettierrc file.
                 // The same as `prettier.resolveConfig(process.cwd())`
-                usePrettierrc: true,
+                usePrettierrc: false,
                 // Overwrite prettier options, check out https://prettier.io/docs/en/options.html
-                prettierOptions: {},
+                prettierOptions: {
+                  endOfLine: 'lf',
+                  semi: true,
+                  singleQuote: true,
+                  tabWidth: 2,
+                  trailingComma: 'all',
+                },
               },
             },
             {
