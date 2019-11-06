@@ -56,15 +56,57 @@ module.exports = {
 - [Header Props](https://github.com/antvis/gatsby-theme-antv/blob/master/%40antv/gatsby-theme-antv/site/components/Header.tsx#L13-L39)
 - [Footer Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Footer.tsx#L149-L159)
 - [SEO Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Seo.tsx#L12-L17)
+- [BannerPage Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/BannerPage.tsx#L27-L29)
+- [AdvantagesPage Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/AdvantagesPage.tsx#L16-L19)
+- [CompaniesPage Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/CompaniesPage.tsx#L11-L14)
 
 ```jsx
 import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
 import Header from '@antv/gatsby-theme-antv/site/components/Header';
 import Footer from '@antv/gatsby-theme-antv/site/components/Footer';
+import BannerPage from '@antv/gatsby-theme-antv/site/components/BannerPage';
+import AdvantagesPage from '@antv/gatsby-theme-antv/site/components/AdvantagesPage';
+import CompaniesPage from '@antv/gatsby-theme-antv/site/components/CompaniesPage';
 
 // @antv/gatsby-theme-antv/components/Header for commonjs version
 
 const Layout = () => {
+  const advantages = [
+    {
+      index: 0,
+      icon:
+        'https://gw.alipayobjects.com/zos/basement_prod/5dbaf094-c064-4a0d-9968-76020b9f1510.svg',
+      title: 'xxxxx',
+      description: 'xxxxxxxxxxxxxxxxxxxxxxxxx',
+    },
+    {
+      index: 1,
+      icon:
+        'https://gw.alipayobjects.com/zos/basement_prod/0a0371ab-6bed-41ad-a99b-87a5044ba11b.svg',
+      title: 'xxxxx',
+      description: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    },
+    {
+      index: 2,
+      icon:
+        'https://gw.alipayobjects.com/zos/basement_prod/716d0bc0-e311-4b28-b79f-afdd16e8148e.svg',
+      title: 'xxxxx',
+      description: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    },
+  ];
+  const companies = [
+    {
+      index: 0,
+      imgSrc:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Z1NnQ6L4xCIAAAAAAAAAAABkARQnAQ',
+    },
+    {
+      index: 1,
+      imgSrc:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*6u3hTpsd7h8AAAAAAAAAAABkARQnAQ',
+    },
+    // ...
+  ];
   return (
     <>
       <SEO title="蚂蚁数据可视化" lang="zh" />
@@ -87,6 +129,18 @@ const Layout = () => {
       <Footer
       // columns={[]}
       // bottom={<div>powered by antv</div>}
+      />
+
+      <BannerPage
+        bannerSVG={<svg></svg>} // 右侧 banner svg 内容
+      />
+      <AdvantagesPage
+        title="优势页面名称" // 可不传
+        advantages={advantages} // 必传
+      />
+      <CompaniesPage
+        title="公司页面名称" // 必传
+        companies={companies} // 必传
       />
     </>
   );
