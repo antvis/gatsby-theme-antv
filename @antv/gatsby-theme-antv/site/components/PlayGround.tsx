@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { UnControlled as CodeMirror } from 'react-codemirror2';
+import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
+import { Editor } from 'codemirror';
 import { Typography, Icon, Tooltip } from 'antd';
 import debounce from 'lodash/debounce';
 import {
@@ -74,6 +75,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const { t } = useTranslation();
   const fullscreenNode = useRef<HTMLDivElement>(null);
   const playpround = useRef<HTMLDivElement>(null);
+  const cmInstance = useRef<Editor>();
   const [isFullScreen, updateIsFullScreen] = useState(false);
   const [error, setError] = useState<Error | null>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
@@ -116,9 +118,51 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     };
   }, []);
 
+  const editor = (
+    <CodeMirrorEditor
+      value={source}
+      options={{
+        mode: 'jsx',
+        theme: 'mdn-like',
+        tabSize: 2,
+        // @ts-ignore
+        styleActiveLine: true, // 当前行背景高亮
+        matchBrackets: true, // 括号匹配
+        autoCloseBrackets: true,
+        autofocus: false,
+        matchTags: {
+          bothTags: true,
+        },
+      }}
+      cursor={{
+        line: -1,
+        ch: -1,
+      }}
+      onChange={(_: any, __: any, value: string) => {
+        updateCurrentSourceCode(value);
+        try {
+          const { code } = transform(value, {
+            filename: relativePath,
+            presets: ['react', 'typescript', 'es2015', 'stage-3'],
+            plugins: ['transform-modules-umd'],
+          });
+          updateCompiledCode(code);
+        } catch (e) {
+          console.error(e);
+          setError(e);
+          return;
+        }
+        setError(null);
+      }}
+      editorDidMount={editor => {
+        cmInstance.current = editor;
+      }}
+    />
+  );
+
   return (
     <div className={styles.playground} ref={fullscreenNode}>
-      <SplitPane split="vertical" minSize={400} defaultSize="calc(50% + 100px)">
+      <SplitPane split="vertical" defaultSize="58%" minSize={100}>
         <div className={styles.preview}>
           {error ? (
             <Result
@@ -140,43 +184,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
             </Tooltip>
             <Paragraph copyable={{ text: currentSourceCode }} />
           </div>
-          <div className={styles.codemirror}>
-            <CodeMirror
-              value={source}
-              options={{
-                mode: 'jsx',
-                theme: 'mdn-like',
-                tabSize: 2,
-                styleActiveLine: true, // 当前行背景高亮
-                matchBrackets: true, // 括号匹配
-                autoCloseBrackets: true,
-                autofocus: false,
-                matchTags: {
-                  bothTags: true,
-                },
-              }}
-              cursor={{
-                line: -1,
-                ch: -1,
-              }}
-              onChange={(_: any, __: any, value: string) => {
-                updateCurrentSourceCode(value);
-                try {
-                  const { code } = transform(value, {
-                    filename: relativePath,
-                    presets: ['react', 'typescript', 'es2015', 'stage-3'],
-                    plugins: ['transform-modules-umd'],
-                  });
-                  updateCompiledCode(code);
-                } catch (e) {
-                  console.error(e);
-                  setError(e);
-                  return;
-                }
-                setError(null);
-              }}
-            />
-          </div>
+          <div className={styles.codemirror}>{editor}</div>
         </div>
       </SplitPane>
     </div>

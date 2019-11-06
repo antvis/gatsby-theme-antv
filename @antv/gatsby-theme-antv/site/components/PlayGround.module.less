@@ -71,8 +71,17 @@
         line-height: 1.5;
         font-size: 13px;
         padding: 8px 16px;
-        height: calc(100% - 54px);
+        height: calc(100% - 37px);
       }
+    }
+  }
+
+  // 非常关键
+  // 参考：https://codesandbox.io/s/mow7x4zyqx
+  :global {
+    .Pane1,
+    .Pane2 {
+      overflow: auto;
     }
   }
 
