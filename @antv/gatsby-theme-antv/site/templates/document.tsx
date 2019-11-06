@@ -159,7 +159,7 @@ export default function Template({
     });
 
   const [openKeys, setOpenKeys] = useState<string[]>(
-    Object.keys(filterGroupedEdges),
+    Object.keys(filterGroupedEdges).filter(key => slug.startsWith(key)),
   );
   console.log(openKeys);
 
