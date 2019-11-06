@@ -88,7 +88,8 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "version": "git add package.json",
-    "compile:components": "rm -rf .tmp components && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && mv .tmp/@antv/gatsby-theme-antv/site/components components && cp site/components/*.less ./components",
+    "cp": "mkdir -p lib && cp -R .tmp/@antv/gatsby-theme-antv/site/components lib && cp site/components/*.less ./lib/components && cp site/common.json ./lib",
+    "compile:components": "rm -rf .tmp lib && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && npm run cp",
     "prepublishOnly": "npm run compile:components && np --yolo --no-publish",
     "test": "jest"
   },
