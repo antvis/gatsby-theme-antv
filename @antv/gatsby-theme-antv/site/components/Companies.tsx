@@ -1,35 +1,27 @@
 import React from 'react';
 import { Row, Col } from 'antd';
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import styles from './CompaniesPage.module.less';
+import styles from './Companies.module.less';
 
-interface Company {
-  index?: number;
-  imgSrc: string;
-}
 interface Props {
   title: string;
-  companies: Array<Company>;
+  companies: Array<string>;
+  className: string;
+  style: object;
 }
 
-const CompaniesPage = (props: Props) => {
-  const { t } = useTranslation();
+const Companies = (props: Props) => {
   const getCompanies = () => {
-    const children = props.companies.map((company, i) => {
+    const children = props.companies.map(company => {
       return (
         <Col
-          key={i}
+          key={company}
           className={classNames(styles.company, 'gutter-row')}
           md={6}
           sm={8}
           xs={12}
         >
-          <img
-            className={styles.companyimg}
-            src={company.imgSrc}
-            alt="company-img"
-          />
+          <img className={styles.companyimg} src={company} alt="company-img" />
         </Col>
       );
     });
@@ -37,10 +29,13 @@ const CompaniesPage = (props: Props) => {
   };
 
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={classNames(styles.wrapper, props.className)}
+      style={props.style}
+    >
       <div key="content" className={styles.content}>
         <p key="title" className={styles.title}>
-          {t(props.title)}
+          {props.title}
         </p>
         <div key="slicer" className={styles.slicer} />
         <div key="companies-container" className={styles.companiesContainer}>
@@ -56,4 +51,4 @@ const CompaniesPage = (props: Props) => {
     </div>
   );
 };
-export default CompaniesPage;
+export default Companies;

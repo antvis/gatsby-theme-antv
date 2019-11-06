@@ -56,38 +56,35 @@ module.exports = {
 - [Header Props](https://github.com/antvis/gatsby-theme-antv/blob/master/%40antv/gatsby-theme-antv/site/components/Header.tsx#L13-L39)
 - [Footer Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Footer.tsx#L149-L159)
 - [SEO Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Seo.tsx#L12-L17)
-- [BannerPage Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/BannerPage.tsx#L27-L29)
-- [AdvantagesPage Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/AdvantagesPage.tsx#L16-L19)
-- [CompaniesPage Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/CompaniesPage.tsx#L11-L14)
+- [Banner Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Banner.tsx#L6-L19)
+- [Features Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Features.tsx#L10-L18)
+- [Companies Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Companies.tsx#L6-L9)
 
 ```jsx
 import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
 import Header from '@antv/gatsby-theme-antv/site/components/Header';
 import Footer from '@antv/gatsby-theme-antv/site/components/Footer';
-import BannerPage from '@antv/gatsby-theme-antv/site/components/BannerPage';
-import AdvantagesPage from '@antv/gatsby-theme-antv/site/components/AdvantagesPage';
-import CompaniesPage from '@antv/gatsby-theme-antv/site/components/CompaniesPage';
+import Banner from '@antv/gatsby-theme-antv/site/components/Banner';
+import Features from '@antv/gatsby-theme-antv/site/components/Features';
+import Companies from '@antv/gatsby-theme-antv/site/components/Companies';
 
 // @antv/gatsby-theme-antv/components/Header for commonjs version
 
 const Layout = () => {
-  const advantages = [
+  const features = [
     {
-      index: 0,
       icon:
         'https://gw.alipayobjects.com/zos/basement_prod/5dbaf094-c064-4a0d-9968-76020b9f1510.svg',
       title: 'xxxxx',
       description: 'xxxxxxxxxxxxxxxxxxxxxxxxx',
     },
     {
-      index: 1,
       icon:
         'https://gw.alipayobjects.com/zos/basement_prod/0a0371ab-6bed-41ad-a99b-87a5044ba11b.svg',
       title: 'xxxxx',
       description: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     },
     {
-      index: 2,
       icon:
         'https://gw.alipayobjects.com/zos/basement_prod/716d0bc0-e311-4b28-b79f-afdd16e8148e.svg',
       title: 'xxxxx',
@@ -95,18 +92,34 @@ const Layout = () => {
     },
   ];
   const companies = [
-    {
-      index: 0,
-      imgSrc:
-        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Z1NnQ6L4xCIAAAAAAAAAAABkARQnAQ',
-    },
-    {
-      index: 1,
-      imgSrc:
-        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*6u3hTpsd7h8AAAAAAAAAAABkARQnAQ',
-    },
+    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Z1NnQ6L4xCIAAAAAAAAAAABkARQnAQ',
+    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*6u3hTpsd7h8AAAAAAAAAAABkARQnAQ',
     // ...
   ];
+  const notifications = [
+    {
+      type: '测试',
+      title: 'G6 3.2 全新上线！',
+      date: '2019.12.04',
+    },
+  ];
+  const bannerProps = {
+    coverImage: (<svg></svg>); // 右侧 banner svg 内容
+    title: '主页标题',
+    description: '主页描述内容描述内容描述内容描述内容',
+    buttonText: '按钮文字',
+    buttonHref: '#按钮链接路径',
+    notifications: notifications, // 可传 1-2 个内容，若不传则显示 2 个默认通知
+  }
+  const featuresProps = {
+    title: "优势页面名称"; // 可不传
+    features;            // 必传
+  };
+  const companiesProps = {
+    title="公司页面名称" // 必传
+    companies // 必传
+  };
+
   return (
     <>
       <SEO title="蚂蚁数据可视化" lang="zh" />
@@ -131,16 +144,20 @@ const Layout = () => {
       // bottom={<div>powered by antv</div>}
       />
 
-      <BannerPage
-        bannerSVG={<svg></svg>} // 右侧 banner svg 内容
+      <Banner
+        {...bannerProps}
+        style ={{}}
+        className="Banner 的 className"
       />
-      <AdvantagesPage
-        title="优势页面名称" // 可不传
-        advantages={advantages} // 必传
+      <Features
+        {...featuresProps}
+        style ={{}}
+        className="Features 的 className"
       />
-      <CompaniesPage
-        title="公司页面名称" // 必传
-        companies={companies} // 必传
+      <Companies
+        {...companiesProps}
+        style ={{}}
+        className="Companies 的 className"
       />
     </>
   );
