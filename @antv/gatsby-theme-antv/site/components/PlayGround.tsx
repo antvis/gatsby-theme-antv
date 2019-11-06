@@ -35,20 +35,20 @@ const execute = debounce(
     node: HTMLDivElement,
     exampleContainer: string | undefined,
   ) => {
-    node.innerHTML = exampleContainer || '<div id="container" />';
     const script = document.createElement('script');
     script.innerHTML = `
-    try {
-      ${code}
-    } catch(e) {
-      if (window.__reportErrorInPlayGround) {
-        window.__reportErrorInPlayGround(e);
+      try {
+        ${code}
+      } catch(e) {
+        if (window.__reportErrorInPlayGround) {
+          window.__reportErrorInPlayGround(e);
+        }
       }
-    }
-  `;
+    `;
+    node.innerHTML = exampleContainer || '<div id="container" />';
     node!.appendChild(script);
   },
-  500,
+  300,
 );
 
 if (typeof window !== 'undefined') {
@@ -60,9 +60,6 @@ if (typeof window !== 'undefined') {
         // @ts-ignore
         window.__reportErrorInPlayGround(event.reason);
       }
-    },
-    {
-      once: true,
     },
   );
 }
