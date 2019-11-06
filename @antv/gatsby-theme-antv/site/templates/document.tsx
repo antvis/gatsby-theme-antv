@@ -8,22 +8,10 @@ import ReadingTime from '../components/ReadingTime';
 import SEO from '../components/Seo';
 import styles from './markdown.module.less';
 
-const renderMenuItems = (edges: any[]) =>
-  edges.map((edge: any) => {
-    const {
-      node: {
-        frontmatter: { title },
-        fields: { slug },
-      },
-    } = edge;
-    return (
-      <Menu.Item key={slug}>
-        <Link to={slug}>{title}</Link>
-      </Menu.Item>
-    );
-  });
-
-const shouldBeShown = (slug: string, path: string) => {
+const shouldBeShown = (slug: string, path: string, lang: string) => {
+  if (!slug.startsWith(`/${lang}/`)) {
+    return false;
+  }
   const slugPieces = slug.split('/').slice(slug.split('/').indexOf('docs') + 1);
   const pathPieces = path.split('/').slice(slug.split('/').indexOf('docs') + 1);
   return slugPieces[0] === pathPieces[0];
@@ -38,8 +26,91 @@ const getMenuItemLocaleKey = (slug: string = '') => {
   return menuItemLocaleKey;
 };
 
-const getDocument = (docs: any[], slug: string = '') => {
-  return docs.find(doc => doc.slug === slug) || {};
+const getDocument = (docs: any[], slug: string = '', level: number) => {
+  if (slug.split('/').length !== level + 2) {
+    return;
+  }
+  return docs.find(doc => doc.slug === slug);
+};
+
+interface MenuData {
+  type: 'SubMenu' | 'Item';
+  title: string;
+  slug: string;
+  order?: number;
+  children?: MenuData[];
+}
+
+const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
+  const results = [] as MenuData[];
+  Object.keys(groupedEdges).forEach((key: string) => {
+    const edges = groupedEdges[key] || [];
+    const categoryKey = getMenuItemLocaleKey(key);
+    const category = getDocument(docs, categoryKey, level);
+    if (!category) {
+      if (categoryKey.split('/').length !== level + 1) {
+        return;
+      }
+      edges.forEach((edge: any) => {
+        const {
+          node: {
+            frontmatter: { title, order },
+            fields: { slug },
+          },
+        } = edge;
+        results.push({
+          type: 'Item',
+          slug,
+          title,
+          order,
+        });
+      });
+    } else {
+      const subGroupedEdges = {} as any;
+      Object.keys(groupedEdges).forEach((item: string) => {
+        if (item.startsWith(key)) {
+          subGroupedEdges[item] = groupedEdges[item];
+        }
+      });
+      results.push({
+        type: 'SubMenu',
+        title:
+          category.title && category.title[language]
+            ? category.title[language]
+            : categoryKey,
+        slug: key,
+        order: category.order || 0,
+        children: getMenuData({
+          groupedEdges: subGroupedEdges,
+          language,
+          docs,
+          level: level + 1,
+        }),
+      });
+    }
+  });
+  return results.sort((a: any, b: any) => a.order - b.order);
+};
+
+const renderMenu = (menuData: MenuData[]) => {
+  return menuData.map((item: MenuData) => {
+    if (item.type === 'Item') {
+      return (
+        <Menu.Item key={item.slug}>
+          <Link to={item.slug}>{item.title}</Link>
+        </Menu.Item>
+      );
+    } else if (item.type === 'SubMenu') {
+      return (
+        item.children &&
+        item.children.length > 0 && (
+          <Menu.SubMenu key={item.slug} title={item.title}>
+            {renderMenu(item.children)}
+          </Menu.SubMenu>
+        )
+      );
+    }
+  });
 };
 
 export default function Template({
@@ -86,7 +157,24 @@ export default function Template({
         .slice(0, -1)
         .join('/'),
   );
-  const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
+
+  const filterGroupedEdges = {} as any;
+  Object.keys(groupedEdges)
+    .filter(key => shouldBeShown(key, pathWithoutPrefix, i18n.language))
+    .forEach((key: string) => {
+      filterGroupedEdges[key] = groupedEdges[key];
+    });
+
+  const [openKeys, setOpenKeys] = useState<string[]>(
+    Object.keys(filterGroupedEdges).filter(key => slug.startsWith(key)),
+  );
+
+  const menuData = getMenuData({
+    groupedEdges: filterGroupedEdges,
+    language: i18n.language,
+    docs,
+  });
+
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -103,42 +191,7 @@ export default function Template({
             openKeys={openKeys}
             onOpenChange={openKeys => setOpenKeys(openKeys)}
           >
-            {Object.keys(groupedEdges)
-              .filter(key => key.startsWith(`/${i18n.language}/`))
-              .sort((a: string, b: string) => {
-                const aKey = getMenuItemLocaleKey(a);
-                const bKey = getMenuItemLocaleKey(b);
-                const aDoc = getDocument(docs, aKey);
-                const bDoc = getDocument(docs, bKey);
-                if (aDoc && bDoc) {
-                  return aDoc.order - bDoc.order;
-                }
-                return 0;
-              })
-              .map(slug => {
-                if (!shouldBeShown(slug, pathWithoutPrefix)) {
-                  return null;
-                }
-                const slugPieces = slug.split('/');
-                if (slugPieces.length <= 4) {
-                  return renderMenuItems(groupedEdges[slug]);
-                } else {
-                  const menuItemLocaleKey = getMenuItemLocaleKey(slug);
-                  const doc = getDocument(docs, menuItemLocaleKey);
-                  return (
-                    <Menu.SubMenu
-                      key={slug}
-                      title={
-                        doc && doc.title
-                          ? doc.title[i18n.language]
-                          : menuItemLocaleKey
-                      }
-                    >
-                      {renderMenuItems(groupedEdges[slug])}
-                    </Menu.SubMenu>
-                  );
-                }
-              })}
+            {renderMenu(menuData)}
           </Menu>
         </AntLayout.Sider>
         <Article className={styles.markdown}>
@@ -219,6 +272,7 @@ export const pageQuery = graphql`
           }
           frontmatter {
             title
+            order
           }
         }
       }
