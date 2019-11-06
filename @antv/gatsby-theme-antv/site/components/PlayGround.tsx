@@ -9,6 +9,7 @@ import {
 } from 'react-i18next';
 import { transform } from '@babel/standalone';
 import { Result } from 'antd';
+import SplitPane from 'react-split-pane';
 import styles from './PlayGround.module.less';
 
 const { Paragraph } = Typography;
@@ -117,65 +118,67 @@ const PlayGround: React.FC<PlayGroundProps> = ({
 
   return (
     <div className={styles.playground} ref={fullscreenNode}>
-      <div className={styles.preview}>
-        {error ? (
-          <Result
-            status="error"
-            title={t('演示代码报错，请检查')}
-            subTitle={<pre>{error && error.message}</pre>}
-          />
-        ) : (
-          <div ref={playpround} className={styles.exampleContainerWrapper} />
-        )}
-      </div>
-      <div className={styles.editor}>
-        <div className={styles.toolbar}>
-          <Tooltip title={isFullScreen ? t('离开全屏') : t('进入全屏')}>
-            <Icon
-              type={isFullScreen ? 'fullscreen-exit' : 'fullscreen'}
-              onClick={toggleFullscreen}
+      <SplitPane split="vertical" minSize={400} defaultSize="calc(50% + 100px)">
+        <div className={styles.preview}>
+          {error ? (
+            <Result
+              status="error"
+              title={t('演示代码报错，请检查')}
+              subTitle={<pre>{error && error.message}</pre>}
             />
-          </Tooltip>
-          <Paragraph copyable={{ text: currentSourceCode }} />
+          ) : (
+            <div ref={playpround} className={styles.exampleContainerWrapper} />
+          )}
         </div>
-        <div className={styles.codemirror}>
-          <CodeMirror
-            value={source}
-            options={{
-              mode: 'jsx',
-              theme: 'mdn-like',
-              tabSize: 2,
-              styleActiveLine: true, // 当前行背景高亮
-              matchBrackets: true, // 括号匹配
-              autoCloseBrackets: true,
-              autofocus: false,
-              matchTags: {
-                bothTags: true,
-              },
-            }}
-            cursor={{
-              line: -1,
-              ch: -1,
-            }}
-            onChange={(_: any, __: any, value: string) => {
-              updateCurrentSourceCode(value);
-              try {
-                const { code } = transform(value, {
-                  filename: relativePath,
-                  presets: ['react', 'typescript', 'es2015', 'stage-3'],
-                  plugins: ['transform-modules-umd'],
-                });
-                updateCompiledCode(code);
-              } catch (e) {
-                console.error(e);
-                setError(e);
-                return;
-              }
-              setError(null);
-            }}
-          />
+        <div className={styles.editor}>
+          <div className={styles.toolbar}>
+            <Tooltip title={isFullScreen ? t('离开全屏') : t('进入全屏')}>
+              <Icon
+                type={isFullScreen ? 'fullscreen-exit' : 'fullscreen'}
+                onClick={toggleFullscreen}
+              />
+            </Tooltip>
+            <Paragraph copyable={{ text: currentSourceCode }} />
+          </div>
+          <div className={styles.codemirror}>
+            <CodeMirror
+              value={source}
+              options={{
+                mode: 'jsx',
+                theme: 'mdn-like',
+                tabSize: 2,
+                styleActiveLine: true, // 当前行背景高亮
+                matchBrackets: true, // 括号匹配
+                autoCloseBrackets: true,
+                autofocus: false,
+                matchTags: {
+                  bothTags: true,
+                },
+              }}
+              cursor={{
+                line: -1,
+                ch: -1,
+              }}
+              onChange={(_: any, __: any, value: string) => {
+                updateCurrentSourceCode(value);
+                try {
+                  const { code } = transform(value, {
+                    filename: relativePath,
+                    presets: ['react', 'typescript', 'es2015', 'stage-3'],
+                    plugins: ['transform-modules-umd'],
+                  });
+                  updateCompiledCode(code);
+                } catch (e) {
+                  console.error(e);
+                  setError(e);
+                  return;
+                }
+                setError(null);
+              }}
+            />
+          </div>
         </div>
-      </div>
+      </SplitPane>
     </div>
   );
 };

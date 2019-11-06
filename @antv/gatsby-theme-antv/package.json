@@ -79,6 +79,7 @@
     "react-github-corner": "^2.3.0",
     "react-helmet": "^5.2.1",
     "react-i18next": "^11.0.0",
+    "react-split-pane": "^0.1.87",
     "typescript": "^3.6.3"
   },
   "license": "MIT",
