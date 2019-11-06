@@ -84,6 +84,26 @@ const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
   return results.sort((a: any, b: any) => a.order - b.order);
 };
 
+const renderMenu = menuData => {
+  return menuData.map((item: MenuData) => {
+    if (item.type === 'Item') {
+      return (
+        <Menu.Item key={item.slug}>
+          <Link to={item.slug || ''}>{item.title}</Link>
+        </Menu.Item>
+      );
+    } else if (item.type === 'SubMenu') {
+      return (
+        item.children && (
+          <Menu.SubMenu key={item.slug} title={item.title}>
+            {renderMenu(item.children)}
+          </Menu.SubMenu>
+        )
+      );
+    }
+  });
+};
+
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
   location,
@@ -130,21 +150,17 @@ export default function Template({
   );
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
 
-  const renderMenu = () => {
-    const filterGroupedEdges = {} as any;
-    Object.keys(groupedEdges)
-      .filter(key => shouldBeShown(key, pathWithoutPrefix, i18n.language))
-      .forEach((key: string) => {
-        filterGroupedEdges[key] = groupedEdges[key];
-      });
-    const data = getMenuData({
-      groupedEdges: filterGroupedEdges,
-      language: i18n.language,
-      docs,
+  const filterGroupedEdges = {} as any;
+  Object.keys(groupedEdges)
+    .filter(key => shouldBeShown(key, pathWithoutPrefix, i18n.language))
+    .forEach((key: string) => {
+      filterGroupedEdges[key] = groupedEdges[key];
     });
-    console.log(data);
-    return null;
-  };
+  const menuData = getMenuData({
+    groupedEdges: filterGroupedEdges,
+    language: i18n.language,
+    docs,
+  });
 
   return (
     <>
@@ -162,7 +178,7 @@ export default function Template({
             openKeys={openKeys}
             onOpenChange={openKeys => setOpenKeys(openKeys)}
           >
-            {renderMenu()}
+            {renderMenu(menuData)}
           </Menu>
         </AntLayout.Sider>
         <Article className={styles.markdown}>
