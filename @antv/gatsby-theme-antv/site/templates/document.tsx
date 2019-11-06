@@ -8,22 +8,10 @@ import ReadingTime from '../components/ReadingTime';
 import SEO from '../components/Seo';
 import styles from './markdown.module.less';
 
-const renderMenuItems = (edges: any[]) =>
-  edges.map((edge: any) => {
-    const {
-      node: {
-        frontmatter: { title },
-        fields: { slug },
-      },
-    } = edge;
-    return (
-      <Menu.Item key={slug}>
-        <Link to={slug}>{title}</Link>
-      </Menu.Item>
-    );
-  });
-
-const shouldBeShown = (slug: string, path: string) => {
+const shouldBeShown = (slug: string, path: string, lang: string) => {
+  if (!slug.startsWith(`/${lang}/`)) {
+    return false;
+  }
   const slugPieces = slug.split('/').slice(slug.split('/').indexOf('docs') + 1);
   const pathPieces = path.split('/').slice(slug.split('/').indexOf('docs') + 1);
   return slugPieces[0] === pathPieces[0];
@@ -41,6 +29,9 @@ const getMenuItemLocaleKey = (slug: string = '') => {
 const getDocument = (docs: any[], slug: string = '') => {
   return docs.find(doc => doc.slug === slug) || {};
 };
+
+const isSlugFirstLevelMenuItem = (slug: string = '') =>
+  slug.split('/').length <= 4;
 
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
@@ -87,6 +78,71 @@ export default function Template({
         .join('/'),
   );
   const [openKeys, setOpenKeys] = useState<string[]>(Object.keys(groupedEdges));
+
+  interface MenuData {
+    type: 'SubMenu' | 'Item';
+    title: string;
+    slug?: string;
+    order?: number;
+    children?: MenuData[];
+  }
+
+  const getMenuData = () => {
+    const results = [] as MenuData[];
+    Object.keys(groupedEdges)
+      .filter(key => shouldBeShown(key, pathWithoutPrefix, i18n.language))
+      .forEach(key => {
+        const edges = groupedEdges[key];
+        if (isSlugFirstLevelMenuItem(key)) {
+          edges.forEach(edge => {
+            const {
+              node: {
+                frontmatter: { title, order },
+                fields: { slug },
+              },
+            } = edge;
+            results.push({
+              type: 'Item',
+              slug,
+              title,
+              order,
+            });
+          });
+        } else {
+          const categroyKey = getMenuItemLocaleKey(key);
+          const categroy = getDocument(docs, categroyKey);
+          results.push({
+            type: 'SubMenu',
+            title:
+              categroy.title && categroy.title[i18n.language]
+                ? categroy.title[i18n.language]
+                : categroyKey,
+            order: categroy.order || 0,
+            children: edges.map(edge => {
+              const {
+                node: {
+                  frontmatter: { title, order },
+                  fields: { slug },
+                },
+              } = edge;
+              return {
+                type: 'Item',
+                slug,
+                title,
+                order,
+              };
+            }),
+          });
+        }
+      });
+    return results;
+  };
+
+  const renderMenu = () => {
+    console.log(getMenuData());
+    return null;
+  };
+
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -103,42 +159,7 @@ export default function Template({
             openKeys={openKeys}
             onOpenChange={openKeys => setOpenKeys(openKeys)}
           >
-            {Object.keys(groupedEdges)
-              .filter(key => key.startsWith(`/${i18n.language}/`))
-              .sort((a: string, b: string) => {
-                const aKey = getMenuItemLocaleKey(a);
-                const bKey = getMenuItemLocaleKey(b);
-                const aDoc = getDocument(docs, aKey);
-                const bDoc = getDocument(docs, bKey);
-                if (aDoc && bDoc) {
-                  return aDoc.order - bDoc.order;
-                }
-                return 0;
-              })
-              .map(slug => {
-                if (!shouldBeShown(slug, pathWithoutPrefix)) {
-                  return null;
-                }
-                const slugPieces = slug.split('/');
-                if (slugPieces.length <= 4) {
-                  return renderMenuItems(groupedEdges[slug]);
-                } else {
-                  const menuItemLocaleKey = getMenuItemLocaleKey(slug);
-                  const doc = getDocument(docs, menuItemLocaleKey);
-                  return (
-                    <Menu.SubMenu
-                      key={slug}
-                      title={
-                        doc && doc.title
-                          ? doc.title[i18n.language]
-                          : menuItemLocaleKey
-                      }
-                    >
-                      {renderMenuItems(groupedEdges[slug])}
-                    </Menu.SubMenu>
-                  );
-                }
-              })}
+            {renderMenu()}
           </Menu>
         </AntLayout.Sider>
         <Article className={styles.markdown}>
@@ -219,6 +240,7 @@ export const pageQuery = graphql`
           }
           frontmatter {
             title
+            order
           }
         }
       }

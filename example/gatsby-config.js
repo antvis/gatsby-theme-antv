@@ -49,6 +49,7 @@ module.exports = {
           zh: '分类一',
           en: 'category1',
         },
+        order: 3,
       },
       {
         slug: 'other/category',
@@ -56,6 +57,7 @@ module.exports = {
           zh: '分类二',
           en: 'category2',
         },
+        order: 4,
       },
     ],
     examples: [
