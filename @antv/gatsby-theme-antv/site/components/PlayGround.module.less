@@ -5,10 +5,10 @@
   padding: 0;
   border: 1px solid #efefef;
   border-radius: 4px;
-  display: flex;
   background: #fff;
   height: @editor-height;
   overflow: hidden;
+  position: relative;
 
   .preview,
   .editor {
@@ -16,17 +16,15 @@
   }
 
   .preview {
-    flex: 2;
-    border-right: 1px solid #efefef;
     padding: 24px 16px;
     overflow: auto;
     height: 100%;
   }
 
   .editor {
-    flex: 1.5;
     overflow: hidden;
     height: 100%;
+    max-width: 400px;
 
     .toolbar {
       height: 36px;
