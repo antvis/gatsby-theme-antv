@@ -69,4 +69,4 @@ yarn-error.log
 .yarn-integrity
 
 .tmp
-@antv/gatsby-theme-antv/components
+@antv/gatsby-theme-antv/lib

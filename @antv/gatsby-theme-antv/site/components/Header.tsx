@@ -131,6 +131,7 @@ const Header: React.FC<HeaderProps> = ({
                 onClick={e => {
                   e.preventDefault();
                   const value = lang === 'en' ? 'zh' : 'en';
+                  i18n.changeLanguage(value);
                   if (onLanguageChange) {
                     return onLanguageChange(value);
                   }
