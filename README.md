@@ -46,12 +46,8 @@ module.exports = {
     showLanguageSwitcher: true, // 用于定义是否展示语言切换
     playpround: {
       container: '<canvas id="container" />', // 定义演示的渲染节点，默认 <div id="container" />
-      playgroundDidMount: function() {
-        console.log('beforeEach');
-      },
-      playgroundWillUnmount: function() {
-        console.log('afterEach');
-      },
+      playgroundDidMount: 'console.log("playgroundDidMount");',
+      playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
     },
   },
 };

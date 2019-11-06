@@ -43,8 +43,12 @@ module.exports = {
     navs: [], // 用于定义顶部菜单
     docs: [], // 用于定义文档页面的二级分类菜单
     examples: [], // 用于定义演示页面的二级菜单，属性见下方
-    exampleContainer: '<canvas id="container" />', // 定义演示的渲染节点，默认 <div id="container" />
     showLanguageSwitcher: true, // 用于定义是否展示语言切换
+    playpround: {
+      container: '<canvas id="container" />', // 定义演示的渲染节点，默认 <div id="container" />
+      playgroundDidMount: 'console.log("playgroundDidMount");',
+      playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
+    },
   },
 };
 ```
