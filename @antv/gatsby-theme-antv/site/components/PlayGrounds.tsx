@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
 import { Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -50,13 +50,24 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
     calcScrollPostion(e.target);
   };
 
-  useEffect(() => {
+  const onResize = useCallback(() => {
     if (playgroundScrollDiv && playgroundScrollDiv.current) {
       const div = playgroundScrollDiv!.current!;
       updateHasHorizontalScrollbar(div.scrollWidth > div.clientWidth);
       calcScrollPostion(div);
     }
+  }, [playgroundScrollDiv]);
+
+  useEffect(() => {
+    onResize();
   }, [examples]);
+
+  useEffect(() => {
+    window.addEventListener('resize', onResize);
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
 
   return (
     <div className={styles.container}>
