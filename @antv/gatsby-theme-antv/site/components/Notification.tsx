@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import styles from './Notification.module.less';
 import { useTranslation } from 'react-i18next';
 
-interface Props {
-  className: string;
+interface NotificationProps {
+  className?: string;
   numImg: string;
   translate: boolean;
   notificationContent: {
@@ -14,17 +14,22 @@ interface Props {
   };
 }
 
-const Notification = (props: Props) => {
+const Notification: React.FC<NotificationProps> = ({
+  className,
+  numImg,
+  translate = true,
+  notificationContent,
+}) => {
   const { t } = useTranslation();
-  const { type, title, date } = props.notificationContent;
+  const { type, title, date } = notificationContent;
   let description = `${type} ‧ ${title}`;
-  if (props.translate) {
+  if (translate) {
     description = `${t(type)} ‧ ${t(title)}`;
   }
   return (
-    <div className={classNames(styles.notification, props.className)}>
+    <div className={classNames(styles.notification, className)}>
       <div className={styles.container}>
-        <img className={styles.number} src={props.numImg} alt="numberimg"></img>
+        <img className={styles.number} src={numImg} alt="numberimg"></img>
         <div className={styles.content}>
           <p className={styles.description}>{description}</p>
           <p className={styles.date}>{date}</p>

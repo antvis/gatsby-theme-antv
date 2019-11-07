@@ -3,16 +3,21 @@ import { Row, Col } from 'antd';
 import classNames from 'classnames';
 import styles from './Companies.module.less';
 
-interface Props {
+interface CompaniesProps {
   title: string;
-  companies: Array<string>;
-  className: string;
-  style: object;
+  companies: string[];
+  className?: string;
+  style?: React.CSSProperties;
 }
 
-const Companies = (props: Props) => {
+const Companies: React.FC<CompaniesProps> = ({
+  title,
+  companies = [],
+  className,
+  style,
+}) => {
   const getCompanies = () => {
-    const children = props.companies.map(company => {
+    const children = companies.map(company => {
       return (
         <Col
           key={company}
@@ -29,13 +34,10 @@ const Companies = (props: Props) => {
   };
 
   return (
-    <div
-      className={classNames(styles.wrapper, props.className)}
-      style={props.style}
-    >
+    <div className={classNames(styles.wrapper, className)} style={style}>
       <div key="content" className={styles.content}>
         <p key="title" className={styles.title}>
-          {props.title}
+          {title}
         </p>
         <div key="slicer" className={styles.slicer} />
         <div key="companies-container" className={styles.companiesContainer}>

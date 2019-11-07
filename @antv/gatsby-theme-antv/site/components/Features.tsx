@@ -4,7 +4,6 @@ import React from 'react';
 import { Row, Col } from 'antd';
 import classNames from 'classnames';
 import FeatureCard from './FeatureCard';
-import { useTranslation } from 'react-i18next';
 import styles from './Features.module.less';
 
 interface Card {
@@ -12,21 +11,24 @@ interface Card {
   title: string;
   description: string;
 }
-interface Props {
+interface FeaturesProps {
   title?: string;
-  features: Array<Card>;
-  className: string;
-  style: object;
+  features: Card[];
+  className?: string;
+  style?: React.CSSProperties;
 }
 
-const Features = (props: Props) => {
-  const { t } = useTranslation();
-
+const Features: React.FC<FeaturesProps> = ({
+  title,
+  features = [],
+  className,
+  style,
+}) => {
   const getCards = () => {
-    const children = props.features.map(card => {
+    const children = features.map(card => {
       return (
         <Col className={styles.cardWrapper} key={card.title} md={8} xs={24}>
-          <FeatureCard cardContent={card} />
+          <FeatureCard {...card} />
         </Col>
       );
     });
@@ -35,7 +37,7 @@ const Features = (props: Props) => {
 
   const getSlicers = () => {
     const slicers = [];
-    const slicerNum = props.features.length - 1;
+    const slicerNum = features.length - 1;
     for (let i = 0; i < slicerNum; i++) {
       const left = `${(0.878 * 0.3333 * (i + 1) + 0.04) * 100}%`;
       slicers.push(
@@ -48,7 +50,7 @@ const Features = (props: Props) => {
   // for small screen
   const getDots = () => {
     let dots: Array<Object> = [];
-    const length = props.features.length;
+    const length = features.length;
     const startTop = 45;
     const cardHeight = 350;
     const startLeftPercent = 0.028;
@@ -79,15 +81,12 @@ const Features = (props: Props) => {
 
   let lefttop1Display = 'block';
   let lefttop2Display = 'none';
-  if (!props.title) {
+  if (!title) {
     lefttop1Display = 'none';
     lefttop2Display = 'block';
   }
   return (
-    <div
-      className={classNames(styles.wrapper, props.className)}
-      style={props.style}
-    >
+    <div className={classNames(styles.wrapper, className)} style={style}>
       <div
         className={classNames(styles.lefttopWithTitle, styles.lefttop)}
         style={{ display: lefttop1Display }}
@@ -99,7 +98,7 @@ const Features = (props: Props) => {
       <div className={styles.content}>
         <div key="content">
           <p key="title" className={styles.title}>
-            {props.title && t(props.title)}
+            {title}
           </p>
           <div key="block" className={styles.rightbottom}>
             <div

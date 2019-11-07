@@ -57,23 +57,6 @@ const IndexPage = () => {
       date: '2019.12.04',
     },
   ];
-  const bannerProps = {
-    coverImage,
-    title: t('让数据栩栩如生'),
-    description: t(
-      'AntV 是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。',
-    ),
-    buttonText: t('继续了解'),
-    buttonHref: '#products',
-    notifications: notifications,
-  };
-  const featuresProps = {
-    features,
-  };
-  const companiesProps = {
-    title: t('合作公司'),
-    companies,
-  };
 
   return (
     <>
@@ -86,19 +69,27 @@ const IndexPage = () => {
         <Skeleton />
         <Skeleton />
         <Banner
-          {...bannerProps}
+          coverImage={coverImage}
+          title={t('让数据栩栩如生')}
+          description={t(
+            'AntV 是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。',
+          )}
+          buttonText={t('继续了解')}
+          buttonHref={'#products'}
+          notifications={notifications}
           className="banner"
-          style={{ height: '600px' }}
+          // style={{ height: '600px' }}
         />
         <Features
-          {...featuresProps}
-          className="features"
+          features={features}
+          // className="features"
           style={{ width: '100%' }}
         />
         <Companies
-          {...companiesProps}
-          className="companies"
-          style={{ width: '100%' }}
+          title={t('合作公司')}
+          companies={companies}
+          // className="companies"
+          // style={{ width: '100%' }}
         />
       </div>
     </>

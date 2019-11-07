@@ -146,17 +146,17 @@ const Layout = () => {
 
       <Banner
         {...bannerProps}
-        style ={{}}
+        style={{}}
         className="Banner 的 className"
       />
       <Features
         {...featuresProps}
-        style ={{}}
+        style={{}}
         className="Features 的 className"
       />
       <Companies
         {...companiesProps}
-        style ={{}}
+        style={{}}
         className="Companies 的 className"
       />
     </>

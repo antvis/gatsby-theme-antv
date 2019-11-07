@@ -9,18 +9,18 @@ interface Notification {
   date: string;
 }
 
-interface Props {
-  coverImage: JSX.Element;
+interface BannerProps {
+  coverImage: React.ReactNode;
   title: string;
   description: string;
   buttonText: string;
   buttonHref: string;
-  notifications: Array<Notification>;
-  style: object;
-  className: string;
+  notifications?: Notification[];
+  style?: React.CSSProperties;
+  className?: string;
 }
 
-const notifications: Array<Notification> = [
+const insNotifications: Notification[] = [
   {
     type: '更新',
     title: 'L7 发布新版本，让地图动起来！',
@@ -28,7 +28,7 @@ const notifications: Array<Notification> = [
   },
   {
     type: '推荐',
-    title: 'Kitchen 3.75 ，效率大幅提升！',
+    title: 'Kitchen 3.75，效率大幅提升！',
     date: '2019.12.03',
   },
 ];
@@ -38,19 +38,28 @@ const numImgs = [
   'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*NFADS6PF0DYAAAAAAAAAAABkARQnAQ',
 ];
 
-const Banner = (props: Props) => {
-  const notiInstrinsicFlgs = [];
-  notifications.forEach(noti => {
+const Banner: React.FC<BannerProps> = ({
+  coverImage,
+  title,
+  description,
+  buttonText,
+  buttonHref,
+  notifications = [],
+  style = {},
+  className,
+}) => {
+  const notiInstrinsicFlgs: boolean[] = [];
+  insNotifications.forEach(noti => {
     notiInstrinsicFlgs.push(true);
   });
-  if (props.notifications) {
-    props.notifications.forEach((noti, i) => {
-      notifications[i] = noti;
+  if (notifications) {
+    notifications.forEach((noti, i) => {
+      insNotifications[i] = noti;
       notiInstrinsicFlgs[i] = false;
     });
   }
   const getNotifications = () => {
-    const children = notifications.map((notification, i) => {
+    const children = insNotifications.map((notification, i) => {
       if (i > 1) return;
       let cstyle;
       switch (i) {
@@ -72,7 +81,7 @@ const Banner = (props: Props) => {
             className={cstyle}
             numImg={numImgs[i]}
             notificationContent={notification}
-            translate={true}
+            translate={notiInstrinsicFlgs[i]}
           />
         </div>
       );
@@ -81,21 +90,18 @@ const Banner = (props: Props) => {
   };
 
   return (
-    <section
-      className={classNames(styles.wrapper, props.className)}
-      style={props.style}
-    >
+    <section className={classNames(styles.wrapper, className)} style={style}>
       <div className={styles.content}>
         <div className={styles.text}>
-          <div className={styles.title}>{props.title}</div>
-          <p className={styles.description}>{props.description}</p>
+          <div className={styles.title}>{title}</div>
+          <p className={styles.description}>{description}</p>
 
           <div className={styles.teaser}>
-            <div className={styles.teaserimg}>{props.coverImage}</div>
+            <div className={styles.teaserimg}>{coverImage}</div>
           </div>
 
-          <a href={props.buttonHref} className={styles.amore}>
-            <button className={styles.more}>{props.buttonText}</button>
+          <a href={buttonHref} className={styles.amore}>
+            <button className={styles.more}>{buttonText}</button>
           </a>
         </div>
         <div className={styles.notifications}>{getNotifications()}</div>
