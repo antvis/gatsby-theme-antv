@@ -70,6 +70,7 @@
     "moment": "^2.24.0",
     "normalize.css": "^8.0.1",
     "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0",
     "prism-themes": "^1.2.0",
     "prismjs": "^1.17.1",
     "ptz-i18n": "^1.0.0",
@@ -81,7 +82,7 @@
     "react-helmet": "^5.2.1",
     "react-i18next": "^11.0.0",
     "react-split-pane": "^0.1.87",
-    "release-it": "*",
+    "release-it": "^12.4.3",
     "typescript": "^3.6.3"
   },
   "license": "MIT",
@@ -90,7 +91,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "release": "release-it",
+    "release": "release-it -n",
     "copy:components": "mkdir -p lib && cp -R .tmp/@antv/gatsby-theme-antv/site/components lib && cp site/components/*.less ./lib/components && cp site/common.json ./lib",
     "compile:components": "rm -rf .tmp lib && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && npm run copy:components",
     "test": "jest"
@@ -115,7 +116,6 @@
     "babel-jest": "^24.9.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^24.9.0",
-    "np": "^5.1.2",
     "react-test-renderer": "^16.9.0",
     "ts-jest": "^24.1.0"
   }

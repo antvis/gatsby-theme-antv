@@ -112,7 +112,7 @@ Visit https://localhost:8000 to preview.
 
 ```bash
 cd @antv/gatsby-theme-antv
-npm publish
+npm run release
 ```
 
 ## Deploy
