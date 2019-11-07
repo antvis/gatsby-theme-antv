@@ -96,18 +96,18 @@
     "compile:components": "rm -rf .tmp lib && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && npm run copy:components",
     "test": "jest"
   },
-  "hooks": {
-    "before:init": [
-      "npm test",
-      "npm run compile:components"
-    ]
-  },
   "release-it": {
     "git": {
       "commitMessage": ":sparkles: Release ${version}"
     },
     "github": {
       "release": true
+    },
+    "hooks": {
+      "before:init": [
+        "npm test",
+        "npm run compile:components"
+      ]
     }
   },
   "publishConfig": {
