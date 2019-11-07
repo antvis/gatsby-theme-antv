@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { Editor } from 'codemirror';
+import classNames from 'classnames';
 import { Typography, Icon, Tooltip } from 'antd';
 import debounce from 'lodash/debounce';
 import {
@@ -69,7 +70,7 @@ if (typeof window !== 'undefined') {
 const PlayGround: React.FC<PlayGroundProps> = ({
   source,
   babeledSource,
-  relativePath,
+  relativePath = '',
   playground = {},
 }) => {
   const { t } = useTranslation();
@@ -163,7 +164,12 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   return (
     <div className={styles.playground} ref={fullscreenNode}>
       <SplitPane split="vertical" defaultSize="58%" minSize={100}>
-        <div className={styles.preview}>
+        <div
+          className={classNames(
+            styles.preview,
+            `playground-${relativePath.split('/').join('-')}`,
+          )}
+        >
           {error ? (
             <Result
               status="error"
