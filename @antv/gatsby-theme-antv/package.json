@@ -81,6 +81,7 @@
     "react-helmet": "^5.2.1",
     "react-i18next": "^11.0.0",
     "react-split-pane": "^0.1.87",
+    "release-it": "*",
     "typescript": "^3.6.3"
   },
   "license": "MIT",
@@ -89,11 +90,18 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "version": "git add package.json",
+    "release": "release-it --git.tagName='v${version}' --npm.publish",
     "copy:components": "mkdir -p lib && cp -R .tmp/@antv/gatsby-theme-antv/site/components lib && cp site/components/*.less ./lib/components && cp site/common.json ./lib",
     "compile:components": "rm -rf .tmp lib && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && npm run copy:components",
-    "prepublishOnly": "npm run compile:components && np --yolo --no-publish",
     "test": "jest"
+  },
+  "hooks": {
+    "before:init": ["npm test", "npm run compile:components"]
+  },
+  "release-it": {
+    "github": {
+      "release": true
+    }
   },
   "publishConfig": {
     "access": "public"
