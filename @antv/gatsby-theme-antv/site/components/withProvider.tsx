@@ -13,6 +13,7 @@ i18n
       },
     },
     fallbackLng: 'zh',
+    keySeparator: false,
     react: {
       useSuspense: false,
     },

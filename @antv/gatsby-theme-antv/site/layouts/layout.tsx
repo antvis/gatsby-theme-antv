@@ -14,6 +14,7 @@ i18n
     // @ts-ignore
     resources: I18NEXT_RESOURCES,
     fallbackLng: 'zh',
+    keySeparator: false,
     react: {
       useSuspense: false,
     },
@@ -74,7 +75,9 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         navs={navs}
         githubUrl={githubUrl}
         Link={Link}
-        showLanguageSwitcher={showLanguageSwitcher === null ? undefined : showLanguageSwitcher}
+        showLanguageSwitcher={
+          showLanguageSwitcher === null ? undefined : showLanguageSwitcher
+        }
       />
       <main className={styles.main}>{children}</main>
       <Footer />
