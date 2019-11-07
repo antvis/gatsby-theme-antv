@@ -32,3 +32,5 @@ for(var fnlist=["call","start","config","logPv","info","err","click","expo","pag
 }(window,document,'script','https://ur.alipay.com/tracert_a369.js','Tracert');
 // 启动脚本
 Tracert.start();
+
+window.insertCss = require('insert-css');
