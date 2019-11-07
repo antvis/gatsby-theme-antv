@@ -103,6 +103,9 @@
     ]
   },
   "release-it": {
+    "git": {
+      "commitMessage": ":sparkles: Release ${version}"
+    },
     "github": {
       "release": true
     }
