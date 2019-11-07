@@ -190,6 +190,7 @@ export default function Template({
             style={{ height: '100%' }}
             openKeys={openKeys}
             onOpenChange={openKeys => setOpenKeys(openKeys)}
+            inlineIndent={16}
           >
             {renderMenu(menuData)}
           </Menu>
