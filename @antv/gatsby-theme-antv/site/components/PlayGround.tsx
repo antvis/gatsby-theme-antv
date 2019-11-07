@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { Editor } from 'codemirror';
+import classNames from 'classnames';
 import { Typography, Icon, Tooltip } from 'antd';
 import debounce from 'lodash/debounce';
 import {
@@ -69,7 +70,7 @@ if (typeof window !== 'undefined') {
 const PlayGround: React.FC<PlayGroundProps> = ({
   source,
   babeledSource,
-  relativePath,
+  relativePath = '',
   playground = {},
 }) => {
   const { t } = useTranslation();
@@ -118,9 +119,18 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     };
   }, []);
 
+  // 统一增加对 insert-css 的使用注释
+  const replacedSource = source.replace(
+    /^insertCss\(/gm,
+    `// 我们用 insert-css 演示引入自定义样式
+// 推荐将样式添加到自己的样式文件中
+// 若拷贝官方代码，别忘了 npm install insert-css
+insertCss(`,
+  );
+
   const editor = (
     <CodeMirrorEditor
-      value={source}
+      value={replacedSource}
       options={{
         mode: 'jsx',
         theme: 'mdn-like',
@@ -163,7 +173,12 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   return (
     <div className={styles.playground} ref={fullscreenNode}>
       <SplitPane split="vertical" defaultSize="58%" minSize={100}>
-        <div className={styles.preview}>
+        <div
+          className={classNames(
+            styles.preview,
+            `playground-${relativePath.split('/').join('-')}`,
+          )}
+        >
           {error ? (
             <Result
               status="error"
