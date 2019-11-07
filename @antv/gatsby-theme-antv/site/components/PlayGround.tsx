@@ -119,9 +119,18 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     };
   }, []);
 
+  // 统一增加对 insert-css 的使用注释
+  const replacedSource = source.replace(
+    /^insertCss/gm,
+    `// 我们用 insert-css 演示引入自定义样式
+// 推荐将这些样式添加到自己的样式文件中
+// 如果是拷贝官网的用法，别忘了 npm install insert-css
+insertCss`,
+  );
+
   const editor = (
     <CodeMirrorEditor
-      value={source}
+      value={replacedSource}
       options={{
         mode: 'jsx',
         theme: 'mdn-like',
