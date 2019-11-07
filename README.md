@@ -12,6 +12,16 @@
 - ✨ AntV 站点 [接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442)
 - 参考例子: https://github.com/antvis/gatsby-theme-antv/tree/master/example
 
+## Features
+
+- ⚛ Prerendered static site
+- 🌎 Internationalization support by i18next
+- 📝 Markdown-based documentation and menus
+- 🎬 Examples with live playground
+- 🏗 Unified Theme and Layout
+- 🆙 Easy customized header nav
+- 🧩 Built-in home page components
+
 ## Usage
 
 ```bash
