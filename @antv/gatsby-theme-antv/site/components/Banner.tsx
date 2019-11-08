@@ -97,15 +97,14 @@ const Banner: React.FC<BannerProps> = ({
           <div className={styles.title}>{title}</div>
           <p className={styles.description}>{description}</p>
 
-          <div className={styles.teaser}>
-            <div className={styles.teaserimg}>{coverImage}</div>
-          </div>
-
           <a href={buttonHref} className={styles.amore}>
             <button className={styles.more}>{buttonText}</button>
           </a>
         </div>
         <div className={styles.notifications}>{getNotifications()}</div>
+        <div className={styles.teaser}>
+          <div className={styles.teaserimg}>{coverImage}</div>
+        </div>
         <img
           className={styles.backLeftBottom}
           src={backLeftBottom}

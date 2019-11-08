@@ -48,7 +48,7 @@
       border-radius: 50px;
       width: 134px;
       height: 40px;
-      margin-top: 5.56%; //80px;
+      margin-top: 5.56%;
       font-size: 1.14em;
       position: relative;
       z-index: 10;
@@ -77,6 +77,12 @@
     margin-top: -300px;
     width: 52%;
     z-index: 1;
+    max-width: 598px;
+    height: 324px;
+    margin: auto;
+    margin-top: 3%;
+    top: 0;
+    bottom: 0;
     .teaserimg {
       width: 100%;
       height: auto;
@@ -88,6 +94,18 @@
     position: absolute;
     left: -8%;
     bottom: -20px;
+  }
+}
+
+@media (max-width: 1144px) {
+  .wrapper {
+    .teaser {
+      transition: 0.3s all;
+      margin: auto;
+      margin-top: auto;
+      top: 0;
+      bottom: 0;
+    }
   }
 }
 
@@ -116,7 +134,7 @@
         height: 45px;
         margin-left: 0;
         font-size: 1em;
-        margin-top: 0px;
+        margin-top: 30px;
       }
     }
     .notifications {
@@ -139,12 +157,15 @@
     }
     .teaser {
       width: 100%;
-      position: relative;
-      margin-top: 5%;
-      margin-bottom: 5%;
+      max-width: 1200px;
+      margin-left: 0;
+      margin-right: 0;
+      // position: relative;
+      top: 40%;
+      // bottom: 0%;
       .teaserimg {
-        width: 50%;
-        margin-left: 25%;
+        width: 75%;
+        margin-left: 12.5%;
       }
     }
   }
@@ -153,9 +174,10 @@
 @media (max-width: 480px) {
   .wrapper {
     .teaser {
+      top: 85%;
       .teaserimg {
-        width: 35%;
-        margin-left: 32.5%;
+        width: 50%;
+        margin-left: 25%;
       }
     }
   }
