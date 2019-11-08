@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import Slider from 'react-slick';
+import classNames from 'classnames';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './Applications.module.less';
@@ -19,11 +20,16 @@ interface Application {
 }
 interface ApplicationsProps {
   applications: Application[];
+  style?: React.CSSProperties;
+  className?: string;
 }
-const Applications: React.FC<ApplicationsProps> = ({ applications = [] }) => {
+const Applications: React.FC<ApplicationsProps> = ({
+  applications = [],
+  style = {},
+  className,
+}) => {
   const { t } = useTranslation();
-  const [appIndex, setStates] = useState(0);
-  let slider: Slider;
+  let slider: any;
 
   const clickPrevious = () => {
     slider.slickPrev();
@@ -33,6 +39,25 @@ const Applications: React.FC<ApplicationsProps> = ({ applications = [] }) => {
   };
 
   const getApplications = () => {
+    let buttons: any;
+    if (applications.length > 1) {
+      buttons = (
+        <div className={styles.buttons}>
+          <img
+            className={styles.previousButton}
+            onClick={clickPrevious}
+            src={previousButtonImg}
+            alt="previous"
+          />
+          <img
+            className={styles.nextButton}
+            onClick={clickNext}
+            src={nextButtonImg}
+            alt="next"
+          />
+        </div>
+      );
+    }
     const children = applications.map(app => {
       let linkDiv;
       if (app.link) {
@@ -55,20 +80,7 @@ const Applications: React.FC<ApplicationsProps> = ({ applications = [] }) => {
               <p className={styles.appDescription}>{app.description}</p>
               {linkDiv}
             </div>
-            <div className={styles.buttons}>
-              <img
-                className={styles.previousButton}
-                onClick={clickPrevious}
-                src={previousButtonImg}
-                alt="previous"
-              />
-              <img
-                className={styles.nextButton}
-                onClick={clickNext}
-                src={nextButtonImg}
-                alt="next"
-              />
-            </div>
+            {buttons}
           </div>
         </div>
       );
@@ -89,7 +101,7 @@ const Applications: React.FC<ApplicationsProps> = ({ applications = [] }) => {
     fade: true,
   };
   return (
-    <div className={styles.wrapper}>
+    <div className={classNames(styles.wrapper, className)} style={style}>
       <Slider
         {...sliderSettings}
         className={styles.slider}

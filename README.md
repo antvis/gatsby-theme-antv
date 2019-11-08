@@ -57,7 +57,8 @@ module.exports = {
 - [Footer Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Footer.tsx#L149-L159)
 - [SEO Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Seo.tsx#L12-L17)
 - [Banner Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Banner.tsx#L5-L22)
-- [Features Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Features.tsx#L10-L18)
+- [Features Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/
+- [Applications Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Applications.tsx#L13-L19)
 - [Companies Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Companies.tsx#L6-L9)
 
 ```jsx
@@ -66,6 +67,7 @@ import Header from '@antv/gatsby-theme-antv/site/components/Header';
 import Footer from '@antv/gatsby-theme-antv/site/components/Footer';
 import Banner from '@antv/gatsby-theme-antv/site/components/Banner';
 import Features from '@antv/gatsby-theme-antv/site/components/Features';
+import Applications from '@antv/gatsby-theme-antv/site/components/Applications';
 import Companies from '@antv/gatsby-theme-antv/site/components/Companies';
 
 // @antv/gatsby-theme-antv/components/Header for commonjs version
@@ -90,6 +92,18 @@ const Layout = () => {
       title: 'xxxxx',
       description: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     },
+  ];
+  const applications = [
+    {
+      logo:
+        'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
+      title: '灯塔专业版',
+      description:
+        '深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金',
+      link: '#',
+      image:
+        'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*oCd7Sq3N-QEAAAAAAAAAAABkARQnAQ',
+    }
   ];
   const companies = [
     'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Z1NnQ6L4xCIAAAAAAAAAAABkARQnAQ',
@@ -154,6 +168,11 @@ const Layout = () => {
         {...featuresProps}
         style={{}}
         className="Features 的 className"
+      />
+      <Appliations
+        applications={applications}
+        style={{}}
+        className="Appliations 的 className"
       />
       <Companies
         {...companiesProps}
