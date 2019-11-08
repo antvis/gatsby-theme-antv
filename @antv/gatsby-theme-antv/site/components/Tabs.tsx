@@ -25,7 +25,7 @@ const Tabs: React.FC<{
           [styles.hidden]: showTabs.examples === false,
         })}
       >
-        <Link to={slug}>{t('演示')}</Link>
+        <Link to={slug}>{t('代码演示')}</Link>
       </li>
       <li
         className={classNames({
