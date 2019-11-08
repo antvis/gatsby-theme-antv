@@ -3,7 +3,6 @@
 .markdown {
   font-size: 14px;
   line-height: 2;
-  color: #222;
 
   h1 {
     margin-top: 8px;
@@ -168,7 +167,7 @@
     padding: 0;
     margin-left: 16px;
     a {
-      color: rgba(0, 0, 0, 0.65);
+      color: @text-color;
     }
   }
 }
@@ -178,7 +177,10 @@
 }
 
 .menuIcon {
-  color: #abb3c9;
+  opacity: 0.6;
+  font-size: 16px !important;
+  position: relative;
+  top: 1px;
 }
 
 @media only screen and (max-width: 991.99px) {

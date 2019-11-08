@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = ({
   pagesPath = './site/pages',
   GATrackingId,
-  primaryColor = '#722ED1',
+  primaryColor = '#1890FF',
+  textColor = '#0D1A26',
   pathPrefix,
 }) => {
   const config = {
@@ -123,6 +124,9 @@ module.exports = ({
           javascriptEnabled: true,
           modifyVars: {
             'primary-color': primaryColor,
+            'text-color': textColor,
+            'heading-color': textColor,
+            'menu-item-color': '#314659',
             'font-family': `Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif`,
           },
         },

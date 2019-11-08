@@ -14,6 +14,9 @@ const Tabs: React.FC<{
   };
 }> = ({ active, slug, showTabs = {} }) => {
   const { t } = useTranslation();
+  if (showTabs.API === false && showTabs.design === false) {
+    return <h3 className={styles.title}>{t('演示')}</h3>;
+  }
   return (
     <ul className={styles.tabs}>
       <li
@@ -22,7 +25,7 @@ const Tabs: React.FC<{
           [styles.hidden]: showTabs.examples === false,
         })}
       >
-        <Link to={slug}>{t('代码演示')}</Link>
+        <Link to={slug}>{t('演示')}</Link>
       </li>
       <li
         className={classNames({

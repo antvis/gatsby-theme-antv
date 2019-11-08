@@ -30,14 +30,11 @@ ul.tabs {
     }
 
     &.active {
-      border-color: @blue-6;
+      border-color: @primary-color;
 
-      a {
-        color: @blue-6;
-      }
-
+      a,
       &:hover a {
-        color: @blue-6;
+        color: @primary-color;
       }
     }
 
@@ -45,4 +42,10 @@ ul.tabs {
       display: none;
     }
   }
+}
+
+h3.title {
+  font-size: 24px !important;
+  line-height: 32px;
+  margin: 40px 0;
 }
