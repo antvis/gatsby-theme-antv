@@ -55,6 +55,9 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   const path = location.pathname.replace(pathPrefix, '');
   const currentLangKey = getCurrentLangKey(lngs, 'zh', path);
 
+  const isHomePage =
+    path === `/${currentLangKey}` || path === `/${currentLangKey}/`;
+
   i18n.init({
     lng: currentLangKey,
   });
@@ -66,6 +69,8 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     return children;
   }
 
+  console.log(isHomePage);
+
   return (
     <>
       <Header
@@ -75,6 +80,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         navs={navs}
         githubUrl={githubUrl}
         Link={Link}
+        transparent={isHomePage}
         showLanguageSwitcher={
           showLanguageSwitcher === null ? undefined : showLanguageSwitcher
         }

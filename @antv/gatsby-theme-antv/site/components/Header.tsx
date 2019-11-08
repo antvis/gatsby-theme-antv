@@ -1,6 +1,7 @@
 import { navigate } from 'gatsby';
 import React from 'react';
 import GithubCorner from 'react-github-corner';
+import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'antd';
 import Search from './Search';
@@ -36,6 +37,8 @@ interface HeaderProps {
   defaultLanguage?: 'zh' | 'en';
   /** 自定义 Link */
   Link?: React.ComponentType<any>;
+  /** 底色是否透明 */
+  transparent?: Boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -61,6 +64,7 @@ const Header: React.FC<HeaderProps> = ({
   githubUrl = 'https://github.com/antvis',
   defaultLanguage,
   Link = 'a',
+  transparent,
 }) => {
   const { t, i18n } = useTranslation();
   const lang =
@@ -70,7 +74,11 @@ const Header: React.FC<HeaderProps> = ({
   const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
   const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
   return (
-    <header className={styles.header}>
+    <header
+      className={classNames(styles.header, {
+        [styles.transparent]: !!transparent,
+      })}
+    >
       <div className={styles.left}>
         <h1>
           {React.createElement(

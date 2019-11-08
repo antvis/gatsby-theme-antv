@@ -1,8 +1,10 @@
 @import '~antd/es/style/themes/default.less';
 
+@nav-height: 64px;
+
 .header {
-  height: 64px;
-  line-height: 64px;
+  height: @nav-height;
+  line-height: @nav-height;
   background: #fff;
   box-shadow: 0 2px 8px #f0f1f2;
   display: flex;
@@ -12,6 +14,12 @@
   position: relative;
   z-index: 1;
   font-family: Avenir, @font-family;
+
+  &.transparent {
+    background: transparent;
+    box-shadow: none;
+    margin-bottom: -@nav-height;
+  }
 
   .left {
     display: flex;
