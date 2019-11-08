@@ -1,18 +1,13 @@
 import React from 'react';
 import Footer from 'rc-footer';
 import { useTranslation } from 'react-i18next';
+import { Icon } from 'antd';
 import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
 
 export default ({
   columns = undefined,
-  bottom = (
-    <div>
-      © {new Date().getFullYear()}, Built with
-      {` `}
-      <a href="https://xtech.antfin.com/">AFX</a>
-    </div>
-  ),
+  bottom = undefined,
   theme = 'dark' as 'dark',
 }) => {
   const { t, i18n } = useTranslation();
@@ -252,8 +247,32 @@ export default ({
       maxColumnsPerRow={4}
       theme={theme}
       columns={columns || defaultColumns}
-      bottom={bottom}
       className={styles.footer}
+      bottom={
+        bottom || (
+          <div className={styles.bottom}>
+            <div>
+              <a href="https://weibo.com/antv2017" target="_blank">
+                <Icon type="weibo" />
+              </a>
+              <a href="https://zhuanlan.zhihu.com/aiux-antv" target="_blank">
+                <Icon type="zhihu" />
+              </a>
+              <a href="https://github.com/antvis" target="_blank">
+                <Icon type="github" />
+              </a>
+              <a href="https://antv.alipay.com/about">{t('关于我们')}</a>
+              <a href="https://antv-2018.alipay.com" target="_blank">
+                {t('返回旧版')}
+              </a>
+            </div>
+            <div>
+              © {new Date().getFullYear()} Made with ❤ by{' '}
+              <a href="https://xtech.antfin.com/">XTech</a>
+            </div>
+          </div>
+        )
+      }
     />
   );
 };
