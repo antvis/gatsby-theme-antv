@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Banner from '@antv/gatsby-theme-antv/site/components/Banner';
 import Companies from '@antv/gatsby-theme-antv/site/components/Companies';
 import Features from '@antv/gatsby-theme-antv/site/components/Features';
+import Applications from '@antv/gatsby-theme-antv/site/components/Applications';
 
 const IndexPage = () => {
   const { t, i18n } = useTranslation();
@@ -55,19 +56,36 @@ const IndexPage = () => {
       type: t('测试'),
       title: t('G6 3.2 全新上线！'),
       date: '2019.12.04',
+      link: '#',
+    },
+  ];
+
+  const applications = [
+    {
+      logo:
+        'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
+      title: '灯塔专业版',
+      description:
+        '深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金',
+      link: '#',
+      image:
+        'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*oCd7Sq3N-QEAAAAAAAAAAABkARQnAQ',
+    },
+    {
+      logo:
+        'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*ekkhR7ISzUsAAAAAAAAAAABkARQnAQ',
+      title: '灯塔专业版2',
+      description:
+        '深2222222入金融的基金深入金融的基金深2222222入金融的基金深入金融的基金深2222222入金融的基金深入金融的基金',
+      image:
+        'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*oCd7Sq3N-QEAAAAAAAAAAABkARQnAQ',
     },
   ];
 
   return (
     <>
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
-      <div style={{ margin: '0 auto', padding: '0 60px' }}>
-        {t('中文首页')}
-        {t('项目里的国际化')}
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
+      <div style={{ marginTop: '-24px' }}>
         <Banner
           coverImage={coverImage}
           title={t('让数据栩栩如生')}
@@ -85,6 +103,7 @@ const IndexPage = () => {
           // className="features"
           style={{ width: '100%' }}
         />
+        <Applications applications={applications} />
         <Companies
           title={t('合作公司')}
           companies={companies}

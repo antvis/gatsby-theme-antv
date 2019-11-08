@@ -17,7 +17,8 @@
     "gh-pages": "^2.1.1",
     "husky": "^3.0.5",
     "prettier": "^1.18.2",
-    "pretty-quick": "^2.0.0"
+    "pretty-quick": "^2.0.0",
+    "react-transition-group": "^1.2.1"
   },
   "scripts": {
     "start": "yarn workspace example develop",
@@ -31,5 +32,8 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "dependencies": {
+    "react-slick": "^0.25.2"
   }
 }

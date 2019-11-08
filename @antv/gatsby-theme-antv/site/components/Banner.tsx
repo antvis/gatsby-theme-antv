@@ -7,6 +7,7 @@ interface Notification {
   type: string;
   title: string;
   date: string;
+  link?: string;
 }
 
 interface BannerProps {
@@ -25,11 +26,13 @@ const insNotifications: Notification[] = [
     type: '更新',
     title: 'L7 发布新版本，让地图动起来！',
     date: '2019.12.04',
+    link: '',
   },
   {
     type: '推荐',
     title: 'Kitchen 3.75，效率大幅提升！',
     date: '2019.12.03',
+    link: '',
   },
 ];
 
@@ -37,6 +40,9 @@ const numImgs = [
   'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*ViOPRKPsVzoAAAAAAAAAAABkARQnAQ',
   'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*NFADS6PF0DYAAAAAAAAAAABkARQnAQ',
 ];
+
+const backLeftBottom =
+  'https://gw.alipayobjects.com/zos/basement_prod/441d5eaf-e623-47cd-b9b9-2a581d9ce1e3.svg';
 
 const Banner: React.FC<BannerProps> = ({
   coverImage,
@@ -76,14 +82,14 @@ const Banner: React.FC<BannerProps> = ({
         }
       }
       return (
-        <div key={i}>
+        <a href={notification.link} key={i} className={styles.notiWrapper}>
           <Notification
             className={cstyle}
             numImg={numImgs[i]}
             notificationContent={notification}
             translate={notiInstrinsicFlgs[i]}
           />
-        </div>
+        </a>
       );
     });
     return children;
@@ -105,6 +111,11 @@ const Banner: React.FC<BannerProps> = ({
           </a>
         </div>
         <div className={styles.notifications}>{getNotifications()}</div>
+        <img
+          className={styles.backLeftBottom}
+          src={backLeftBottom}
+          alt="back"
+        />
       </div>
     </section>
   );
