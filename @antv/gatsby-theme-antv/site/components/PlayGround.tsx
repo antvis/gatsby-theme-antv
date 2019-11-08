@@ -75,7 +75,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
 }) => {
   const { t } = useTranslation();
   const fullscreenNode = useRef<HTMLDivElement>(null);
-  const playpround = useRef<HTMLDivElement>(null);
+  const playgroundNode = useRef<HTMLDivElement>(null);
   const cmInstance = useRef<Editor>();
   const [isFullScreen, updateIsFullScreen] = useState(false);
   const [error, setError] = useState<Error | null>();
@@ -102,10 +102,10 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   };
 
   useEffect(() => {
-    if (!compiledCode || !playpround || !playpround.current) {
+    if (!compiledCode || !playgroundNode || !playgroundNode.current) {
       return;
     }
-    execute(compiledCode, playpround.current, playground.container);
+    execute(compiledCode, playgroundNode.current, playground.container);
   }, [compiledCode, error]);
 
   useEffect(() => {
@@ -186,7 +186,10 @@ insertCss(`,
               subTitle={<pre>{error && error.message}</pre>}
             />
           ) : (
-            <div ref={playpround} className={styles.exampleContainerWrapper} />
+            <div
+              ref={playgroundNode}
+              className={styles.exampleContainerWrapper}
+            />
           )}
         </div>
         <div className={styles.editor}>
