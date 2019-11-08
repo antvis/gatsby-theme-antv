@@ -3,9 +3,14 @@ import { Row, Col } from 'antd';
 import classNames from 'classnames';
 import styles from './Companies.module.less';
 
+interface Company {
+  name: string;
+  img: string;
+}
+
 interface CompaniesProps {
   title: string;
-  companies: string[];
+  companies: Company[];
   className?: string;
   style?: React.CSSProperties;
 }
@@ -16,22 +21,11 @@ const Companies: React.FC<CompaniesProps> = ({
   className,
   style,
 }) => {
-  const getCompanies = () => {
-    const children = companies.map(company => {
-      return (
-        <Col
-          key={company}
-          className={classNames(styles.company, 'gutter-row')}
-          md={6}
-          sm={8}
-          xs={12}
-        >
-          <img className={styles.companyimg} src={company} alt="company-img" />
-        </Col>
-      );
-    });
-    return children;
-  };
+  const getCompanies = companies.map(company => (
+    <Col key={company.name} className={styles.company} md={6} sm={8} xs={12}>
+      <img className={styles.companyimg} src={company.img} alt={company.name} />
+    </Col>
+  ));
 
   return (
     <div className={classNames(styles.wrapper, className)} style={style}>
@@ -46,7 +40,7 @@ const Companies: React.FC<CompaniesProps> = ({
             gutter={[{ xs: 77, sm: 77, md: 30, lg: 50 }, 10]}
             className={styles.companies}
           >
-            {getCompanies()}
+            {getCompanies}
           </Row>
         </div>
       </div>

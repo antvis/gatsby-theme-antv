@@ -1,6 +1,4 @@
 import React from 'react';
-// var ScrollAnim = require('rc-scroll-anim');
-// var ScrollOverPack = ScrollAnim.OverPack;
 import { Row, Col } from 'antd';
 import classNames from 'classnames';
 import FeatureCard from './FeatureCard';
@@ -79,22 +77,15 @@ const Features: React.FC<FeaturesProps> = ({
     return dots;
   };
 
-  let lefttop1Display = 'block';
-  let lefttop2Display = 'none';
-  if (!title) {
-    lefttop1Display = 'none';
-    lefttop2Display = 'block';
-  }
   return (
     <div className={classNames(styles.wrapper, className)} style={style}>
-      <div
-        className={classNames(styles.lefttopWithTitle, styles.lefttop)}
-        style={{ display: lefttop1Display }}
-      />
-      <div
-        className={classNames(styles.lefttopWithoutTitle, styles.lefttop)}
-        style={{ display: lefttop2Display }}
-      />
+      {title ? (
+        <div className={classNames(styles.lefttopWithTitle, styles.lefttop)} />
+      ) : (
+        <div
+          className={classNames(styles.lefttopWithoutTitle, styles.lefttop)}
+        />
+      )}
       <div className={styles.content}>
         <div key="content">
           <p key="title" className={styles.title}>

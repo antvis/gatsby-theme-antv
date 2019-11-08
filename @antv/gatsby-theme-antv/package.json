@@ -83,7 +83,9 @@
     "react-github-corner": "^2.3.0",
     "react-helmet": "^5.2.1",
     "react-i18next": "^11.0.0",
+    "react-slick": "^0.25.2",
     "react-test-renderer": "^16.9.0",
+    "slick-carousel": "^1.8.1",
     "ts-jest": "^24.1.0",
     "typescript": "^3.6.3"
   },

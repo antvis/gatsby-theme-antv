@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 interface NotificationProps {
   className?: string;
   numImg: string;
-  translate: boolean;
   notificationContent: {
     type: string;
     title: string;
@@ -17,15 +16,11 @@ interface NotificationProps {
 const Notification: React.FC<NotificationProps> = ({
   className,
   numImg,
-  translate = true,
   notificationContent,
 }) => {
   const { t } = useTranslation();
   const { type, title, date } = notificationContent;
   let description = `${type} ‧ ${title}`;
-  if (translate) {
-    description = `${t(type)} ‧ ${t(title)}`;
-  }
   return (
     <div className={classNames(styles.notification, className)}>
       <div className={styles.container}>

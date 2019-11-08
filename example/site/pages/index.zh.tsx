@@ -1,17 +1,16 @@
 import React from 'react';
-import { Skeleton } from 'antd';
 import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
 import { useTranslation } from 'react-i18next';
 import Banner from '@antv/gatsby-theme-antv/site/components/Banner';
 import Companies from '@antv/gatsby-theme-antv/site/components/Companies';
 import Features from '@antv/gatsby-theme-antv/site/components/Features';
 import Applications from '@antv/gatsby-theme-antv/site/components/Applications';
+import BannerSVG from '@antv/gatsby-theme-antv/site/components/BannerSVG';
 
 const IndexPage = () => {
   const { t, i18n } = useTranslation();
-  i18n.options.keySeparator = '>';
 
-  const coverImage = <svg></svg>;
+  const coverImage = BannerSVG();
 
   const features = [
     {
@@ -41,14 +40,36 @@ const IndexPage = () => {
   ];
 
   const companies = [
-    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Z1NnQ6L4xCIAAAAAAAAAAABkARQnAQ',
-    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*6u3hTpsd7h8AAAAAAAAAAABkARQnAQ',
-    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*58snT4MwuGcAAAAAAAAAAABkARQnAQ',
-    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*14yvRoRDs4wAAAAAAAAAAABkARQnAQ',
-    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Fw8HTbFgUdAAAAAAAAAAAABkARQnAQ',
-    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*lUdjTqQix48AAAAAAAAAAABkARQnAQ',
-    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*1q8NQZ9GaN0AAAAAAAAAAABkARQnAQ',
-    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*SqmTSqj4FjEAAAAAAAAAAABkARQnAQ',
+    {
+      name: '公司1',
+      img:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Z1NnQ6L4xCIAAAAAAAAAAABkARQnAQ',
+    },
+    {
+      name: '公司2',
+      img:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*6u3hTpsd7h8AAAAAAAAAAABkARQnAQ',
+    },
+    {
+      name: '公司3',
+      img:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Fw8HTbFgUdAAAAAAAAAAAABkARQnAQ',
+    },
+    {
+      name: '公司4',
+      img:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*lUdjTqQix48AAAAAAAAAAABkARQnAQ',
+    },
+    {
+      name: '公司5',
+      img:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*1q8NQZ9GaN0AAAAAAAAAAABkARQnAQ',
+    },
+    {
+      name: '公司6',
+      img:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*SqmTSqj4FjEAAAAAAAAAAABkARQnAQ',
+    },
   ];
 
   const notifications = [

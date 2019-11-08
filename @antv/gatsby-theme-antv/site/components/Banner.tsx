@@ -2,6 +2,7 @@ import React from 'react';
 import Notification from './Notification';
 import styles from './Banner.module.less';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 interface Notification {
   type: string;
@@ -21,21 +22,6 @@ interface BannerProps {
   className?: string;
 }
 
-const insNotifications: Notification[] = [
-  {
-    type: '更新',
-    title: 'L7 发布新版本，让地图动起来！',
-    date: '2019.12.04',
-    link: '',
-  },
-  {
-    type: '推荐',
-    title: 'Kitchen 3.75，效率大幅提升！',
-    date: '2019.12.03',
-    link: '',
-  },
-];
-
 const numImgs = [
   'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*ViOPRKPsVzoAAAAAAAAAAABkARQnAQ',
   'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*NFADS6PF0DYAAAAAAAAAAABkARQnAQ',
@@ -54,14 +40,24 @@ const Banner: React.FC<BannerProps> = ({
   style = {},
   className,
 }) => {
-  const notiInstrinsicFlgs: boolean[] = [];
-  insNotifications.forEach(noti => {
-    notiInstrinsicFlgs.push(true);
-  });
+  const { t } = useTranslation();
+  const insNotifications: Notification[] = [
+    {
+      type: t('更新'),
+      title: t('L7 发布新版本，让地图动起来！'),
+      date: '2019.12.04',
+      link: '',
+    },
+    {
+      type: t('推荐'),
+      title: t('Kitchen 3.75，效率大幅提升！'),
+      date: '2019.12.03',
+      link: '',
+    },
+  ];
   if (notifications) {
     notifications.forEach((noti, i) => {
       insNotifications[i] = noti;
-      notiInstrinsicFlgs[i] = false;
     });
   }
   const getNotifications = () => {
@@ -87,7 +83,6 @@ const Banner: React.FC<BannerProps> = ({
             className={cstyle}
             numImg={numImgs[i]}
             notificationContent={notification}
-            translate={notiInstrinsicFlgs[i]}
           />
         </a>
       );

@@ -56,10 +56,10 @@ module.exports = {
 - [Header Props](https://github.com/antvis/gatsby-theme-antv/blob/master/%40antv/gatsby-theme-antv/site/components/Header.tsx#L13-L39)
 - [Footer Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Footer.tsx#L149-L159)
 - [SEO Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Seo.tsx#L12-L17)
-- [Banner Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Banner.tsx#L5-L22)
-- [Features Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/
-- [Applications Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Applications.tsx#L13-L19)
-- [Companies Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Companies.tsx#L6-L9)
+- [Banner Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Banner.tsx#L7-L23)
+- [Features Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Features.tsx#7-L17)
+- [Applications Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Applications.tsx#L14-L25)
+- [Companies Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Companies.tsx#L6-L16)
 
 ```jsx
 import SEO from '@antv/gatsby-theme-antv/site/components/Seo';
@@ -103,11 +103,20 @@ const Layout = () => {
       link: '#',
       image:
         'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*oCd7Sq3N-QEAAAAAAAAAAABkARQnAQ',
-    }
+    },
+    // ...
   ];
   const companies = [
-    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Z1NnQ6L4xCIAAAAAAAAAAABkARQnAQ',
-    'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*6u3hTpsd7h8AAAAAAAAAAABkARQnAQ',
+    {
+      name: '公司1',
+      image:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Z1NnQ6L4xCIAAAAAAAAAAABkARQnAQ',
+    },
+    {
+      name: '公司2',
+      image:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*6u3hTpsd7h8AAAAAAAAAAABkARQnAQ',
+    },
     // ...
   ];
   const notifications = [
@@ -115,25 +124,9 @@ const Layout = () => {
       type: '测试',
       title: 'G6 3.2 全新上线！',
       date: '2019.12.04',
-      link: '#'
+      link: '#',
     },
   ];
-  const bannerProps = {
-    coverImage: (<svg></svg>); // 右侧 banner svg 内容
-    title: '主页标题',
-    description: '主页描述内容描述内容描述内容描述内容',
-    buttonText: '按钮文字',
-    buttonHref: '#按钮链接路径',
-    notifications: notifications, // 可传 1-2 个内容，若不传则显示 2 个默认通知
-  }
-  const featuresProps = {
-    title: "优势页面名称"; // 可不传
-    features;            // 必传
-  };
-  const companiesProps = {
-    title="公司页面名称" // 必传
-    companies // 必传
-  };
 
   return (
     <>
@@ -160,12 +153,18 @@ const Layout = () => {
       />
 
       <Banner
-        {...bannerProps}
+        coverImage={<svg></svg>} // 右侧 banner svg 内容
+        title="主页标题"
+        description="主页描述内容描述内容描述内容描述内容"
+        buttonText="按钮文字"
+        buttonHref={'#按钮链接路径'}
+        notifications={notifications} // 可传 1-2 个内容，若不传则显示 2 个默认通知
         style={{}}
         className="Banner 的 className"
       />
       <Features
-        {...featuresProps}
+        title="优势页面名称" // 可不传
+        features={features} // 必传
         style={{}}
         className="Features 的 className"
       />
@@ -175,7 +174,8 @@ const Layout = () => {
         className="Appliations 的 className"
       />
       <Companies
-        {...companiesProps}
+        title="公司页面名称" // 必传
+        companies={companies} // 必传
         style={{}}
         className="Companies 的 className"
       />
