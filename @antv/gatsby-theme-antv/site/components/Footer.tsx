@@ -19,10 +19,14 @@ export default ({
   const lang = i18n.language;
   const defaultColumns = [
     {
-      title: 'G2 可视化图形语法',
+      title: (
+        <span>
+          G2<span className={styles.description}>{t('可视化图形语法')}</span>
+        </span>
+      ),
       items: [
         {
-          title: t('首页'),
+          title: t('产品首页'),
           url: `/g2/${lang}`,
         },
         {
@@ -36,10 +40,14 @@ export default ({
       ],
     },
     {
-      title: 'G6 图可视化引擎',
+      title: (
+        <span>
+          G6<span className={styles.description}>{t('图可视化引擎')}</span>
+        </span>
+      ),
       items: [
         {
-          title: t('首页'),
+          title: t('产品首页'),
           url: `/g6/${lang}`,
         },
         {
@@ -53,10 +61,14 @@ export default ({
       ],
     },
     {
-      title: 'F2 移动端可视化方案',
+      title: (
+        <span>
+          F2<span className={styles.description}>{t('移动可视化方案')}</span>
+        </span>
+      ),
       items: [
         {
-          title: t('首页'),
+          title: t('产品首页'),
           url: `/f2/${lang}`,
         },
         {
@@ -70,10 +82,14 @@ export default ({
       ],
     },
     {
-      title: 'L7 地理空间可视化',
+      title: (
+        <span>
+          L7<span className={styles.description}>{t('地理空间可视化')}</span>
+        </span>
+      ),
       items: [
         {
-          title: t('首页'),
+          title: t('产品首页'),
           url: '/l7',
         },
         {
@@ -87,10 +103,14 @@ export default ({
       ],
     },
     {
-      title: 'G2Plot 图表库',
+      title: (
+        <span>
+          G2Plot<span className={styles.description}>{t('可视化图表库')}</span>
+        </span>
+      ),
       items: [
         {
-          title: t('首页'),
+          title: t('产品首页'),
           url: `/g2plot/${lang}`,
         },
         {
@@ -104,10 +124,14 @@ export default ({
       ],
     },
     {
-      title: 'Graphin 可视化分析框架',
+      title: (
+        <span>
+          Graphin<span className={styles.description}>{t('图分析框架')}</span>
+        </span>
+      ),
       items: [
         {
-          title: t('首页'),
+          title: t('产品首页'),
           url: `/graphin/${lang}`,
         },
         {
@@ -121,10 +145,15 @@ export default ({
       ],
     },
     {
-      title: 'ChartCube 图表生成工具',
+      title: (
+        <span>
+          ChartCube
+          <span className={styles.description}>{t('图表生成工具')}</span>
+        </span>
+      ),
       items: [
         {
-          title: t('首页'),
+          title: t('产品首页'),
           url: `https://chartcube.alipay.com`,
           openExternal: true,
         },
