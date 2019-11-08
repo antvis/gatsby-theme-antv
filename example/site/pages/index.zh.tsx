@@ -106,32 +106,30 @@ const IndexPage = () => {
   return (
     <>
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
-      <div>
-        <Banner
-          coverImage={coverImage}
-          title={t('让数据栩栩如生')}
-          description={t(
-            'AntV 是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。',
-          )}
-          buttonText={t('继续了解')}
-          buttonHref={'#products'}
-          notifications={notifications}
-          className="banner"
-          // style={{ height: '600px' }}
-        />
-        <Features
-          features={features}
-          // className="features"
-          style={{ width: '100%' }}
-        />
-        <Cases cases={cases} />
-        <Companies
-          title={t('合作公司')}
-          companies={companies}
-          // className="companies"
-          // style={{ width: '100%' }}
-        />
-      </div>
+      <Banner
+        coverImage={coverImage}
+        title={t('让数据栩栩如生')}
+        description={t(
+          'AntV 是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。',
+        )}
+        buttonText={t('继续了解')}
+        buttonHref={'#products'}
+        notifications={notifications}
+        className="banner"
+        // style={{ height: '600px' }}
+      />
+      <Features
+        features={features}
+        // className="features"
+        style={{ width: '100%' }}
+      />
+      <Cases cases={cases} />
+      <Companies
+        title={t('合作公司')}
+        companies={companies}
+        // className="companies"
+        // style={{ width: '100%' }}
+      />
     </>
   );
 };
