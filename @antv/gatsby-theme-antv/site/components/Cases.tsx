@@ -4,30 +4,26 @@ import Slider from 'react-slick';
 import classNames from 'classnames';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import styles from './Applications.module.less';
+import styles from './Cases.module.less';
 
 const previousButtonImg =
   'https://gw.alipayobjects.com/zos/basement_prod/39d0ba49-5ae4-4fb7-86e1-ff90e79e30a0.svg';
 const nextButtonImg =
   'https://gw.alipayobjects.com/zos/basement_prod/27ce6e21-bbb6-4490-8326-43483ac39e0b.svg';
 
-interface Application {
+interface Case {
   logo?: string;
   title: string;
   description: string;
   link?: string;
   image: string;
 }
-interface ApplicationsProps {
-  applications: Application[];
+interface CasesProps {
+  cases: Case[];
   style?: React.CSSProperties;
   className?: string;
 }
-const Applications: React.FC<ApplicationsProps> = ({
-  applications = [],
-  style = {},
-  className,
-}) => {
+const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
   const { t } = useTranslation();
   let slider: any;
 
@@ -38,9 +34,9 @@ const Applications: React.FC<ApplicationsProps> = ({
     slider.slickNext();
   };
 
-  const getApplications = () => {
+  const getCases = () => {
     let buttons: any;
-    if (applications.length > 1) {
+    if (cases.length > 1) {
       buttons = (
         <div className={styles.buttons}>
           <img
@@ -58,7 +54,7 @@ const Applications: React.FC<ApplicationsProps> = ({
         </div>
       );
     }
-    const children = applications.map(app => {
+    const children = cases.map(app => {
       let linkDiv;
       if (app.link) {
         linkDiv = (
@@ -89,7 +85,7 @@ const Applications: React.FC<ApplicationsProps> = ({
   };
 
   const sliderSettings = {
-    dots: applications.length > 1 ? true : false,
+    dots: cases.length > 1 ? true : false,
     infinite: true,
     slidesToShow: 1,
     adaptiveHeight: true,
@@ -107,9 +103,9 @@ const Applications: React.FC<ApplicationsProps> = ({
         className={styles.slider}
         ref={c => (slider = c)}
       >
-        {getApplications()}
+        {getCases()}
       </Slider>
     </div>
   );
 };
-export default Applications;
+export default Cases;

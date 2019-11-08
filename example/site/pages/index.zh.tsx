@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import Banner from '@antv/gatsby-theme-antv/site/components/Banner';
 import Companies from '@antv/gatsby-theme-antv/site/components/Companies';
 import Features from '@antv/gatsby-theme-antv/site/components/Features';
-import Applications from '@antv/gatsby-theme-antv/site/components/Applications';
+import Cases from '@antv/gatsby-theme-antv/site/components/Cases';
 import BannerSVG from '@antv/gatsby-theme-antv/site/components/BannerSVG';
 
 const IndexPage = () => {
@@ -81,7 +81,7 @@ const IndexPage = () => {
     },
   ];
 
-  const applications = [
+  const cases = [
     {
       logo:
         'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
@@ -124,7 +124,7 @@ const IndexPage = () => {
           // className="features"
           style={{ width: '100%' }}
         />
-        <Applications applications={applications} />
+        <Cases cases={cases} />
         <Companies
           title={t('合作公司')}
           companies={companies}

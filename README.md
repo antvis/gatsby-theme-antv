@@ -58,7 +58,7 @@ module.exports = {
 - [SEO Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Seo.tsx#L12-L17)
 - [Banner Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Banner.tsx#L7-L23)
 - [Features Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Features.tsx#7-L17)
-- [Applications Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Applications.tsx#L14-L25)
+- [Cases Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Cases.tsx#L14-L25)
 - [Companies Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Companies.tsx#L6-L16)
 
 ```jsx
@@ -93,7 +93,7 @@ const Layout = () => {
       description: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     },
   ];
-  const applications = [
+  const cases = [
     {
       logo:
         'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
@@ -168,11 +168,7 @@ const Layout = () => {
         style={{}}
         className="Features 的 className"
       />
-      <Appliations
-        applications={applications}
-        style={{}}
-        className="Appliations 的 className"
-      />
+      <Cases cases={cases} style={{}} className="Cases 的 className" />
       <Companies
         title="公司页面名称" // 必传
         companies={companies} // 必传
