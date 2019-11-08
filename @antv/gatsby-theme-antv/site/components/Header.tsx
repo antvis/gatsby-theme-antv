@@ -2,7 +2,7 @@ import { navigate } from 'gatsby';
 import React from 'react';
 import GithubCorner from 'react-github-corner';
 import { useTranslation } from 'react-i18next';
-import { Popover } from 'antd';
+import { Icon } from 'antd';
 import Search from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
@@ -106,24 +106,10 @@ const Header: React.FC<HeaderProps> = ({
             <NavMenuItems navs={navs} path={path} />
           ) : null}
           <li>
-            <Popover
-              title={null}
-              content={<Products />}
-              placement="bottomRight"
-              arrowPointAtCenter
-            >
-              <a>{t('所有产品')}</a>
-            </Popover>
-          </li>
-          <li>
-            <Popover
-              title={null}
-              content={<Products />}
-              placement="bottomRight"
-              arrowPointAtCenter
-            >
-              <a>{t('生态')}</a>
-            </Popover>
+            <a>
+              {t('所有产品')}{' '}
+              <Icon type="caret-down" style={{ fontSize: 12 }} />
+            </a>
           </li>
           {showLanguageSwitcher && (
             <li>
@@ -156,6 +142,7 @@ const Header: React.FC<HeaderProps> = ({
           </span>
         )}
       </nav>
+      <Products style={{ display: 'none' }} />
     </header>
   );
 };
