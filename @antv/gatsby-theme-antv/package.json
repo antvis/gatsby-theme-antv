@@ -75,7 +75,7 @@
     "prism-themes": "^1.2.0",
     "prismjs": "^1.17.1",
     "ptz-i18n": "^1.0.0",
-    "rc-footer": "^0.6.0",
+    "rc-footer": "^0.6.1",
     "react": "^16.9.0",
     "react-codemirror2": "^6.0.0",
     "react-dom": "^16.9.0",
