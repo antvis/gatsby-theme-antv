@@ -1,14 +1,19 @@
 import React from 'react';
-import Footer from 'rc-footer';
+import { default as RCFooter, FooterProps as RcFooterProps } from 'rc-footer';
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'antd';
 import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
 
-export default ({
-  columns = undefined,
-  bottom = undefined,
+interface FooterProps extends RcFooterProps {
+  rootDomain?: string;
+}
+
+const Footer: React.FC<FooterProps> = ({
+  columns,
+  bottom,
   theme = 'dark' as 'dark',
+  rootDomain = '',
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
@@ -22,15 +27,15 @@ export default ({
       items: [
         {
           title: t('产品首页'),
-          url: `/g2/${lang}`,
+          url: `${rootDomain}/g2/${lang}`,
         },
         {
           title: t('图表示例'),
-          url: `/g2/${lang}/examples`,
+          url: `${rootDomain}/g2/${lang}/examples`,
         },
         {
           title: t('使用文档'),
-          url: `/g2/${lang}/docs/manual`,
+          url: `${rootDomain}/g2/${lang}/docs/manual`,
         },
       ],
     },
@@ -43,15 +48,15 @@ export default ({
       items: [
         {
           title: t('产品首页'),
-          url: `/g6/${lang}`,
+          url: `${rootDomain}/g6/${lang}`,
         },
         {
           title: t('图表示例'),
-          url: `/g6/${lang}/examples`,
+          url: `${rootDomain}/g6/${lang}/examples`,
         },
         {
           title: t('使用文档'),
-          url: `/g6/${lang}/docs/manual`,
+          url: `${rootDomain}/g6/${lang}/docs/manual`,
         },
       ],
     },
@@ -64,15 +69,15 @@ export default ({
       items: [
         {
           title: t('产品首页'),
-          url: `/f2/${lang}`,
+          url: `${rootDomain}/f2/${lang}`,
         },
         {
           title: t('图表示例'),
-          url: `/f2/${lang}/examples`,
+          url: `${rootDomain}/f2/${lang}/examples`,
         },
         {
           title: t('使用文档'),
-          url: `/f2/${lang}/docs/manual`,
+          url: `${rootDomain}/f2/${lang}/docs/manual`,
         },
       ],
     },
@@ -85,15 +90,15 @@ export default ({
       items: [
         {
           title: t('产品首页'),
-          url: '/l7',
+          url: '${rootDomain}/l7',
         },
         {
           title: t('图表示例'),
-          url: `/l7/${lang}/examples`,
+          url: `${rootDomain}/l7/${lang}/examples`,
         },
         {
           title: t('使用文档'),
-          url: `/l7/${lang}/docs/manual`,
+          url: `${rootDomain}/l7/${lang}/docs/manual`,
         },
       ],
     },
@@ -106,15 +111,15 @@ export default ({
       items: [
         {
           title: t('产品首页'),
-          url: `/g2plot/${lang}`,
+          url: `${rootDomain}/g2plot/${lang}`,
         },
         {
           title: t('图表示例'),
-          url: `/g2plot/${lang}/examples`,
+          url: `${rootDomain}/g2plot/${lang}/examples`,
         },
         {
           title: t('使用文档'),
-          url: `/g2plot/${lang}/docs/manual`,
+          url: `${rootDomain}/g2plot/${lang}/docs/manual`,
         },
       ],
     },
@@ -127,15 +132,15 @@ export default ({
       items: [
         {
           title: t('产品首页'),
-          url: `/graphin/${lang}`,
+          url: `${rootDomain}/graphin/${lang}`,
         },
         {
           title: t('图表示例'),
-          url: `/graphin/${lang}/examples`,
+          url: `${rootDomain}/graphin/${lang}/examples`,
         },
         {
           title: t('使用文档'),
-          url: `/graphin/${lang}/docs/manual`,
+          url: `${rootDomain}/graphin/${lang}/docs/manual`,
         },
       ],
     },
@@ -243,7 +248,7 @@ export default ({
     },
   ];
   return (
-    <Footer
+    <RCFooter
       maxColumnsPerRow={4}
       theme={theme}
       columns={columns || defaultColumns}
@@ -261,7 +266,7 @@ export default ({
               <a href="https://github.com/antvis" target="_blank">
                 <Icon type="github" />
               </a>
-              <a href="https://antv.alipay.com/about">{t('关于我们')}</a>
+              <a href={`${rootDomain}/about`}>{t('关于我们')}</a>
               <a href="https://antv-2018.alipay.com" target="_blank">
                 {t('返回旧版')}
               </a>
@@ -276,3 +281,5 @@ export default ({
     />
   );
 };
+
+export default Footer;
