@@ -7,16 +7,18 @@ import 'rc-footer/assets/index.less';
 
 interface FooterProps extends RcFooterProps {
   rootDomain?: string;
+  language?: string;
 }
 
 const Footer: React.FC<FooterProps> = ({
   columns,
   bottom,
-  theme = 'dark' as 'dark',
+  theme = 'dark',
+  language,
   rootDomain = '',
 }) => {
   const { t, i18n } = useTranslation();
-  const lang = i18n.language;
+  const lang = language || i18n.language;
   const defaultColumns = [
     {
       title: (
