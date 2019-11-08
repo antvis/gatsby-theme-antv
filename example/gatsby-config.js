@@ -49,6 +49,15 @@ module.exports = {
           zh: '分类一',
           en: 'category1',
         },
+        order: 3,
+      },
+      {
+        slug: 'specification/category/three',
+        title: {
+          zh: '第三层',
+          en: 'three level',
+        },
+        order: 1,
       },
       {
         slug: 'other/category',
@@ -56,6 +65,7 @@ module.exports = {
           zh: '分类二',
           en: 'category2',
         },
+        order: 4,
       },
     ],
     examples: [
@@ -68,5 +78,10 @@ module.exports = {
         },
       },
     ],
+    playground: {
+      container: '<div id="container" class="ok" />',
+      playgroundDidMount: 'console.log("playgroundDidMount");',
+      playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
+    },
   },
 };

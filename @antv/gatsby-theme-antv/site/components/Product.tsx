@@ -10,6 +10,7 @@ interface ProductProps {
     name: string;
     link: string;
   }>;
+  style?: React.CSSProperties;
 }
 
 const Product: React.FC<ProductProps> = ({
@@ -18,8 +19,9 @@ const Product: React.FC<ProductProps> = ({
   url,
   description,
   links = [],
+  style,
 }) => (
-  <li className={styles.product}>
+  <li className={styles.product} style={style}>
     <img alt={name} src={icon} />
     <div className={styles.productContent}>
       <a href={url} target="_blank">

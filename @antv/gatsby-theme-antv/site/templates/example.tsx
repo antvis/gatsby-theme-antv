@@ -129,7 +129,7 @@ export default function Template({
     parent: { relativePath },
   } = markdownRemark;
   const {
-    siteMetadata: { examples = [], githubUrl },
+    siteMetadata: { examples = [], githubUrl, playground },
   } = site;
   const { t, i18n } = useTranslation();
   const groupedEdges = groupBy(
@@ -249,7 +249,17 @@ export default function Template({
               </Tooltip>
             </h1>
             <div dangerouslySetInnerHTML={{ __html: html }} />
-            <Tabs slug={exampleRootSlug} active={activeTab} />
+            <Tabs
+              slug={exampleRootSlug}
+              active={activeTab}
+              showTabs={{
+                examples:
+                  exampleSections.examples &&
+                  exampleSections.examples.length > 0,
+                API: !!exampleSections.API,
+                design: !!exampleSections.design,
+              }}
+            />
             {exampleSections.examples && (
               <div
                 style={{ display: activeTab === 'examples' ? 'block' : 'none' }}
@@ -257,6 +267,7 @@ export default function Template({
                 <PlayGrounds
                   examples={exampleSections.examples}
                   location={location}
+                  playground={playground || {}}
                 />
               </div>
             )}
@@ -296,6 +307,11 @@ export const pageQuery = graphql`
             zh
             en
           }
+        }
+        playground {
+          container
+          playgroundDidMount
+          playgroundWillUnmount
         }
       }
       pathPrefix

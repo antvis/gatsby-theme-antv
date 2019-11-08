@@ -1,13 +1,18 @@
 @import '~antd/es/style/themes/default.less';
 
+ul.tabs,
+h3.title {
+  font-size: 24px !important;
+  margin: 40px 0 24px !important;
+  line-height: 32px;
+}
+
 ul.tabs {
-  font-size: 24px;
-  margin: 40px 0 32px;
   padding: 0;
   list-style: none;
 
   > li {
-    padding: 0 0 12px 0;
+    padding: 0;
     margin-right: 36px;
     margin-left: 0;
     list-style: none;
@@ -15,10 +20,12 @@ ul.tabs {
     line-height: 1;
     cursor: pointer;
     transition: all 0.3s;
-    border-bottom: 2px solid transparent;
+    position: relative;
 
     a {
       color: #697b8c;
+      position: relative;
+      z-index: 1;
     }
 
     &:hover a {
@@ -29,16 +36,29 @@ ul.tabs {
       margin-right: 0;
     }
 
-    &.active {
-      border-color: @blue-6;
+    &:after {
+      content: '';
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      height: 0;
+      bottom: -3px;
+      background-image: transparent;
+      transition: all 3s;
+      background-image: linear-gradient(45deg, #b67aff 0%, #c4a1ff 100%);
+    }
 
-      a {
-        color: @blue-6;
-      }
+    &.active a {
+      color: @text-color;
+      font-weight: 500;
+    }
 
-      &:hover a {
-        color: @blue-6;
-      }
+    &.active:after {
+      height: 8px;
+    }
+
+    &.hidden {
+      display: none;
     }
   }
 }

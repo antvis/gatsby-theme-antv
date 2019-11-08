@@ -106,7 +106,7 @@ const IndexPage = () => {
   return (
     <>
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
-      <div style={{ marginTop: '-24px' }}>
+      <div>
         <Banner
           coverImage={coverImage}
           title={t('让数据栩栩如生')}

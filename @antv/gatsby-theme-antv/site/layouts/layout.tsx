@@ -14,6 +14,7 @@ i18n
     // @ts-ignore
     resources: I18NEXT_RESOURCES,
     fallbackLng: 'zh',
+    keySeparator: false,
     react: {
       useSuspense: false,
     },
@@ -33,6 +34,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         siteMetadata {
           title
           githubUrl
+          showLanguageSwitcher
           navs {
             slug
             title {
@@ -47,11 +49,14 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   `;
   const { site } = useStaticQuery(query);
   const {
-    siteMetadata: { title, navs = [], githubUrl },
+    siteMetadata: { title, navs = [], githubUrl, showLanguageSwitcher },
   } = site;
   const pathPrefix = withPrefix('/').replace(/\/$/, '');
   const path = location.pathname.replace(pathPrefix, '');
   const currentLangKey = getCurrentLangKey(lngs, 'zh', path);
+
+  const isHomePage =
+    path === `/${currentLangKey}` || path === `/${currentLangKey}/`;
 
   i18n.init({
     lng: currentLangKey,
@@ -64,6 +69,8 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     return children;
   }
 
+  console.log(isHomePage);
+
   return (
     <>
       <Header
@@ -73,6 +80,10 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         navs={navs}
         githubUrl={githubUrl}
         Link={Link}
+        transparent={isHomePage}
+        showLanguageSwitcher={
+          showLanguageSwitcher === null ? undefined : showLanguageSwitcher
+        }
       />
       <main className={styles.main}>{children}</main>
       <Footer />

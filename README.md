@@ -12,6 +12,16 @@
 - ✨ AntV 站点 [接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442)
 - 参考例子: https://github.com/antvis/gatsby-theme-antv/tree/master/example
 
+## Features
+
+- ⚛ Prerendered static site
+- 🌎 Internationalization support by i18next
+- 📝 Markdown-based documentation and menus
+- 🎬 Examples with live playground
+- 🏗 Unified Theme and Layout
+- 🆙 Easy customized header nav
+- 🧩 Built-in home page components
+
 ## Usage
 
 ```bash
@@ -43,13 +53,19 @@ module.exports = {
     navs: [], // 用于定义顶部菜单
     docs: [], // 用于定义文档页面的二级分类菜单
     examples: [], // 用于定义演示页面的二级菜单，属性见下方
+    showLanguageSwitcher: true, // 用于定义是否展示语言切换
+    playground: {
+      container: '<canvas id="container" />', // 定义演示的渲染节点，默认 <div id="container" />
+      playgroundDidMount: 'console.log("playgroundDidMount");',
+      playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
+    },
   },
 };
 ```
 
-- `navs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/72638a8be44f84b7afc6c2294fb7814eb13cff56/%40antv/gatsby-theme-antv/gatsby-node.js#L248)
-- `docs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/72638a8be44f84b7afc6c2294fb7814eb13cff56/%40antv/gatsby-theme-antv/gatsby-node.js#L235)
-- `examples`: [props](https://github.com/antvis/gatsby-theme-antv/blob/72638a8be44f84b7afc6c2294fb7814eb13cff56/%40antv/gatsby-theme-antv/gatsby-node.js#L241)
+- `navs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/aa8cdd7e24e965174cbe7173a841fd7d23537e52/%40antv/gatsby-theme-antv/gatsby-node.js#L242-L264)
+- `docs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/aa8cdd7e24e965174cbe7173a841fd7d23537e52/%40antv/gatsby-theme-antv/gatsby-node.js#L242-L264)
+- `examples`: [props](https://github.com/antvis/gatsby-theme-antv/blob/aa8cdd7e24e965174cbe7173a841fd7d23537e52/%40antv/gatsby-theme-antv/gatsby-node.js#L242-L264)
 
 ## Components
 
@@ -193,7 +209,7 @@ Visit https://localhost:8000 to preview.
 
 ```bash
 cd @antv/gatsby-theme-antv
-npm publish
+npm run release
 ```
 
 ## Deploy

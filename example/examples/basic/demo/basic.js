@@ -1,4 +1,9 @@
 import G2 from '@antv/g2';
+import insertCss from 'insert-css';
+
+insertCss(`
+  .custom { background: blue; }
+`);
 
 const data = [
   { genre: 'Sports', sold: 275 },

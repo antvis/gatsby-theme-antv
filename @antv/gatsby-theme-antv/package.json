@@ -1,7 +1,7 @@
 {
   "name": "@antv/gatsby-theme-antv",
   "description": "Ant Visualization solution home page",
-  "version": "0.9.4",
+  "version": "0.9.30",
   "author": "AntV Team <antv@antfin.com>",
   "keywords": [
     "gatsby",
@@ -23,16 +23,14 @@
     "@babel/preset-typescript": "^7.6.0",
     "@babel/standalone": "^7.6.4",
     "@hot-loader/react-dom": "^16.9.0+4.12.11",
-    "@testing-library/jest-dom": "^4.1.0",
-    "@testing-library/react": "^9.1.4",
     "@types/classnames": "^2.2.9",
+    "@types/codemirror": "^0.0.80",
     "@types/jest": "^24.0.18",
     "@types/lodash-es": "^4.17.3",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
     "@types/react-helmet": "^5.0.10",
-    "antd": "^3.23.3",
-    "babel-jest": "^24.9.0",
+    "antd": "^3.25.0",
     "babel-preset-gatsby": "^0.2.13",
     "classnames": "^2.2.6",
     "codemirror": "^5.49.2",
@@ -53,6 +51,7 @@
     "gatsby-plugin-react-helmet": "^3.1.7",
     "gatsby-plugin-remove-trailing-slashes": "^2.1.9",
     "gatsby-plugin-sharp": "^2.2.22",
+    "gatsby-plugin-sitemap": "^2.2.19",
     "gatsby-plugin-typescript": "^2.1.8",
     "gatsby-redirect-from": "^0.2.1",
     "gatsby-remark-autolink-headers": "^2.1.13",
@@ -65,18 +64,19 @@
     "gatsby-transformer-remark": "^2.6.24",
     "gatsby-transformer-sharp": "^2.2.14",
     "i18next": "^19.0.0",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^24.9.0",
+    "insert-css": "^2.0.0",
     "less": "^3.10.3",
+    "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "mkdirp": "^0.5.1",
     "moment": "^2.24.0",
     "normalize.css": "^8.0.1",
-    "np": "^5.1.0",
+    "prettier": "^1.18.2",
+    "pretty-quick": "^2.0.0",
     "prism-themes": "^1.2.0",
     "prismjs": "^1.17.1",
     "ptz-i18n": "^1.0.0",
-    "rc-footer": "^0.5.0",
+    "rc-footer": "^0.6.1",
     "react": "^16.9.0",
     "react-codemirror2": "^6.0.0",
     "react-dom": "^16.9.0",
@@ -87,6 +87,8 @@
     "react-test-renderer": "^16.9.0",
     "slick-carousel": "^1.8.1",
     "ts-jest": "^24.1.0",
+    "react-split-pane": "^0.1.87",
+    "release-it": "^12.4.3",
     "typescript": "^3.6.3"
   },
   "license": "MIT",
@@ -95,14 +97,35 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "compile:components": "rm -rf .tmp components && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && mv .tmp/@antv/gatsby-theme-antv/site/components components && cp site/components/*.less ./components",
-    "prepublishOnly": "npm run compile:components && np --yolo --no-publish",
+    "release": "release-it -n",
+    "copy:components": "mkdir -p lib && cp -R .tmp/@antv/gatsby-theme-antv/site/components lib && cp site/components/*.less ./lib/components && cp site/common.json ./lib",
+    "compile:components": "rm -rf .tmp lib && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && npm run copy:components",
     "test": "jest"
+  },
+  "release-it": {
+    "git": {
+      "commitMessage": ":sparkles: Release ${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "hooks": {
+      "before:init": [
+        "npm test",
+        "npm run compile:components"
+      ]
+    }
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
-    "np": "^5.1.2"
+    "@testing-library/jest-dom": "^4.1.0",
+    "@testing-library/react": "^9.1.4",
+    "babel-jest": "^24.9.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^24.9.0",
+    "react-test-renderer": "^16.9.0",
+    "ts-jest": "^24.1.0"
   }
 }

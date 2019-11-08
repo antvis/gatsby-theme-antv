@@ -93,7 +93,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             fields {
               slug
             }
-            html
           }
         }
       }
@@ -134,6 +133,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           '@babel/preset-env',
         ],
         plugins: ['@babel/plugin-transform-modules-umd'],
+        babelrc: false,
       });
       const order = (meta.demos || []).findIndex(
         ({ filename }) => filename === path.basename(item.relativePath),
@@ -228,6 +228,12 @@ exports.sourceNodes = ({ actions, schema }) => {
   `);
 
   createTypes(`
+    type PlayGround implements Node {
+      container: String
+      playgroundDidMount: String
+      playgroundWillUnmount: String
+    }
+
     type SiteSiteMetadataTitle implements Node {
       zh: String
       en: String
@@ -259,6 +265,8 @@ exports.sourceNodes = ({ actions, schema }) => {
       navs: [SiteSiteMetadataNavs]
       docs: [SiteSiteMetadataDocs]
       examples: [SiteSiteMetadataExamples]
+      showLanguageSwitcher: Boolean
+      playground: PlayGround
     }
 
     type Site implements Node {

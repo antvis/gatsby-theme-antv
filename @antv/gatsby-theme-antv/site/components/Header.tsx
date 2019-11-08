@@ -1,20 +1,21 @@
 import { navigate } from 'gatsby';
 import React from 'react';
 import GithubCorner from 'react-github-corner';
+import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { Popover, Select } from 'antd';
+import { Icon } from 'antd';
 import Search from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
 import styles from './Header.module.less';
-
-const { Option } = Select;
 
 interface HeaderProps {
   pathPrefix?: string;
   path?: string;
   /** 子标题 */
   subTitle?: React.ReactNode;
+  /** 子标题的链接 */
+  subTitleHref?: string;
   /** 文档和演示的菜单数据 */
   navs?: Nav[];
   /** 是否显示搜索框 */
@@ -36,10 +37,13 @@ interface HeaderProps {
   defaultLanguage?: 'zh' | 'en';
   /** 自定义 Link */
   Link?: React.ComponentType<any>;
+  /** 底色是否透明 */
+  transparent?: Boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
   subTitle = '',
+  subTitleHref,
   pathPrefix = '',
   path = '',
   navs = [],
@@ -60,6 +64,7 @@ const Header: React.FC<HeaderProps> = ({
   githubUrl = 'https://github.com/antvis',
   defaultLanguage,
   Link = 'a',
+  transparent,
 }) => {
   const { t, i18n } = useTranslation();
   const lang =
@@ -67,8 +72,13 @@ const Header: React.FC<HeaderProps> = ({
       ? defaultLanguage
       : i18n.language || '';
   const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
+  const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
   return (
-    <header className={styles.header}>
+    <header
+      className={classNames(styles.header, {
+        [styles.transparent]: !!transparent,
+      })}
+    >
       <div className={styles.left}>
         <h1>
           {React.createElement(
@@ -84,9 +94,12 @@ const Header: React.FC<HeaderProps> = ({
             <span className={styles.divider} />
             <h2 className={styles.subProduceName}>
               {React.createElement(
-                Link,
+                SubTitleLink,
                 {
-                  [Link === 'a' ? 'href' : 'to']: `/${lang}`,
+                  [SubTitleLink === 'a' ? 'href' : 'to']:
+                    typeof subTitleHref === 'undefined'
+                      ? `/${lang}`
+                      : subTitleHref,
                 },
                 subTitle,
               )}
@@ -101,54 +114,43 @@ const Header: React.FC<HeaderProps> = ({
             <NavMenuItems navs={navs} path={path} />
           ) : null}
           <li>
-            <Popover
-              title={null}
-              content={<Products />}
-              placement="bottomRight"
-              arrowPointAtCenter
-            >
-              <a>{t('所有产品')}</a>
-            </Popover>
+            <a>
+              {t('所有产品')}{' '}
+              <Icon type="caret-down" style={{ fontSize: 12 }} />
+            </a>
           </li>
-          <li>
-            <Popover
-              title={null}
-              content={<Products />}
-              placement="bottomRight"
-              arrowPointAtCenter
-            >
-              <a>{t('生态')}</a>
-            </Popover>
-          </li>
+          {showLanguageSwitcher && (
+            <li>
+              <a
+                onClick={e => {
+                  e.preventDefault();
+                  const value = lang === 'en' ? 'zh' : 'en';
+                  i18n.changeLanguage(value);
+                  if (onLanguageChange) {
+                    return onLanguageChange(value);
+                  }
+                  if (path.endsWith(`/${lang}`)) {
+                    return navigate(`/${value}`);
+                  }
+                  navigate(
+                    path
+                      .replace(pathPrefix, '')
+                      .replace(`/${lang}/`, `/${value}/`),
+                  );
+                }}
+              >
+                {t('English')}
+              </a>
+            </li>
+          )}
         </ul>
-        {showLanguageSwitcher && (
-          <Select
-            size="small"
-            style={{ width: 92, fontSize: 12 }}
-            dropdownMatchSelectWidth={false}
-            value={lang}
-            onChange={(value: string) => {
-              if (onLanguageChange) {
-                return onLanguageChange(value);
-              }
-              if (path.endsWith(`/${lang}`)) {
-                return navigate(`/${value}`);
-              }
-              navigate(
-                path.replace(pathPrefix, '').replace(`/${lang}/`, `/${value}/`),
-              );
-            }}
-          >
-            <Option value="zh">🇨🇳 中文</Option>
-            <Option value="en">🇺🇸 English</Option>
-          </Select>
-        )}
         {showGithubCorner && (
           <span className={styles.githubCorner}>
             <GithubCorner href={githubUrl} size={64} />
           </span>
         )}
       </nav>
+      <Products style={{ display: 'none' }} />
     </header>
   );
 };

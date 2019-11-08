@@ -66,9 +66,7 @@ const BannerSVG = () => {
       'D',
       'E',
       'F',
-      'G',
       'H',
-      'I',
       'J',
       'K',
       'L',
@@ -125,7 +123,7 @@ const BannerSVG = () => {
 
   return (
     <section className={styles.wrapper}>
-      <svg width="100%" height="auto" viewBox="-50 0 751 547" version="1.1">
+      <svg width="100%" height="auto" viewBox="-50 -50 751 587" version="1.1">
         <defs>
           <linearGradient
             x1="100%"

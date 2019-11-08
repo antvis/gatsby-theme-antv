@@ -10,6 +10,5 @@ describe(`Header`, () => {
       <Header siteTitle={siteTitle} pathPrefix="/xxx" />,
     );
     expect(getByText('所有产品')).toBeInTheDocument();
-    expect(getByText('生态')).toBeInTheDocument();
   });
 });

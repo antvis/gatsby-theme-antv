@@ -3,7 +3,8 @@ const path = require('path');
 module.exports = ({
   pagesPath = './site/pages',
   GATrackingId,
-  primaryColor = '#722ED1',
+  primaryColor = '#1890FF',
+  textColor = '#0D1A26',
   pathPrefix,
 }) => {
   const config = {
@@ -72,9 +73,15 @@ module.exports = ({
               options: {
                 // Look for local .prettierrc file.
                 // The same as `prettier.resolveConfig(process.cwd())`
-                usePrettierrc: true,
+                usePrettierrc: false,
                 // Overwrite prettier options, check out https://prettier.io/docs/en/options.html
-                prettierOptions: {},
+                prettierOptions: {
+                  endOfLine: 'lf',
+                  semi: true,
+                  singleQuote: true,
+                  tabWidth: 2,
+                  trailingComma: 'all',
+                },
               },
             },
             {
@@ -98,6 +105,7 @@ module.exports = ({
       `gatsby-plugin-sharp`,
       `gatsby-transformer-sharp`,
       `gatsby-plugin-offline`,
+      `gatsby-plugin-sitemap`,
       {
         resolve: `gatsby-plugin-manifest`,
         options: {
@@ -117,6 +125,9 @@ module.exports = ({
           javascriptEnabled: true,
           modifyVars: {
             'primary-color': primaryColor,
+            'text-color': textColor,
+            'heading-color': textColor,
+            'menu-item-color': '#314659',
             'font-family': `Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif`,
           },
         },

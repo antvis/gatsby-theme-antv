@@ -1,7 +1,7 @@
 .wrapper {
   min-height: 550px;
   background: linear-gradient(225deg, #ffffff, #f0f5ff);
-  height: calc(94vh - 64px);
+  height: calc(94vh);
   position: relative;
   overflow: hidden;
   .content {
@@ -16,7 +16,7 @@
   }
   .text {
     position: relative;
-    top: 23%;
+    top: 26%;
     z-index: 1;
     .title {
       font-size: 3.43em; //2.875em;
@@ -80,7 +80,7 @@
     max-width: 598px;
     height: 324px;
     margin: auto;
-    margin-top: 3%;
+    margin-top: 0;
     top: 0;
     bottom: 0;
     .teaserimg {
@@ -101,7 +101,7 @@
     .teaser {
       transition: 0.3s all;
       margin: auto;
-      margin-top: auto;
+      margin-top: 0;
       top: 0;
       bottom: 0;
     }
@@ -117,7 +117,7 @@
       position: relative;
     }
     .text {
-      top: 10.7%;
+      top: 16.7%;
       text-align: center;
       .title {
         font-size: 2.857em;
@@ -159,9 +159,8 @@
       max-width: 1200px;
       margin-left: 0;
       margin-right: 0;
-      // position: relative;
+      margin-top: auto;
       top: 40%;
-      // bottom: 0%;
       .teaserimg {
         width: 75%;
         margin-left: 12.5%;
@@ -173,10 +172,10 @@
 @media (max-width: 480px) {
   .wrapper {
     .teaser {
-      top: 85%;
+      top: 45%;
       .teaserimg {
-        width: 50%;
-        margin-left: 25%;
+        width: 90%;
+        margin-left: 5%;
       }
     }
   }
