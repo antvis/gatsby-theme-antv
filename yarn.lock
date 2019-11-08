@@ -12717,10 +12717,10 @@ rc-editor-mention@^1.1.13:
     rc-animate "^2.3.0"
     rc-editor-core "~0.8.3"
 
-rc-footer@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.npm.taobao.org/rc-footer/download/rc-footer-0.5.0.tgz#79d0d7ad893fe4f8dfe52ca2965a5ef66e01a8bb"
-  integrity sha1-edDXrYk/5Pjf5Syillpe9m4BqLs=
+rc-footer@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npm.taobao.org/rc-footer/download/rc-footer-0.6.0.tgz?cache=0&sync_timestamp=1573195016325&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Frc-footer%2Fdownload%2Frc-footer-0.6.0.tgz#f7e153f66908c92ec443a881f4ed4b7cbeda18c1"
+  integrity sha1-9+FT9mkIyS7EQ6iB9O1LfL7aGME=
   dependencies:
     classnames "^2.2.1"
 

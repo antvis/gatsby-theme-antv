@@ -1,153 +1,11 @@
 import React from 'react';
 import Footer from 'rc-footer';
+import { useTranslation } from 'react-i18next';
 import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
 
-export const defaultColumns = [
-  {
-    title: 'G2',
-    items: [
-      {
-        title: '关于 G2',
-        url: '',
-      },
-      {
-        title: '图表示例',
-        url: '',
-      },
-      {
-        title: 'API 文档',
-        url: '',
-      },
-      {
-        title: '使用教程',
-        url: '',
-      },
-    ],
-  },
-  {
-    title: 'G6',
-    items: [
-      {
-        title: '关于 G2',
-        url: '',
-      },
-      {
-        title: '图表示例',
-        url: '',
-      },
-      {
-        title: 'API 文档',
-        url: '',
-      },
-      {
-        title: '使用教程',
-        url: '',
-      },
-    ],
-  },
-  {
-    title: 'F2',
-    items: [
-      {
-        title: '关于 G2',
-        url: '',
-      },
-      {
-        title: '图表示例',
-        url: '',
-      },
-      {
-        title: 'API 文档',
-        url: '',
-      },
-      {
-        title: '使用教程',
-        url: '',
-      },
-    ],
-  },
-  {
-    title: 'L7',
-    items: [
-      {
-        title: '关于 G2',
-        url: '',
-      },
-      {
-        title: '图表示例',
-        url: '',
-      },
-      {
-        title: 'API 文档',
-        url: '',
-      },
-      {
-        title: '使用教程',
-        url: '',
-      },
-    ],
-  },
-  {
-    title: '墨者学院',
-    items: [
-      {
-        title: '关于 G2',
-        url: '',
-      },
-      {
-        title: '图表示例',
-        url: '',
-      },
-      {
-        title: 'API 文档',
-        url: '',
-      },
-      {
-        title: '使用教程',
-        url: '',
-      },
-    ],
-  },
-  {
-    icon: (
-      <img
-        src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
-        alt="more products"
-      />
-    ),
-    title: '更多产品',
-    items: [
-      {
-        icon: (
-          <img
-            src="https://gw.alipayobjects.com/zos/rmsportal/XuVpGqBFxXplzvLjJBZB.svg"
-            alt="yuque"
-          />
-        ),
-        title: '语雀',
-        url: 'https://yuque.com',
-        description: '知识创作与分享工具',
-        openExternal: true,
-      },
-      {
-        icon: (
-          <img
-            src="https://gw.alipayobjects.com/zos/rmsportal/uHocHZfNWZOdsRUonZNr.png"
-            alt="yuque"
-          />
-        ),
-        title: '云凤蝶',
-        url: 'https://yunfengdie.com',
-        description: '中台建站平台',
-        openExternal: true,
-      },
-    ],
-  },
-];
-
 export default ({
-  columns = defaultColumns,
+  columns = undefined,
   bottom = (
     <div>
       © {new Date().getFullYear()}, Built with
@@ -156,11 +14,217 @@ export default ({
     </div>
   ),
   theme = 'dark' as 'dark',
-}) => (
-  <Footer
-    theme={theme}
-    columns={columns}
-    bottom={bottom}
-    className={styles.footer}
-  />
-);
+}) => {
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language;
+  const defaultColumns = [
+    {
+      title: 'G2 可视化图形语法',
+      items: [
+        {
+          title: t('首页'),
+          url: `/g2/${lang}`,
+        },
+        {
+          title: t('图表示例'),
+          url: `/g2/${lang}/examples`,
+        },
+        {
+          title: t('使用文档'),
+          url: `/g2/${lang}/docs/manual`,
+        },
+      ],
+    },
+    {
+      title: 'G6 图可视化引擎',
+      items: [
+        {
+          title: t('首页'),
+          url: `/g6/${lang}`,
+        },
+        {
+          title: t('图表示例'),
+          url: `/g6/${lang}/examples`,
+        },
+        {
+          title: t('使用文档'),
+          url: `/g6/${lang}/docs/manual`,
+        },
+      ],
+    },
+    {
+      title: 'F2 移动端可视化方案',
+      items: [
+        {
+          title: t('首页'),
+          url: `/f2/${lang}`,
+        },
+        {
+          title: t('图表示例'),
+          url: `/f2/${lang}/examples`,
+        },
+        {
+          title: t('使用文档'),
+          url: `/f2/${lang}/docs/manual`,
+        },
+      ],
+    },
+    {
+      title: 'L7 地理空间可视化',
+      items: [
+        {
+          title: t('首页'),
+          url: '/l7',
+        },
+        {
+          title: t('图表示例'),
+          url: `/l7/${lang}/examples`,
+        },
+        {
+          title: t('使用文档'),
+          url: `/l7/${lang}/docs/manual`,
+        },
+      ],
+    },
+    {
+      title: 'G2Plot 图表库',
+      items: [
+        {
+          title: t('首页'),
+          url: `/g2plot/${lang}`,
+        },
+        {
+          title: t('图表示例'),
+          url: `/g2plot/${lang}/examples`,
+        },
+        {
+          title: t('使用文档'),
+          url: `/g2plot/${lang}/docs/manual`,
+        },
+      ],
+    },
+    {
+      title: 'Graphin 可视化分析框架',
+      items: [
+        {
+          title: t('首页'),
+          url: `/graphin/${lang}`,
+        },
+        {
+          title: t('图表示例'),
+          url: `/graphin/${lang}/examples`,
+        },
+        {
+          title: t('使用文档'),
+          url: `/graphin/${lang}/docs/manual`,
+        },
+      ],
+    },
+    {
+      title: 'ChartCube 图表生成工具',
+      items: [
+        {
+          title: t('首页'),
+          url: `https://chartcube.alipay.com`,
+          openExternal: true,
+        },
+        {
+          title: t('生成图表'),
+          url: `https://chartcube.alipay.com`,
+          openExternal: true,
+        },
+      ],
+    },
+    {
+      icon: (
+        <img
+          src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
+          alt="more products"
+        />
+      ),
+      title: t('更多产品'),
+      items: [
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+              alt="Ant Design"
+            />
+          ),
+          title: 'Ant Design',
+          url: 'https://ant.design',
+          description: t('企业级 UI 设计语言'),
+          openExternal: true,
+        },
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/XuVpGqBFxXplzvLjJBZB.svg"
+              alt="yuque"
+            />
+          ),
+          title: t('语雀'),
+          url: 'https://yuque.com',
+          description: t('知识创作与分享工具'),
+          openExternal: true,
+        },
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/uHocHZfNWZOdsRUonZNr.png"
+              alt="yunfengdie"
+            />
+          ),
+          title: t('云凤蝶'),
+          url: 'https://yunfengdie.com',
+          description: t('中台建站平台'),
+          openExternal: true,
+        },
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/antfincdn/v2%24rh7lqpu/82f338dd-b0a6-41bc-9a86-58aaa9df217b.png"
+              alt="Egg"
+            />
+          ),
+          title: 'Egg',
+          url: 'https://eggjs.org',
+          description: t('企业级 Node 开发框架'),
+          openExternal: true,
+        },
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/DMDOlAUhmktLyEODCMBR.ico"
+              alt="kitchen"
+            />
+          ),
+          title: 'Kitchen',
+          description: t('Sketch 工具集'),
+          url: 'https://kitchen.alipay.com',
+          openExternal: true,
+        },
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
+              alt="xtech"
+            />
+          ),
+          title: t('蚂蚁体验科技'),
+          url: 'https://xtech.antfin.com/',
+          openExternal: true,
+        },
+      ],
+    },
+  ];
+  return (
+    <Footer
+      maxColumnsPerRow={4}
+      theme={theme}
+      columns={columns || defaultColumns}
+      bottom={bottom}
+      className={styles.footer}
+    />
+  );
+};
