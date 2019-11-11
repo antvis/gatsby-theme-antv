@@ -12,7 +12,7 @@
   align-items: center;
   padding: 0 60px;
   position: relative;
-  z-index: 1;
+  z-index: 10;
   font-family: Avenir, @font-family;
 
   &.transparent {
@@ -55,8 +55,8 @@
     align-items: center;
 
     .menu {
-      font-weight: 500;
-      color: @text-color;
+      font-weight: normal;
+      color: #697b8c;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -64,7 +64,7 @@
 
       li {
         display: inline-block;
-        margin-right: 30px;
+        margin-right: 32px;
         transition: box-shadow 0.3s;
 
         &.activeItem {
@@ -75,13 +75,31 @@
         }
 
         a {
-          color: @text-color;
+          color: #697b8c;
           transition: color 0.3s;
           display: block;
 
           &:hover {
             color: @primary-color;
           }
+        }
+      }
+
+      .githubCorner {
+        i {
+          font-size: 20px;
+          position: relative;
+          top: 2px;
+        }
+      }
+
+      .arrow {
+        font-size: 12px;
+        margin-left: 8px;
+        transition: all 0.3s;
+
+        &.open {
+          transform: rotate(180deg);
         }
       }
     }
@@ -91,8 +109,7 @@
 @media only screen and (max-width: 767.99px) {
   .header {
     .nav {
-      .menu,
-      .githubCorner {
+      .menu {
         display: none;
       }
     }
