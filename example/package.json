@@ -12,7 +12,7 @@
     "url": "https://github.com/antvis/antvis.github.io/issues"
   },
   "scripts": {
-    "build": "npm run clean && gatsby build --prefix-paths",
+    "build": "npm run clean && gatsby build --prefix-paths --no-uglify",
     "develop": "npm run clean && gatsby develop -H 0.0.0.0",
     "clean": "gatsby clean"
   },
