@@ -1,6 +1,5 @@
 import { navigate } from 'gatsby';
 import React, { useState } from 'react';
-import GithubCorner from 'react-github-corner';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'antd';
@@ -126,7 +125,12 @@ const Header: React.FC<HeaderProps> = ({
           >
             <a>
               {t('所有产品')}
-              <Icon type="caret-down" style={{ fontSize: 12, marginLeft: 8 }} />
+              <Icon
+                type="caret-down"
+                className={classNames(styles.arrow, {
+                  [styles.open]: productMenuVisible,
+                })}
+              />
             </a>
             <Products show={productMenuVisible} />
           </li>
@@ -154,12 +158,14 @@ const Header: React.FC<HeaderProps> = ({
               </a>
             </li>
           )}
+          {showGithubCorner && (
+            <li className={styles.githubCorner}>
+              <a href={githubUrl} target="_blank">
+                <Icon type="github" />
+              </a>
+            </li>
+          )}
         </ul>
-        {showGithubCorner && (
-          <span className={styles.githubCorner}>
-            <GithubCorner href={githubUrl} size={64} />
-          </span>
-        )}
       </nav>
     </header>
   );
