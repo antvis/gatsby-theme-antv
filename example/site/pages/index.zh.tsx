@@ -107,6 +107,7 @@ const IndexPage = () => {
     text: '下载使用',
     link: 'https://antv.alipay.com/zh-cn/index.html',
   };
+
   return (
     <>
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
@@ -124,18 +125,9 @@ const IndexPage = () => {
         githubStarLink="https://ghbtns.com/github-btn.html?user=antvis&repo=g2&type=star&count=true&size=large"
         downloadButton={downloadButton}
       />
-      <Features
-        features={features}
-        // className="features"
-        style={{ width: '100%' }}
-      />
+      <Features features={features} style={{ width: '100%' }} />
       <Cases cases={cases} />
-      <Companies
-        title={t('合作公司')}
-        companies={companies}
-        // className="companies"
-        // style={{ width: '100%' }}
-      />
+      <Companies title={t('合作公司')} companies={companies} />
     </>
   );
 };
