@@ -69,8 +69,6 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     return children;
   }
 
-  console.log(isHomePage);
-
   return (
     <>
       <Header

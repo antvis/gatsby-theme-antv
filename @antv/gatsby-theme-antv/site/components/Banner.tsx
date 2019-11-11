@@ -101,37 +101,6 @@ const Banner: React.FC<BannerProps> = ({
     return children;
   };
 
-  const getButtons = () => {
-    const buttons = [];
-    if (video) {
-      buttons.push(
-        <div onClick={showVideo} className={styles.videoButton}>
-          <img
-            className={styles.videoButtonImg}
-            src="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*r0I9RpDG7rYAAAAAAAAAAABkARQnAQ"
-            alt="videoButton"
-          />
-        </div>,
-      );
-    }
-    if (downloadButton) {
-      buttons.push(
-        <a href={downloadButton.link} className={styles.adownload}>
-          <button className={styles.more} style={downloadButton.style}>
-            {downloadButton.text}
-          </button>
-        </a>,
-      );
-    }
-    if (githubStarLink) {
-      buttons.push(
-        <iframe className={styles.githubIframe} src={githubStarLink}></iframe>,
-      );
-    }
-
-    return buttons;
-  };
-
   const showVideo = () => {
     Modal.info({
       title: 'This is a notification message',
@@ -141,7 +110,7 @@ const Banner: React.FC<BannerProps> = ({
           style={{ width: '100%', height: '100%', objectFit: 'fill' }}
           controls
           src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
-        ></video>
+        />
       ),
       width: '70%',
     });
@@ -153,12 +122,29 @@ const Banner: React.FC<BannerProps> = ({
         <div className={styles.text}>
           <div className={styles.title}>{title}</div>
           <p className={styles.description}>{description}</p>
-
           <div className={styles.buttons}>
             <a href={buttonHref} className={styles.amore}>
               <button className={styles.more}>{buttonText}</button>
             </a>
-            {getButtons()}
+            {video && (
+              <div onClick={showVideo} className={styles.videoButton}>
+                <img
+                  className={styles.videoButtonImg}
+                  src="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*r0I9RpDG7rYAAAAAAAAAAABkARQnAQ"
+                  alt="videoButton"
+                />
+              </div>
+            )}
+            {downloadButton && (
+              <a href={downloadButton.link} className={styles.adownload}>
+                <button className={styles.more} style={downloadButton.style}>
+                  {downloadButton.text}
+                </button>
+              </a>
+            )}
+            {githubStarLink && (
+              <iframe className={styles.githubIframe} src={githubStarLink} />
+            )}
           </div>
         </div>
         <div className={styles.notifications}>{getNotifications()}</div>
