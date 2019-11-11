@@ -6,16 +6,11 @@ import { getProducts } from './getProducts';
 import styles from './Product.module.less';
 
 interface ProductsProps {
-  style?: React.CSSProperties;
   show: boolean;
   rootDomain: string;
 }
 
-const Products: React.FC<ProductsProps> = ({
-  style,
-  show,
-  rootDomain = '',
-}) => {
+const Products: React.FC<ProductsProps> = ({ show, rootDomain = '' }) => {
   const { t, i18n } = useTranslation();
   const data = getProducts({
     t,
@@ -28,7 +23,6 @@ const Products: React.FC<ProductsProps> = ({
         className={classNames(styles.products, {
           [styles.show]: !!show,
         })}
-        style={style}
       >
         <h3>{t('基础产品')}</h3>
         <ul>

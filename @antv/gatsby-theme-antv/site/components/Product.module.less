@@ -9,11 +9,12 @@
   max-height: 0;
   transition: all 0.3s;
   background: #fff;
-  padding: 0 80px;
+  padding: 0 60px;
   overflow: hidden;
   box-shadow: none;
   line-height: 1.5;
   font-weight: normal;
+  white-space: normal;
 
   &.show {
     max-height: 1000px;
@@ -34,14 +35,10 @@
     border-bottom: 1px solid #f2f4f5;
   }
 
-  > ul {
+  ul {
     list-style: none;
     padding: 0;
     margin: 0 0 20px 0;
-
-    > li {
-      margin-right: 0 !important;
-    }
 
     &:last-child {
       margin-bottom: 100px - 32px;
@@ -52,17 +49,16 @@
     overflow: hidden;
     width: 25%;
     display: inline-block;
+    vertical-align: top;
     margin-bottom: 32px;
-    padding-right: 16px;
-    white-space: normal;
+    margin-right: 0 !important;
+    padding-right: 48px;
 
     img {
-      width: 28px;
-      height: 28px;
-      border-radius: 100%;
-      margin-right: 8px;
+      width: 32px;
+      height: 32px;
+      margin-right: 12px;
       float: left;
-      display: block;
     }
 
     .productContent {
@@ -116,4 +112,22 @@
   pointer-events: none;
   opacity: 0;
   transition: all 0.3s;
+}
+
+@media only screen and (max-width: 931.99px) {
+  .products {
+    .product {
+      width: 50%;
+      padding-right: 24px;
+    }
+  }
+}
+
+@media only screen and (max-width: 767.99px) {
+  .products {
+    .product {
+      width: 100%;
+      padding-right: 0;
+    }
+  }
 }

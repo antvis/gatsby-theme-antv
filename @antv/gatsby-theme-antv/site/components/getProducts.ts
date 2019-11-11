@@ -57,7 +57,7 @@ export const getProducts = ({
     {
       title: 'G6',
       icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
+        'https://gw.alipayobjects.com/zos/antfincdn/zS1wZZJVcJ/G6%252520tukeshihuayinqing.svg',
       slogan: t('图可视化引擎'),
       description: t(
         'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
@@ -86,7 +86,7 @@ export const getProducts = ({
     {
       title: 'F2',
       icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
+        'https://gw.alipayobjects.com/zos/antfincdn/D%26fDbWqVkv/F2%252520yidongduankeshihuafangan.svg',
       slogan: t('移动可视化方案'),
       description: t(
         'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
@@ -115,7 +115,7 @@ export const getProducts = ({
     {
       title: 'L7',
       icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
+        'https://gw.alipayobjects.com/zos/antfincdn/OI%26h7HXH33/L7%252520dilikongjianshujukeshihua.svg',
       slogan: t('地理空间数据可视化'),
       description: t(
         'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
@@ -143,8 +143,7 @@ export const getProducts = ({
     },
     {
       title: 'G2Plot',
-      icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
+      icon: 'https://gw.alipayobjects.com/zos/antfincdn/SlbIagEvT7/G2plot.svg',
       slogan: t('强大的图表库'),
       description: t(
         'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
@@ -172,8 +171,7 @@ export const getProducts = ({
     },
     {
       title: 'Graphin',
-      icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
+      icon: 'https://gw.alipayobjects.com/zos/antfincdn/0b4HzOcEJY/Graphin.svg',
       slogan: t('图可视化引擎'),
       description: t(
         'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
@@ -202,11 +200,9 @@ export const getProducts = ({
     {
       title: 'ChartCube',
       icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
-      slogan: t('图表生成工具'),
-      description: t(
-        'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
-      ),
+        'https://gw.alipayobjects.com/zos/antfincdn/kM2Rd6CnlW/ChartCube.svg',
+      slogan: t('图表魔方'),
+      description: t('ChartCube 是开箱即用的 AntV 图表在线制作利器。'),
       category: Categories[1],
       links: [
         {
@@ -224,7 +220,7 @@ export const getProducts = ({
     {
       title: t('墨者学院'),
       icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
+        'https://gw.alipayobjects.com/zos/antfincdn/12j36RPVldO/mozhexueyuan.svg',
       description: t('数据可视化社区'),
       category: Categories[2],
       links: [
@@ -238,7 +234,7 @@ export const getProducts = ({
     {
       title: 'BizCharts',
       icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
+        'https://gw.alipayobjects.com/zos/antfincdn/Q1pbg%26O2TM/BizCharts.svg',
       description: t('基于商业场景下的数据可视化解决方案'),
       category: Categories[2],
       links: [
@@ -251,8 +247,7 @@ export const getProducts = ({
     },
     {
       title: 'Viser',
-      icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
+      icon: 'https://gw.alipayobjects.com/zos/antfincdn/QAyW5h99HVa/Viser.svg',
       description: t('基于 G2 实现的可视化解决方案'),
       category: Categories[2],
       links: [

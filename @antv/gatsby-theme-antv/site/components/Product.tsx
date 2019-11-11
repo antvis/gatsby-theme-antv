@@ -24,7 +24,9 @@ const Product: React.FC<ProductProps> = ({
   style,
 }) => (
   <li className={styles.product} style={style}>
-    <img alt={name} src={icon} />
+    <a href={url} target={url.startsWith('http') ? '_blank' : '_self'}>
+      <img alt={name} src={icon} />
+    </a>
     <div className={styles.productContent}>
       <a href={url} target={url.startsWith('http') ? '_blank' : '_self'}>
         <h4>{name}</h4>
