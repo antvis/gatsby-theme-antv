@@ -75,12 +75,12 @@ const Header: React.FC<HeaderProps> = ({
       : i18n.language || '';
   const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
   const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
-  const [productMenuVisible, setProductMenuVisible] = useState(true);
+  const [productMenuVisible, setProductMenuVisible] = useState(false);
   const onProductMouseEnter = () => {
     setProductMenuVisible(true);
   };
   const onProductMouseLeave = () => {
-    // setProductMenuVisible(false);
+    setProductMenuVisible(false);
   };
   return (
     <header

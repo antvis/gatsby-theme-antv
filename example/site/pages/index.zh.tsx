@@ -110,6 +110,7 @@ const IndexPage = () => {
     <>
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
       <Banner
+        coverImage={<BannerSVG />}
         title={t('让数据栩栩如生')}
         description={t(
           'AntV 是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。',
