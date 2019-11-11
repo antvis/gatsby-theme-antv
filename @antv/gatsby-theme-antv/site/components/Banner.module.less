@@ -49,32 +49,30 @@
         z-index: 10;
         position: relative;
         transition: all 0.3s;
-      }
-      .buttonCommon {
         border: 1px solid #7727f4;
         background-color: rgba(255, 255, 255, 0);
         color: rgb(139, 56, 255);
+
         &:hover {
           transition: all 0.3;
           color: rgb(167, 139, 255);
           border: 1px solid rgb(167, 139, 255);
           transition: all 0.3s;
         }
-      }
-      .buttonPrimary {
-        border: none;
-        outline: none;
-        color: #fff;
-        background: linear-gradient(60deg, #ff7efb, #9248fe 80%, #8a36ff);
-        box-shadow: 0px 10px 10px rgba(125, 50, 228, 0.2);
-        &:hover {
-          box-shadow: 0px 16px 14px rgba(125, 50, 228, 0.2);
-          background: linear-gradient(25deg, #ff3ff9, #8735ff 80%, #6b2bff);
-          transition: all 0.3;
+
+        &.primary {
+          border: none;
+          outline: none;
+          color: #fff;
+          background: linear-gradient(60deg, #ff7efb, #9248fe 80%, #8a36ff);
+          box-shadow: 0px 10px 10px rgba(125, 50, 228, 0.2);
+
+          &:hover {
+            box-shadow: 0px 16px 14px rgba(125, 50, 228, 0.2);
+            background: linear-gradient(25deg, #ff3ff9, #8735ff 80%, #6b2bff);
+            transition: all 0.3;
+          }
         }
-      }
-      .adownload {
-        margin-left: 2%;
       }
       .videoButton {
         width: 40px;

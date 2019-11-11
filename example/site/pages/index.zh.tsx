@@ -106,14 +106,10 @@ const IndexPage = () => {
       text: t('图表示例'),
       link: '#products',
       type: 'primary',
-      style: {
-        boxShadow: '0px 0px 0px rgba(125, 50, 228, 0)',
-      },
     },
     {
       text: t('下载使用'),
       link: 'https://antv.alipay.com/zh-cn/index.html',
-      style: {},
     },
   ];
   return (

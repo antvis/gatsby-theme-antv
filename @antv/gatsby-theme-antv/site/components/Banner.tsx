@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from 'react';
+import React, { useState } from 'react';
 import Notification from './Notification';
 import { Modal } from 'antd';
 import styles from './Banner.module.less';
@@ -108,42 +108,27 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   const getButtons = () => {
-    let renderButtons: ReactElement[] = [];
-    renderButtons = buttons.map((button: BannerButton, i) => {
-      let marginLeft = '0%';
-      if (i !== 0) {
-        marginLeft = '2%';
-      }
-      let className = 'buttonCommon';
-      if (button.type === 'primary') {
-        className = 'buttonPrimary';
-      }
-      return (
-        <a
-          key="download"
-          href={button.link}
-          className={styles.abutton}
-          style={{ marginLeft }}
+    console.log(buttons);
+    const renderButtons = buttons.map((button: BannerButton, i) => (
+      <a
+        key={i}
+        href={button.link}
+        style={{ marginLeft: i === 0 ? '0%' : '2%' }}
+      >
+        <button
+          className={classNames(styles.button, styles[button.type || ''])}
         >
-          <button
-            className={classNames(styles[className], styles.button)}
-            style={button.style}
-          >
-            {button.text}
-          </button>
-        </a>
-      );
-    });
+          {button.text}
+        </button>
+      </a>
+    ));
 
     if (video) {
       renderButtons.push(
-        <div
-          key="video"
-          onClick={showVideo}
-          className={styles.videoButton}
-        ></div>,
+        <div key="video" onClick={showVideo} className={styles.videoButton} />,
       );
     }
+
     if (showGithubStars) {
       const githubUrl = repository.url;
       const user = githubUrl.split('/')[3];
@@ -160,7 +145,7 @@ const Banner: React.FC<BannerProps> = ({
           });
       }
       renderButtons.push(
-        <div className={styles.githubWrapper}>
+        <div className={styles.githubWrapper} key="github">
           <a className={styles.ghBtnWrapper} href={githubUrl}>
             <div className={styles.ghBtn}>
               <img
