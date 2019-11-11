@@ -66,18 +66,18 @@
         }
       }
       .adownload {
-        margin-left: 40px;
+        margin-left: 2%;
       }
       .videoButton {
         width: 40px;
-        margin-left: 40px;
+        margin-left: 2%;
         .videoButtonImg {
           width: 40px;
         }
       }
       .githubButton {
         width: 40px;
-        margin-left: 40px;
+        margin-left: 2%;
         .githubButtonImg {
           width: 40px;
         }
@@ -86,7 +86,7 @@
         border: 0;
         // scrolling: 0;
         width: 170px;
-        margin-left: 40px;
+        margin-left: 2%;
         margin-top: 7px;
       }
     }
@@ -105,9 +105,9 @@
   .teaser {
     display: 'flex';
     position: absolute;
-    right: 15%;
+    right: 10%;
     margin-top: -300px;
-    width: 62%;
+    width: 52%;
     max-width: 598px;
     height: 324px;
     margin: auto;
@@ -163,7 +163,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .wrapper {
     .content {
       width: 91.46%;
@@ -183,12 +183,20 @@
         margin-left: 0;
         font-size: 1em;
       }
-      .more {
-        width: 150px;
-        height: 45px;
-        margin-left: 0;
-        font-size: 1em;
-        margin-top: 30px;
+      .buttons {
+        // width: 100%;
+        text-align: center;
+        display: inline-flex;
+        .more {
+          font-size: 1em;
+          // margin-top: 30px;
+        }
+        .githubIframe {
+          height: 40px;
+        }
+        .videoButton {
+          margin-left: 10%;
+        }
       }
     }
     .notifications {
@@ -215,11 +223,44 @@
       margin-left: 0;
       margin-right: 0;
       margin-top: auto;
+      top: 30%;
+      .teaserimg {
+        width: 40%;
+        margin-left: 30%;
+      }
+    }
+  }
+}
+@media (max-width: 510px) {
+  .wrapper {
+    .text {
+      .buttons {
+        text-align: center;
+        display: inline-block;
+        .more {
+          font-size: 1em;
+        }
+        .githubIframe {
+          margin-top: 25px;
+          height: 40px;
+          margin-left: 15px;
+        }
+        .videoButton {
+          display: none;
+        }
+      }
+    }
+    .teaser {
+      width: 100%;
       top: 40%;
       .teaserimg {
-        width: 75%;
-        margin-left: 12.5%;
+        width: 60%;
+        margin-left: 20%;
       }
+    }
+    .backLeftBottom {
+      margin-left: -15%;
+      bottom: -90px;
     }
   }
 }
@@ -229,9 +270,13 @@
     .teaser {
       top: 45%;
       .teaserimg {
-        width: 90%;
+        width: 80%;
         margin-left: 5%;
       }
+    }
+    .backLeftBottom {
+      margin-left: -30%;
+      bottom: -150px;
     }
   }
 }
