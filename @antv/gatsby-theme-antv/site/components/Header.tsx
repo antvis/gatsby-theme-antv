@@ -38,6 +38,8 @@ interface HeaderProps {
   Link?: React.ComponentType<any>;
   /** 底色是否透明 */
   transparent?: Boolean;
+  /** AntV root 域名，直接用主题的可不传 */
+  rootDomain?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -64,6 +66,7 @@ const Header: React.FC<HeaderProps> = ({
   defaultLanguage,
   Link = 'a',
   transparent,
+  rootDomain = '',
 }) => {
   const { t, i18n } = useTranslation();
   const lang =
@@ -72,12 +75,12 @@ const Header: React.FC<HeaderProps> = ({
       : i18n.language || '';
   const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
   const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
-  const [productMenuVisible, setProductMenuVisible] = useState(false);
+  const [productMenuVisible, setProductMenuVisible] = useState(true);
   const onProductMouseEnter = () => {
     setProductMenuVisible(true);
   };
   const onProductMouseLeave = () => {
-    setProductMenuVisible(false);
+    // setProductMenuVisible(false);
   };
   return (
     <header
@@ -132,7 +135,7 @@ const Header: React.FC<HeaderProps> = ({
                 })}
               />
             </a>
-            <Products show={productMenuVisible} />
+            <Products show={productMenuVisible} rootDomain={rootDomain} />
           </li>
           {showLanguageSwitcher && (
             <li>

@@ -34,10 +34,14 @@
     border-bottom: 1px solid #f2f4f5;
   }
 
-  ul {
+  > ul {
     list-style: none;
     padding: 0;
     margin: 0 0 20px 0;
+
+    > li {
+      margin-right: 0 !important;
+    }
 
     &:last-child {
       margin-bottom: 100px - 32px;
@@ -49,6 +53,8 @@
     width: 25%;
     display: inline-block;
     margin-bottom: 32px;
+    padding-right: 16px;
+    white-space: normal;
 
     img {
       width: 28px;
@@ -88,10 +94,10 @@
           line-height: 20px;
           transition: all 0.3s;
           display: inline-block;
-          color: #597ef7;
+          color: tint(#597ef7, 30%);
 
           &:hover {
-            color: shade(#597ef7, 20%);
+            color: #597ef7;
           }
         }
       }
