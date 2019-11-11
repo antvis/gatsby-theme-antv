@@ -107,67 +107,56 @@ const Banner: React.FC<BannerProps> = ({
     return children;
   };
 
-  const getButtons = () => {
-    console.log(buttons);
-    const renderButtons = buttons.map((button: BannerButton, i) => (
-      <a
-        key={i}
-        href={button.link}
-        style={{ marginLeft: i === 0 ? '0%' : '2%' }}
-      >
-        <button
-          className={classNames(styles.button, styles[button.type || ''])}
-        >
-          {button.text}
-        </button>
-      </a>
-    ));
+  const renderButtons = buttons.map((button: BannerButton, i) => (
+    <a key={i} href={button.link} style={{ marginLeft: i === 0 ? '0%' : '2%' }}>
+      <button className={classNames(styles.button, styles[button.type || ''])}>
+        {button.text}
+      </button>
+    </a>
+  ));
 
-    if (video) {
-      renderButtons.push(
-        <div key="video" onClick={showVideo} className={styles.videoButton} />,
-      );
-    }
+  if (video) {
+    renderButtons.push(
+      <div key="video" onClick={showVideo} className={styles.videoButton} />,
+    );
+  }
 
-    if (showGithubStars) {
-      const githubUrl = repository.url;
-      const user = githubUrl.split('/')[3];
-      const repo = githubUrl.split('/')[4];
-      if (!states.fetchSuccess) {
-        fetch(`https://api.github.com/repos/${user}/${repo}`)
-          .then(response => response.json())
-          .then(data => {
-            setStates({
-              starCountDisplay: 'block',
-              starCount: data.stargazers_count,
-              fetchSuccess: true,
-            });
+  if (showGithubStars) {
+    const githubUrl = repository.url;
+    const user = githubUrl.split('/')[3];
+    const repo = githubUrl.split('/')[4];
+    if (!states.fetchSuccess) {
+      fetch(`https://api.github.com/repos/${user}/${repo}`)
+        .then(response => response.json())
+        .then(data => {
+          setStates({
+            starCountDisplay: 'block',
+            starCount: data.stargazers_count,
+            fetchSuccess: true,
           });
-      }
-      renderButtons.push(
-        <div className={styles.githubWrapper} key="github">
-          <a className={styles.ghBtnWrapper} href={githubUrl}>
-            <div className={styles.ghBtn}>
-              <img
-                className={styles.ghBtnImg}
-                alt="ghbtnimg"
-                src="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Nk9mQ48ZoZMAAAAAAAAAAABkARQnAQ"
-              />
-            </div>
-          </a>
-          <a
-            className={styles.ghCount}
-            href={`${githubUrl}/stargazers/`}
-            style={{ display: states.starCountDisplay }}
-          >
-            {states.starCount}
-          </a>
-        </div>,
-      );
+        });
     }
-
-    return renderButtons;
-  };
+    renderButtons.push(
+      <div className={styles.githubWrapper} key="github">
+        <a className={styles.ghBtnWrapper} href={githubUrl}>
+          <div className={styles.ghBtn}>
+            <img
+              className={styles.ghBtnImg}
+              alt="ghbtnimg"
+              src="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Nk9mQ48ZoZMAAAAAAAAAAABkARQnAQ"
+            />
+          </div>
+        </a>
+        <a
+          className={styles.ghCount}
+          href={`${githubUrl}/stargazers/`}
+          style={{ display: states.starCountDisplay }}
+        >
+          {states.starCount}
+        </a>
+      </div>,
+    );
+  }
 
   const showVideo = () => {
     Modal.info({
@@ -190,7 +179,7 @@ const Banner: React.FC<BannerProps> = ({
         <div className={styles.text}>
           <div className={styles.title}>{title}</div>
           <p className={styles.description}>{description}</p>
-          <div className={styles.buttons}>{getButtons()}</div>
+          <div className={styles.buttons}>{renderButtons}</div>
         </div>
         <div className={styles.notifications}>{getNotifications()}</div>
         <div className={styles.teaser}>
