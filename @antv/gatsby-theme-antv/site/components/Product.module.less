@@ -9,7 +9,7 @@
   max-height: 0;
   transition: all 0.3s;
   background: #fff;
-  padding: 32px 80px 100px;
+  padding: 0 80px;
   overflow: hidden;
   box-shadow: none;
   line-height: 1.5;
@@ -20,22 +20,35 @@
     box-shadow: 0 2px 8px #f0f1f2 inset;
   }
 
+  &.show + .mask {
+    opacity: 1;
+  }
+
   h3 {
-    font-size: 16px;
-    margin: 8px 0 24px 0;
+    font-size: 14px;
+    line-height: 22px;
+    margin: 32px 0 24px 0;
+    color: #a3b1bf;
+    font-weight: normal;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f2f4f5;
   }
 
   ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 20px 0;
+
+    &:last-child {
+      margin-bottom: 100px - 32px;
+    }
   }
 
   .product {
     overflow: hidden;
     width: 25%;
     display: inline-block;
-    margin-bottom: 16px;
+    margin-bottom: 32px;
 
     img {
       width: 28px;
@@ -50,26 +63,51 @@
       overflow: hidden;
 
       h4 {
-        margin-bottom: 12px;
+        margin-bottom: 4px;
+        font-size: 14px;
+        line-height: 22px;
         color: rgba(0, 0, 0, 0.85);
-        a {
-          color: rgba(0, 0, 0, 0.85);
+        transition: all 0.3s;
+
+        &:hover {
+          color: #597ef7;
         }
       }
 
       .productDescription {
+        font-size: 12px;
+        line-height: 20px;
         margin-bottom: 8px;
-        color: rgba(0, 0, 0, 0.45);
+        color: #a3b1bf;
       }
 
       .productLinks {
         > a {
-          margin-right: 8px;
+          margin-right: 12px;
+          font-size: 12px;
+          line-height: 20px;
           transition: all 0.3s;
           display: inline-block;
           color: #597ef7;
+
+          &:hover {
+            color: shade(#597ef7, 20%);
+          }
         }
       }
     }
   }
+}
+
+.mask {
+  background: fade(#0d1a26, 50%);
+  position: fixed;
+  top: 64px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.3s;
 }
