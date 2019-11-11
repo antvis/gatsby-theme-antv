@@ -39,6 +39,11 @@ const Footer: React.FC<FooterProps> = ({
           title: t('使用文档'),
           url: `${rootDomain}/g2/${lang}/docs/manual`,
         },
+        {
+          title: t('国内镜像'),
+          url: `https://antv.gitee.io/g2`,
+          openExternal: true,
+        },
       ],
     },
     {
@@ -59,6 +64,11 @@ const Footer: React.FC<FooterProps> = ({
         {
           title: t('使用文档'),
           url: `${rootDomain}/g6/${lang}/docs/manual`,
+        },
+        {
+          title: t('国内镜像'),
+          url: `https://antv.gitee.io/g6`,
+          openExternal: true,
         },
       ],
     },
@@ -81,6 +91,11 @@ const Footer: React.FC<FooterProps> = ({
           title: t('使用文档'),
           url: `${rootDomain}/f2/${lang}/docs/manual`,
         },
+        {
+          title: t('国内镜像'),
+          url: `https://antv.gitee.io/f2`,
+          openExternal: true,
+        },
       ],
     },
     {
@@ -101,6 +116,11 @@ const Footer: React.FC<FooterProps> = ({
         {
           title: t('使用文档'),
           url: `${rootDomain}/l7/${lang}/docs/manual`,
+        },
+        {
+          title: t('国内镜像'),
+          url: `https://antv.gitee.io/l7`,
+          openExternal: true,
         },
       ],
     },
@@ -123,6 +143,11 @@ const Footer: React.FC<FooterProps> = ({
           title: t('使用文档'),
           url: `${rootDomain}/g2plot/${lang}/docs/manual`,
         },
+        {
+          title: t('国内镜像'),
+          url: `https://antv.gitee.io/g2plot`,
+          openExternal: true,
+        },
       ],
     },
     {
@@ -143,6 +168,11 @@ const Footer: React.FC<FooterProps> = ({
         {
           title: t('使用文档'),
           url: `${rootDomain}/graphin/${lang}/docs/manual`,
+        },
+        {
+          title: t('国内镜像'),
+          url: `https://antv.gitee.io/graphin`,
+          openExternal: true,
         },
       ],
     },
