@@ -7,6 +7,7 @@
   left: 0;
   top: 64px;
   max-height: 0;
+  opacity: 0;
   transition: all 0.3s;
   background: #fff;
   padding: 0 60px;
@@ -15,10 +16,13 @@
   line-height: 1.5;
   font-weight: normal;
   white-space: normal;
+  pointer-events: none;
 
   &.show {
     max-height: 1000px;
+    opacity: 1;
     box-shadow: 0 2px 8px #f0f1f2 inset;
+    pointer-events: auto;
   }
 
   &.show + .mask {
@@ -41,7 +45,7 @@
     margin: 0 0 20px 0;
 
     &:last-child {
-      margin-bottom: 100px - 32px;
+      margin-bottom: 32px;
     }
   }
 
