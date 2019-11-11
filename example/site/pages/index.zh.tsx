@@ -10,7 +10,7 @@ import BannerSVG from '@antv/gatsby-theme-antv/site/components/BannerSVG';
 const IndexPage = () => {
   const { t, i18n } = useTranslation();
 
-  const coverImage = BannerSVG();
+  const coverImage = BannerSVG(); //BannerSVG(); // (<div></div>);
 
   const features = [
     {
@@ -103,10 +103,21 @@ const IndexPage = () => {
     },
   ];
 
-  const downloadButton = {
-    text: '下载使用',
-    link: 'https://antv.alipay.com/zh-cn/index.html',
-  };
+  const bannerButtons = [
+    {
+      text: t('图表示例'),
+      link: '#products',
+      type: 'primary',
+      style: {
+        boxShadow: '0px 0px 0px rgba(125, 50, 228, 0)',
+      },
+    },
+    {
+      text: t('下载使用'),
+      link: 'https://antv.alipay.com/zh-cn/index.html',
+      style: {},
+    },
+  ];
   return (
     <>
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
@@ -116,17 +127,15 @@ const IndexPage = () => {
         description={t(
           'AntV 是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。',
         )}
-        buttonText={t('继续了解')}
-        buttonHref={'#products'}
         notifications={notifications}
         className="banner"
+        buttons={bannerButtons}
         video="https://mdn.alipayobjects.com/afts/file/A*qmPlRYhAlBkAAAAAAAAAAABjAQAAAQ?bz=antv_site"
-        // githubStarLink="https://ghbtns.com/github-btn.html?user=antvis&repo=g2&type=star&count=true&size=large"
-        // downloadButton={downloadButton}
-        // style={{ height: '600px' }}
+        showGithubStars={true}
       />
       <Features
         features={features}
+        title={'我们的优势'}
         // className="features"
         style={{ width: '100%' }}
       />

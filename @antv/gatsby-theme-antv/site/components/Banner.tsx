@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, ReactElement } from 'react';
 import Notification from './Notification';
 import { Modal } from 'antd';
 import styles from './Banner.module.less';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import { repository } from '../../package.json';
 
 interface Notification {
   type: string;
@@ -11,23 +12,23 @@ interface Notification {
   date: string;
   link?: string;
 }
+interface BannerButton {
+  text: string;
+  link: string;
+  style?: React.CSSProperties;
+  type?: string;
+}
 
 interface BannerProps {
   coverImage: React.ReactNode;
   title: string;
   description: string;
-  buttonText: string;
-  buttonHref: string;
   notifications?: Notification[];
   style?: React.CSSProperties;
   className?: string;
   video?: string;
-  githubStarLink?: string;
-  downloadButton?: {
-    text: string;
-    link: string;
-    style?: React.CSSProperties;
-  };
+  showGithubStars?: boolean;
+  buttons?: BannerButton[];
 }
 
 const numImgs = [
@@ -42,16 +43,21 @@ const Banner: React.FC<BannerProps> = ({
   coverImage,
   title,
   description,
-  buttonText,
-  buttonHref,
   notifications = [],
   style = {},
   className,
   video,
-  githubStarLink,
-  downloadButton,
+  showGithubStars = false,
+  buttons = [],
 }) => {
   const { t } = useTranslation();
+
+  const [states, setStates] = useState({
+    starCountDisplay: 'none',
+    starCount: 0,
+    fetchSuccess: false,
+  });
+
   const insNotifications: Notification[] = [
     {
       type: t('更新'),
@@ -102,34 +108,80 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   const getButtons = () => {
-    const buttons = [];
+    let renderButtons: ReactElement[] = [];
+    renderButtons = buttons.map((button: BannerButton, i) => {
+      let marginLeft = '0%';
+      if (i !== 0) {
+        marginLeft = '2%';
+      }
+      let className = 'buttonCommon';
+      if (button.type === 'primary') {
+        className = 'buttonPrimary';
+      }
+      return (
+        <a
+          key="download"
+          href={button.link}
+          className={styles.abutton}
+          style={{ marginLeft }}
+        >
+          <button
+            className={classNames(styles[className], styles.button)}
+            style={button.style}
+          >
+            {button.text}
+          </button>
+        </a>
+      );
+    });
+
     if (video) {
-      buttons.push(
-        <div onClick={showVideo} className={styles.videoButton}>
-          <img
-            className={styles.videoButtonImg}
-            src="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*r0I9RpDG7rYAAAAAAAAAAABkARQnAQ"
-            alt="videoButton"
-          />
+      renderButtons.push(
+        <div
+          key="video"
+          onClick={showVideo}
+          className={styles.videoButton}
+        ></div>,
+      );
+    }
+    if (showGithubStars) {
+      const githubUrl = repository.url;
+      const user = githubUrl.split('/')[3];
+      const repo = githubUrl.split('/')[4];
+      if (!states.fetchSuccess) {
+        fetch(`https://api.github.com/repos/${user}/${repo}`)
+          .then(response => response.json())
+          .then(data => {
+            setStates({
+              starCountDisplay: 'block',
+              starCount: data.stargazers_count,
+              fetchSuccess: true,
+            });
+          });
+      }
+      renderButtons.push(
+        <div className={styles.githubWrapper}>
+          <a className={styles.ghBtnWrapper} href={githubUrl}>
+            <div className={styles.ghBtn}>
+              <img
+                className={styles.ghBtnImg}
+                alt="ghbtnimg"
+                src="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Nk9mQ48ZoZMAAAAAAAAAAABkARQnAQ"
+              />
+            </div>
+          </a>
+          <a
+            className={styles.ghCount}
+            href={`${githubUrl}/stargazers/`}
+            style={{ display: states.starCountDisplay }}
+          >
+            {states.starCount}
+          </a>
         </div>,
       );
     }
-    if (downloadButton) {
-      buttons.push(
-        <a href={downloadButton.link} className={styles.adownload}>
-          <button className={styles.more} style={downloadButton.style}>
-            {downloadButton.text}
-          </button>
-        </a>,
-      );
-    }
-    if (githubStarLink) {
-      buttons.push(
-        <iframe className={styles.githubIframe} src={githubStarLink}></iframe>,
-      );
-    }
 
-    return buttons;
+    return renderButtons;
   };
 
   const showVideo = () => {
@@ -155,9 +207,9 @@ const Banner: React.FC<BannerProps> = ({
           <p className={styles.description}>{description}</p>
 
           <div className={styles.buttons}>
-            <a href={buttonHref} className={styles.amore}>
+            {/* <a href={buttonHref} className={styles.amore}>
               <button className={styles.more}>{buttonText}</button>
-            </a>
+            </a> */}
             {getButtons()}
           </div>
         </div>

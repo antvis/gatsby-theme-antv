@@ -10,8 +10,6 @@
     max-width: 1440px;
     height: 100%;
     margin: auto;
-    // margin-left: 8%;
-    // margin-bottom: 5%;
     position: relative;
     .notiWrapper {
       width: 50%;
@@ -43,22 +41,34 @@
     .buttons {
       display: flex;
       margin-top: 5.56%;
-      .more {
+      .button {
         cursor: pointer;
-        border: none;
-        outline: none;
-        color: #fff;
         padding: 8px 26px;
-        font-size: 0.009em;
-        background: linear-gradient(60deg, #ff7efb, #9248fe 80%, #8a36ff);
-        box-shadow: 0px 10px 10px rgba(125, 50, 228, 0.2);
         border-radius: 50px;
         width: 134px;
         height: 40px;
         font-size: 1.14em;
-        position: relative;
         z-index: 10;
+        position: relative;
         transition: all 0.3s;
+      }
+      .buttonCommon {
+        border: 1px solid #7727f4;
+        background-color: rgba(255, 255, 255, 0);
+        color: rgb(139, 56, 255);
+        &:hover {
+          transition: all 0.3;
+          color: rgb(167, 139, 255);
+          border: 1px solid rgb(167, 139, 255);
+          transition: all 0.3s;
+        }
+      }
+      .buttonPrimary {
+        border: none;
+        outline: none;
+        color: #fff;
+        background: linear-gradient(60deg, #ff7efb, #9248fe 80%, #8a36ff);
+        box-shadow: 0px 10px 10px rgba(125, 50, 228, 0.2);
         &:hover {
           box-shadow: 0px 16px 14px rgba(125, 50, 228, 0.2);
           background: linear-gradient(25deg, #ff3ff9, #8735ff 80%, #6b2bff);
@@ -71,23 +81,72 @@
       .videoButton {
         width: 40px;
         margin-left: 2%;
-        .videoButtonImg {
-          width: 40px;
+        background-size: contain;
+        cursor: pointer;
+        background-image: url('https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*rCLDTI4VJGgAAAAAAAAAAABkARQnAQ');
+        &:hover {
+          background-image: url('https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*RhfRSqL9Iy8AAAAAAAAAAABkARQnAQ');
         }
       }
-      .githubButton {
-        width: 40px;
+      .githubWrapper {
         margin-left: 2%;
-        .githubButtonImg {
+        display: flex;
+        .ghBtn {
           width: 40px;
+          height: 40px;
+          border-radius: 20px;
+          border: 1px solid #ced4d9;
+          &:hover {
+            background: #f2f4f5;
+            transition: all 0.3s;
+          }
+          .ghBtnImg {
+            width: 16px;
+            height: 16px;
+            margin: 11px;
+          }
         }
-      }
-      .githubIframe {
-        border: 0;
-        // scrolling: 0;
-        width: 170px;
-        margin-left: 2%;
-        margin-top: 7px;
+        .gh-count {
+          position: relative;
+          display: none;
+          /* hidden to start */
+          margin-left: 12px;
+          margin-top: 7px;
+          border: 1px solid #d4d4d4;
+          padding: 2px 10px;
+          height: 65%;
+          border-radius: 5px;
+          color: rgb(49, 70, 89);
+        }
+        .gh-count:hover,
+        .gh-count:focus {
+          color: #4183c4;
+        }
+        .gh-count:before,
+        .gh-count:after {
+          content: '';
+          position: absolute;
+          display: inline-block;
+          width: 0;
+          height: 0;
+          border-color: transparent;
+          border-style: solid;
+        }
+        .gh-count:before {
+          top: 50%;
+          left: -3px;
+          margin-top: -5px;
+          border-width: 4px 4px 4px 0;
+          border-right-color: #fafafa;
+        }
+        .gh-count:after {
+          top: 50%;
+          border-width: 5px 5px 5px 0;
+          border-right-color: #d4d4d4;
+          left: -5px;
+          z-index: -1;
+          margin-top: -6px;
+        }
       }
     }
   }
@@ -146,9 +205,6 @@
       margin: 0 !important;
     }
   }
-  .gh-text {
-    display: none !important;
-  }
 }
 
 @media (max-width: 1144px) {
@@ -184,12 +240,10 @@
         font-size: 1em;
       }
       .buttons {
-        // width: 100%;
         text-align: center;
         display: inline-flex;
         .more {
           font-size: 1em;
-          // margin-top: 30px;
         }
         .githubIframe {
           height: 40px;
