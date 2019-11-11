@@ -1,5 +1,5 @@
 import { navigate } from 'gatsby';
-import React from 'react';
+import React, { useState } from 'react';
 import GithubCorner from 'react-github-corner';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -73,10 +73,17 @@ const Header: React.FC<HeaderProps> = ({
       : i18n.language || '';
   const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
   const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
+  const [productMenuVisible, setProductMenuVisible] = useState(true);
+  const onProductMouseEnter = () => {
+    setProductMenuVisible(true);
+  };
+  const onProductMouseLeave = () => {
+    // setProductMenuVisible(false);
+  };
   return (
     <header
       className={classNames(styles.header, {
-        [styles.transparent]: !!transparent,
+        [styles.transparent]: !!transparent && !productMenuVisible,
       })}
     >
       <div className={styles.left}>
@@ -113,11 +120,15 @@ const Header: React.FC<HeaderProps> = ({
           {navs && navs.length ? (
             <NavMenuItems navs={navs} path={path} />
           ) : null}
-          <li>
+          <li
+            onMouseEnter={onProductMouseEnter}
+            onMouseLeave={onProductMouseLeave}
+          >
             <a>
-              {t('所有产品')}{' '}
-              <Icon type="caret-down" style={{ fontSize: 12 }} />
+              {t('所有产品')}
+              <Icon type="caret-down" style={{ fontSize: 12, marginLeft: 8 }} />
             </a>
+            <Products show={productMenuVisible} />
           </li>
           {showLanguageSwitcher && (
             <li>
@@ -150,7 +161,6 @@ const Header: React.FC<HeaderProps> = ({
           </span>
         )}
       </nav>
-      <Products style={{ display: 'none' }} />
     </header>
   );
 };

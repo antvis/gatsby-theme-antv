@@ -1,9 +1,18 @@
 import React from 'react';
+import classNames from 'classnames';
 import Product from './Product';
 import styles from './Product.module.less';
 
-const Products: React.FC<{ style?: React.CSSProperties }> = ({ style }) => (
-  <div className={styles.products} style={style}>
+const Products: React.FC<{ style?: React.CSSProperties; show: boolean }> = ({
+  style,
+  show,
+}) => (
+  <div
+    className={classNames(styles.products, {
+      [styles.show]: !!show,
+    })}
+    style={style}
+  >
     <h3>基础产品</h3>
     <ul>
       <Product

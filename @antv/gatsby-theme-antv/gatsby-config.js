@@ -3,8 +3,9 @@ const path = require('path');
 module.exports = ({
   pagesPath = './site/pages',
   GATrackingId,
-  primaryColor = '#1890FF',
-  textColor = '#0D1A26',
+  theme = {
+    'primary-color': '#722ED1',
+  },
   pathPrefix,
 }) => {
   const config = {
@@ -111,8 +112,8 @@ module.exports = ({
           name: `gatsby-starter-default`,
           short_name: `starter`,
           start_url: `/`,
-          background_color: primaryColor,
-          theme_color: primaryColor,
+          background_color: theme['primary-color'],
+          theme_color: theme['primary-color'],
           display: `minimal-ui`,
           icon: require.resolve(`./site/images/favicon.png`), // This path is relative to the root of the site.
         },
@@ -123,11 +124,12 @@ module.exports = ({
         options: {
           javascriptEnabled: true,
           modifyVars: {
-            'primary-color': primaryColor,
-            'text-color': textColor,
-            'heading-color': textColor,
+            'primary-color': '#722ED1',
+            'text-color': '#0D1A26',
+            'heading-color': '#0D1A26',
             'menu-item-color': '#314659',
             'font-family': `Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif`,
+            ...theme,
           },
         },
       },
@@ -167,7 +169,7 @@ module.exports = ({
         resolve: `gatsby-plugin-nprogress`,
         options: {
           // Setting a color is optional.
-          color: primaryColor,
+          color: theme['primary-color'],
         },
       },
     ],

@@ -1,9 +1,24 @@
 @import '~antd/es/style/themes/default.less';
 
 .products {
-  width: 600px;
-  padding: 0 12px;
-  max-width: calc(100vw - 30px);
+  width: 100%;
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  top: 64px;
+  max-height: 0;
+  transition: all 0.3s;
+  background: #fff;
+  padding: 32px 80px 100px;
+  overflow: hidden;
+  box-shadow: none;
+  line-height: 1.5;
+  font-weight: normal;
+
+  &.show {
+    max-height: 1000px;
+    box-shadow: 0 2px 8px #f0f1f2 inset;
+  }
 
   h3 {
     font-size: 16px;
@@ -18,7 +33,7 @@
 
   .product {
     overflow: hidden;
-    width: calc(50% - 16px);
+    width: 25%;
     display: inline-block;
     margin-bottom: 16px;
 
@@ -50,12 +65,9 @@
       .productLinks {
         > a {
           margin-right: 8px;
-          color: @text-color;
           transition: all 0.3s;
-
-          &:hover {
-            color: rgba(0, 0, 0, 0.85);
-          }
+          display: inline-block;
+          color: #597ef7;
         }
       }
     }
