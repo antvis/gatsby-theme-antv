@@ -13,7 +13,7 @@ interface Notification {
 }
 
 interface BannerProps {
-  coverImage: React.ReactNode;
+  coverImage?: React.ReactNode;
   title: string;
   description: string;
   buttonText: string;

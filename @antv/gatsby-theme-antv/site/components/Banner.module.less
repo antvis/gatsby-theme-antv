@@ -10,8 +10,6 @@
     max-width: 1440px;
     height: 100%;
     margin: auto;
-    // margin-left: 8%;
-    // margin-bottom: 5%;
     position: relative;
     .notiWrapper {
       width: 50%;
@@ -41,8 +39,12 @@
       max-width: 700px;
     }
     .buttons {
-      display: flex;
       margin-top: 5.56%;
+      > * {
+        display: inline-block;
+        vertical-align: top;
+        user-select: none;
+      }
       .more {
         cursor: pointer;
         border: none;
@@ -62,7 +64,7 @@
         &:hover {
           box-shadow: 0px 16px 14px rgba(125, 50, 228, 0.2);
           background: linear-gradient(25deg, #ff3ff9, #8735ff 80%, #6b2bff);
-          transition: all 0.3;
+          transition: all 0.3s;
         }
       }
       .adownload {
