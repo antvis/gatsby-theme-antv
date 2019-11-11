@@ -1,5 +1,6 @@
 import React from 'react';
 import Notification from './Notification';
+import { Modal } from 'antd';
 import styles from './Banner.module.less';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -20,6 +21,13 @@ interface BannerProps {
   notifications?: Notification[];
   style?: React.CSSProperties;
   className?: string;
+  video?: string;
+  githubStarLink?: string;
+  downloadButton?: {
+    text: string;
+    link: string;
+    style?: React.CSSProperties;
+  };
 }
 
 const numImgs = [
@@ -39,6 +47,9 @@ const Banner: React.FC<BannerProps> = ({
   notifications = [],
   style = {},
   className,
+  video,
+  githubStarLink,
+  downloadButton,
 }) => {
   const { t } = useTranslation();
   const insNotifications: Notification[] = [
@@ -90,6 +101,53 @@ const Banner: React.FC<BannerProps> = ({
     return children;
   };
 
+  const getButtons = () => {
+    const buttons = [];
+    if (video) {
+      buttons.push(
+        <div onClick={showVideo} className={styles.videoButton}>
+          <img
+            className={styles.videoButtonImg}
+            src="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*r0I9RpDG7rYAAAAAAAAAAABkARQnAQ"
+            alt="videoButton"
+          />
+        </div>,
+      );
+    }
+    if (downloadButton) {
+      buttons.push(
+        <a href={downloadButton.link} className={styles.adownload}>
+          <button className={styles.more} style={downloadButton.style}>
+            {downloadButton.text}
+          </button>
+        </a>,
+      );
+    }
+    if (githubStarLink) {
+      buttons.push(
+        <iframe className={styles.githubIframe} src={githubStarLink}></iframe>,
+      );
+    }
+
+    return buttons;
+  };
+
+  const showVideo = () => {
+    //autoPlay="autoplay" style="width: 100%; height: 100%; object-fit: fill;"
+    Modal.info({
+      title: 'This is a notification message',
+      content: (
+        <video
+          className={styles.video}
+          style={{ width: '100%', height: '100%', objectFit: 'fill' }}
+          controls
+          src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
+        ></video>
+      ),
+      width: '70%',
+    });
+  };
+
   return (
     <section className={classNames(styles.wrapper, className)} style={style}>
       <div className={styles.content}>
@@ -97,9 +155,12 @@ const Banner: React.FC<BannerProps> = ({
           <div className={styles.title}>{title}</div>
           <p className={styles.description}>{description}</p>
 
-          <a href={buttonHref} className={styles.amore}>
-            <button className={styles.more}>{buttonText}</button>
-          </a>
+          <div className={styles.buttons}>
+            <a href={buttonHref} className={styles.amore}>
+              <button className={styles.more}>{buttonText}</button>
+            </a>
+            {getButtons()}
+          </div>
         </div>
         <div className={styles.notifications}>{getNotifications()}</div>
         <div className={styles.teaser}>

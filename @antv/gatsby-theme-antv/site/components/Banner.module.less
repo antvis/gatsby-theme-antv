@@ -1,14 +1,17 @@
 .wrapper {
   min-height: 550px;
+  max-height: 803px;
   background: linear-gradient(225deg, #ffffff, #f0f5ff);
   height: calc(94vh);
   position: relative;
   overflow: hidden;
   .content {
     width: 92%;
+    max-width: 1440px;
     height: 100%;
-    margin-left: 8%;
-    margin-bottom: 5%;
+    margin: auto;
+    // margin-left: 8%;
+    // margin-bottom: 5%;
     position: relative;
     .notiWrapper {
       width: 50%;
@@ -18,6 +21,7 @@
     position: relative;
     top: 26%;
     z-index: 1;
+    margin-left: 4%;
     .title {
       font-size: 3.43em; //2.875em;
       font-weight: 800;
@@ -36,27 +40,54 @@
       width: 36%;
       max-width: 700px;
     }
-    .more {
-      cursor: pointer;
-      border: none;
-      outline: none;
-      color: #fff;
-      padding: 8px 26px;
-      font-size: 0.009em;
-      background: linear-gradient(60deg, #ff7efb, #9248fe 80%, #8a36ff);
-      box-shadow: 0px 10px 10px rgba(125, 50, 228, 0.2);
-      border-radius: 50px;
-      width: 134px;
-      height: 40px;
+    .buttons {
+      display: flex;
       margin-top: 5.56%;
-      font-size: 1.14em;
-      position: relative;
-      z-index: 10;
-      transition: all 0.3s;
-      &:hover {
-        box-shadow: 0px 16px 14px rgba(125, 50, 228, 0.2);
-        background: linear-gradient(25deg, #ff3ff9, #8735ff 80%, #6b2bff);
-        transition: all 0.3;
+      .more {
+        cursor: pointer;
+        border: none;
+        outline: none;
+        color: #fff;
+        padding: 8px 26px;
+        font-size: 0.009em;
+        background: linear-gradient(60deg, #ff7efb, #9248fe 80%, #8a36ff);
+        box-shadow: 0px 10px 10px rgba(125, 50, 228, 0.2);
+        border-radius: 50px;
+        width: 134px;
+        height: 40px;
+        font-size: 1.14em;
+        position: relative;
+        z-index: 10;
+        transition: all 0.3s;
+        &:hover {
+          box-shadow: 0px 16px 14px rgba(125, 50, 228, 0.2);
+          background: linear-gradient(25deg, #ff3ff9, #8735ff 80%, #6b2bff);
+          transition: all 0.3;
+        }
+      }
+      .adownload {
+        margin-left: 40px;
+      }
+      .videoButton {
+        width: 40px;
+        margin-left: 40px;
+        .videoButtonImg {
+          width: 40px;
+        }
+      }
+      .githubButton {
+        width: 40px;
+        margin-left: 40px;
+        .githubButtonImg {
+          width: 40px;
+        }
+      }
+      .githubIframe {
+        border: 0;
+        // scrolling: 0;
+        width: 170px;
+        margin-left: 40px;
+        margin-top: 7px;
       }
     }
   }
@@ -66,6 +97,7 @@
     bottom: 40px;
     position: absolute;
     z-index: 10;
+    margin-left: 4%;
     .notiWrapper {
       width: 50%;
     }
@@ -93,6 +125,32 @@
     left: -8%;
     bottom: -20px;
   }
+}
+
+:global {
+  .anticon-info-circle {
+    display: none !important;
+  }
+  .ant-modal-confirm-btns {
+    display: none !important;
+  }
+  .ant-modal-confirm-title {
+    display: none !important;
+  }
+  .ant-modal-close {
+    display: block !important;
+  }
+  .ant-modal-body {
+    padding: 0 !important;
+    .ant-modal-confirm-content {
+      margin: 0 !important;
+    }
+  }
+  .gh-text {
+    display: none !important;
+  }
+}
+.video {
 }
 
 @media (max-width: 1144px) {
