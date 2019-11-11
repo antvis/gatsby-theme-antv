@@ -124,8 +124,7 @@ const IndexPage = () => {
         notifications={notifications}
         className="banner"
         buttons={bannerButtons}
-        // video="https://mdn.alipayobjects.com/afts/file/A*qmPlRYhAlBkAAAAAAAAAAABjAQAAAQ?bz=antv_site"
-        showGithubStars={true}
+        video="https://mdn.alipayobjects.com/afts/file/A*qmPlRYhAlBkAAAAAAAAAAABjAQAAAQ?bz=antv_site"
       />
       <Features
         features={features}

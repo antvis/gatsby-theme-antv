@@ -47,7 +47,7 @@ const Banner: React.FC<BannerProps> = ({
   style = {},
   className,
   video,
-  showGithubStars = false,
+  showGithubStars = true,
   buttons = [],
 }) => {
   const { t } = useTranslation();
@@ -116,6 +116,20 @@ const Banner: React.FC<BannerProps> = ({
   ));
 
   if (video) {
+    const showVideo = () => {
+      Modal.info({
+        title: 'This is a notification message',
+        content: (
+          <video
+            className={styles.video}
+            style={{ width: '100%', height: '100%', objectFit: 'fill' }}
+            controls
+            src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
+          />
+        ),
+        width: '70%',
+      });
+    };
     renderButtons.push(
       <div key="video" onClick={showVideo} className={styles.videoButton} />,
     );
@@ -157,21 +171,6 @@ const Banner: React.FC<BannerProps> = ({
       </div>,
     );
   }
-
-  const showVideo = () => {
-    Modal.info({
-      title: 'This is a notification message',
-      content: (
-        <video
-          className={styles.video}
-          style={{ width: '100%', height: '100%', objectFit: 'fill' }}
-          controls
-          src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
-        />
-      ),
-      width: '70%',
-    });
-  };
 
   return (
     <section className={classNames(styles.wrapper, className)} style={style}>
