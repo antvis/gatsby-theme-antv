@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Notification from './Notification';
 import { Modal } from 'antd';
 import styles from './Banner.module.less';
+import GitHubButton from 'react-github-button';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { repository } from '../../package.json';
@@ -107,67 +108,60 @@ const Banner: React.FC<BannerProps> = ({
     return children;
   };
 
-  const renderButtons = buttons.map((button: BannerButton, i) => (
-    <a key={i} href={button.link} style={{ marginLeft: i === 0 ? '0%' : '2%' }}>
-      <button className={classNames(styles.button, styles[button.type || ''])}>
-        {button.text}
-      </button>
-    </a>
-  ));
+  const showVideo = () => {
+    Modal.info({
+      title: 'This is a notification message',
+      content: (
+        <video
+          className={styles.video}
+          style={{ width: '100%', height: '100%', objectFit: 'fill' }}
+          controls
+          src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
+        />
+      ),
+      width: '70%',
+    });
+  };
+
+  let renderButtons = [];
+  renderButtons = buttons.map((button: BannerButton, i) => {
+    let marginLeft = '0%';
+    if (i !== 0) {
+      marginLeft = '2%';
+    }
+    let className = 'buttonCommon';
+    if (button.type === 'primary') {
+      className = 'primary';
+    }
+    return (
+      <a key={i} href={button.link} style={{ marginLeft }}>
+        <button
+          className={classNames(styles[className], styles.button)}
+          style={button.style}
+        >
+          {button.text}
+        </button>
+      </a>
+    );
+  });
 
   if (video) {
-    const showVideo = () => {
-      Modal.info({
-        title: 'This is a notification message',
-        content: (
-          <video
-            className={styles.video}
-            style={{ width: '100%', height: '100%', objectFit: 'fill' }}
-            controls
-            src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
-          />
-        ),
-        width: '70%',
-      });
-    };
     renderButtons.push(
       <div key="video" onClick={showVideo} className={styles.videoButton} />,
     );
   }
-
   if (showGithubStars) {
     const githubUrl = repository.url;
     const user = githubUrl.split('/')[3];
     const repo = githubUrl.split('/')[4];
-    if (!states.fetchSuccess) {
-      fetch(`https://api.github.com/repos/${user}/${repo}`)
-        .then(response => response.json())
-        .then(data => {
-          setStates({
-            starCountDisplay: 'block',
-            starCount: data.stargazers_count,
-            fetchSuccess: true,
-          });
-        });
-    }
     renderButtons.push(
-      <div className={styles.githubWrapper} key="github">
-        <a className={styles.ghBtnWrapper} href={githubUrl}>
-          <div className={styles.ghBtn}>
-            <img
-              className={styles.ghBtnImg}
-              alt="ghbtnimg"
-              src="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Nk9mQ48ZoZMAAAAAAAAAAABkARQnAQ"
-            />
-          </div>
-        </a>
-        <a
-          className={styles.ghCount}
-          href={`${githubUrl}/stargazers/`}
-          style={{ display: states.starCountDisplay }}
-        >
-          {states.starCount}
-        </a>
+      <div key="github" className={styles.githubWrapper}>
+        <GitHubButton
+          type="stargazers"
+          size="large"
+          namespace={user}
+          repo={repo}
+        />
       </div>,
     );
   }
