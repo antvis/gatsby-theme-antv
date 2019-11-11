@@ -133,7 +133,6 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   const showVideo = () => {
-    //autoPlay="autoplay" style="width: 100%; height: 100%; object-fit: fill;"
     Modal.info({
       title: 'This is a notification message',
       content: (
