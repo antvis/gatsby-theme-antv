@@ -1,26 +1,8 @@
 import React from 'react';
-import styles from './bannerSVG.module.less';
+import styles from './BannerSVG.module.less';
 
-const BannerSVG = () => {
+const BannerSVG = React.memo(() => {
   const block6NodeRadius = '2';
-  const block6CirclePositions = [
-    { x: 36.8, y: 49.8 }, //A
-    { x: 66.8, y: 29.8 }, //B
-    { x: 84.8, y: 29.8 }, //C
-    { x: 101.8, y: 36.8 }, //D
-    { x: 29.8, y: 66.8 }, //E
-    { x: 49.8, y: 36.8 }, //F
-    { x: 114.8, y: 49.8 }, //G
-    { x: 121.8, y: 66.8 }, //H
-    { x: 29.8, y: 84.8 }, //I
-    { x: 36.8, y: 101.8 }, //J
-    { x: 101.8, y: 114.8 }, //K
-    { x: 121.8, y: 84.8 }, //L
-    { x: 49.8, y: 115.8 }, //M
-    { x: 66.8, y: 121.8 }, //N
-    { x: 84.8, y: 121.8 }, //O
-    { x: 114.8, y: 101.8 }, //P
-  ];
   const block6GridPositions = [
     { x: 45.5, y: 45.5 }, //A
     { x: 65.5, y: 45.5 }, //B
@@ -1536,6 +1518,6 @@ const BannerSVG = () => {
       </svg>
     </section>
   );
-};
+});
 
 export default BannerSVG;

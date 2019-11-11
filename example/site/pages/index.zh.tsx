@@ -10,8 +10,6 @@ import BannerSVG from '@antv/gatsby-theme-antv/site/components/BannerSVG';
 const IndexPage = () => {
   const { t, i18n } = useTranslation();
 
-  const coverImage = BannerSVG(); //BannerSVG(); // (<div></div>);
-
   const features = [
     {
       icon:
@@ -122,7 +120,7 @@ const IndexPage = () => {
     <>
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
       <Banner
-        coverImage={coverImage}
+        coverImage={<BannerSVG />}
         title={t('让数据栩栩如生')}
         description={t(
           'AntV 是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。',
@@ -130,7 +128,7 @@ const IndexPage = () => {
         notifications={notifications}
         className="banner"
         buttons={bannerButtons}
-        video="https://mdn.alipayobjects.com/afts/file/A*qmPlRYhAlBkAAAAAAAAAAABjAQAAAQ?bz=antv_site"
+        // video="https://mdn.alipayobjects.com/afts/file/A*qmPlRYhAlBkAAAAAAAAAAABjAQAAAQ?bz=antv_site"
         showGithubStars={true}
       />
       <Features
@@ -139,13 +137,9 @@ const IndexPage = () => {
         // className="features"
         style={{ width: '100%' }}
       />
+      <Features features={features} style={{ width: '100%' }} />
       <Cases cases={cases} />
-      <Companies
-        title={t('合作公司')}
-        companies={companies}
-        // className="companies"
-        // style={{ width: '100%' }}
-      />
+      <Companies title={t('合作公司')} companies={companies} />
     </>
   );
 };

@@ -20,7 +20,7 @@ interface BannerButton {
 }
 
 interface BannerProps {
-  coverImage: React.ReactNode;
+  coverImage?: React.ReactNode;
   title: string;
   description: string;
   notifications?: Notification[];
@@ -193,7 +193,7 @@ const Banner: React.FC<BannerProps> = ({
           style={{ width: '100%', height: '100%', objectFit: 'fill' }}
           controls
           src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
-        ></video>
+        />
       ),
       width: '70%',
     });
@@ -205,13 +205,7 @@ const Banner: React.FC<BannerProps> = ({
         <div className={styles.text}>
           <div className={styles.title}>{title}</div>
           <p className={styles.description}>{description}</p>
-
-          <div className={styles.buttons}>
-            {/* <a href={buttonHref} className={styles.amore}>
-              <button className={styles.more}>{buttonText}</button>
-            </a> */}
-            {getButtons()}
-          </div>
+          <div className={styles.buttons}>{getButtons()}</div>
         </div>
         <div className={styles.notifications}>{getNotifications()}</div>
         <div className={styles.teaser}>
