@@ -57,7 +57,6 @@
       border: 1px solid transparent;
       content: '';
       position: absolute;
-      z-index: 10;
       top: -1px;
       bottom: -1px;
       right: -1px;
@@ -80,8 +79,8 @@
     }
 
     &.current::after {
-      background-color: rgba(24, 144, 255, 0.1);
-      border-color: #597ef7;
+      background-color: fade(@primary-color, 10%);
+      border-color: @primary-color;
     }
   }
 }

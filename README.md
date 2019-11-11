@@ -41,8 +41,11 @@ module.exports = {
       options: {
         // pagesPath: './site/pages',
         GATrackingId: `UA-XXXXXXXXX-X`,
-        primaryColor: '#722ED1',
         pathPrefix: '/g2',
+        // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+        theme: {
+          'primary-color': '#722ED1',
+        },
       },
     },
   ],

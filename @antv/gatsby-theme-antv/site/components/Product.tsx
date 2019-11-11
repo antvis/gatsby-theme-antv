@@ -7,8 +7,10 @@ interface ProductProps {
   description?: string;
   url?: string;
   links?: Array<{
-    name: string;
-    link: string;
+    title: string;
+    url: string;
+    icon?: React.ReactNode;
+    openExternal?: boolean;
   }>;
   style?: React.CSSProperties;
 }
@@ -16,22 +18,28 @@ interface ProductProps {
 const Product: React.FC<ProductProps> = ({
   name,
   icon,
-  url,
+  url = '',
   description,
   links = [],
   style,
 }) => (
   <li className={styles.product} style={style}>
-    <img alt={name} src={icon} />
+    <a href={url} target={url.startsWith('http') ? '_blank' : '_self'}>
+      <img alt={name} src={icon} />
+    </a>
     <div className={styles.productContent}>
-      <a href={url} target="_blank">
+      <a href={url} target={url.startsWith('http') ? '_blank' : '_self'}>
         <h4>{name}</h4>
       </a>
       <div className={styles.productDescription}>{description}</div>
       <div className={styles.productLinks}>
-        {links.map(({ link, name }, i) => (
-          <a target="_blank" href={link} key={i}>
-            {name}
+        {links.map(({ url, title }, i) => (
+          <a
+            href={url}
+            target={url.startsWith('http') ? '_blank' : '_self'}
+            key={i}
+          >
+            {title}
           </a>
         ))}
       </div>

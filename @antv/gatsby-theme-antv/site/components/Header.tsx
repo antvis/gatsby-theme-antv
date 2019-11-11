@@ -1,6 +1,5 @@
 import { navigate } from 'gatsby';
-import React from 'react';
-import GithubCorner from 'react-github-corner';
+import React, { useState } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'antd';
@@ -39,6 +38,8 @@ interface HeaderProps {
   Link?: React.ComponentType<any>;
   /** 底色是否透明 */
   transparent?: Boolean;
+  /** AntV root 域名，直接用主题的可不传 */
+  rootDomain?: string;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -65,6 +66,7 @@ const Header: React.FC<HeaderProps> = ({
   defaultLanguage,
   Link = 'a',
   transparent,
+  rootDomain = '',
 }) => {
   const { t, i18n } = useTranslation();
   const lang =
@@ -73,10 +75,17 @@ const Header: React.FC<HeaderProps> = ({
       : i18n.language || '';
   const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
   const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
+  const [productMenuVisible, setProductMenuVisible] = useState(false);
+  const onProductMouseEnter = () => {
+    setProductMenuVisible(true);
+  };
+  const onProductMouseLeave = () => {
+    setProductMenuVisible(false);
+  };
   return (
     <header
       className={classNames(styles.header, {
-        [styles.transparent]: !!transparent,
+        [styles.transparent]: !!transparent && !productMenuVisible,
       })}
     >
       <div className={styles.left}>
@@ -113,11 +122,20 @@ const Header: React.FC<HeaderProps> = ({
           {navs && navs.length ? (
             <NavMenuItems navs={navs} path={path} />
           ) : null}
-          <li>
+          <li
+            onMouseEnter={onProductMouseEnter}
+            onMouseLeave={onProductMouseLeave}
+          >
             <a>
-              {t('所有产品')}{' '}
-              <Icon type="caret-down" style={{ fontSize: 12 }} />
+              {t('所有产品')}
+              <Icon
+                type="caret-down"
+                className={classNames(styles.arrow, {
+                  [styles.open]: productMenuVisible,
+                })}
+              />
             </a>
+            <Products show={productMenuVisible} rootDomain={rootDomain} />
           </li>
           {showLanguageSwitcher && (
             <li>
@@ -143,14 +161,15 @@ const Header: React.FC<HeaderProps> = ({
               </a>
             </li>
           )}
+          {showGithubCorner && (
+            <li className={styles.githubCorner}>
+              <a href={githubUrl} target="_blank">
+                <Icon type="github" />
+              </a>
+            </li>
+          )}
         </ul>
-        {showGithubCorner && (
-          <span className={styles.githubCorner}>
-            <GithubCorner href={githubUrl} size={64} />
-          </span>
-        )}
       </nav>
-      <Products style={{ display: 'none' }} />
     </header>
   );
 };
