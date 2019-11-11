@@ -18,7 +18,6 @@ const Notification: React.FC<NotificationProps> = ({
   numImg,
   notificationContent,
 }) => {
-  const { t } = useTranslation();
   const { type, title, date } = notificationContent;
   let description = `${type} ‧ ${title}`;
   return (
