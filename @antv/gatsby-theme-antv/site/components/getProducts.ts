@@ -60,7 +60,7 @@ export const getProducts = ({
         'https://gw.alipayobjects.com/zos/antfincdn/zS1wZZJVcJ/G6%252520tukeshihuayinqing.svg',
       slogan: t('图可视化引擎'),
       description: t(
-        'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
+        '简单、易用、完备的图可视化引擎，帮助开发者搭建图分析应用',
       ),
       category: Categories[0],
       links: [
@@ -89,7 +89,7 @@ export const getProducts = ({
         'https://gw.alipayobjects.com/zos/antfincdn/D%26fDbWqVkv/F2%252520yidongduankeshihuafangan.svg',
       slogan: t('移动可视化方案'),
       description: t(
-        'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
+        '专注于移动端的可视化解决方案，兼容 H5/Node/小程序/Weex 等多端环境',
       ),
       category: Categories[0],
       links: [
@@ -117,9 +117,7 @@ export const getProducts = ({
       icon:
         'https://gw.alipayobjects.com/zos/antfincdn/OI%26h7HXH33/L7%252520dilikongjianshujukeshihua.svg',
       slogan: t('地理空间数据可视化'),
-      description: t(
-        'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
-      ),
+      description: t('易扩展，高性能，安全可靠的地理空间数据可视化解决方案。'),
       category: Categories[0],
       links: [
         {
@@ -145,9 +143,7 @@ export const getProducts = ({
       title: 'G2Plot',
       icon: 'https://gw.alipayobjects.com/zos/antfincdn/SlbIagEvT7/G2plot.svg',
       slogan: t('强大的图表库'),
-      description: t(
-        'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
-      ),
+      description: t('G2Plot 是一套在图形语法基础上封装的常用图表库。'),
       category: Categories[1],
       links: [
         {
@@ -172,10 +168,8 @@ export const getProducts = ({
     {
       title: 'Graphin',
       icon: 'https://gw.alipayobjects.com/zos/antfincdn/0b4HzOcEJY/Graphin.svg',
-      slogan: t('图可视化引擎'),
-      description: t(
-        'G2 是以数据驱动，具有高度的易用性和扩展性的可视化图形语法。',
-      ),
+      slogan: t('图分析框架'),
+      description: t('开箱即用的图分析应用 React 组件库'),
       category: Categories[1],
       links: [
         {
@@ -202,7 +196,7 @@ export const getProducts = ({
       icon:
         'https://gw.alipayobjects.com/zos/antfincdn/kM2Rd6CnlW/ChartCube.svg',
       slogan: t('图表魔方'),
-      description: t('ChartCube 是开箱即用的 AntV 图表在线制作利器。'),
+      description: t('AntV 在线图表制作利器。'),
       category: Categories[1],
       links: [
         {
