@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './BannerSVG.module.less';
 
-const BannerSVG = () => {
+const BannerSVG = React.memo(() => {
   const block6NodeRadius = '2';
   const block6GridPositions = [
     { x: 45.5, y: 45.5 }, //A
@@ -2135,6 +2135,6 @@ const BannerSVG = () => {
       </svg>
     </section>
   );
-};
+});
 
 export default BannerSVG;
