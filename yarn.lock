@@ -1767,6 +1767,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-github-button@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.npm.taobao.org/@types/react-github-button/download/@types/react-github-button-0.1.0.tgz#8a05bdd572fe46a9bfa83464c36ca85037e9bb63"
+  integrity sha1-igW91XL+Rqm/qDRkw2yoUDfpu2M=
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-helmet@^5.0.10":
   version "5.0.14"
   resolved "https://registry.npmjs.org/@types/react-helmet/-/react-helmet-5.0.14.tgz#a07979ccb2cee088e74e735c84058fc8607d32e4"
