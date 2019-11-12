@@ -24,6 +24,7 @@
     "build": "yarn workspace example build",
     "deploy": "npm run build && gh-pages -d example/public",
     "test": "yarn workspace @antv/gatsby-theme-antv test",
+    "release": "yarn workspace @antv/gatsby-theme-antv run release",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,less}\"",
     "tsc": "tsc"
   },
