@@ -1,7 +1,8 @@
-import React, { useState, ReactElement } from 'react';
+import React from 'react';
 import Notification from './Notification';
 import { Modal } from 'antd';
 import styles from './Banner.module.less';
+import GitHubButton from 'react-github-button';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { repository } from '../../package.json';
@@ -12,6 +13,7 @@ interface Notification {
   date: string;
   link?: string;
 }
+
 interface BannerButton {
   text: string;
   link: string;
@@ -47,16 +49,10 @@ const Banner: React.FC<BannerProps> = ({
   style = {},
   className,
   video,
-  showGithubStars = false,
+  showGithubStars = true,
   buttons = [],
 }) => {
   const { t } = useTranslation();
-
-  const [states, setStates] = useState({
-    starCountDisplay: 'none',
-    starCount: 0,
-    fetchSuccess: false,
-  });
 
   const insNotifications: Notification[] = [
     {
@@ -107,83 +103,6 @@ const Banner: React.FC<BannerProps> = ({
     return children;
   };
 
-  const getButtons = () => {
-    let renderButtons: ReactElement[] = [];
-    renderButtons = buttons.map((button: BannerButton, i) => {
-      let marginLeft = '0%';
-      if (i !== 0) {
-        marginLeft = '2%';
-      }
-      let className = 'buttonCommon';
-      if (button.type === 'primary') {
-        className = 'buttonPrimary';
-      }
-      return (
-        <a
-          key="download"
-          href={button.link}
-          className={styles.abutton}
-          style={{ marginLeft }}
-        >
-          <button
-            className={classNames(styles[className], styles.button)}
-            style={button.style}
-          >
-            {button.text}
-          </button>
-        </a>
-      );
-    });
-
-    if (video) {
-      renderButtons.push(
-        <div
-          key="video"
-          onClick={showVideo}
-          className={styles.videoButton}
-        ></div>,
-      );
-    }
-    if (showGithubStars) {
-      const githubUrl = repository.url;
-      const user = githubUrl.split('/')[3];
-      const repo = githubUrl.split('/')[4];
-      if (!states.fetchSuccess) {
-        fetch(`https://api.github.com/repos/${user}/${repo}`)
-          .then(response => response.json())
-          .then(data => {
-            setStates({
-              starCountDisplay: 'block',
-              starCount: data.stargazers_count,
-              fetchSuccess: true,
-            });
-          });
-      }
-      renderButtons.push(
-        <div className={styles.githubWrapper}>
-          <a className={styles.ghBtnWrapper} href={githubUrl}>
-            <div className={styles.ghBtn}>
-              <img
-                className={styles.ghBtnImg}
-                alt="ghbtnimg"
-                src="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Nk9mQ48ZoZMAAAAAAAAAAABkARQnAQ"
-              />
-            </div>
-          </a>
-          <a
-            className={styles.ghCount}
-            href={`${githubUrl}/stargazers/`}
-            style={{ display: states.starCountDisplay }}
-          >
-            {states.starCount}
-          </a>
-        </div>,
-      );
-    }
-
-    return renderButtons;
-  };
-
   const showVideo = () => {
     Modal.info({
       title: 'This is a notification message',
@@ -199,13 +118,46 @@ const Banner: React.FC<BannerProps> = ({
     });
   };
 
+  const renderButtons = buttons.map((button: BannerButton, i) => (
+    <a key={i} href={button.link} style={{ marginLeft: i === 0 ? '0%' : '2%' }}>
+      <button
+        className={classNames(styles.button, styles[button.type || ''])}
+        style={button.style}
+      >
+        {button.text}
+      </button>
+    </a>
+  ));
+
+  if (video) {
+    renderButtons.push(
+      <div key="video" onClick={showVideo} className={styles.videoButton} />,
+    );
+  }
+
+  if (showGithubStars) {
+    const githubUrl = repository.url;
+    const user = githubUrl.split('/')[3];
+    const repo = githubUrl.split('/')[4];
+    renderButtons.push(
+      <div key="github" className={styles.githubWrapper}>
+        <GitHubButton
+          type="stargazers"
+          size="large"
+          namespace={user}
+          repo={repo}
+        />
+      </div>,
+    );
+  }
+
   return (
     <section className={classNames(styles.wrapper, className)} style={style}>
       <div className={styles.content}>
         <div className={styles.text}>
           <div className={styles.title}>{title}</div>
           <p className={styles.description}>{description}</p>
-          <div className={styles.buttons}>{getButtons()}</div>
+          <div className={styles.buttons}>{renderButtons}</div>
         </div>
         <div className={styles.notifications}>{getNotifications()}</div>
         <div className={styles.teaser}>
