@@ -30,6 +30,20 @@ const resources = {
   },
 };
 
+function getExampleOrder(post, siteMetadata) {
+  if (!post) {
+    return 0;
+  }
+  const {
+    fields: { slug },
+    frontmatter: { order },
+  } = post.node;
+  const { examples = [] } = siteMetadata;
+  const categoryOrder =
+    examples.findIndex(item => item.slug === slug.split('/')[3]) + 1;
+  return (order || 0) + categoryOrder * 100;
+}
+
 function isSameCategory(target = {}, current = {}) {
   if (!target.node || !current.node) {
     return false;
@@ -51,9 +65,10 @@ function isSameCategory(target = {}, current = {}) {
   );
 }
 
-function findPrevAndNext(index, current, posts = []) {
+function findPrevAndNext(current, posts = []) {
+  const index = posts.indexOf(current);
   const result = {};
-  if (!current) {
+  if (!current || index < 0) {
     return result;
   }
   for (let i = index + 1; i <= posts.length; i += 1) {
@@ -148,6 +163,13 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           absolutePath
         }
       }
+      site {
+        siteMetadata {
+          examples {
+            slug
+          }
+        }
+      }
     }
   `);
   // Handle errors
@@ -226,10 +248,38 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         design,
         API,
       };
+      const { siteMetadata } = result.data.site;
+      const examplePosts = posts
+        .filter(item => !!item)
+        .filter(
+          ({
+            node: {
+              fields: { slug },
+            },
+          }) =>
+            slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`),
+        )
+        .filter(
+          ({
+            node: {
+              fields: { slug },
+            },
+          }) => !slug.endsWith('/design') && !slug.endsWith('/API'),
+        )
+        .sort((a, b) => {
+          return (
+            getExampleOrder(a, siteMetadata) - getExampleOrder(b, siteMetadata)
+          );
+        });
+      const { prev, next } = findPrevAndNext(posts[index], examplePosts);
+      context.prev = prev;
+      context.next = next;
+    } else {
+      const { prev, next } = findPrevAndNext(posts[index], posts);
+      context.prev = prev;
+      context.next = next;
     }
-    const { prev, next } = findPrevAndNext(index, posts[index], posts);
-    context.prev = prev;
-    context.next = next;
+
     createPage({
       path: slug, // required
       component: isExamplePage ? exampleTemplate : documentTemplate,
