@@ -265,6 +265,8 @@
           height: 40px;
         }
         .videoButton {
+          width: 56px;
+          height: 37px;
           margin-left: 10%;
         }
       }
@@ -301,59 +303,38 @@
     }
   }
 }
+
 @media (max-width: 510px) {
   .wrapper {
     .text {
       .buttons {
+        margin-top: 70%;
         .videoButton {
+          display: none;
+        }
+        .githubWrapper {
           display: none;
         }
       }
     }
     .teaser {
       width: 100%;
-      top: 20%;
+      top: 5%;
       .teaserimg {
-        width: 80%;
-        margin-left: 10%;
+        width: 75%;
+        margin-left: 12.5%;
       }
     }
     .backLeftBottom {
-      margin-left: -15%;
-      bottom: -90px;
+      display: none;
     }
   }
 }
 
 @media (max-width: 480px) {
   .wrapper {
-    .text {
-      .buttons {
-        text-align: center;
-        display: inline-block;
-        margin-top: 0px;
-        .button {
-          font-size: 1em;
-          margin-top: 10px;
-        }
-        .githubWrapper {
-          margin-top: 15px;
-          height: 40px;
-          margin-left: 50%;
-          transform: translateX(-40px);
-        }
-      }
-    }
     .teaser {
-      top: 65%;
-      .teaserimg {
-        width: 60%;
-        margin-left: 20%;
-      }
-    }
-    .backLeftBottom {
-      margin-left: -30%;
-      bottom: -150px;
+      top: 15%;
     }
   }
 }
