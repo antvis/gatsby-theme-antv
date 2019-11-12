@@ -79,6 +79,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         githubUrl={githubUrl}
         Link={Link}
         transparent={isHomePage}
+        isHomePage={isHomePage}
         showLanguageSwitcher={
           showLanguageSwitcher === null ? undefined : showLanguageSwitcher
         }

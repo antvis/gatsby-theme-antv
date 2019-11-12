@@ -1,3 +1,5 @@
+@import './mixins';
+
 .wrapper {
   min-height: 550px;
   max-height: 803px;
@@ -6,10 +8,8 @@
   position: relative;
   overflow: hidden;
   .content {
-    width: 92%;
-    max-width: 1440px;
+    .container1440;
     height: 100%;
-    margin: auto;
     position: relative;
     .notiWrapper {
       width: 50%;
@@ -19,7 +19,6 @@
     position: relative;
     top: 26%;
     z-index: 1;
-    margin-left: 4%;
     .title {
       font-size: 3.43em; //2.875em;
       font-weight: 800;
@@ -170,7 +169,6 @@
     display: flex;
     bottom: 40px;
     position: absolute;
-    margin-left: 4%;
     z-index: 1;
     .notiWrapper {
       width: 50%;

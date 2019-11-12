@@ -38,6 +38,8 @@ interface HeaderProps {
   Link?: React.ComponentType<any>;
   /** 底色是否透明 */
   transparent?: Boolean;
+  /** 是否首页模式 */
+  isHomePage?: Boolean;
   /** AntV root 域名，直接用主题的可不传 */
   rootDomain?: string;
 }
@@ -66,6 +68,7 @@ const Header: React.FC<HeaderProps> = ({
   defaultLanguage,
   Link = 'a',
   transparent,
+  isHomePage,
   rootDomain = '',
 }) => {
   const { t, i18n } = useTranslation();
@@ -86,90 +89,93 @@ const Header: React.FC<HeaderProps> = ({
     <header
       className={classNames(styles.header, {
         [styles.transparent]: !!transparent && !productMenuVisible,
+        [styles.isHomePage]: !!isHomePage,
       })}
     >
-      <div className={styles.left}>
-        <h1>
-          {React.createElement(
-            LogoLink,
-            {
-              [LogoLink === 'a' ? 'href' : 'to']: link || `/${lang}`,
-            },
-            img,
+      <div className={styles.container}>
+        <div className={styles.left}>
+          <h1>
+            {React.createElement(
+              LogoLink,
+              {
+                [LogoLink === 'a' ? 'href' : 'to']: link || `/${lang}`,
+              },
+              img,
+            )}
+          </h1>
+          {subTitle && (
+            <>
+              <span className={styles.divider} />
+              <h2 className={styles.subProduceName}>
+                {React.createElement(
+                  SubTitleLink,
+                  {
+                    [SubTitleLink === 'a' ? 'href' : 'to']:
+                      typeof subTitleHref === 'undefined'
+                        ? `/${lang}`
+                        : subTitleHref,
+                  },
+                  subTitle,
+                )}
+              </h2>
+            </>
           )}
-        </h1>
-        {subTitle && (
-          <>
-            <span className={styles.divider} />
-            <h2 className={styles.subProduceName}>
-              {React.createElement(
-                SubTitleLink,
-                {
-                  [SubTitleLink === 'a' ? 'href' : 'to']:
-                    typeof subTitleHref === 'undefined'
-                      ? `/${lang}`
-                      : subTitleHref,
-                },
-                subTitle,
-              )}
-            </h2>
-          </>
-        )}
-        {showSearch && <Search />}
+          {showSearch && <Search />}
+        </div>
+        <nav className={styles.nav}>
+          <ul className={styles.menu}>
+            {navs && navs.length ? (
+              <NavMenuItems navs={navs} path={path} />
+            ) : null}
+            <li
+              onMouseEnter={onProductMouseEnter}
+              onMouseLeave={onProductMouseLeave}
+            >
+              <a>
+                {t('所有产品')}
+                <Icon
+                  type="caret-down"
+                  className={classNames(styles.arrow, {
+                    [styles.open]: productMenuVisible,
+                  })}
+                />
+              </a>
+              <Products show={productMenuVisible} rootDomain={rootDomain} />
+            </li>
+            {showLanguageSwitcher && (
+              <li>
+                <a
+                  onClick={e => {
+                    e.preventDefault();
+                    const value = lang === 'en' ? 'zh' : 'en';
+                    i18n.changeLanguage(value);
+                    if (onLanguageChange) {
+                      return onLanguageChange(value);
+                    }
+                    if (path.endsWith(`/${lang}`)) {
+                      return navigate(`/${value}`);
+                    }
+                    navigate(
+                      path
+                        .replace(pathPrefix, '')
+                        .replace(`/${lang}/`, `/${value}/`),
+                    );
+                  }}
+                >
+                  {t('English')}
+                </a>
+              </li>
+            )}
+            {showGithubCorner && (
+              <li className={styles.githubCorner}>
+                <a href={githubUrl} target="_blank">
+                  <Icon type="github" />
+                </a>
+              </li>
+            )}
+          </ul>
+        </nav>
       </div>
-      <nav className={styles.nav}>
-        <ul className={styles.menu}>
-          {navs && navs.length ? (
-            <NavMenuItems navs={navs} path={path} />
-          ) : null}
-          <li
-            onMouseEnter={onProductMouseEnter}
-            onMouseLeave={onProductMouseLeave}
-          >
-            <a>
-              {t('所有产品')}
-              <Icon
-                type="caret-down"
-                className={classNames(styles.arrow, {
-                  [styles.open]: productMenuVisible,
-                })}
-              />
-            </a>
-            <Products show={productMenuVisible} rootDomain={rootDomain} />
-          </li>
-          {showLanguageSwitcher && (
-            <li>
-              <a
-                onClick={e => {
-                  e.preventDefault();
-                  const value = lang === 'en' ? 'zh' : 'en';
-                  i18n.changeLanguage(value);
-                  if (onLanguageChange) {
-                    return onLanguageChange(value);
-                  }
-                  if (path.endsWith(`/${lang}`)) {
-                    return navigate(`/${value}`);
-                  }
-                  navigate(
-                    path
-                      .replace(pathPrefix, '')
-                      .replace(`/${lang}/`, `/${value}/`),
-                  );
-                }}
-              >
-                {t('English')}
-              </a>
-            </li>
-          )}
-          {showGithubCorner && (
-            <li className={styles.githubCorner}>
-              <a href={githubUrl} target="_blank">
-                <Icon type="github" />
-              </a>
-            </li>
-          )}
-        </ul>
-      </nav>
     </header>
   );
 };

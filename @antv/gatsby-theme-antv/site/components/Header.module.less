@@ -1,4 +1,5 @@
 @import '~antd/es/style/themes/default.less';
+@import './mixins';
 
 @nav-height: 64px;
 
@@ -7,18 +8,28 @@
   line-height: @nav-height;
   background: #fff;
   box-shadow: 0 2px 8px #f0f1f2;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 60px;
+  padding: 0;
   position: relative;
   z-index: 10;
   font-family: Avenir, @font-family;
+  transition: all 0.3s;
 
   &.transparent {
     background: transparent;
     box-shadow: none;
     margin-bottom: -@nav-height;
+  }
+
+  .container {
+    max-width: calc(100% - 120px);
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &.isHomePage .container {
+    .container1440;
   }
 
   .left {
@@ -82,6 +93,10 @@
           &:hover {
             color: @primary-color;
           }
+        }
+
+        &:last-child {
+          margin-right: 0;
         }
       }
 
