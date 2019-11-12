@@ -107,10 +107,10 @@ const IndexPage = () => {
       link: '#products',
       type: 'primary',
     },
-    {
-      text: t('下载使用'),
-      link: 'https://antv.alipay.com/zh-cn/index.html',
-    },
+    // {
+    //   text: t('下载使用'),
+    //   link: 'https://antv.alipay.com/zh-cn/index.html',
+    // },
   ];
   return (
     <>
@@ -124,6 +124,7 @@ const IndexPage = () => {
         notifications={notifications}
         className="banner"
         buttons={bannerButtons}
+        showGithubStars={false}
         video="https://mdn.alipayobjects.com/afts/file/A*qmPlRYhAlBkAAAAAAAAAAABjAQAAAQ?bz=antv_site"
       />
       <Features
