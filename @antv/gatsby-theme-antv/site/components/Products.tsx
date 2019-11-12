@@ -24,50 +24,52 @@ const Products: React.FC<ProductsProps> = ({ show, rootDomain = '' }) => {
           [styles.show]: !!show,
         })}
       >
-        <h3>{t('基础产品')}</h3>
-        <ul>
-          {data
-            .filter(item => item.category === 'basic')
-            .map(product => (
-              <Product
-                key={product.title}
-                name={`${product.title} ${product.slogan || ''}`}
-                description={product.description}
-                url={(product.links || [])[0].url}
-                icon={product.icon as string}
-                links={product.links}
-              />
-            ))}
-        </ul>
-        <h3>{t('拓展产品')}</h3>
-        <ul>
-          {data
-            .filter(item => item.category === 'extension')
-            .map(product => (
-              <Product
-                key={product.title}
-                name={`${product.title} ${product.slogan || ''}`}
-                description={product.description}
-                url={(product.links || [])[0].url}
-                icon={product.icon as string}
-                links={product.links}
-              />
-            ))}
-        </ul>
-        <h3>{t('生态')}</h3>
-        <ul>
-          {data
-            .filter(item => item.category === 'ecology')
-            .map(product => (
-              <Product
-                key={product.title}
-                name={`${product.title} ${product.slogan || ''}`}
-                description={product.description}
-                url={(product.links || [])[0].url}
-                icon={product.icon as string}
-              />
-            ))}
-        </ul>
+        <div className={styles.container}>
+          <h3>{t('基础产品')}</h3>
+          <ul>
+            {data
+              .filter(item => item.category === 'basic')
+              .map(product => (
+                <Product
+                  key={product.title}
+                  name={`${product.title} ${product.slogan || ''}`}
+                  description={product.description}
+                  url={(product.links || [])[0].url}
+                  icon={product.icon as string}
+                  links={product.links}
+                />
+              ))}
+          </ul>
+          <h3>{t('拓展产品')}</h3>
+          <ul>
+            {data
+              .filter(item => item.category === 'extension')
+              .map(product => (
+                <Product
+                  key={product.title}
+                  name={`${product.title} ${product.slogan || ''}`}
+                  description={product.description}
+                  url={(product.links || [])[0].url}
+                  icon={product.icon as string}
+                  links={product.links}
+                />
+              ))}
+          </ul>
+          <h3>{t('生态')}</h3>
+          <ul>
+            {data
+              .filter(item => item.category === 'ecology')
+              .map(product => (
+                <Product
+                  key={product.title}
+                  name={`${product.title} ${product.slogan || ''}`}
+                  description={product.description}
+                  url={(product.links || [])[0].url}
+                  icon={product.icon as string}
+                />
+              ))}
+          </ul>
+        </div>
       </div>
       <div className={styles.mask} />
     </>

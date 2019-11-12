@@ -10,12 +10,11 @@
   position: relative;
   z-index: 10;
   font-family: Avenir, @font-family;
-  transition: all 0.3s;
+  transition: box-shadow 0.3s, background 0.3s;
 
   &.transparent {
     background: transparent;
     box-shadow: none;
-    margin-bottom: -@nav-height;
   }
 
   .container {
@@ -28,8 +27,11 @@
     line-height: @nav-height;
   }
 
-  &.isHomePage .container {
-    .container1440;
+  &.isHomePage {
+    margin-bottom: -@nav-height;
+    .container {
+      .container1440;
+    }
   }
 
   .left {
@@ -121,8 +123,19 @@
   }
 }
 
+@media only screen and (max-width: 931.99px) {
+  .header {
+    .container {
+      max-width: calc(100% - 60px);
+    }
+  }
+}
+
 @media only screen and (max-width: 767.99px) {
   .header {
+    .container {
+      max-width: calc(100% - 32px);
+    }
     .nav {
       .menu {
         display: none;

@@ -1,4 +1,5 @@
 @import '~antd/es/style/themes/default.less';
+@import './mixins';
 
 .products {
   width: 100%;
@@ -8,9 +9,10 @@
   top: 64px;
   max-height: 0;
   opacity: 0;
-  transition: all 0.3s;
+  transform: translateY(-8px);
+  transition: all 0.3s ease-out;
   background: #fff;
-  padding: 0 60px;
+  padding: 0;
   overflow: hidden;
   box-shadow: none;
   line-height: 1.5;
@@ -18,11 +20,16 @@
   white-space: normal;
   pointer-events: none;
 
+  .container {
+    .container1440;
+  }
+
   &.show {
-    max-height: 1000px;
+    max-height: 800px;
     opacity: 1;
     box-shadow: 0 2px 8px #f0f1f2 inset;
     pointer-events: auto;
+    transform: translateY(0);
   }
 
   &.show + .mask {
