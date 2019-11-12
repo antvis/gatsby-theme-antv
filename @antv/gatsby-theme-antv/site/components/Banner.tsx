@@ -4,9 +4,9 @@ import Notification from './Notification';
 import { Modal } from 'antd';
 import styles from './Banner.module.less';
 import GitHubButton from 'react-github-button';
+import gh from 'parse-github-url';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { repository } from '../../package.json';
 
 interface Notification {
   type: string;
@@ -56,7 +56,7 @@ const Banner: React.FC<BannerProps> = ({
   const { t } = useTranslation();
 
   const query = graphql`
-    query SiteTitleQuery {
+    query SiteBannerQuery {
       site {
         siteMetadata {
           githubUrl
@@ -65,7 +65,7 @@ const Banner: React.FC<BannerProps> = ({
     }
   `;
   const { site } = useStaticQuery(query);
-  console.log(site);
+  const githubUrl = site.siteMetadata.githubUrl;
 
   const [states, setStates] = useState({
     starCountDisplay: 'none',
@@ -155,19 +155,19 @@ const Banner: React.FC<BannerProps> = ({
   }
 
   if (showGithubStars) {
-    const githubUrl = repository.url;
-    const user = githubUrl.split('/')[3];
-    const repo = githubUrl.split('/')[4];
-    renderButtons.push(
-      <div key="github" className={styles.githubWrapper}>
-        <GitHubButton
-          type="stargazers"
-          size="large"
-          namespace={user}
-          repo={repo}
-        />
-      </div>,
-    );
+    const githubObj = gh(githubUrl);
+    if (githubObj && githubObj.owner && githubObj.name) {
+      renderButtons.push(
+        <div key="github" className={styles.githubWrapper}>
+          <GitHubButton
+            type="stargazers"
+            size="large"
+            namespace={githubObj.owner}
+            repo={githubObj.name}
+          />
+        </div>,
+      );
+    }
   }
 
   return (
