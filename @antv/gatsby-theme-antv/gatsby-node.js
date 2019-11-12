@@ -8,6 +8,7 @@
 const path = require(`path`);
 const fs = require('fs');
 const mkdirp = require('mkdirp');
+const shallowequal = require('shallowequal');
 const { getSlugAndLang } = require('ptz-i18n');
 const { transformSync } = require('@babel/core');
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
@@ -28,6 +29,43 @@ const resources = {
     },
   },
 };
+
+function isSameCategory(target = {}, current = {}) {
+  if (!target.node || !current.node) {
+    return false;
+  }
+  if (current.node.fields.slug.includes('/examples/')) {
+    return shallowequal(
+      target.node.fields.slug.split('/').slice(0, 3),
+      current.node.fields.slug.split('/').slice(0, 3),
+    );
+  }
+  return shallowequal(
+    target.node.fields.slug.split('/').slice(0, 4),
+    current.node.fields.slug.split('/').slice(0, 4),
+  );
+}
+
+function findPrevAndNext(index, posts = []) {
+  const current = posts[index];
+  if (!current) {
+    return;
+  }
+  const result = {};
+  for (let i = index + 1; i <= posts.length; i += 1) {
+    if (isSameCategory(posts[i], current)) {
+      result.next = posts[i];
+      break;
+    }
+  }
+  for (let i = index - 1; i >= 0; i -= 1) {
+    if (isSameCategory(posts[i], current)) {
+      result.prev = posts[i];
+      break;
+    }
+  }
+  return result;
+}
 
 exports.onPreBootstrap = ({ store, reporter }) => {
   const { program } = store.getState();
@@ -153,8 +191,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   posts.forEach(({ node }, index) => {
     const { slug } = node.fields;
-    const prev = index === 0 ? null : posts[index - 1].node;
-    const next = index === posts.length - 1 ? null : posts[index + 1].node;
+    const { prev, next } = findPrevAndNext(index, posts);
     const isExamplePage =
       slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`);
     const context = {

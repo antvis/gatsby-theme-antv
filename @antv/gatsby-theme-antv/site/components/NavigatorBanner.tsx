@@ -12,11 +12,13 @@ interface NavigatorBannerProps {
 const NavigatorBanner: React.FC<NavigatorBannerProps> = ({ post, type }) => {
   const { t } = useTranslation();
   if (!post) {
-    return <div className={styles.button} />;
+    return <div className={classNames(styles.button, styles.hidden)} />;
   }
   const {
-    fields: { slug },
-    frontmatter: { title },
+    node: {
+      fields: { slug },
+      frontmatter: { title },
+    },
   } = post;
   return (
     <Link to={slug} className={classNames(styles.button, styles[type])}>

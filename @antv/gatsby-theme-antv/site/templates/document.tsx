@@ -177,8 +177,6 @@ export default function Template({
     docs,
   });
 
-  console.log(prev, next);
-
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
