@@ -32,5 +32,9 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "dependencies": {
+    "parse-github-url": "^1.0.2",
+    "react-github-button": "^0.1.11"
   }
 }

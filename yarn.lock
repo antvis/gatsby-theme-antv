@@ -1742,6 +1742,13 @@
   resolved "https://registry.npmjs.org/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
   integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
 
+"@types/parse-github-url@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@types/parse-github-url/-/parse-github-url-1.0.0.tgz#9e5f78297c42c717123bfcc39e1e9754a6099d0b"
+  integrity sha512-YNsYjdFmlfwIUGc47jfkb4BvFH9rdVbw80DxqSIQzQ3QpgaekmH2BcGKmEENzQRkeODoT/GiDrsJeztni+diAQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/prop-types@*":
   version "15.7.3"
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
@@ -1769,8 +1776,8 @@
 
 "@types/react-github-button@^0.1.0":
   version "0.1.0"
-  resolved "https://registry.npm.taobao.org/@types/react-github-button/download/@types/react-github-button-0.1.0.tgz#8a05bdd572fe46a9bfa83464c36ca85037e9bb63"
-  integrity sha1-igW91XL+Rqm/qDRkw2yoUDfpu2M=
+  resolved "https://registry.npmjs.org/@types/react-github-button/-/react-github-button-0.1.0.tgz#8a05bdd572fe46a9bfa83464c36ca85037e9bb63"
+  integrity sha512-4mgm7gJ+RwXqcAmZ8VfQupyKrXOdkwhYvBJ8HWH0+QNngKwmXMc2b8t4LUt6h1jxpSNaLiLuIfEdG5vcZvOFxA==
   dependencies:
     "@types/react" "*"
 
@@ -11469,6 +11476,11 @@ parse-entities@^1.0.2, parse-entities@^1.1.0:
     is-decimal "^1.0.0"
     is-hexadecimal "^1.0.0"
 
+parse-github-url@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/parse-github-url/-/parse-github-url-1.0.2.tgz#242d3b65cbcdda14bb50439e3242acf6971db395"
+  integrity sha512-kgBf6avCbO3Cn6+RnzRGLkUsv4ZVqv/VfAYkRsyBcgkshNvVBkRn1FEZcW0Jb+npXQWm2vHPnnOqFteZxRRGNw==
+
 parse-headers@^2.0.0:
   version "2.0.2"
   resolved "https://registry.npmjs.org/parse-headers/-/parse-headers-2.0.2.tgz#9545e8a4c1ae5eaea7d24992bca890281ed26e34"
@@ -13054,9 +13066,9 @@ react-fast-compare@^2.0.2:
   resolved "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-react-github-button@^0.1.11:
+react-github-button@^0.1.10, react-github-button@^0.1.11:
   version "0.1.11"
-  resolved "https://registry.npm.taobao.org/react-github-button/download/react-github-button-0.1.11.tgz#fc61e1f1e1371169d3618c1ba37306ba04081e56"
+  resolved "https://registry.npmjs.org/react-github-button/-/react-github-button-0.1.11.tgz#fc61e1f1e1371169d3618c1ba37306ba04081e56"
   integrity sha1-/GHh8eE3EWnTYYwbo3MGugQIHlY=
   dependencies:
     prop-types "^15.5.10"
@@ -14225,12 +14237,7 @@ shallow-equal@^1.0.0:
   resolved "https://registry.npmjs.org/shallow-equal/-/shallow-equal-1.2.0.tgz#fd828d2029ff4e19569db7e19e535e94e2d1f5cc"
   integrity sha512-Z21pVxR4cXsfwpMKMhCEIO1PCi5sp7KEp+CmOpBQ+E8GpHwKOw2sEzk7sgblM3d/j4z4gakoWEoPcjK0VJQogA==
 
-shallowequal@^1.0.1, shallowequal@^1.0.2:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
-  integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
-
-shallowequal@^1.1.0:
+shallowequal@^1.0.1, shallowequal@^1.0.2, shallowequal@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npm.taobao.org/shallowequal/download/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
   integrity sha1-GI1SHelbkIdAT9TctosT3wrk5/g=
