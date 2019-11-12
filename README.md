@@ -231,6 +231,19 @@ npm run deploy
 
 > Set envoironment variable `GATSBY_PATH_PREFIX` to `/` in deploy service like netlify to preview pathPrefix site in root domain.
 
+## Install dependency
+
+```bash
+cd @antv/gatsby-theme-antv
+yarn add shallowequal
+```
+
+or
+
+```bash
+yarn workspace @antv/gatsby-theme-antv shallowequal
+```
+
 ## Used libraries
 
 - [Gatsby](https://www.gatsbyjs.org/docs/)
