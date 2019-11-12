@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import classNames from 'classnames';
+import shallowequal from 'shallowequal';
 import { useTranslation } from 'react-i18next';
 import styles from './Header.module.less';
 
@@ -30,7 +31,12 @@ const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
       {navs.map((nav: Nav, i) => {
         const href = `/${i18n.language}/${nav.slug}`;
         const className = classNames({
-          [styles.activeItem]: path.startsWith(href),
+          [styles.activeItem]:
+            path.startsWith(href) ||
+            shallowequal(
+              path.split('/').slice(0, 4),
+              href.split('/').slice(0, 4),
+            ),
         });
         return (
           <li key={i} className={className}>

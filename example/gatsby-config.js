@@ -13,7 +13,7 @@ module.exports = {
     githubUrl: 'https://github.com/antvis/antvis.github.io',
     navs: [
       {
-        slug: 'docs/specification',
+        slug: 'docs/specification/getting-started',
         title: {
           zh: '设计语言',
           en: 'Specification',

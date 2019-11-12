@@ -30,6 +30,7 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-github-button": "^0.1.0",
     "@types/react-helmet": "^5.0.10",
+    "@types/shallowequal": "^1.1.1",
     "antd": "^3.25.0",
     "babel-preset-gatsby": "^0.2.13",
     "classnames": "^2.2.6",
@@ -86,6 +87,7 @@
     "react-split-pane": "^0.1.87",
     "react-test-renderer": "^16.9.0",
     "release-it": "^12.4.3",
+    "shallowequal": "^1.1.0",
     "slick-carousel": "^1.8.1",
     "ts-jest": "^24.1.0",
     "typescript": "^3.6.3"
