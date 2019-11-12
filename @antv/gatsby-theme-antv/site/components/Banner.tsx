@@ -67,12 +67,6 @@ const Banner: React.FC<BannerProps> = ({
   const { site } = useStaticQuery(query);
   const githubUrl = site.siteMetadata.githubUrl;
 
-  const [states, setStates] = useState({
-    starCountDisplay: 'none',
-    starCount: 0,
-    fetchSuccess: false,
-  });
-
   const insNotifications: Notification[] = [
     {
       type: t('更新'),
