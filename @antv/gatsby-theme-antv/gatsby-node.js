@@ -34,24 +34,28 @@ function isSameCategory(target = {}, current = {}) {
   if (!target.node || !current.node) {
     return false;
   }
-  if (current.node.fields.slug.includes('/examples/')) {
+  const currentSlug = current.node.fields.slug;
+  const targetSlug = target.node.fields.slug;
+  if (
+    currentSlug.startsWith('/zh/examples/') ||
+    currentSlug.startsWith('/en/examples/')
+  ) {
     return shallowequal(
-      target.node.fields.slug.split('/').slice(0, 3),
-      current.node.fields.slug.split('/').slice(0, 3),
+      targetSlug.split('/').slice(0, 3),
+      currentSlug.split('/').slice(0, 3),
     );
   }
   return shallowequal(
-    target.node.fields.slug.split('/').slice(0, 4),
-    current.node.fields.slug.split('/').slice(0, 4),
+    targetSlug.split('/').slice(0, 4),
+    currentSlug.split('/').slice(0, 4),
   );
 }
 
-function findPrevAndNext(index, posts = []) {
-  const current = posts[index];
-  if (!current) {
-    return;
-  }
+function findPrevAndNext(index, current, posts = []) {
   const result = {};
+  if (!current) {
+    return result;
+  }
   for (let i = index + 1; i <= posts.length; i += 1) {
     if (isSameCategory(posts[i], current)) {
       result.next = posts[i];
@@ -133,6 +137,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             }
             frontmatter {
               title
+              order
             }
           }
         }
@@ -191,13 +196,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   posts.forEach(({ node }, index) => {
     const { slug } = node.fields;
-    const { prev, next } = findPrevAndNext(index, posts);
+    const context = {};
     const isExamplePage =
       slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`);
-    const context = {
-      prev,
-      next,
-    };
     if (isExamplePage) {
       let exampleRootSlug = slug;
       if (/\/examples\/.*\/API$/.test(slug)) {
@@ -226,6 +227,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         API,
       };
     }
+    const { prev, next } = findPrevAndNext(index, posts[index], posts);
+    context.prev = prev;
+    context.next = next;
     createPage({
       path: slug, // required
       component: isExamplePage ? exampleTemplate : documentTemplate,
