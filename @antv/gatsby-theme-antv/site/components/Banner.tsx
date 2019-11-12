@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
 import Notification from './Notification';
 import { Modal } from 'antd';
 import styles from './Banner.module.less';
@@ -53,6 +54,24 @@ const Banner: React.FC<BannerProps> = ({
   buttons = [],
 }) => {
   const { t } = useTranslation();
+
+  const query = graphql`
+    query SiteTitleQuery {
+      site {
+        siteMetadata {
+          githubUrl
+        }
+      }
+    }
+  `;
+  const { site } = useStaticQuery(query);
+  console.log(site);
+
+  const [states, setStates] = useState({
+    starCountDisplay: 'none',
+    starCount: 0,
+    fetchSuccess: false,
+  });
 
   const insNotifications: Notification[] = [
     {

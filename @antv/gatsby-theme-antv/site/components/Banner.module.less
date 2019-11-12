@@ -48,27 +48,25 @@
         font-size: 1.14em;
         z-index: 10;
         position: relative;
-        transition: all 0.3s;
-        border: 1px solid #7727f4;
-        background-color: rgba(255, 255, 255, 0);
-        color: rgb(139, 56, 255);
+        transition: all 0.15s;
+        border: 1px solid #845eff;
+        background-color: transparent;
+        color: #845eff;
 
         &:hover {
-          transition: all 0.3;
-          color: rgb(167, 139, 255);
-          border: 1px solid rgb(167, 139, 255);
+          color: #a78bff;
+          border: 1px solid #a78bff;
+          background-color: rgba(167, 139, 255, 0.03);
         }
 
         &.primary {
           border: none;
           outline: none;
           color: #fff;
-          background: linear-gradient(60deg, #ff7efb, #9248fe 80%, #8a36ff);
-          box-shadow: 0px 10px 10px rgba(125, 50, 228, 0.2);
+          background: #845eff;
 
           &:hover {
-            box-shadow: 0px 16px 14px rgba(125, 50, 228, 0.2);
-            background: linear-gradient(25deg, #ff3ff9, #8735ff 80%, #6b2bff);
+            background: #a78bff;
           }
         }
       }
@@ -100,7 +98,7 @@
             float: left;
             &:hover {
               background: #f2f4f5;
-              transition: all 0.3s;
+              transition: all 0.15s;
             }
             .gh-ico {
               width: 16px;
@@ -127,9 +125,14 @@
             margin-top: 7px;
             border: 1px solid #d4d4d4;
             padding: 2px 10px;
+            font-weight: 700;
             height: 65%;
             border-radius: 5px;
             color: rgb(49, 70, 89);
+            &:hover {
+              background: #f2f4f5;
+              transition: all 0.15s;
+            }
           }
           .gh-count:hover,
           .gh-count:focus {
