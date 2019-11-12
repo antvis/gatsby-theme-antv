@@ -9,6 +9,7 @@ interface Card {
   title: string;
   description: string;
 }
+
 interface FeaturesProps {
   title?: string;
   features: Card[];

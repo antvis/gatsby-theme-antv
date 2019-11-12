@@ -5,6 +5,7 @@ import { groupBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Article from '../components/Article';
 import ReadingTime from '../components/ReadingTime';
+import NavigatorBanner from '../components/NavigatorBanner';
 import SEO from '../components/Seo';
 import styles from './markdown.module.less';
 
@@ -116,6 +117,7 @@ const renderMenu = (menuData: MenuData[]) => {
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
   location,
+  pageContext: { prev, next },
 }: {
   data: any;
   location: Location;
@@ -219,6 +221,10 @@ export default function Template({
               <ReadingTime readingTime={readingTime} />
             </div>
             <div dangerouslySetInnerHTML={{ __html: html }} />
+            <div>
+              <NavigatorBanner type="prev" post={prev} />
+              <NavigatorBanner type="next" post={next} />
+            </div>
           </div>
         </Article>
       </AntLayout>

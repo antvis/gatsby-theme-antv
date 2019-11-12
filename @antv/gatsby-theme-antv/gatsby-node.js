@@ -8,6 +8,7 @@
 const path = require(`path`);
 const fs = require('fs');
 const mkdirp = require('mkdirp');
+const shallowequal = require('shallowequal');
 const { getSlugAndLang } = require('ptz-i18n');
 const { transformSync } = require('@babel/core');
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
@@ -28,6 +29,62 @@ const resources = {
     },
   },
 };
+
+function getExampleOrder(post, siteMetadata) {
+  if (!post) {
+    return 0;
+  }
+  const {
+    fields: { slug },
+    frontmatter: { order },
+  } = post.node;
+  const { examples = [] } = siteMetadata;
+  const categoryOrder =
+    examples.findIndex(item => item.slug === slug.split('/')[3]) + 1;
+  return (order || 0) + categoryOrder * 100;
+}
+
+function isSameCategory(target = {}, current = {}) {
+  if (!target.node || !current.node) {
+    return false;
+  }
+  const currentSlug = current.node.fields.slug;
+  const targetSlug = target.node.fields.slug;
+  if (
+    currentSlug.startsWith('/zh/examples/') ||
+    currentSlug.startsWith('/en/examples/')
+  ) {
+    return shallowequal(
+      targetSlug.split('/').slice(0, 3),
+      currentSlug.split('/').slice(0, 3),
+    );
+  }
+  return shallowequal(
+    targetSlug.split('/').slice(0, 4),
+    currentSlug.split('/').slice(0, 4),
+  );
+}
+
+function findPrevAndNext(current, posts = []) {
+  const index = posts.indexOf(current);
+  const result = {};
+  if (!current || index < 0) {
+    return result;
+  }
+  for (let i = index + 1; i <= posts.length; i += 1) {
+    if (isSameCategory(posts[i], current)) {
+      result.next = posts[i];
+      break;
+    }
+  }
+  for (let i = index - 1; i >= 0; i -= 1) {
+    if (isSameCategory(posts[i], current)) {
+      result.prev = posts[i];
+      break;
+    }
+  }
+  return result;
+}
 
 exports.onPreBootstrap = ({ store, reporter }) => {
   const { program } = store.getState();
@@ -93,6 +150,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             fields {
               slug
             }
+            frontmatter {
+              title
+              order
+            }
           }
         }
       }
@@ -100,6 +161,13 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         nodes {
           relativePath
           absolutePath
+        }
+      }
+      site {
+        siteMetadata {
+          examples {
+            slug
+          }
         }
       }
     }
@@ -150,14 +218,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   posts.forEach(({ node }, index) => {
     const { slug } = node.fields;
-    const prev = index === 0 ? null : posts[index - 1].node;
-    const next = index === posts.length - 1 ? null : posts[index + 1].node;
+    const context = {};
     const isExamplePage =
       slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`);
-    const context = {
-      prev,
-      next,
-    };
     if (isExamplePage) {
       let exampleRootSlug = slug;
       if (/\/examples\/.*\/API$/.test(slug)) {
@@ -185,7 +248,38 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         design,
         API,
       };
+      const { siteMetadata } = result.data.site;
+      const examplePosts = posts
+        .filter(item => !!item)
+        .filter(
+          ({
+            node: {
+              fields: { slug },
+            },
+          }) =>
+            slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`),
+        )
+        .filter(
+          ({
+            node: {
+              fields: { slug },
+            },
+          }) => !slug.endsWith('/design') && !slug.endsWith('/API'),
+        )
+        .sort((a, b) => {
+          return (
+            getExampleOrder(a, siteMetadata) - getExampleOrder(b, siteMetadata)
+          );
+        });
+      const { prev, next } = findPrevAndNext(posts[index], examplePosts);
+      context.prev = prev;
+      context.next = next;
+    } else {
+      const { prev, next } = findPrevAndNext(posts[index], posts);
+      context.prev = prev;
+      context.next = next;
     }
+
     createPage({
       path: slug, // required
       component: isExamplePage ? exampleTemplate : documentTemplate,
