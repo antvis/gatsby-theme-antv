@@ -7,6 +7,7 @@ import Article from '../components/Article';
 import SEO from '../components/Seo';
 import Tabs from '../components/Tabs';
 import PlayGrounds from '../components/PlayGrounds';
+import NavigatorBanner from '../components/NavigatorBanner';
 import styles from './markdown.module.less';
 
 const MenuIcon = Icon.createFromIconfontCN({
@@ -166,7 +167,7 @@ export default function Template({
     activeTab = 'design';
     exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
   }
-  const { exampleSections } = pageContext;
+  const { exampleSections, prev, next } = pageContext;
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -287,6 +288,10 @@ export default function Template({
                 }}
               />
             )}
+            <div>
+              <NavigatorBanner type="prev" post={prev} />
+              <NavigatorBanner type="next" post={next} />
+            </div>
           </div>
         </Article>
       </AntLayout>
