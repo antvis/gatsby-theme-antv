@@ -19,7 +19,7 @@ describe(`Layout`, () => {
 
   it(`renders a header`, () => {
     const { container } = render(
-      <Layout location={{ pathname: '/pathname ' }}>
+      <Layout location={{ pathname: '/pathname' }}>
         <main>
           <h1>hello</h1>
         </main>
@@ -32,7 +32,7 @@ describe(`Layout`, () => {
   it(`renders children`, () => {
     const text = `__Hello world__`;
     const { getByText } = render(
-      <Layout location={{ pathname: '/pathname ' }}>
+      <Layout location={{ pathname: '/pathname' }}>
         <main>
           <h1>{text}</h1>
         </main>
