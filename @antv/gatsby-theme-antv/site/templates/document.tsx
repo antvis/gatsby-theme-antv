@@ -226,6 +226,7 @@ export default function Template({
             <div
               /* eslint-disable-next-line react/no-danger */
               dangerouslySetInnerHTML={{ __html: html }}
+              className={styles.content}
             />
             <div>
               <NavigatorBanner type="prev" post={prev} />
