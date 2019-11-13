@@ -62,6 +62,12 @@ module.exports = {
       playgroundDidMount: 'console.log("playgroundDidMount");',
       playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
     },
+    redirects: [
+      {
+        fromPath: '/old-url',
+        toPath: '/new-url',
+      },
+    ],
   },
 };
 ```
