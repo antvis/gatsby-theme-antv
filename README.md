@@ -65,7 +65,7 @@ module.exports = {
     redirects: [
       {
         from: /\/old-url/,
-        to: '/new-url',
+        to: '/new-url', // 不指定 to 时直接跳转到 https://antv-2018.alipay.com/***
       },
     ],
   },
