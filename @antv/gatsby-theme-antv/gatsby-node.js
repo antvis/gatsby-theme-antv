@@ -11,6 +11,7 @@ const mkdirp = require('mkdirp');
 const shallowequal = require('shallowequal');
 const { getSlugAndLang } = require('ptz-i18n');
 const { transformSync } = require('@babel/core');
+
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
 
@@ -19,13 +20,16 @@ try {
   locale = JSON.parse(
     fs.readFileSync(path.resolve(`site/locale.json`), `utf8`),
   );
-} catch (e) {}
+} catch (e) {
+  // eslint-disable-next-line no-console
+  console.error(e);
+}
 
 const resources = {
   en: {
     translation: {
       ...locale,
-      ...require('./site/common.json'),
+      ...require('./site/common.json'), // eslint-disable-line global-require
     },
   },
 };
@@ -106,7 +110,7 @@ exports.onPreBootstrap = ({ store, reporter }) => {
 };
 
 // Add custom url pathname for posts
-exports.onCreateNode = ({ node, actions, getNode, store }) => {
+exports.onCreateNode = ({ node, actions, store }) => {
   const { createNodeField } = actions;
   const { program } = store.getState();
   if (node.internal.type === `File`) {
@@ -141,7 +145,7 @@ exports.onCreateNode = ({ node, actions, getNode, store }) => {
 };
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  const { createPage, createRedirect } = actions;
+  const { createPage } = actions;
   const result = await graphql(`
     {
       allMarkdownRemark(limit: 1000) {
@@ -235,12 +239,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       } else if (/\/examples\/.*\/design$/.test(slug)) {
         exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
       }
-      const design = posts.find(({ node }) => {
-        const { slug: postSlug } = node.fields;
+      const design = posts.find(post => {
+        const { slug: postSlug } = post.node.fields;
         return postSlug === `${exampleRootSlug}/design`;
       });
-      const API = posts.find(({ node }) => {
-        const { slug: postSlug } = node.fields;
+      const API = posts.find(post => {
+        const { slug: postSlug } = post.node.fields;
         return postSlug === `${exampleRootSlug}/API`;
       });
       const examples = allDemos
@@ -260,17 +264,18 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         .filter(
           ({
             node: {
-              fields: { slug },
+              fields: { slug: postSlug },
             },
           }) =>
-            slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`),
+            postSlug.startsWith(`/zh/examples`) ||
+            postSlug.startsWith(`/en/examples`),
         )
         .filter(
           ({
             node: {
-              fields: { slug },
+              fields: { slug: postSlug },
             },
-          }) => !slug.endsWith('/design') && !slug.endsWith('/API'),
+          }) => !postSlug.endsWith('/design') && !postSlug.endsWith('/API'),
         )
         .sort((a, b) => {
           return (
@@ -294,7 +299,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   });
 };
 
-exports.onCreateWebpackConfig = ({ actions, getConfig, stage, plugins }) => {
+exports.onCreateWebpackConfig = ({ getConfig, stage, plugins }) => {
   const config = getConfig();
   if (stage.startsWith('develop') && config.resolve) {
     config.resolve.alias = {
@@ -313,7 +318,7 @@ exports.onCreateWebpackConfig = ({ actions, getConfig, stage, plugins }) => {
 // 补充默认值
 // https://stackoverflow.com/questions/50770217/how-to-give-gatsby-a-graphql-schema
 // https://graphql.org/learn/schema/
-exports.sourceNodes = ({ actions, schema }) => {
+exports.sourceNodes = ({ actions }) => {
   const { createTypes } = actions;
   createTypes(`
     type MarkdownRemarkFrontmatter {

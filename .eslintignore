@@ -1,0 +1,3 @@
+@antv/gatsby-theme-antv/site/**/*.js
+@antv/gatsby-theme-antv/lib
+example/examples

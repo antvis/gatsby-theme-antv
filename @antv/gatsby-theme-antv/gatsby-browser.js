@@ -17,10 +17,12 @@ import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css';
 import 'prismjs/plugins/command-line/prism-command-line.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/mdn-like.css';
-
 import './site/global.less';
 
+window.insertCss = require('insert-css');
+
 // prettier-ignore
+/* eslint-disable */
 !function(t,e,a,r,c){t.TracertCmdCache=t.TracertCmdCache||[],t[c]=window[c]||
 {_isRenderInit:!0,call:function(){t.TracertCmdCache.push(arguments)},
 start:function(t){this.call('start',t)}},t[c].l=new Date;
@@ -32,5 +34,3 @@ for(var fnlist=["call","start","config","logPv","info","err","click","expo","pag
 }(window,document,'script','https://ur.alipay.com/tracert_a369.js','Tracert');
 // 启动脚本
 Tracert.start();
-
-window.insertCss = require('insert-css');

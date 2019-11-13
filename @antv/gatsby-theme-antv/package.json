@@ -17,6 +17,7 @@
     "url": "https://github.com/antvis/gatsby-theme-antv/issues"
   },
   "dependencies": {
+    "@babel/core": "^7.7.2",
     "@babel/plugin-transform-modules-umd": "^7.2.0",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
@@ -26,12 +27,12 @@
     "@types/classnames": "^2.2.9",
     "@types/codemirror": "^0.0.80",
     "@types/lodash-es": "^4.17.3",
+    "@types/parse-github-url": "^1.0.0",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
+    "@types/react-github-button": "^0.1.0",
     "@types/react-helmet": "^5.0.10",
     "@types/shallowequal": "^1.1.1",
-    "@types/react-github-button": "^0.1.0",
-    "@types/parse-github-url": "^1.0.0",
     "antd": "^3.25.0",
     "babel-preset-gatsby": "^0.2.13",
     "classnames": "^2.2.6",
