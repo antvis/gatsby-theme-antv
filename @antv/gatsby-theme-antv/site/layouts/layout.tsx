@@ -102,7 +102,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     <>
       {rediectUrl && (
         <Helmet>
-          <meta http-equiv="refresh" content={`0;url=${rediectUrl}`} />
+          <meta httpEquiv="refresh" content={`0;url=${rediectUrl}`} />
         </Helmet>
       )}
       <Header

@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import Product from './Product';
 import { useTranslation } from 'react-i18next';
+import Product from './Product';
 import { getProducts } from './getProducts';
 import styles from './Product.module.less';
 

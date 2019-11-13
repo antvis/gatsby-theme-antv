@@ -48,17 +48,17 @@ const Features: React.FC<FeaturesProps> = ({
 
   // for small screen
   const getDots = () => {
-    let dots: Array<Object> = [];
-    const length = features.length;
+    const dots: Array<Object> = [];
+    const { length } = features;
     const startTop = 45;
     const cardHeight = 350;
     const startLeftPercent = 0.028;
     const rows = length + 1;
     for (let i = 0; i < rows; i++) {
-      let yOffset = 1;
-      let top = `${startTop + cardHeight * i - yOffset}px`;
-      let leftColLeft = `${startLeftPercent * 100}%`;
-      let rigthColLeft = `${(startLeftPercent + 0.892) * 100}%`;
+      const yOffset = 1;
+      const top = `${startTop + cardHeight * i - yOffset}px`;
+      const leftColLeft = `${startLeftPercent * 100}%`;
+      const rigthColLeft = `${(startLeftPercent + 0.892) * 100}%`;
       dots.push(
         <div
           key={`${i}-0`}

@@ -85,7 +85,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
   };
 
   const sliderSettings = {
-    dots: cases.length > 1 ? true : false,
+    dots: cases.length > 1,
     infinite: true,
     slidesToShow: 1,
     adaptiveHeight: true,

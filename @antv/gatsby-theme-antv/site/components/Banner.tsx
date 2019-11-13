@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import Notification from './Notification';
 import { Modal } from 'antd';
-import styles from './Banner.module.less';
 import GitHubButton from 'react-github-button';
 import gh from 'parse-github-url';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import styles from './Banner.module.less';
+import Notification from './Notification';
 
 interface Notification {
   type: string;
@@ -65,7 +65,7 @@ const Banner: React.FC<BannerProps> = ({
     }
   `;
   const { site } = useStaticQuery(query);
-  const githubUrl = site.siteMetadata.githubUrl;
+  const { githubUrl } = site.siteMetadata;
 
   const insNotifications: Notification[] = [
     {

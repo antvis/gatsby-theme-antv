@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { Editor } from 'codemirror';
 import classNames from 'classnames';
-import { Typography, Icon, Tooltip } from 'antd';
+import { Typography, Icon, Tooltip, Result } from 'antd';
 import debounce from 'lodash/debounce';
 import {
   useTranslation,
@@ -10,7 +10,7 @@ import {
   WithTranslation,
 } from 'react-i18next';
 import { transform } from '@babel/standalone';
-import { Result } from 'antd';
+
 import SplitPane from 'react-split-pane';
 import styles from './PlayGround.module.less';
 
@@ -216,10 +216,12 @@ class ErrorHandlerPlayGround extends React.Component<
   state = {
     error: undefined,
   };
+
   static getDerivedStateFromError(error: Error) {
     // 更新 state 使下一次渲染能够显示降级后的 UI
     return { error };
   }
+
   render() {
     const { t } = this.props;
     const { error } = this.state;

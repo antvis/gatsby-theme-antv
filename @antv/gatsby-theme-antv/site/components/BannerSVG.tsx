@@ -4,40 +4,40 @@ import styles from './BannerSVG.module.less';
 const BannerSVG = React.memo(() => {
   const block6NodeRadius = '2';
   const block6GridPositions = [
-    { x: 45.5, y: 45.5 }, //A
-    { x: 65.5, y: 45.5 }, //B
-    { x: 85.5, y: 45.5 }, //C
-    { x: 105.5, y: 45.5 }, //D
-    { x: 45.5, y: 65.5 }, //E
-    { x: 65.5, y: 65.5 }, //F
-    { x: 85.5, y: 65.5 }, //G
-    { x: 105.5, y: 65.5 }, //H
-    { x: 45.5, y: 85.5 }, //I
-    { x: 65.5, y: 85.5 }, //J
-    { x: 85.5, y: 85.5 }, //K
-    { x: 105.5, y: 85.5 }, //L
-    { x: 45.5, y: 105.5 }, //M
-    { x: 65.5, y: 105.5 }, //N
-    { x: 85.5, y: 105.5 }, //O
-    { x: 105.5, y: 105.5 }, //P
+    { x: 45.5, y: 45.5 }, // A
+    { x: 65.5, y: 45.5 }, // B
+    { x: 85.5, y: 45.5 }, // C
+    { x: 105.5, y: 45.5 }, // D
+    { x: 45.5, y: 65.5 }, // E
+    { x: 65.5, y: 65.5 }, // F
+    { x: 85.5, y: 65.5 }, // G
+    { x: 105.5, y: 65.5 }, // H
+    { x: 45.5, y: 85.5 }, // I
+    { x: 65.5, y: 85.5 }, // J
+    { x: 85.5, y: 85.5 }, // K
+    { x: 105.5, y: 85.5 }, // L
+    { x: 45.5, y: 105.5 }, // M
+    { x: 65.5, y: 105.5 }, // N
+    { x: 85.5, y: 105.5 }, // O
+    { x: 105.5, y: 105.5 }, // P
   ];
   const fills = [
-    'rgb(180, 100, 254)', //A
-    'rgb(163, 89, 254)', //B
-    'rgb(141, 76, 254)', //C
-    'rgb(120, 64, 254)', //D
-    'rgb(205, 114, 254)', //E
-    'rgb(185, 103, 254)', //F
-    'rgb(159, 87, 254)', //G
-    'rgb(140, 78, 254)', //H
-    'rgb(224, 126, 254)', //I
-    'rgb(202, 114, 254)', //J
-    'rgb(179, 100, 254)', //K
-    'rgb(164, 92, 254)', //L
-    'rgb(248, 141, 254)', //M
-    'rgb(223, 126, 254)', //N
-    'rgb(201, 112, 254)', //O
-    'rgb(180, 101, 254)', //P
+    'rgb(180, 100, 254)', // A
+    'rgb(163, 89, 254)', // B
+    'rgb(141, 76, 254)', // C
+    'rgb(120, 64, 254)', // D
+    'rgb(205, 114, 254)', // E
+    'rgb(185, 103, 254)', // F
+    'rgb(159, 87, 254)', // G
+    'rgb(140, 78, 254)', // H
+    'rgb(224, 126, 254)', // I
+    'rgb(202, 114, 254)', // J
+    'rgb(179, 100, 254)', // K
+    'rgb(164, 92, 254)', // L
+    'rgb(248, 141, 254)', // M
+    'rgb(223, 126, 254)', // N
+    'rgb(201, 112, 254)', // O
+    'rgb(180, 101, 254)', // P
   ];
   const getBlock6Circles = () => {
     const labels = [
@@ -71,7 +71,7 @@ const BannerSVG = React.memo(() => {
           cx={beginx}
           cy={beginy}
           r={block6NodeRadius}
-        ></circle>
+        />
       );
     });
     return circles;
@@ -88,10 +88,10 @@ const BannerSVG = React.memo(() => {
             y2="100%"
             id="linearGradient-2"
           >
-            <stop stopColor="#F0EFFD" offset="0%"></stop>
-            <stop stopColor="#F9F8FF" offset="100%"></stop>
+            <stop stopColor="#F0EFFD" offset="0%" />
+            <stop stopColor="#F9F8FF" offset="100%" />
           </linearGradient>
-          <rect id="path-3" x="311" y="445" width="24" height="24"></rect>
+          <rect id="path-3" x="311" y="445" width="24" height="24" />
           <filter
             x="-275.0%"
             y="-225.0%"
@@ -105,19 +105,19 @@ const BannerSVG = React.memo(() => {
               dy="12"
               in="SourceAlpha"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="20"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feColorMatrix
               values="0 0 0 0 0.1925   0 0 0 0 0.273875   0 0 0 0 0.35  0 0 0 0.1 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
-          <rect id="path-5" x="39" y="0" width="24" height="24"></rect>
+          <rect id="path-5" x="39" y="0" width="24" height="24" />
           <filter
             x="-275.0%"
             y="-225.0%"
@@ -131,17 +131,17 @@ const BannerSVG = React.memo(() => {
               dy="12"
               in="SourceAlpha"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="20"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feColorMatrix
               values="0 0 0 0 0.1925   0 0 0 0 0.273875   0 0 0 0 0.35  0 0 0 0.1 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <linearGradient
             x1="78.4948196%"
@@ -150,13 +150,13 @@ const BannerSVG = React.memo(() => {
             y2="100%"
             id="linearGradient-7"
           >
-            <stop stopColor="#FBF6FF" offset="0%"></stop>
-            <stop stopColor="#FAF9FC" offset="100%"></stop>
+            <stop stopColor="#FBF6FF" offset="0%" />
+            <stop stopColor="#FAF9FC" offset="100%" />
           </linearGradient>
           <path
             d="M0,0 L154,0 L154,152 C154,153.104569 153.104569,154 152,154 L2,154 C0.8954305,154 1.3527075e-16,153.104569 0,152 L0,0 L0,0 Z"
             id="path-8"
-          ></path>
+          />
           <filter
             x="-65.9%"
             y="-51.0%"
@@ -170,17 +170,17 @@ const BannerSVG = React.memo(() => {
               dy="23"
               in="SourceAlpha"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="30"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feColorMatrix
               values="0 0 0 0 0.89233777   0 0 0 0 0.767282774   0 0 0 0 1  0 0 0 0.34298514 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <filter
             x="-71.4%"
@@ -194,13 +194,13 @@ const BannerSVG = React.memo(() => {
               stdDeviation="30.5"
               in="SourceAlpha"
               result="shadowBlurInner1"
-            ></feGaussianBlur>
+            />
             <feOffset
               dx="39"
               dy="-12"
               in="shadowBlurInner1"
               result="shadowOffsetInner1"
-            ></feOffset>
+            />
             <feComposite
               in="shadowOffsetInner1"
               in2="SourceAlpha"
@@ -208,12 +208,12 @@ const BannerSVG = React.memo(() => {
               k2="-1"
               k3="1"
               result="shadowInnerInner1"
-            ></feComposite>
+            />
             <feColorMatrix
               values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.60003278 0"
               type="matrix"
               in="shadowInnerInner1"
-            ></feColorMatrix>
+            />
           </filter>
           <radialGradient
             cx="-3.18731345%"
@@ -223,9 +223,9 @@ const BannerSVG = React.memo(() => {
             r="181.707698%"
             id="radialGradient-15"
           >
-            <stop stopColor="#E565FF" offset="0%"></stop>
-            <stop stopColor="#9C58FF" offset="58.1529772%"></stop>
-            <stop stopColor="#7818FF" offset="100%"></stop>
+            <stop stopColor="#E565FF" offset="0%" />
+            <stop stopColor="#9C58FF" offset="58.1529772%" />
+            <stop stopColor="#7818FF" offset="100%" />
           </radialGradient>
 
           <linearGradient
@@ -235,8 +235,8 @@ const BannerSVG = React.memo(() => {
             y2="0%"
             id="linearGradient-27"
           >
-            <stop stopColor="#3EB0FF" offset="0%"></stop>
-            <stop stopColor="#00FF97" offset="100%"></stop>
+            <stop stopColor="#3EB0FF" offset="0%" />
+            <stop stopColor="#00FF97" offset="100%" />
           </linearGradient>
           <linearGradient
             x1="0%"
@@ -245,8 +245,8 @@ const BannerSVG = React.memo(() => {
             y2="0%"
             id="linearGradient-28"
           >
-            <stop stopColor="#3EB0FF" offset="0%"></stop>
-            <stop stopColor="#00FF97" offset="100%"></stop>
+            <stop stopColor="#3EB0FF" offset="0%" />
+            <stop stopColor="#00FF97" offset="100%" />
           </linearGradient>
           <linearGradient
             x1="0%"
@@ -255,8 +255,8 @@ const BannerSVG = React.memo(() => {
             y2="0%"
             id="linearGradient-29"
           >
-            <stop stopColor="#3EB0FF" offset="0%"></stop>
-            <stop stopColor="#00FF97" offset="100%"></stop>
+            <stop stopColor="#3EB0FF" offset="0%" />
+            <stop stopColor="#00FF97" offset="100%" />
           </linearGradient>
           <linearGradient
             x1="0%"
@@ -265,13 +265,13 @@ const BannerSVG = React.memo(() => {
             y2="0%"
             id="linearGradient-30"
           >
-            <stop stopColor="#3EB0FF" offset="0%"></stop>
-            <stop stopColor="#00FF97" offset="100%"></stop>
+            <stop stopColor="#3EB0FF" offset="0%" />
+            <stop stopColor="#00FF97" offset="100%" />
           </linearGradient>
           <path
             d="M0,0 L126,0 L126,124 C126,125.104569 125.104569,126 124,126 L2,126 C0.8954305,126 1.3527075e-16,125.104569 0,124 L0,0 L0,0 Z"
             id="path-31"
-          ></path>
+          />
           <filter
             x="-73.8%"
             y="-59.5%"
@@ -285,19 +285,19 @@ const BannerSVG = React.memo(() => {
               dy="18"
               in="SourceAlpha"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="28"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feColorMatrix
               values="0 0 0 0 0.86820607   0 0 0 0 0.783993902   0 0 0 0 1  0 0 0 0.111505682 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
-          <rect id="path-33" x="25" y="37" width="64" height="64" rx="2"></rect>
+          <rect id="path-33" x="25" y="37" width="64" height="64" rx="2" />
           <filter
             x="-56.2%"
             y="-56.2%"
@@ -310,13 +310,13 @@ const BannerSVG = React.memo(() => {
               stdDeviation="33.5"
               in="SourceAlpha"
               result="shadowBlurInner1"
-            ></feGaussianBlur>
+            />
             <feOffset
               dx="5"
               dy="-4"
               in="shadowBlurInner1"
               result="shadowOffsetInner1"
-            ></feOffset>
+            />
             <feComposite
               in="shadowOffsetInner1"
               in2="SourceAlpha"
@@ -324,12 +324,12 @@ const BannerSVG = React.memo(() => {
               k2="-1"
               k3="1"
               result="shadowInnerInner1"
-            ></feComposite>
+            />
             <feColorMatrix
               values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.232927229 0"
               type="matrix"
               in="shadowInnerInner1"
-            ></feColorMatrix>
+            />
           </filter>
           <linearGradient
             x1="100%"
@@ -338,8 +338,8 @@ const BannerSVG = React.memo(() => {
             y2="0%"
             id="linearGradient-35"
           >
-            <stop stopColor="#79FFEF" offset="0%"></stop>
-            <stop stopColor="#35FFAD" offset="100%"></stop>
+            <stop stopColor="#79FFEF" offset="0%" />
+            <stop stopColor="#35FFAD" offset="100%" />
           </linearGradient>
           <linearGradient
             x1="100%"
@@ -348,8 +348,8 @@ const BannerSVG = React.memo(() => {
             y2="0%"
             id="linearGradient-36"
           >
-            <stop stopColor="#79FFEF" offset="0%"></stop>
-            <stop stopColor="#35FFAD" offset="100%"></stop>
+            <stop stopColor="#79FFEF" offset="0%" />
+            <stop stopColor="#35FFAD" offset="100%" />
           </linearGradient>
           <linearGradient
             x1="100%"
@@ -358,15 +358,15 @@ const BannerSVG = React.memo(() => {
             y2="0%"
             id="linearGradient-37"
           >
-            <stop stopColor="#79FFEF" offset="0%"></stop>
-            <stop stopColor="#35FFAD" offset="100%"></stop>
+            <stop stopColor="#79FFEF" offset="0%" />
+            <stop stopColor="#35FFAD" offset="100%" />
           </linearGradient>
-          <circle id="path-41" cx="65.5" cy="65.5" r="32.5"></circle>
+          <circle id="path-41" cx="65.5" cy="65.5" r="32.5" />
 
           <path
             d="M0,0 L124,0 C125.104569,-2.02906125e-16 126,0.8954305 126,2 L126,124 C126,125.104569 125.104569,126 124,126 L0,126 L0,126 L0,0 Z"
             id="path-46"
-          ></path>
+          />
           <filter
             x="-97.2%"
             y="-67.1%"
@@ -380,17 +380,17 @@ const BannerSVG = React.memo(() => {
               dy="38"
               in="SourceAlpha"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="34.5"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feColorMatrix
               values="0 0 0 0 0.751720252   0 0 0 0 0.56875   0 0 0 0 1  0 0 0 0.407096809 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <filter
             x="-83.3%"
@@ -404,13 +404,13 @@ const BannerSVG = React.memo(() => {
               stdDeviation="33.5"
               in="SourceAlpha"
               result="shadowBlurInner1"
-            ></feGaussianBlur>
+            />
             <feOffset
               dx="5"
               dy="-4"
               in="shadowBlurInner1"
               result="shadowOffsetInner1"
-            ></feOffset>
+            />
             <feComposite
               in="shadowOffsetInner1"
               in2="SourceAlpha"
@@ -418,12 +418,12 @@ const BannerSVG = React.memo(() => {
               k2="-1"
               k3="1"
               result="shadowInnerInner1"
-            ></feComposite>
+            />
             <feColorMatrix
               values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.232927229 0"
               type="matrix"
               in="shadowInnerInner1"
-            ></feColorMatrix>
+            />
           </filter>
           <linearGradient
             x1="50%"
@@ -432,8 +432,8 @@ const BannerSVG = React.memo(() => {
             y2="89.6029946%"
             id="linearGradient-50"
           >
-            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="0%"></stop>
-            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="100%"></stop>
+            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="0%" />
+            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="100%" />
           </linearGradient>
           <linearGradient
             x1="100%"
@@ -442,8 +442,8 @@ const BannerSVG = React.memo(() => {
             y2="50%"
             id="linearGradient-51"
           >
-            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="0%"></stop>
-            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="100%"></stop>
+            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="0%" />
+            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="100%" />
           </linearGradient>
           <linearGradient
             x1="85.7700904%"
@@ -452,8 +452,8 @@ const BannerSVG = React.memo(() => {
             y2="34.9608269%"
             id="linearGradient-52"
           >
-            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="0%"></stop>
-            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="100%"></stop>
+            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="0%" />
+            <stop stopColor="rgba(255, 255, 255, 0.12)" offset="100%" />
           </linearGradient>
           <linearGradient
             x1="50%"
@@ -462,15 +462,15 @@ const BannerSVG = React.memo(() => {
             y2="0%"
             id="linearGradient-53"
           >
-            <stop stopColor="#FF41F9" offset="0%"></stop>
-            <stop stopColor="#00FFCA" offset="100%"></stop>
+            <stop stopColor="#FF41F9" offset="0%" />
+            <stop stopColor="#00FFCA" offset="100%" />
           </linearGradient>
           <path
             d="M63,34 C74.045695,34 83,42.954305 83,54 C83,61.3637967 76.3333333,71.3637967 63,84 C49.6666667,71.3637967 43,61.3637967 43,54 C43,42.954305 51.954305,34 63,34 Z M63,39.8333333 C55.175966,39.8333333 48.8333333,46.1480369 48.8333333,53.9376185 C48.8333333,58.572673 53.4703894,66.0292388 63,75.6666667 L63,75.6666667 L63.4297955,75.230106 C72.669063,65.80393 77.1666667,58.5024449 77.1666667,53.9376185 C77.1666667,46.1480369 70.824034,39.8333333 63,39.8333333 Z M63,47 C66.3137085,47 69,49.6862915 69,53 C69,56.3137085 66.3137085,59 63,59 C59.6862915,59 57,56.3137085 57,53 C57,49.6862915 59.6862915,47 63,47 Z"
             id="path-54"
-          ></path>
+          />
 
-          <rect id="path-56" x="0" y="0" width="100" height="100"></rect>
+          <rect id="path-56" x="0" y="0" width="100" height="100" />
           <filter
             x="-122.5%"
             y="-84.5%"
@@ -484,17 +484,17 @@ const BannerSVG = React.memo(() => {
               dy="38"
               in="SourceAlpha"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="34.5"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feColorMatrix
               values="0 0 0 0 0.751720252   0 0 0 0 0.56875   0 0 0 0 1  0 0 0 0.407096809 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <filter
             x="-105.0%"
@@ -508,13 +508,13 @@ const BannerSVG = React.memo(() => {
               stdDeviation="33.5"
               in="SourceAlpha"
               result="shadowBlurInner1"
-            ></feGaussianBlur>
+            />
             <feOffset
               dx="5"
               dy="-4"
               in="shadowBlurInner1"
               result="shadowOffsetInner1"
-            ></feOffset>
+            />
             <feComposite
               in="shadowOffsetInner1"
               in2="SourceAlpha"
@@ -522,12 +522,12 @@ const BannerSVG = React.memo(() => {
               k2="-1"
               k3="1"
               result="shadowInnerInner1"
-            ></feComposite>
+            />
             <feColorMatrix
               values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.232927229 0"
               type="matrix"
               in="shadowInnerInner1"
-            ></feColorMatrix>
+            />
           </filter>
           <linearGradient
             x1="61.28125%"
@@ -536,10 +536,10 @@ const BannerSVG = React.memo(() => {
             y2="100%"
             id="linearGradient-59"
           >
-            <stop stopColor="#FFFFFF" offset="0%"></stop>
-            <stop stopColor="#FEFEFE" offset="100%"></stop>
+            <stop stopColor="#FFFFFF" offset="0%" />
+            <stop stopColor="#FEFEFE" offset="100%" />
           </linearGradient>
-          <rect id="path-60" x="32" y="10" width="38" height="80" rx="6"></rect>
+          <rect id="path-60" x="32" y="10" width="38" height="80" rx="6" />
           <filter
             x="-223.7%"
             y="-73.8%"
@@ -553,17 +553,17 @@ const BannerSVG = React.memo(() => {
               dy="26"
               in="SourceAlpha"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="24"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feColorMatrix
               values="0 0 0 0 0.643049592   0 0 0 0 0.24772541   0 0 0 0 0.82178442  0 0 0 0.199874344 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <linearGradient
             x1="100%"
@@ -572,8 +572,8 @@ const BannerSVG = React.memo(() => {
             y2="100%"
             id="linearGradient-63"
           >
-            <stop stopColor="#FFFFFF" offset="0%"></stop>
-            <stop stopColor="#FEFEFE" offset="100%"></stop>
+            <stop stopColor="#FFFFFF" offset="0%" />
+            <stop stopColor="#FEFEFE" offset="100%" />
           </linearGradient>
 
           <linearGradient
@@ -637,22 +637,22 @@ const BannerSVG = React.memo(() => {
               dy="35"
               in="SourceAlpha"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="32.5"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feColorMatrix
               values="0 0 0 0 0.490799576   0 0 0 0 0.194812378   0 0 0 0 0.892436594  0 0 0 0.3046875 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <path
             d="M2,0 L122,0 L122,0 L122,120 C122,121.104569 121.104569,122 120,122 L0,122 L0,122 L0,2 C-1.3527075e-16,0.8954305 0.8954305,2.02906125e-16 2,0 Z"
             id="path-78"
-          ></path>
+          />
           <filter
             x="-69.7%"
             y="-48.4%"
@@ -666,17 +666,17 @@ const BannerSVG = React.memo(() => {
               dy="26"
               in="SourceAlpha"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="24"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feColorMatrix
               values="0 0 0 0 0.643049592   0 0 0 0 0.24772541   0 0 0 0 0.82178442  0 0 0 0.199874344 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <filter
             x="-300.0%"
@@ -691,29 +691,29 @@ const BannerSVG = React.memo(() => {
               operator="dilate"
               in="SourceAlpha"
               result="shadowSpreadOuter1"
-            ></feMorphology>
+            />
             <feOffset
               dx="0"
               dy="4"
               in="shadowSpreadOuter1"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="4"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feComposite
               in="shadowBlurOuter1"
               in2="SourceAlpha"
               operator="out"
               result="shadowBlurOuter1"
-            ></feComposite>
+            />
             <feColorMatrix
               values="0 0 0 0 0.538230561   0 0 0 0 0.163202963   0 0 0 0 0.817963089  0 0 0 0.229758523 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <filter
             x="-300.0%"
@@ -728,29 +728,29 @@ const BannerSVG = React.memo(() => {
               operator="dilate"
               in="SourceAlpha"
               result="shadowSpreadOuter1"
-            ></feMorphology>
+            />
             <feOffset
               dx="0"
               dy="4"
               in="shadowSpreadOuter1"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="4"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feComposite
               in="shadowBlurOuter1"
               in2="SourceAlpha"
               operator="out"
               result="shadowBlurOuter1"
-            ></feComposite>
+            />
             <feColorMatrix
               values="0 0 0 0 0.538230561   0 0 0 0 0.163202963   0 0 0 0 0.817963089  0 0 0 0.229758523 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <filter
             x="-300.0%"
@@ -765,29 +765,29 @@ const BannerSVG = React.memo(() => {
               operator="dilate"
               in="SourceAlpha"
               result="shadowSpreadOuter1"
-            ></feMorphology>
+            />
             <feOffset
               dx="0"
               dy="4"
               in="shadowSpreadOuter1"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="4"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feComposite
               in="shadowBlurOuter1"
               in2="SourceAlpha"
               operator="out"
               result="shadowBlurOuter1"
-            ></feComposite>
+            />
             <feColorMatrix
               values="0 0 0 0 0.538230561   0 0 0 0 0.163202963   0 0 0 0 0.817963089  0 0 0 0.229758523 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <filter
             x="-300.0%"
@@ -802,29 +802,29 @@ const BannerSVG = React.memo(() => {
               operator="dilate"
               in="SourceAlpha"
               result="shadowSpreadOuter1"
-            ></feMorphology>
+            />
             <feOffset
               dx="0"
               dy="4"
               in="shadowSpreadOuter1"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="4"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feComposite
               in="shadowBlurOuter1"
               in2="SourceAlpha"
               operator="out"
               result="shadowBlurOuter1"
-            ></feComposite>
+            />
             <feColorMatrix
               values="0 0 0 0 0.538230561   0 0 0 0 0.163202963   0 0 0 0 0.817963089  0 0 0 0.229758523 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <filter
             x="-300.0%"
@@ -839,29 +839,29 @@ const BannerSVG = React.memo(() => {
               operator="dilate"
               in="SourceAlpha"
               result="shadowSpreadOuter1"
-            ></feMorphology>
+            />
             <feOffset
               dx="0"
               dy="4"
               in="shadowSpreadOuter1"
               result="shadowOffsetOuter1"
-            ></feOffset>
+            />
             <feGaussianBlur
               stdDeviation="4"
               in="shadowOffsetOuter1"
               result="shadowBlurOuter1"
-            ></feGaussianBlur>
+            />
             <feComposite
               in="shadowBlurOuter1"
               in2="SourceAlpha"
               operator="out"
               result="shadowBlurOuter1"
-            ></feComposite>
+            />
             <feColorMatrix
               values="0 0 0 0 0.538230561   0 0 0 0 0.163202963   0 0 0 0 0.817963089  0 0 0 0.229758523 0"
               type="matrix"
               in="shadowBlurOuter1"
-            ></feColorMatrix>
+            />
           </filter>
           <radialGradient
             id="block5-gradient"
@@ -905,7 +905,7 @@ const BannerSVG = React.memo(() => {
                 width="206"
                 height="172"
                 transform="translate(-90.000000, -150.000000)"
-              ></rect>
+              />
               <rect
                 id="back-righttop"
                 stroke="#EBE1FB"
@@ -915,14 +915,14 @@ const BannerSVG = React.memo(() => {
                 width="527"
                 height="451"
                 transform="translate(-320.000000, -180.000000)"
-              ></rect>
+              />
               <path
                 id="back-fan"
                 d="M0.500015456,334.512545 L0.507890624,586.5 L252.499521,586.5 C252.235652,448.831454 143.017682,336.763448 7.1430388,334.533878 L3.01314849,334.5 C2.17494966,334.5 1.33723221,334.504183 0.500015456,334.512545 Z"
                 stroke="#EBE1FB"
                 opacity="0.503348214"
                 transform="translate(-285.000000, -172.000000)"
-              ></path>
+              />
               <image
                 xlinkHref="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*aRK0RKcWMzEAAAAAAAAAAABkARQnAQ"
                 width="120px"
@@ -979,7 +979,7 @@ const BannerSVG = React.memo(() => {
                 cx="205.5"
                 cy="431.5"
                 r="1.5"
-              ></circle>
+              />
               <rect
                 id="back-rect-top"
                 fill="#ffffff"
@@ -1010,18 +1010,18 @@ const BannerSVG = React.memo(() => {
                   fillOpacity="1"
                   filter="url(#filter-10)"
                   xlinkHref="#path-8"
-                ></use>
+                />
                 <use
                   fill="url(#linearGradient-7)"
                   fillRule="evenodd"
                   xlinkHref="#path-8"
-                ></use>
+                />
                 <use
                   fill="black"
                   fillOpacity="1"
                   filter="url(#filter-11)"
                   xlinkHref="#path-8"
-                ></use>
+                />
               </g>
               <g id="block6-nodes" className={styles.block6NodesContainer}>
                 {getBlock6Circles()}
@@ -1045,7 +1045,7 @@ const BannerSVG = React.memo(() => {
                   y="0"
                   width="27"
                   height="6"
-                ></rect>
+                />
                 <rect
                   id="block2-bar2"
                   className={styles.block2Bar2}
@@ -1054,7 +1054,7 @@ const BannerSVG = React.memo(() => {
                   y="12"
                   width="44"
                   height="6"
-                ></rect>
+                />
                 <rect
                   id="block2-bar3"
                   className={styles.block2Bar3}
@@ -1063,7 +1063,7 @@ const BannerSVG = React.memo(() => {
                   y="24"
                   width="17"
                   height="6"
-                ></rect>
+                />
                 <rect
                   id="block2-bar4"
                   className={styles.block2Bar4}
@@ -1072,7 +1072,7 @@ const BannerSVG = React.memo(() => {
                   y="36"
                   width="34"
                   height="6"
-                ></rect>
+                />
               </g>
             </g>
             <g id="block8" transform="translate(385.000000, 218.000000)">
@@ -1082,25 +1082,21 @@ const BannerSVG = React.memo(() => {
                   fillOpacity="1"
                   filter="url(#filter-32)"
                   xlinkHref="#path-31"
-                ></use>
-                <use
-                  fill="#FFFFFF"
-                  fillRule="evenodd"
-                  xlinkHref="#path-31"
-                ></use>
+                />
+                <use fill="#FFFFFF" fillRule="evenodd" xlinkHref="#path-31" />
               </g>
               <g id="block8-back-purple">
                 <use
                   fill="url(#radialGradient-15)"
                   fillRule="evenodd"
                   xlinkHref="#path-33"
-                ></use>
+                />
                 <use
                   fill="black"
                   fillOpacity="1"
                   filter="url(#filter-34)"
                   xlinkHref="#path-33"
-                ></use>
+                />
               </g>
               <rect
                 id="block8-back-white"
@@ -1110,7 +1106,7 @@ const BannerSVG = React.memo(() => {
                 y="25.5"
                 width="63"
                 height="63"
-              ></rect>
+              />
               <g id="block8-bars" transform="translate(54.000000, 40.000000)">
                 <rect
                   id="block8-bar2"
@@ -1120,7 +1116,7 @@ const BannerSVG = React.memo(() => {
                   y="0"
                   width="6"
                   height="33.75"
-                ></rect>
+                />
                 <rect
                   id="block8-bar1"
                   className={styles.block8Bar1}
@@ -1129,7 +1125,7 @@ const BannerSVG = React.memo(() => {
                   y="10"
                   width="6"
                   height="23.75"
-                ></rect>
+                />
                 <rect
                   id="block8-bar3"
                   className={styles.block8Bar3}
@@ -1138,7 +1134,7 @@ const BannerSVG = React.memo(() => {
                   y="17"
                   width="6"
                   height="16.875"
-                ></rect>
+                />
               </g>
             </g>
             <g id="blcok5" transform="translate(0.000000, 218.000000)">
@@ -1152,11 +1148,7 @@ const BannerSVG = React.memo(() => {
               />
 
               <g id="block5-circle" opacity="0.326241629">
-                <use
-                  fill="#F4E7FF"
-                  fillRule="evenodd"
-                  xlinkHref="#path-41"
-                ></use>
+                <use fill="#F4E7FF" fillRule="evenodd" xlinkHref="#path-41" />
               </g>
               <path
                 id="block5-fan"
@@ -1166,11 +1158,11 @@ const BannerSVG = React.memo(() => {
                 strokeDasharray="207.24"
                 strokeDashoffset="100" //
                 d="M65.5,49 C74.336556,49 81.5,56.3873016 81.5,65.5 C81.5,70.0566032 79.7089393,74.1818092 76.8132242,77.1677613"
-              ></path>
+              />
             </g>
             <g id="block4" transform="translate(439.000000, 92.000000)">
               <mask id="mask-47" fill="white">
-                <use xlinkHref="#path-46"></use>
+                <use xlinkHref="#path-46" />
               </mask>
               <g id="block4-back-purple">
                 <use
@@ -1178,18 +1170,18 @@ const BannerSVG = React.memo(() => {
                   fillOpacity="1"
                   filter="url(#filter-48)"
                   xlinkHref="#path-46"
-                ></use>
+                />
                 <use
                   fill="url(#radialGradient-15)"
                   fillRule="evenodd"
                   xlinkHref="#path-46"
-                ></use>
+                />
                 <use
                   fill="black"
                   fillOpacity="1"
                   filter="url(#filter-49)"
                   xlinkHref="#path-46"
-                ></use>
+                />
               </g>
               <g id="block4-front-back" mask="url(#mask-47)">
                 <g transform="translate(64.994468, 55.918147) rotate(10.000000) translate(-64.994468, -55.918147) translate(-40.505532, -50.081853)">
@@ -1201,7 +1193,7 @@ const BannerSVG = React.memo(() => {
                     y="180"
                     width="4"
                     height="192"
-                  ></rect>
+                  />
                   <rect
                     id="block4-back-line-hori"
                     className={styles.block4LineHori}
@@ -1210,7 +1202,7 @@ const BannerSVG = React.memo(() => {
                     y="151"
                     width="202"
                     height="4"
-                  ></rect>
+                  />
                   <path
                     id="block4-back-circle"
                     className={styles.block4Circle}
@@ -1219,7 +1211,7 @@ const BannerSVG = React.memo(() => {
                     strokeDasharray="132"
                     strokeWidth="5"
                     d="M111.248537,49.2552483 C107.33563,82.1953597 146.587514,105.361957 164.688607,98.6513257"
-                  ></path>
+                  />
                 </g>
               </g>
               <g id="blockk4-pin" mask="url(#mask-47)">
@@ -1227,7 +1219,7 @@ const BannerSVG = React.memo(() => {
                   fill="url(#linearGradient-53)"
                   fillRule="evenodd"
                   xlinkHref="#path-54"
-                ></use>
+                />
               </g>
             </g>
             <g id="blcok7" transform="translate(285.000000, 218.000000)">
@@ -1237,43 +1229,43 @@ const BannerSVG = React.memo(() => {
                   fillOpacity="1"
                   filter="url(#filter-57)"
                   xlinkHref="#path-56"
-                ></use>
+                />
                 <use
                   fill="url(#radialGradient-15)"
                   fillRule="evenodd"
                   xlinkHref="#path-56"
-                ></use>
+                />
                 <use
                   fill="black"
                   fillOpacity="1"
                   filter="url(#filter-58)"
                   xlinkHref="#path-56"
-                ></use>
+                />
               </g>
               <path
                 d="M0.501347558,99.5 L99.4968058,99.5 L99.5000192,99.1328902 L99.5,99.1372666 C99.5,72.2776127 77.3400243,50.5 50,50.5 C22.6599757,50.5 0.5,72.2776127 0.5,99.1372666 C0.5,99.2582303 0.50044932,99.3791419 0.501347558,99.5 Z"
                 id="block7-back-fan2"
                 stroke="#FFFFFF"
                 opacity="0.0636151414"
-              ></path>
+              />
               <path
                 d="M99.4968058,0.5 L0.501347558,0.5 C0.50044932,0.620858103 0.5,0.741769731 0.5,0.862733364 C0.5,27.7223873 22.6599757,49.5 50,49.5 C77.3400243,49.5 99.5,27.7223873 99.5,0.862733364 L99.5000192,0.867109806 L99.4968058,0.5 Z"
                 id="block7-back-fan1"
                 stroke="#FFFFFF"
                 opacity="0.0636151414"
-              ></path>
+              />
               <g id="block7-phone">
                 <use
                   fill="black"
                   fillOpacity="1"
                   filter="url(#filter-62)"
                   xlinkHref="#path-60"
-                ></use>
+                />
                 <use
                   fill="url(#linearGradient-59)"
                   fillRule="evenodd"
                   xlinkHref="#path-60"
-                ></use>
+                />
               </g>
               <rect
                 id="block7-yaxis"
@@ -1283,7 +1275,7 @@ const BannerSVG = React.memo(() => {
                 y="33"
                 width="1"
                 height="34"
-              ></rect>
+              />
               <rect
                 id="block7-xaxis"
                 fill="#DEC9F9"
@@ -1293,14 +1285,14 @@ const BannerSVG = React.memo(() => {
                 y="66"
                 width="34"
                 height="1"
-              ></rect>
+              />
               <path
                 id="block7-curve"
                 className={styles.block7Curve}
                 strokeDasharray="90"
                 d="M36,65 C52.5685425,65 66,51.5685425 66,35"
                 stroke="#9655FE"
-              ></path>
+              />
             </g>
             <g id="block3" transform="translate(285.000000, 64.000000)">
               <image
@@ -1326,7 +1318,7 @@ const BannerSVG = React.memo(() => {
                   strokeDasharray="201"
                   strokeDashoffset="50"
                   transform="rotate(-180 45 45)"
-                ></circle>
+                />
                 <circle
                   id="block3-arc-small"
                   className={styles.block3ArcSmall}
@@ -1341,7 +1333,7 @@ const BannerSVG = React.memo(() => {
                   strokeDasharray="123.6 1000"
                   strokeDashoffset="100"
                   transform="rotate(0 45 45)"
-                ></circle>
+                />
               </g>
             </g>
             <g id="block1" transform="translate(63.000000, 96.000000)">
@@ -1351,29 +1343,11 @@ const BannerSVG = React.memo(() => {
                 fill="#DEC9F9"
                 opacity="0.503348214"
               >
-                <rect id="矩形" x="32" y="0" width="1" height="70"></rect>
-                <rect
-                  id="矩形备份-18"
-                  x="48"
-                  y="0"
-                  width="1"
-                  height="70"
-                ></rect>
-                <rect
-                  id="矩形备份-19"
-                  x="64"
-                  y="0"
-                  width="1"
-                  height="70"
-                ></rect>
-                <rect
-                  id="矩形备份-16"
-                  x="16"
-                  y="0"
-                  width="1"
-                  height="70"
-                ></rect>
-                <rect id="矩形备份-17" x="0" y="0" width="1" height="70"></rect>
+                <rect id="矩形" x="32" y="0" width="1" height="70" />
+                <rect id="矩形备份-18" x="48" y="0" width="1" height="70" />
+                <rect id="矩形备份-19" x="64" y="0" width="1" height="70" />
+                <rect id="矩形备份-16" x="16" y="0" width="1" height="70" />
+                <rect id="矩形备份-17" x="0" y="0" width="1" height="70" />
               </g>
               <g id="block1-back" opacity="0.693987165">
                 <use
@@ -1381,12 +1355,12 @@ const BannerSVG = React.memo(() => {
                   fillOpacity="1"
                   filter="url(#filter-79)"
                   xlinkHref="#path-78"
-                ></use>
+                />
                 <use
                   fill="url(#linearGradient-63)"
                   fillRule="evenodd"
                   xlinkHref="#path-78"
-                ></use>
+                />
               </g>
               <g
                 id="block1-circles"
@@ -1403,7 +1377,7 @@ const BannerSVG = React.memo(() => {
                   cx="2.5"
                   cy="30"
                   r="3"
-                ></circle>
+                />
                 <circle
                   id="block-circle1-object"
                   className={styles.block1Circle1}
@@ -1414,7 +1388,7 @@ const BannerSVG = React.memo(() => {
                   cx="2.5"
                   cy="30"
                   r="3"
-                ></circle>
+                />
 
                 <circle
                   id="block1-circle2-shadow"
@@ -1427,7 +1401,7 @@ const BannerSVG = React.memo(() => {
                   cx="18.5"
                   cy="15"
                   r="3"
-                ></circle>
+                />
                 <circle
                   id="block1-circle2-object"
                   className={styles.block1Circle2}
@@ -1438,7 +1412,7 @@ const BannerSVG = React.memo(() => {
                   cx="18.5"
                   cy="15"
                   r="3"
-                ></circle>
+                />
 
                 <circle
                   id="block1-circle3-shadow"
@@ -1451,7 +1425,7 @@ const BannerSVG = React.memo(() => {
                   cx="34.5"
                   cy="30"
                   r="3"
-                ></circle>
+                />
                 <circle
                   id="block1-circle3-object"
                   className={styles.block1Circle3}
@@ -1462,7 +1436,7 @@ const BannerSVG = React.memo(() => {
                   cx="34.5"
                   cy="30"
                   r="3"
-                ></circle>
+                />
 
                 <circle
                   id="block1-circle4-shadow"
@@ -1475,7 +1449,7 @@ const BannerSVG = React.memo(() => {
                   cx="50.5"
                   cy="45"
                   r="3"
-                ></circle>
+                />
                 <circle
                   id="block1-circle4-object"
                   className={styles.block1Circle4}
@@ -1486,7 +1460,7 @@ const BannerSVG = React.memo(() => {
                   cx="50.5"
                   cy="45"
                   r="3"
-                ></circle>
+                />
 
                 <circle
                   id="block1-circle5-shadow"
@@ -1499,7 +1473,7 @@ const BannerSVG = React.memo(() => {
                   cx="66.5"
                   cy="30"
                   r="3"
-                ></circle>
+                />
                 <circle
                   id="block1-circle5-object"
                   className={styles.block1Circle5}
@@ -1510,7 +1484,7 @@ const BannerSVG = React.memo(() => {
                   cx="66.5"
                   cy="30"
                   r="3"
-                ></circle>
+                />
               </g>
             </g>
           </g>
