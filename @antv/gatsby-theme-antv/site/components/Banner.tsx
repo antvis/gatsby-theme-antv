@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Modal } from 'antd';
 import GitHubButton from 'react-github-button';
@@ -88,7 +88,9 @@ const Banner: React.FC<BannerProps> = ({
   }
   const getNotifications = () => {
     const children = insNotifications.map((notification, i) => {
-      if (i > 1) return;
+      if (i > 1) {
+        return undefined;
+      }
       let cstyle;
       switch (i) {
         case 0: {
@@ -125,7 +127,9 @@ const Banner: React.FC<BannerProps> = ({
           style={{ width: '100%', height: '100%', objectFit: 'fill' }}
           controls
           src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
-        />
+        >
+          <track kind="captions" />
+        </video>
       ),
       width: '70%',
     });
@@ -134,6 +138,7 @@ const Banner: React.FC<BannerProps> = ({
   const renderButtons = buttons.map((button: BannerButton, i) => (
     <a key={i} href={button.link} style={{ marginLeft: i === 0 ? '0%' : '2%' }}>
       <button
+        type="button"
         className={classNames(styles.button, styles[button.type || ''])}
         style={button.style}
       >
@@ -144,7 +149,12 @@ const Banner: React.FC<BannerProps> = ({
 
   if (video) {
     renderButtons.push(
-      <div key="video" onClick={showVideo} className={styles.videoButton} />,
+      <button
+        type="button"
+        key="video"
+        onClick={showVideo}
+        className={styles.videoButton}
+      />,
     );
   }
 

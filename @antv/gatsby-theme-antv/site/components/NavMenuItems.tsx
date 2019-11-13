@@ -41,7 +41,7 @@ const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
         return (
           <li key={i} className={className}>
             {nav.target === '_blank' ? (
-              <a href={href} target="_blank">
+              <a href={href} target="_blank" rel="noopener noreferrer">
                 {getDocument(navs, nav.slug).title[i18n.language]}
               </a>
             ) : (

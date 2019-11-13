@@ -168,7 +168,7 @@ const Header: React.FC<HeaderProps> = ({
             )}
             {showGithubCorner && (
               <li className={styles.githubCorner}>
-                <a href={githubUrl} target="_blank">
+                <a href={githubUrl} target="_blank" rel="noopener noreferrer">
                   <Icon type="github" />
                 </a>
               </li>
