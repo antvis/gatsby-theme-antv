@@ -3,6 +3,7 @@ import { useStaticQuery, graphql, withPrefix, Link } from 'gatsby';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getCurrentLangKey } from 'ptz-i18n';
+import Helmet from 'react-helmet';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import styles from './layout.module.less';
@@ -43,13 +44,23 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
             }
             target
           }
+          redirects {
+            from
+            to
+          }
         }
       }
     }
   `;
   const { site } = useStaticQuery(query);
   const {
-    siteMetadata: { title, navs = [], githubUrl, showLanguageSwitcher },
+    siteMetadata: {
+      title,
+      navs = [],
+      githubUrl,
+      showLanguageSwitcher,
+      redirects = [],
+    },
   } = site;
   const pathPrefix = withPrefix('/').replace(/\/$/, '');
   const path = location.pathname.replace(pathPrefix, '');
@@ -69,8 +80,31 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     return children;
   }
 
+  let rediectUrl;
+  (redirects || []).forEach(
+    ({ from, to }: { from: string | RegExp; to: string }) => {
+      // 支持字符串和正则表达式比较
+      if (
+        (typeof from === 'string' && location.pathname === from) ||
+        (from instanceof RegExp && from.test(location.pathname))
+      ) {
+        if (to) {
+          rediectUrl = to;
+        } else {
+          // 如果没有指定 to，则直接用替换成老版本的域名
+          rediectUrl = `https://antv-2018.alipay.com${location.pathname}`;
+        }
+      }
+    },
+  );
+
   return (
     <>
+      {rediectUrl && (
+        <Helmet>
+          <meta http-equiv="refresh" content={`0;url=${rediectUrl}`} />
+        </Helmet>
+      )}
       <Header
         subTitle={pathPrefix === '' ? '' : title}
         path={path}

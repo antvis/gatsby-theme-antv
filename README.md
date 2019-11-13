@@ -64,8 +64,8 @@ module.exports = {
     },
     redirects: [
       {
-        fromPath: '/old-url',
-        toPath: '/new-url',
+        from: /\/old-url/,
+        to: '/new-url',
       },
     ],
   },
