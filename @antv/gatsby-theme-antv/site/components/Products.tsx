@@ -8,9 +8,14 @@ import styles from './Product.module.less';
 interface ProductsProps {
   show: boolean;
   rootDomain: string;
+  className?: string;
 }
 
-const Products: React.FC<ProductsProps> = ({ show, rootDomain = '' }) => {
+const Products: React.FC<ProductsProps> = ({
+  show,
+  rootDomain = '',
+  className,
+}) => {
   const { t, i18n } = useTranslation();
   const data = getProducts({
     t,
@@ -20,7 +25,7 @@ const Products: React.FC<ProductsProps> = ({ show, rootDomain = '' }) => {
   return (
     <>
       <div
-        className={classNames(styles.products, {
+        className={classNames(styles.products, className, {
           [styles.show]: !!show,
         })}
       >
