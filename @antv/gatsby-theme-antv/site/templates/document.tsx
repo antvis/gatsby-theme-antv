@@ -3,6 +3,8 @@ import { graphql, Link } from 'gatsby';
 import { Layout as AntLayout, Menu, Icon, Tooltip, Affix } from 'antd';
 import { groupBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
+import Drawer from 'rc-drawer';
+import { useMedia } from 'react-use';
 import Article from '../components/Article';
 import ReadingTime from '../components/ReadingTime';
 import NavigatorBanner from '../components/NavigatorBanner';
@@ -178,6 +180,41 @@ export default function Template({
     docs,
   });
 
+  const menu = (
+    <Menu
+      mode="inline"
+      selectedKeys={[slug]}
+      style={{ height: '100%' }}
+      openKeys={openKeys}
+      onOpenChange={currentOpenKeys => setOpenKeys(currentOpenKeys)}
+      inlineIndent={16}
+    >
+      {renderMenu(menuData)}
+    </Menu>
+  );
+
+  const isWide = useMedia('(min-width: 767.99px)');
+  const [drawOpen, setDrawOpen] = useState(false);
+  const menuSider = isWide ? (
+    <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
+      {menu}
+    </AntLayout.Sider>
+  ) : (
+    <Drawer
+      handler={
+        <Icon
+          className={styles.menuSwitch}
+          type={drawOpen ? 'menu-fold' : 'menu-unfold'}
+        />
+      }
+      wrapperClassName={styles.menuDrawer}
+      onChange={open => setDrawOpen(!!open)}
+      width={280}
+    >
+      {menu}
+    </Drawer>
+  );
+
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -186,18 +223,7 @@ export default function Template({
         hasSider
         className={styles.layout}
       >
-        <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
-          <Menu
-            mode="inline"
-            selectedKeys={[slug]}
-            style={{ height: '100%' }}
-            openKeys={openKeys}
-            onOpenChange={currentOpenKeys => setOpenKeys(currentOpenKeys)}
-            inlineIndent={16}
-          >
-            {renderMenu(menuData)}
-          </Menu>
-        </AntLayout.Sider>
+        {menuSider}
         <Article className={styles.markdown}>
           <Affix offsetTop={8} target={() => document.body}>
             <div
@@ -206,7 +232,7 @@ export default function Template({
               dangerouslySetInnerHTML={{ __html: tableOfContents }}
             />
           </Affix>
-          <div className={styles.main}>
+          <div className={styles.main} style={{ marginTop: isWide ? 0 : 30 }}>
             <h1>
               {frontmatter.title}
               <Tooltip title={t('在 GitHub 上编辑')}>

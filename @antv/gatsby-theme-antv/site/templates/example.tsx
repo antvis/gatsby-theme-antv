@@ -3,6 +3,8 @@ import { graphql, Link } from 'gatsby';
 import { Layout as AntLayout, Menu, Icon, Tooltip } from 'antd';
 import { groupBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
+import Drawer from 'rc-drawer';
+import { useMedia } from 'react-use';
 import Article from '../components/Article';
 import SEO from '../components/Seo';
 import Tabs from '../components/Tabs';
@@ -168,6 +170,86 @@ export default function Template({
     exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
   }
   const { exampleSections, prev, next } = pageContext;
+
+  const menu = (
+    <Menu
+      mode="inline"
+      selectedKeys={[slug]}
+      style={{ height: '100%' }}
+      openKeys={openKeys}
+      onOpenChange={currentOpenKeys => setOpenKeys(currentOpenKeys)}
+    >
+      {Object.keys(groupedEdges)
+        .filter(key => key.startsWith(`/${i18n.language}/`))
+        .sort((a: string, b: string) => {
+          const aOrder = getExampleOrder({
+            groupedEdgeKey: a,
+            examples,
+            groupedEdges,
+          });
+          const bOrder = getExampleOrder({
+            groupedEdgeKey: b,
+            examples,
+            groupedEdges,
+          });
+          return aOrder - bOrder;
+        })
+        .map(slugString => {
+          const slugPieces = slugString.split('/');
+          if (slugPieces.length <= 3) {
+            return renderMenuItems(groupedEdges[slugString]);
+          }
+          const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
+          const doc =
+            examples.find((item: any) => item.slug === menuItemLocaleKey) || {};
+          return (
+            <Menu.SubMenu
+              key={slugString}
+              title={
+                <div>
+                  {doc.icon && (
+                    <MenuIcon
+                      className={styles.menuIcon}
+                      type={`icon-${doc.icon}`}
+                    />
+                  )}
+                  <span>
+                    {doc && doc.title
+                      ? doc.title[i18n.language]
+                      : menuItemLocaleKey}
+                  </span>
+                </div>
+              }
+            >
+              {renderMenuItems(groupedEdges[slugString])}
+            </Menu.SubMenu>
+          );
+        })}
+    </Menu>
+  );
+
+  const isWide = useMedia('(min-width: 767.99px)');
+  const [drawOpen, setDrawOpen] = useState(false);
+  const menuSider = isWide ? (
+    <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
+      {menu}
+    </AntLayout.Sider>
+  ) : (
+    <Drawer
+      handler={
+        <Icon
+          className={styles.menuSwitch}
+          type={drawOpen ? 'menu-fold' : 'menu-unfold'}
+        />
+      }
+      wrapperClassName={styles.menuDrawer}
+      onChange={open => setDrawOpen(!!open)}
+      width={280}
+    >
+      {menu}
+    </Drawer>
+  );
+
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -176,65 +258,11 @@ export default function Template({
         hasSider
         className={styles.layout}
       >
-        <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
-          <Menu
-            mode="inline"
-            selectedKeys={[slug]}
-            style={{ height: '100%' }}
-            openKeys={openKeys}
-            onOpenChange={currentOpenKeys => setOpenKeys(currentOpenKeys)}
-          >
-            {Object.keys(groupedEdges)
-              .filter(key => key.startsWith(`/${i18n.language}/`))
-              .sort((a: string, b: string) => {
-                const aOrder = getExampleOrder({
-                  groupedEdgeKey: a,
-                  examples,
-                  groupedEdges,
-                });
-                const bOrder = getExampleOrder({
-                  groupedEdgeKey: b,
-                  examples,
-                  groupedEdges,
-                });
-                return aOrder - bOrder;
-              })
-              .map(slugString => {
-                const slugPieces = slugString.split('/');
-                if (slugPieces.length <= 3) {
-                  return renderMenuItems(groupedEdges[slugString]);
-                }
-                const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
-                const doc =
-                  examples.find(
-                    (item: any) => item.slug === menuItemLocaleKey,
-                  ) || {};
-                return (
-                  <Menu.SubMenu
-                    key={slugString}
-                    title={
-                      <div>
-                        {doc.icon && (
-                          <MenuIcon
-                            className={styles.menuIcon}
-                            type={`icon-${doc.icon}`}
-                          />
-                        )}
-                        <span>
-                          {doc && doc.title
-                            ? doc.title[i18n.language]
-                            : menuItemLocaleKey}
-                        </span>
-                      </div>
-                    }
-                  >
-                    {renderMenuItems(groupedEdges[slugString])}
-                  </Menu.SubMenu>
-                );
-              })}
-          </Menu>
-        </AntLayout.Sider>
-        <Article className={styles.markdown}>
+        {menuSider}
+        <Article
+          className={styles.markdown}
+          style={{ marginTop: isWide ? 0 : 30 }}
+        >
           <div className={styles.main} style={{ width: '100%' }}>
             <h1>
               {frontmatter.title}
