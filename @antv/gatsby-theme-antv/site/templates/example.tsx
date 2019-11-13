@@ -241,14 +241,17 @@ export default function Template({
                 <a
                   href={`${githubUrl}/edit/master/${relativePath}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.editOnGtiHubButton}
                 >
                   <Icon type="edit" />
                 </a>
               </Tooltip>
             </h1>
-            <div dangerouslySetInnerHTML={{ __html: html }} /> /*
-            eslint-disable-line react/no-danger */
+            <div
+              /* eslint-disable-next-line react/no-danger */
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
             <Tabs
               slug={exampleRootSlug}
               active={activeTab}
@@ -275,7 +278,8 @@ export default function Template({
               <div
                 style={{ display: activeTab === 'API' ? 'block' : 'none' }}
                 dangerouslySetInnerHTML={{
-                  __html: exampleSections.API.node.html, // eslint-disable-line react/no-danger
+                  // eslint-disable-line react/no-danger
+                  __html: exampleSections.API.node.html,
                 }}
               />
             )}
@@ -283,7 +287,8 @@ export default function Template({
               <div
                 style={{ display: activeTab === 'design' ? 'block' : 'none' }}
                 dangerouslySetInnerHTML={{
-                  __html: exampleSections.design.node.html, // eslint-disable-line react/no-danger
+                  // eslint-disable-line react/no-danger
+                  __html: exampleSections.design.node.html,
                 }}
               />
             )}

@@ -202,6 +202,7 @@ export default function Template({
           <Affix offsetTop={8} target={() => document.body}>
             <div
               className={styles.toc}
+              /* eslint-disable-next-line react/no-danger */
               dangerouslySetInnerHTML={{ __html: tableOfContents }}
             />
           </Affix>
@@ -212,6 +213,7 @@ export default function Template({
                 <a
                   href={`${githubUrl}/edit/master/${relativePath}`}
                   target="_blank"
+                  rel="noopener noreferrer"
                   className={styles.editOnGtiHubButton}
                 >
                   <Icon type="edit" />
@@ -221,7 +223,10 @@ export default function Template({
             <div className={styles.meta}>
               <ReadingTime readingTime={readingTime} />
             </div>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
+            <div
+              /* eslint-disable-next-line react/no-danger */
+              dangerouslySetInnerHTML={{ __html: html }}
+            />
             <div>
               <NavigatorBanner type="prev" post={prev} />
               <NavigatorBanner type="next" post={next} />

@@ -37,7 +37,7 @@ const Features: React.FC<FeaturesProps> = ({
   const getSlicers = () => {
     const slicers = [];
     const slicerNum = features.length - 1;
-    for (let i = 0; i < slicerNum; i++) {
+    for (let i = 0; i < slicerNum; i += 1) {
       const left = `${(0.878 * 0.3333 * (i + 1) + 0.04) * 100}%`;
       slicers.push(
         <div key={i} className={styles.divider} style={{ marginLeft: left }} />,
@@ -54,7 +54,7 @@ const Features: React.FC<FeaturesProps> = ({
     const cardHeight = 350;
     const startLeftPercent = 0.028;
     const rows = length + 1;
-    for (let i = 0; i < rows; i++) {
+    for (let i = 0; i < rows; i += 1) {
       const yOffset = 1;
       const top = `${startTop + cardHeight * i - yOffset}px`;
       const leftColLeft = `${startLeftPercent * 100}%`;

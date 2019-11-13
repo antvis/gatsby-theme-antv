@@ -133,17 +133,33 @@ const Footer: React.FC<FooterProps> = ({
         bottom || (
           <div className={styles.bottom}>
             <div>
-              <a href="https://weibo.com/antv2017" target="_blank">
+              <a
+                href="https://weibo.com/antv2017"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Icon type="weibo" />
               </a>
-              <a href="https://zhuanlan.zhihu.com/aiux-antv" target="_blank">
+              <a
+                href="https://zhuanlan.zhihu.com/aiux-antv"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Icon type="zhihu" />
               </a>
-              <a href="https://github.com/antvis" target="_blank">
+              <a
+                href="https://github.com/antvis"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Icon type="github" />
               </a>
               <a href={`${rootDomain}/about`}>{t('关于我们')}</a>
-              <a href={OLD_SITE_DOMAIN} target="_blank">
+              <a
+                href={OLD_SITE_DOMAIN}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {t('返回旧版')}
               </a>
             </div>
