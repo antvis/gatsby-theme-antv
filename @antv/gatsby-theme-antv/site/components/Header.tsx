@@ -1,3 +1,4 @@
+/* eslint jsx-a11y/anchor-is-valid: 0 */
 import { navigate } from 'gatsby';
 import React, { useState } from 'react';
 import classNames from 'classnames';
@@ -37,9 +38,9 @@ interface HeaderProps {
   /** 自定义 Link */
   Link?: React.ComponentType<any>;
   /** 底色是否透明 */
-  transparent?: Boolean;
+  transparent?: boolean;
   /** 是否首页模式 */
-  isHomePage?: Boolean;
+  isHomePage?: boolean;
   /** AntV root 域名，直接用主题的可不传 */
   rootDomain?: string;
 }

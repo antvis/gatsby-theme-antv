@@ -95,14 +95,13 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
               <Tooltip title={title || ''} key={example.relativePath}>
                 <li
                   onClick={() => {
-                    history.pushState(
+                    window.history.pushState(
                       {},
                       '',
                       `#${example.filename.split('.')[0]}`,
                     );
                     updateCurrentExample(example);
                   }}
-                  role="button"
                   className={classNames(styles.card, {
                     [styles.current]:
                       example.relativePath === currentExample.relativePath,

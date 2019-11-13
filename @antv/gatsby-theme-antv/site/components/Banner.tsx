@@ -149,8 +149,7 @@ const Banner: React.FC<BannerProps> = ({
 
   if (video) {
     renderButtons.push(
-      <button
-        type="button"
+      <div
         key="video"
         onClick={showVideo}
         className={styles.videoButton}

@@ -1,3 +1,4 @@
+/* eslint no-underscore-dangle: 0 */
 import React, { useRef, useEffect, useState } from 'react';
 import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { Editor } from 'codemirror';
@@ -48,6 +49,7 @@ const execute = debounce(
         }
       }
     `;
+    // eslint-disable-next-line no-param-reassign
     node.innerHTML = exampleContainer || '<div id="container" />';
     node!.appendChild(script);
   },
@@ -85,7 +87,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   if (typeof window !== 'undefined') {
     // @ts-ignore
     window.__reportErrorInPlayGround = (e: Error) => {
-      console.error(e);
+      console.error(e); // eslint-disable-line no-console
       setError(e);
     };
   }
@@ -110,10 +112,12 @@ const PlayGround: React.FC<PlayGroundProps> = ({
 
   useEffect(() => {
     if (playground.playgroundDidMount) {
+      // eslint-disable-next-line no-new-func
       new Function(playground.playgroundDidMount)();
     }
     return () => {
       if (playground.playgroundWillUnmount) {
+        // eslint-disable-next-line no-new-func
         new Function(playground.playgroundWillUnmount)();
       }
     };
@@ -158,14 +162,14 @@ insertCss(`,
           });
           updateCompiledCode(code);
         } catch (e) {
-          console.error(e);
+          console.error(e); // eslint-disable-line no-console
           setError(e);
           return;
         }
         setError(null);
       }}
-      editorDidMount={editor => {
-        cmInstance.current = editor;
+      editorDidMount={instance => {
+        cmInstance.current = instance;
       }}
     />
   );

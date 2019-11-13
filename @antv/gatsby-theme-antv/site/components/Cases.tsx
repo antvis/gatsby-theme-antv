@@ -68,7 +68,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
 
       return (
         <div className={styles.appWrapper} key={app.title}>
-          <img className={styles.appTeaser} src={app.image} alt="image" />
+          <img className={styles.appTeaser} src={app.image} alt={app.title} />
           <div className={styles.appLeft}>
             <div className={styles.appContent}>
               <img className={styles.appLogo} src={app.logo} alt="logo" />
@@ -101,7 +101,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
       <Slider
         {...sliderSettings}
         className={styles.slider}
-        ref={c => (slider = c)}
+        ref={c => { slider = c; }}
       >
         {getCases()}
       </Slider>

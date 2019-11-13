@@ -18,7 +18,7 @@ const shouldBeShown = (slug: string, path: string, lang: string) => {
   return slugPieces[0] === pathPieces[0];
 };
 
-const getMenuItemLocaleKey = (slug: string = '') => {
+const getMenuItemLocaleKey = (slug = '') => {
   const slugPieces = slug.split('/');
   const menuItemLocaleKey = slugPieces
     .slice(slugPieces.indexOf('docs') + 1)
@@ -27,7 +27,7 @@ const getMenuItemLocaleKey = (slug: string = '') => {
   return menuItemLocaleKey;
 };
 
-const getDocument = (docs: any[], slug: string = '', level: number) => {
+const getDocument = (docs: any[], slug = '', level: number) => {
   if (slug.split('/').length !== level + 2) {
     return;
   }
@@ -93,27 +93,26 @@ const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
   return results.sort((a: any, b: any) => a.order - b.order);
 };
 
-const renderMenu = (menuData: MenuData[]) => {
-  return menuData.map((item: MenuData) => {
-    if (item.type === 'Item') {
-      return (
-        <Menu.Item key={item.slug}>
-          <Link to={item.slug}>{item.title}</Link>
-        </Menu.Item>
-      );
-    }
-    if (item.type === 'SubMenu') {
-      return (
-        item.children &&
-        item.children.length > 0 && (
-          <Menu.SubMenu key={item.slug} title={item.title}>
-            {renderMenu(item.children)}
-          </Menu.SubMenu>
-        )
-      );
-    }
-  });
-};
+const renderMenu = (menuData: MenuData[]) => menuData.map((item: MenuData) => {
+  if (item.type === 'Item') {
+    return (
+      <Menu.Item key={item.slug}>
+        <Link to={item.slug}>{item.title}</Link>
+      </Menu.Item>
+    );
+  }
+  if (item.type === 'SubMenu') {
+    return (
+      item.children &&
+      item.children.length > 0 && (
+        <Menu.SubMenu key={item.slug} title={item.title}>
+          {renderMenu(item.children)}
+        </Menu.SubMenu>
+      )
+    );
+  }
+  return null;
+});
 
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
@@ -152,10 +151,10 @@ export default function Template({
     edgesInDocs,
     ({
       node: {
-        fields: { slug },
+        fields: { slug: slugString },
       },
     }: any) =>
-      slug
+      slugString
         .split('/')
         .slice(0, -1)
         .join('/'),
@@ -192,7 +191,7 @@ export default function Template({
             selectedKeys={[slug]}
             style={{ height: '100%' }}
             openKeys={openKeys}
-            onOpenChange={openKeys => setOpenKeys(openKeys)}
+            onOpenChange={currentOpenKeys => setOpenKeys(currentOpenKeys)}
             inlineIndent={16}
           >
             {renderMenu(menuData)}
