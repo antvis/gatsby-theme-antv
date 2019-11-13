@@ -17,6 +17,7 @@ import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css';
 import 'prismjs/plugins/command-line/prism-command-line.css';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/mdn-like.css';
+import 'rc-drawer/assets/index.css';
 import './site/global.less';
 
 window.insertCss = require('insert-css');

@@ -191,6 +191,33 @@
   top: 1px;
 }
 
+.menuDrawer {
+  :global(.drawer) {
+    z-index: 9;
+  }
+  :global(.ant-menu) {
+    border-right: 0;
+  }
+  .menuSwitch {
+    position: absolute;
+    top: 72px;
+    right: -40px;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    z-index: 0;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+    border-radius: 0 4px 4px 0;
+  }
+}
+
 @media only screen and (max-width: 991.99px) {
   .markdown {
     .main {
