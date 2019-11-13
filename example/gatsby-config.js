@@ -85,7 +85,13 @@ module.exports = {
     },
     redirects: [
       {
-        from: '/old-url',
+        from: '/zh-cn/index\\.html',
+      },
+      {
+        from: '/zh-cn/(g2|g6|f2|l7)/[0-9]\\.x',
+      },
+      {
+        from: '/zh-cn/vis/index\\.html',
       },
     ],
   },

@@ -85,8 +85,8 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     ({ from, to }: { from: string | RegExp; to: string }) => {
       // 支持字符串和正则表达式比较
       if (
-        (typeof from === 'string' && location.pathname === from) ||
-        (from instanceof RegExp && from.test(location.pathname))
+        location.pathname === from ||
+        new RegExp(from || '').test(location.pathname)
       ) {
         if (to) {
           rediectUrl = to;
