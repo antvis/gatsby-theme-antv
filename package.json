@@ -26,8 +26,8 @@
     "test": "yarn workspace @antv/gatsby-theme-antv test",
     "release": "yarn workspace @antv/gatsby-theme-antv run release",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,less}\"",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint . --ext '.js,.jsx,.ts,.tsx'",
+    "lint:fix": "eslint . --ext '.js,.jsx,.ts,.tsx' --fix",
     "tsc": "tsc"
   },
   "husky": {
@@ -36,13 +36,14 @@
     }
   },
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.7.0",
+    "@typescript-eslint/parser": "^2.7.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-import": "^2.18.2",
     "eslint-plugin-jest": "^23.0.3",
     "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-react": "^7.16.0",
     "eslint-plugin-react-hooks": "^2.2.0"
   }

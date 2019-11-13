@@ -1,7 +1,7 @@
 import React from 'react';
 import { navigate } from 'gatsby';
-import PageLoading from './PageLoading';
 import { getUserLangKey } from 'ptz-i18n';
+import PageLoading from './PageLoading';
 
 class RedirectIndex extends React.PureComponent {
   constructor(args: any) {

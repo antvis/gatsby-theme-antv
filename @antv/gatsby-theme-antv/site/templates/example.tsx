@@ -203,35 +203,33 @@ export default function Template({
                 const slugPieces = slug.split('/');
                 if (slugPieces.length <= 3) {
                   return renderMenuItems(groupedEdges[slug]);
-                } else {
-                  const menuItemLocaleKey = getMenuItemLocaleKey(slug);
-                  const doc =
-                    examples.find(
-                      (doc: any) => doc.slug === menuItemLocaleKey,
-                    ) || {};
-                  return (
-                    <Menu.SubMenu
-                      key={slug}
-                      title={
-                        <div>
-                          {doc.icon && (
-                            <MenuIcon
-                              className={styles.menuIcon}
-                              type={`icon-${doc.icon}`}
-                            />
-                          )}
-                          <span>
-                            {doc && doc.title
-                              ? doc.title[i18n.language]
-                              : menuItemLocaleKey}
-                          </span>
-                        </div>
-                      }
-                    >
-                      {renderMenuItems(groupedEdges[slug])}
-                    </Menu.SubMenu>
-                  );
                 }
+                const menuItemLocaleKey = getMenuItemLocaleKey(slug);
+                const doc =
+                  examples.find((doc: any) => doc.slug === menuItemLocaleKey) ||
+                  {};
+                return (
+                  <Menu.SubMenu
+                    key={slug}
+                    title={
+                      <div>
+                        {doc.icon && (
+                          <MenuIcon
+                            className={styles.menuIcon}
+                            type={`icon-${doc.icon}`}
+                          />
+                        )}
+                        <span>
+                          {doc && doc.title
+                            ? doc.title[i18n.language]
+                            : menuItemLocaleKey}
+                        </span>
+                      </div>
+                    }
+                  >
+                    {renderMenuItems(groupedEdges[slug])}
+                  </Menu.SubMenu>
+                );
               })}
           </Menu>
         </AntLayout.Sider>
@@ -249,7 +247,8 @@ export default function Template({
                 </a>
               </Tooltip>
             </h1>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
+            <div dangerouslySetInnerHTML={{ __html: html }} /> //
+            eslint-disable-line react/no-danger
             <Tabs
               slug={exampleRootSlug}
               active={activeTab}
@@ -276,7 +275,7 @@ export default function Template({
               <div
                 style={{ display: activeTab === 'API' ? 'block' : 'none' }}
                 dangerouslySetInnerHTML={{
-                  __html: exampleSections.API.node.html,
+                  __html: exampleSections.API.node.html, // eslint-disable-line react/no-danger
                 }}
               />
             )}
@@ -284,7 +283,7 @@ export default function Template({
               <div
                 style={{ display: activeTab === 'design' ? 'block' : 'none' }}
                 dangerouslySetInnerHTML={{
-                  __html: exampleSections.design.node.html,
+                  __html: exampleSections.design.node.html, // eslint-disable-line react/no-danger
                 }}
               />
             )}

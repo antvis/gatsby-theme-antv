@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from './Notification.module.less';
 import { useTranslation } from 'react-i18next';
+import styles from './Notification.module.less';
 
 interface NotificationProps {
   className?: string;
@@ -19,11 +19,11 @@ const Notification: React.FC<NotificationProps> = ({
   notificationContent,
 }) => {
   const { type, title, date } = notificationContent;
-  let description = `${type} ‧ ${title}`;
+  const description = `${type} ‧ ${title}`;
   return (
     <div className={classNames(styles.notification, className)}>
       <div className={styles.container}>
-        <img className={styles.number} src={numImg} alt="numberimg"></img>
+        <img className={styles.number} src={numImg} alt="numberimg" />
         <div className={styles.content}>
           <p className={styles.description}>{description}</p>
           <p className={styles.date}>{date}</p>

@@ -129,7 +129,7 @@ const IndexPage = () => {
       />
       <Features
         features={features}
-        title={'我们的优势'}
+        title="我们的优势"
         // className="features"
         style={{ width: '100%' }}
       />

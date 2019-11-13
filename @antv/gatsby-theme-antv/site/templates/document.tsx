@@ -101,7 +101,8 @@ const renderMenu = (menuData: MenuData[]) => {
           <Link to={item.slug}>{item.title}</Link>
         </Menu.Item>
       );
-    } else if (item.type === 'SubMenu') {
+    }
+    if (item.type === 'SubMenu') {
       return (
         item.children &&
         item.children.length > 0 && (

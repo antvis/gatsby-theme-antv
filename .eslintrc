@@ -7,15 +7,17 @@
     "plugin:import/typescript",
     "prettier/react"
   ],
-  env: {
-    browser: true,
-    node: true,
-    jasmine: true,
-    jest: true,
-    es6: true,
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
   },
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js", ".jsx"] }],
-    "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.js", "**/*.spec.js", "**/*/jest-preprocess.js"] }]
+    "import/no-extraneous-dependencies": 0,
+    "react/prop-types": 0,
+    "react/jsx-props-no-spreading": 0
   }
 }
