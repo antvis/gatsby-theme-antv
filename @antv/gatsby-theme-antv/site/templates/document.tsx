@@ -93,26 +93,27 @@ const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
   return results.sort((a: any, b: any) => a.order - b.order);
 };
 
-const renderMenu = (menuData: MenuData[]) => menuData.map((item: MenuData) => {
-  if (item.type === 'Item') {
-    return (
-      <Menu.Item key={item.slug}>
-        <Link to={item.slug}>{item.title}</Link>
-      </Menu.Item>
-    );
-  }
-  if (item.type === 'SubMenu') {
-    return (
-      item.children &&
-      item.children.length > 0 && (
-        <Menu.SubMenu key={item.slug} title={item.title}>
-          {renderMenu(item.children)}
-        </Menu.SubMenu>
-      )
-    );
-  }
-  return null;
-});
+const renderMenu = (menuData: MenuData[]) =>
+  menuData.map((item: MenuData) => {
+    if (item.type === 'Item') {
+      return (
+        <Menu.Item key={item.slug}>
+          <Link to={item.slug}>{item.title}</Link>
+        </Menu.Item>
+      );
+    }
+    if (item.type === 'SubMenu') {
+      return (
+        item.children &&
+        item.children.length > 0 && (
+          <Menu.SubMenu key={item.slug} title={item.title}>
+            {renderMenu(item.children)}
+          </Menu.SubMenu>
+        )
+      );
+    }
+    return null;
+  });
 
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.

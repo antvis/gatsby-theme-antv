@@ -2,3 +2,4 @@
 package.json
 package-lock.json
 public
+@antv/gatsby-theme-antv/lib
