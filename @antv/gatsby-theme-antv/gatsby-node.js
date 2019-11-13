@@ -141,7 +141,7 @@ exports.onCreateNode = ({ node, actions, getNode, store }) => {
 };
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
-  const { createPage } = actions;
+  const { createPage, createRedirect } = actions;
   const result = await graphql(`
     {
       allMarkdownRemark(limit: 1000) {
@@ -168,6 +168,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           examples {
             slug
           }
+          redirects {
+            fromPath
+            toPath
+          }
         }
       }
     }
@@ -177,8 +181,20 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     reporter.panicOnBuild(`Error while running GraphQL query.`);
     return;
   }
-  const posts = result.data.allMarkdownRemark.edges;
-  const allDemos = result.data.allFile.nodes
+
+  const {
+    site: { siteMetadata },
+    allMarkdownRemark,
+    allFile,
+  } = result.data;
+
+  const { redirects } = siteMetadata;
+  (redirects || []).forEach(({ fromPath, toPath }) => {
+    createRedirect({ fromPath, toPath, isPermanent: true });
+  });
+
+  const posts = allMarkdownRemark.edges;
+  const allDemos = allFile.nodes
     .filter(node => /demo\/(.*)\.[t|j]sx?$/.test(node.relativePath))
     .map(item => {
       const source = fs.readFileSync(item.absolutePath, 'utf8');
@@ -248,7 +264,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         design,
         API,
       };
-      const { siteMetadata } = result.data.site;
       const examplePosts = posts
         .filter(item => !!item)
         .filter(
@@ -352,6 +367,11 @@ exports.sourceNodes = ({ actions, schema }) => {
       target: String
     }
 
+    type SiteSiteMetadataRedirects implements Node {
+      fromPath: String!
+      toPath: String!
+    }
+
     type SiteSiteMetadata implements Node {
       title: String!
       description: String!
@@ -359,6 +379,7 @@ exports.sourceNodes = ({ actions, schema }) => {
       navs: [SiteSiteMetadataNavs]
       docs: [SiteSiteMetadataDocs]
       examples: [SiteSiteMetadataExamples]
+      redirects: [SiteSiteMetadataRedirects]
       showLanguageSwitcher: Boolean
       playground: PlayGround
     }
