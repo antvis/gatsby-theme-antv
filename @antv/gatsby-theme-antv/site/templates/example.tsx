@@ -206,8 +206,9 @@ export default function Template({
                 }
                 const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
                 const doc =
-                  examples.find((item: any) => item.slug === menuItemLocaleKey) ||
-                  {};
+                  examples.find(
+                    (item: any) => item.slug === menuItemLocaleKey,
+                  ) || {};
                 return (
                   <Menu.SubMenu
                     key={slugString}

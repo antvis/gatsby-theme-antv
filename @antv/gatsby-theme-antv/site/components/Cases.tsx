@@ -101,7 +101,9 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
       <Slider
         {...sliderSettings}
         className={styles.slider}
-        ref={c => { slider = c; }}
+        ref={c => {
+          slider = c;
+        }}
       >
         {getCases()}
       </Slider>
