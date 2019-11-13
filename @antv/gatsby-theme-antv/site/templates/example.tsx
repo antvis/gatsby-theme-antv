@@ -247,8 +247,8 @@ export default function Template({
                 </a>
               </Tooltip>
             </h1>
-            <div dangerouslySetInnerHTML={{ __html: html }} /> //
-            eslint-disable-line react/no-danger
+            <div dangerouslySetInnerHTML={{ __html: html }} /> /*
+            eslint-disable-line react/no-danger */
             <Tabs
               slug={exampleRootSlug}
               active={activeTab}
