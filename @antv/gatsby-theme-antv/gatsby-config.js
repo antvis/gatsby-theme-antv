@@ -24,7 +24,7 @@ module.exports = ({
         options: {
           name: `docs`,
           path: path.resolve('./docs'),
-          ignore: [`**/\.*`],
+          ignore: [`**/.*`],
         },
       },
       {
@@ -32,7 +32,7 @@ module.exports = ({
         options: {
           name: `images`,
           path: path.resolve('./site/images'),
-          ignore: [`**/\.*`],
+          ignore: [`**/.*`],
         },
       },
       {
@@ -40,7 +40,7 @@ module.exports = ({
         options: {
           name: `examples`,
           path: path.resolve('./examples'),
-          ignore: [`**/\.*`],
+          ignore: [`**/.*`],
         },
       },
       {
@@ -176,9 +176,11 @@ module.exports = ({
   };
 
   if ('GATSBY_PATH_PREFIX' in process.env) {
+    // eslint-disable-next-line no-console
     console.log(
       `'GATSBY_PATH_PREFIX' in process.env: ${process.env.GATSBY_PATH_PREFIX}`,
     );
+    // eslint-disable-next-line no-console
     console.log(
       `typeof process.env.GATSBY_PATH_PREFIX: ${typeof process.env
         .GATSBY_PATH_PREFIX}`,

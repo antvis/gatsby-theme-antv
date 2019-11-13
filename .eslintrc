@@ -1,0 +1,21 @@
+{
+  "extends": [
+    "airbnb",
+    "prettier",
+    "plugin:jest/recommended",
+    "plugin:react/recommended",
+    "plugin:import/typescript",
+    "prettier/react"
+  ],
+  env: {
+    browser: true,
+    node: true,
+    jasmine: true,
+    jest: true,
+    es6: true,
+  },
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js", ".jsx"] }],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": ["**/*.test.js", "**/*.spec.js", "**/*/jest-preprocess.js"] }]
+  }
+}
