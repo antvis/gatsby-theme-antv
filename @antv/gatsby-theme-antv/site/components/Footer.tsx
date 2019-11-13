@@ -6,6 +6,8 @@ import { getProducts } from './getProducts';
 import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
 
+export const OLD_SITE_DOMAIN = 'https://antv-2018.alipay.com';
+
 interface FooterProps extends RcFooterProps {
   rootDomain?: string;
   language?: string;
@@ -141,7 +143,7 @@ const Footer: React.FC<FooterProps> = ({
                 <Icon type="github" />
               </a>
               <a href={`${rootDomain}/about`}>{t('关于我们')}</a>
-              <a href="https://antv-2018.alipay.com" target="_blank">
+              <a href={OLD_SITE_DOMAIN} target="_blank">
                 {t('返回旧版')}
               </a>
             </div>

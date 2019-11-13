@@ -5,7 +5,7 @@ import { initReactI18next } from 'react-i18next';
 import { getCurrentLangKey } from 'ptz-i18n';
 import Helmet from 'react-helmet';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Footer, { OLD_SITE_DOMAIN } from '../components/Footer';
 import styles from './layout.module.less';
 
 i18n
@@ -92,7 +92,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
           rediectUrl = to;
         } else {
           // 如果没有指定 to，则直接用替换成老版本的域名
-          rediectUrl = `https://antv-2018.alipay.com${location.pathname}`;
+          rediectUrl = `${OLD_SITE_DOMAIN}${location.pathname}`;
         }
       }
     },
