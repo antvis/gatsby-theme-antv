@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 import { navigate } from 'gatsby';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'antd';
@@ -86,6 +87,95 @@ const Header: React.FC<HeaderProps> = ({
   const onProductMouseLeave = () => {
     setProductMenuVisible(false);
   };
+  const onToggleProductMenuVisible = () => {
+    setProductMenuVisible(!productMenuVisible);
+  };
+
+  const [popupMenuVisible, setPopupMenuVisible] = useState(false);
+  const onTogglePopupMenuVisible = () => {
+    setPopupMenuVisible(!popupMenuVisible);
+  };
+
+  useEffect(() => {
+    if (popupMenuVisible) {
+      setPopupMenuVisible(false);
+    }
+  }, [path]);
+
+  const isWide = useMedia('(min-width: 767.99px)');
+  const menuIcon = (
+    <Icon
+      type="menu"
+      className={styles.menuIcon}
+      onClick={onTogglePopupMenuVisible}
+    />
+  );
+
+  const productItemProps = isWide
+    ? {
+        onMouseEnter: onProductMouseEnter,
+        onMouseLeave: onProductMouseLeave,
+      }
+    : {
+        onClick: onToggleProductMenuVisible,
+      };
+
+  const menu = (
+    <ul
+      className={classNames(styles.menu, {
+        [styles.popup]: !isWide,
+        [styles.popupHidden]: !popupMenuVisible,
+      })}
+    >
+      {navs && navs.length ? <NavMenuItems navs={navs} path={path} /> : null}
+      <li {...productItemProps}>
+        <a>
+          {t('所有产品')}
+          <Icon
+            type="caret-down"
+            className={classNames(styles.arrow, {
+              [styles.open]: productMenuVisible,
+            })}
+          />
+        </a>
+        <Products
+          className={styles.productsMenu}
+          show={productMenuVisible}
+          rootDomain={rootDomain}
+        />
+      </li>
+      {showLanguageSwitcher && (
+        <li>
+          <a
+            onClick={e => {
+              e.preventDefault();
+              const value = lang === 'en' ? 'zh' : 'en';
+              i18n.changeLanguage(value);
+              if (onLanguageChange) {
+                return onLanguageChange(value);
+              }
+              if (path.endsWith(`/${lang}`)) {
+                return navigate(`/${value}`);
+              }
+              navigate(
+                path.replace(pathPrefix, '').replace(`/${lang}/`, `/${value}/`),
+              );
+            }}
+          >
+            {t('English')}
+          </a>
+        </li>
+      )}
+      {showGithubCorner && (
+        <li className={styles.githubCorner}>
+          <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+            <Icon type="github" />
+          </a>
+        </li>
+      )}
+    </ul>
+  );
+
   return (
     <header
       className={classNames(styles.header, {
@@ -124,57 +214,8 @@ const Header: React.FC<HeaderProps> = ({
           {showSearch && <Search />}
         </div>
         <nav className={styles.nav}>
-          <ul className={styles.menu}>
-            {navs && navs.length ? (
-              <NavMenuItems navs={navs} path={path} />
-            ) : null}
-            <li
-              onMouseEnter={onProductMouseEnter}
-              onMouseLeave={onProductMouseLeave}
-            >
-              <a>
-                {t('所有产品')}
-                <Icon
-                  type="caret-down"
-                  className={classNames(styles.arrow, {
-                    [styles.open]: productMenuVisible,
-                  })}
-                />
-              </a>
-              <Products show={productMenuVisible} rootDomain={rootDomain} />
-            </li>
-            {showLanguageSwitcher && (
-              <li>
-                <a
-                  onClick={e => {
-                    e.preventDefault();
-                    const value = lang === 'en' ? 'zh' : 'en';
-                    i18n.changeLanguage(value);
-                    if (onLanguageChange) {
-                      return onLanguageChange(value);
-                    }
-                    if (path.endsWith(`/${lang}`)) {
-                      return navigate(`/${value}`);
-                    }
-                    navigate(
-                      path
-                        .replace(pathPrefix, '')
-                        .replace(`/${lang}/`, `/${value}/`),
-                    );
-                  }}
-                >
-                  {t('English')}
-                </a>
-              </li>
-            )}
-            {showGithubCorner && (
-              <li className={styles.githubCorner}>
-                <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-                  <Icon type="github" />
-                </a>
-              </li>
-            )}
-          </ul>
+          {menu}
+          {isWide ? null : menuIcon}
         </nav>
       </div>
     </header>
