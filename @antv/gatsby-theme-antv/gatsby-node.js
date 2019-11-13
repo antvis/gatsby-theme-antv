@@ -168,10 +168,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           examples {
             slug
           }
-          redirects {
-            fromPath
-            toPath
-          }
         }
       }
     }
@@ -187,11 +183,6 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     allMarkdownRemark,
     allFile,
   } = result.data;
-
-  const { redirects } = siteMetadata;
-  (redirects || []).forEach(({ fromPath, toPath }) => {
-    createRedirect({ fromPath, toPath, isPermanent: true });
-  });
 
   const posts = allMarkdownRemark.edges;
   const allDemos = allFile.nodes
@@ -368,8 +359,8 @@ exports.sourceNodes = ({ actions, schema }) => {
     }
 
     type SiteSiteMetadataRedirects implements Node {
-      fromPath: String!
-      toPath: String!
+      from: String!
+      to: String
     }
 
     type SiteSiteMetadata implements Node {
