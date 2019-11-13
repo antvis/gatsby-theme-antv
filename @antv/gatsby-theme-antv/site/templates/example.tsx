@@ -59,7 +59,7 @@ const renderMenuItems = (edges: any[]) =>
       );
     });
 
-const getMenuItemLocaleKey = (slug: string = '') => {
+const getMenuItemLocaleKey = (slug = '') => {
   const slugPieces = slug.split('/');
   const menuItemLocaleKey = slugPieces
     .slice(slugPieces.indexOf('examples') + 1)
@@ -137,18 +137,18 @@ export default function Template({
     edgesInExamples,
     ({
       node: {
-        fields: { slug },
+        fields: { slug: slugString },
       },
     }: any) => {
       // API.md and deisgn.md
-      if (slug.endsWith('/API') || slug.endsWith('/design')) {
-        return slug
+      if (slugString.endsWith('/API') || slugString.endsWith('/design')) {
+        return slugString
           .split('/')
           .slice(0, -2)
           .join('/');
       }
       // index.md
-      return slug
+      return slugString
         .split('/')
         .slice(0, -1)
         .join('/');
@@ -182,7 +182,7 @@ export default function Template({
             selectedKeys={[slug]}
             style={{ height: '100%' }}
             openKeys={openKeys}
-            onOpenChange={openKeys => setOpenKeys(openKeys)}
+            onOpenChange={currentOpenKeys => setOpenKeys(currentOpenKeys)}
           >
             {Object.keys(groupedEdges)
               .filter(key => key.startsWith(`/${i18n.language}/`))
@@ -199,18 +199,18 @@ export default function Template({
                 });
                 return aOrder - bOrder;
               })
-              .map(slug => {
-                const slugPieces = slug.split('/');
+              .map(slugString => {
+                const slugPieces = slugString.split('/');
                 if (slugPieces.length <= 3) {
-                  return renderMenuItems(groupedEdges[slug]);
+                  return renderMenuItems(groupedEdges[slugString]);
                 }
-                const menuItemLocaleKey = getMenuItemLocaleKey(slug);
+                const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
                 const doc =
-                  examples.find((doc: any) => doc.slug === menuItemLocaleKey) ||
+                  examples.find((item: any) => item.slug === menuItemLocaleKey) ||
                   {};
                 return (
                   <Menu.SubMenu
-                    key={slug}
+                    key={slugString}
                     title={
                       <div>
                         {doc.icon && (
@@ -227,7 +227,7 @@ export default function Template({
                       </div>
                     }
                   >
-                    {renderMenuItems(groupedEdges[slug])}
+                    {renderMenuItems(groupedEdges[slugString])}
                   </Menu.SubMenu>
                 );
               })}
@@ -277,8 +277,8 @@ export default function Template({
             {exampleSections.API && (
               <div
                 style={{ display: activeTab === 'API' ? 'block' : 'none' }}
+                /* eslint-disable-next-line react/no-danger */
                 dangerouslySetInnerHTML={{
-                  // eslint-disable-line react/no-danger
                   __html: exampleSections.API.node.html,
                 }}
               />
@@ -286,8 +286,8 @@ export default function Template({
             {exampleSections.design && (
               <div
                 style={{ display: activeTab === 'design' ? 'block' : 'none' }}
+                /* eslint-disable-next-line react/no-danger */
                 dangerouslySetInnerHTML={{
-                  // eslint-disable-line react/no-danger
                   __html: exampleSections.design.node.html,
                 }}
               />

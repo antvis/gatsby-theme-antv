@@ -48,7 +48,7 @@ const Features: React.FC<FeaturesProps> = ({
 
   // for small screen
   const getDots = () => {
-    const dots: Array<Object> = [];
+    const dots: Array<Record<string, any>> = [];
     const { length } = features;
     const startTop = 45;
     const cardHeight = 350;

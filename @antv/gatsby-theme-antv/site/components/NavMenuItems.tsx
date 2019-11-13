@@ -5,7 +5,7 @@ import shallowequal from 'shallowequal';
 import { useTranslation } from 'react-i18next';
 import styles from './Header.module.less';
 
-const getDocument = (navs: Nav[], slug: string = '') =>
+const getDocument = (navs: Nav[], slug = '') =>
   navs.find(doc => doc.slug === slug) || {
     title: {} as { [key: string]: string },
   };

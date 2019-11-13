@@ -1,7 +1,7 @@
 import React from 'react';
 import { Skeleton } from 'antd';
 
-export default () => (
+const PageLoading = () => (
   <div style={{ padding: '100px 10%' }}>
     <Skeleton />
     <Skeleton />
@@ -9,3 +9,5 @@ export default () => (
     <Skeleton />
   </div>
 );
+
+export default PageLoading;

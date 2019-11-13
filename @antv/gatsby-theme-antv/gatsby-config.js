@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/camelcase: 0 */
 const path = require('path');
 
 module.exports = ({

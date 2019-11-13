@@ -5,6 +5,8 @@
     "plugin:jest/recommended",
     "plugin:react/recommended",
     "plugin:import/typescript",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
     "prettier/react"
   ],
   "env": {
@@ -12,13 +14,28 @@
     "node": true,
     "jest": true
   },
+  "globals": {
+    "I18NEXT_RESOURCES": true
+  },
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "consistent-return": 0,
     "import/no-extraneous-dependencies": 0,
+    "import/prefer-default-export": 0,
+    "import/no-named-default": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js", ".jsx"] }],
     "react/prop-types": 0,
+    "react/state-in-constructor": 0,
     "react/jsx-props-no-spreading": 0,
-    "react/no-array-index-key": 0
+    "react/no-array-index-key": 0,
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-noninteractive-element-interactions": 0,
+    "jsx-a11y/no-static-element-interactions": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+    "@typescript-eslint/ban-ts-ignore": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-non-null-assertion": 0
   }
 }
