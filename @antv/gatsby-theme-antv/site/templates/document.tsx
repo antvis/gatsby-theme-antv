@@ -193,7 +193,7 @@ export default function Template({
     </Menu>
   );
 
-  const isWide = useMedia('(min-width: 767.99px)');
+  const isWide = useMedia('(min-width: 767.99px)', true);
   const [drawOpen, setDrawOpen] = useState(false);
   const menuSider = isWide ? (
     <AntLayout.Sider width="auto" theme="light" className={styles.sider}>

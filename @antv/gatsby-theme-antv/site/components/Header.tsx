@@ -102,7 +102,7 @@ const Header: React.FC<HeaderProps> = ({
     }
   }, [path]);
 
-  const isWide = useMedia('(min-width: 767.99px)');
+  const isWide = useMedia('(min-width: 767.99px)', true);
   const menuIcon = (
     <Icon
       type="menu"
