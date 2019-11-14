@@ -136,14 +136,18 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   const renderButtons = buttons.map((button: BannerButton, i) => (
-    <a key={i} href={button.link} style={{ marginLeft: i === 0 ? '0%' : '2%' }}>
-      <button
-        type="button"
+    <a
+      key={i}
+      href={button.link}
+      target="newtag"
+      style={{ marginLeft: i === 0 ? '0%' : '2%' }}
+    >
+      <div
         className={classNames(styles.button, styles[button.type || ''])}
         style={button.style}
       >
         {button.text}
-      </button>
+      </div>
     </a>
   ));
 
