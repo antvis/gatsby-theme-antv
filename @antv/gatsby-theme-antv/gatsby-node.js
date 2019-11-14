@@ -10,7 +10,7 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const shallowequal = require('shallowequal');
 const { getSlugAndLang } = require('ptz-i18n');
-const { transformSync } = require('@babel/core');
+const { transform } = require('@babel/standalone');
 
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
@@ -205,14 +205,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       } catch (e) {
         meta = {};
       }
-      const { code } = transformSync(source, {
+      const { code } = transform(source, {
         filename: item.absolutePath,
-        presets: [
-          '@babel/preset-typescript',
-          '@babel/preset-react',
-          '@babel/preset-env',
-        ],
-        plugins: ['@babel/plugin-transform-modules-umd'],
+        presets: ['react', 'typescript', 'es2015', 'stage-3'],
+        plugins: ['transform-modules-umd'],
         babelrc: false,
       });
       const order = (meta.demos || []).findIndex(
