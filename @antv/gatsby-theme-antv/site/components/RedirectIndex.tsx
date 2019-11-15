@@ -11,7 +11,7 @@ class RedirectIndex extends React.PureComponent {
     if (typeof window !== 'undefined') {
       const langKey = getUserLangKey(['zh', 'en'], 'zh');
       // https://github.com/angeloocana/gatsby-plugin-i18n/issues/52#issuecomment-451590961
-      navigate(langKey);
+      // navigate(langKey);
     }
   }
 
