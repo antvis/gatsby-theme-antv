@@ -103,11 +103,15 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     }
   };
 
-  useEffect(() => {
+  const executeCode = () => {
     if (!compiledCode || !playgroundNode || !playgroundNode.current) {
       return;
     }
     execute(compiledCode, playgroundNode.current, playground.container);
+  };
+
+  useEffect(() => {
+    executeCode();
   }, [compiledCode, error]);
 
   useEffect(() => {
@@ -176,7 +180,7 @@ insertCss(`,
 
   return (
     <div className={styles.playground} ref={fullscreenNode}>
-      <SplitPane split="vertical" defaultSize="58%" minSize={100}>
+      <SplitPane split="vertical" defaultSize="66%" minSize={100}>
         <div
           className={classNames(
             styles.preview,
@@ -205,6 +209,13 @@ insertCss(`,
               />
             </Tooltip>
             <Paragraph copyable={{ text: currentSourceCode }} />
+            <Tooltip title={t('执行代码')}>
+              <Icon
+                type="play-circle"
+                onClick={executeCode}
+                style={{ marginLeft: 12 }}
+              />
+            </Tooltip>
           </div>
           <div className={styles.codemirror}>{editor}</div>
         </div>

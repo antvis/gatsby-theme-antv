@@ -1,5 +1,5 @@
 @import '~antd/es/style/themes/default.less';
-@editor-height: 620px;
+@editor-height: 580px;
 
 .playground {
   margin: 0;
@@ -39,10 +39,19 @@
       > * {
         display: inline-block;
         margin-left: 2px;
+        transition: all 0.3s;
+
+        &:hover {
+          color: #222;
+        }
       }
 
       :global(.ant-typography-copy) {
         color: #777;
+
+        &:hover {
+          color: #222;
+        }
       }
     }
 

@@ -225,7 +225,7 @@ export default function Template({
       >
         {menuSider}
         <Article className={styles.markdown}>
-          <Affix offsetTop={8} target={() => document.body}>
+          <Affix offsetTop={8}>
             <div
               className={styles.toc}
               /* eslint-disable-next-line react/no-danger */
