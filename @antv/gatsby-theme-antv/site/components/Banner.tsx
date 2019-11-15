@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
+import { Icon } from 'antd';
 import { Modal } from 'antd';
 import GitHubButton from 'react-github-button';
 import gh from 'parse-github-url';
@@ -153,7 +154,13 @@ const Banner: React.FC<BannerProps> = ({
 
   if (video) {
     renderButtons.push(
-      <div key="video" onClick={showVideo} className={styles.videoButton} />,
+      <div key="video" onClick={showVideo} className={styles.videoButton}>
+        <Icon
+          type="caret-right"
+          className={styles.videoButtonIcon}
+          style={{ fontSize: '16px', color: '#873BF4' }}
+        />
+      </div>,
     );
   }
 
