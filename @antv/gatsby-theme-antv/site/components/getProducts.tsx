@@ -257,14 +257,14 @@ export const getProducts = ({
           url: `${rootDomain}/graphin/${language}`,
         },
         {
-          icon: <Icon type="pie-chart" />,
-          title: t('图表示例'),
-          url: `${rootDomain}/graphin/${language}/examples`,
+          icon: <Icon type="read" />,
+          title: t('使用文档'),
+          url: `${rootDomain}/graphin/${language}/docs/manual/introduction`,
         },
         {
           icon: <Icon type="read" />,
-          title: t('使用文档'),
-          url: `${rootDomain}/graphin/${language}/docs/manual`,
+          title: t('API 文档'),
+          url: `${rootDomain}/graphin/${language}/docs/api/graphin`,
         },
         {
           icon: <Icon type="history" />,

@@ -201,7 +201,6 @@ insertCss(`,
       deps[importMatch[1]] = 'latest';
     }
   });
-  console.log(deps);
 
   const files = {
     'package.json': {
