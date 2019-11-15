@@ -6,11 +6,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import styles from './Cases.module.less';
 
-const previousButtonImg =
-  'https://gw.alipayobjects.com/zos/basement_prod/39d0ba49-5ae4-4fb7-86e1-ff90e79e30a0.svg';
-const nextButtonImg =
-  'https://gw.alipayobjects.com/zos/basement_prod/27ce6e21-bbb6-4490-8326-43483ac39e0b.svg';
-
 interface Case {
   logo?: string;
   title: string;
@@ -39,18 +34,8 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
     if (cases.length > 1) {
       buttons = (
         <div className={styles.buttons}>
-          <img
-            className={styles.previousButton}
-            onClick={clickPrevious}
-            src={previousButtonImg}
-            alt="previous"
-          />
-          <img
-            className={styles.nextButton}
-            onClick={clickNext}
-            src={nextButtonImg}
-            alt="next"
-          />
+          <div className={styles.previousButton} onClick={clickPrevious} />
+          <div className={styles.nextButton} onClick={clickNext} />
         </div>
       );
     }
@@ -60,7 +45,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
           className={styles.detailWrapper}
           style={{ display: app.link ? 'block' : 'none' }}
         >
-          <a className={styles.detail} href={app.link}>
+          <a className={styles.detail} href={app.link} target="newtag">
             {t('查看详情')}
           </a>
         </div>

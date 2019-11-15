@@ -12,13 +12,14 @@
     margin-right: auto;
   }
   .appWrapper {
-    margin-left: 8.06%;
+    margin-left: 5%;
     margin-bottom: 5%;
     width: 83.88%;
     height: 100%;
     overflow-y: hidden;
     display: flex;
     .appLeft {
+      margin-left: 3.06%;
       width: 27%;
       margin-top: 8%;
       height: 613px;
@@ -52,16 +53,27 @@
         }
       }
       .buttons {
+        cursor: pointer;
         position: absolute;
         display: flex;
         bottom: 30%;
         height: 100px;
         .previousButton {
           width: 47px;
+          background-image: url('https://gw.alipayobjects.com/zos/basement_prod/39d0ba49-5ae4-4fb7-86e1-ff90e79e30a0.svg');
+          background-size: 100% 100%;
+          &:hover {
+            background-image: url('https://gw.alipayobjects.com/zos/basement_prod/54e4a76f-db0d-4205-b81d-0ea6c9688292.svg');
+          }
         }
         .nextButton {
           width: 47px;
           margin-left: -1px;
+          background-image: url('https://gw.alipayobjects.com/zos/basement_prod/27ce6e21-bbb6-4490-8326-43483ac39e0b.svg');
+          background-size: 100% 100%;
+          &:hover {
+            background-image: url('https://gw.alipayobjects.com/zos/basement_prod/4d1f0d0a-4e56-4f21-a9aa-06b2f8c3e18e.svg');
+          }
         }
       }
     }
@@ -136,8 +148,6 @@
           }
           .appTitle {
             padding-top: 76px;
-          }
-          .appDescription {
           }
           .detailWrapper {
             margin-top: 40px;
