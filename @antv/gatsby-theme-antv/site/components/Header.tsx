@@ -5,7 +5,6 @@ import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'antd';
-import debounce from 'lodash/debounce';
 import Search from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
