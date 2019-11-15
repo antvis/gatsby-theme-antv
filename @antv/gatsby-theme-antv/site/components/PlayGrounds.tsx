@@ -127,6 +127,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
         babeledSource={currentExample.babeledSource}
         filename={currentExample.filename}
         playground={playground}
+        location={location}
       />
     </div>
   );
