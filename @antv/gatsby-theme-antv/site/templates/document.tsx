@@ -237,7 +237,7 @@ export default function Template({
               {frontmatter.title}
               <Tooltip title={t('在 GitHub 上编辑')}>
                 <a
-                  href={`${githubUrl}/edit/master/${relativePath}`}
+                  href={`${githubUrl}/edit/master/docs/${relativePath}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.editOnGtiHubButton}
