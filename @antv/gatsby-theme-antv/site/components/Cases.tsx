@@ -58,7 +58,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
       const linkDiv = (
         <div
           className={styles.detailWrapper}
-          style={{ opacity: app.link ? 1 : 0 }}
+          style={{ display: app.link ? 'block' : 'none' }}
         >
           <a className={styles.detail} href={app.link}>
             {t('查看详情')}
