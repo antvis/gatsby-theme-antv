@@ -1,3 +1,6 @@
+import React from 'react';
+import { Icon } from 'antd';
+
 const tuple = <T extends string[]>(...args: T) => args;
 const Categories = tuple('basic', 'extension', 'ecology');
 
@@ -34,18 +37,34 @@ export const getProducts = ({
       category: Categories[0],
       links: [
         {
+          icon: <Icon type="home" />,
           title: t('产品首页'),
           url: `${rootDomain}/g2/${language}`,
         },
         {
+          icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
           url: `${rootDomain}/g2/${language}/examples`,
         },
         {
+          icon: <Icon type="read" />,
           title: t('使用文档'),
           url: `${rootDomain}/g2/${language}/docs/manual`,
         },
         {
+          icon: <Icon type="history" />,
+          title: t('更新日志'),
+          url: `https://github.com/antvis/f2/blob/master/CHANGELOG.md`,
+          openExternal: true,
+        },
+        {
+          icon: <Icon type="github" />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/g2`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
           title: t('国内镜像'),
           url: `https://antv.gitee.io/g2`,
           openExternal: true,
@@ -61,18 +80,34 @@ export const getProducts = ({
       category: Categories[0],
       links: [
         {
+          icon: <Icon type="home" />,
           title: t('产品首页'),
           url: `${rootDomain}/g6/${language}`,
         },
         {
+          icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
           url: `${rootDomain}/g6/${language}/examples`,
         },
         {
+          icon: <Icon type="read" />,
           title: t('使用文档'),
           url: `${rootDomain}/g6/${language}/docs/manual`,
         },
         {
+          icon: <Icon type="history" />,
+          title: t('更新日志'),
+          url: `https://github.com/antvis/g6/blob/master/CHANGELOG.md`,
+          openExternal: true,
+        },
+        {
+          icon: <Icon type="github" />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/g6`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
           title: t('国内镜像'),
           url: `https://antv.gitee.io/g6`,
           openExternal: true,
@@ -90,18 +125,34 @@ export const getProducts = ({
       category: Categories[0],
       links: [
         {
+          icon: <Icon type="home" />,
           title: t('产品首页'),
           url: `${rootDomain}/f2/${language}`,
         },
         {
+          icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
           url: `${rootDomain}/f2/${language}/examples`,
         },
         {
+          icon: <Icon type="read" />,
           title: t('使用文档'),
           url: `${rootDomain}/f2/${language}/docs/manual`,
         },
         {
+          icon: <Icon type="history" />,
+          title: t('更新日志'),
+          url: `https://github.com/antvis/f2/blob/master/CHANGELOG.md`,
+          openExternal: true,
+        },
+        {
+          icon: <Icon type="github" />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/f2`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
           title: t('国内镜像'),
           url: `https://antv.gitee.io/f2`,
           openExternal: true,
@@ -117,18 +168,34 @@ export const getProducts = ({
       category: Categories[0],
       links: [
         {
+          icon: <Icon type="home" />,
           title: t('产品首页'),
           url: `${rootDomain}/l7/${language}`,
         },
         {
+          icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
           url: `${rootDomain}/l7/${language}/examples`,
         },
         {
+          icon: <Icon type="read" />,
           title: t('使用文档'),
           url: `${rootDomain}/l7/${language}/docs/manual`,
         },
         {
+          icon: <Icon type="history" />,
+          title: t('更新日志'),
+          url: `https://github.com/antvis/l7/blob/master/CHANGELOG.md`,
+          openExternal: true,
+        },
+        {
+          icon: <Icon type="github" />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/l7`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
           title: t('国内镜像'),
           url: `https://antv.gitee.io/l7`,
           openExternal: true,
@@ -143,18 +210,34 @@ export const getProducts = ({
       category: Categories[1],
       links: [
         {
+          icon: <Icon type="home" />,
           title: t('产品首页'),
           url: `${rootDomain}/g2plot/${language}`,
         },
         {
+          icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
           url: `${rootDomain}/g2plot/${language}/examples`,
         },
         {
+          icon: <Icon type="read" />,
           title: t('使用文档'),
           url: `${rootDomain}/g2plot/${language}/docs/manual`,
         },
         {
+          icon: <Icon type="history" />,
+          title: t('更新日志'),
+          url: `https://github.com/antvis/g2plot/blob/master/CHANGELOG.md`,
+          openExternal: true,
+        },
+        {
+          icon: <Icon type="github" />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/g2plot`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
           title: t('国内镜像'),
           url: `https://antv.gitee.io/g2plot`,
           openExternal: true,
@@ -169,18 +252,34 @@ export const getProducts = ({
       category: Categories[1],
       links: [
         {
+          icon: <Icon type="home" />,
           title: t('产品首页'),
           url: `${rootDomain}/graphin/${language}`,
         },
         {
+          icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
           url: `${rootDomain}/graphin/${language}/examples`,
         },
         {
+          icon: <Icon type="read" />,
           title: t('使用文档'),
           url: `${rootDomain}/graphin/${language}/docs/manual`,
         },
         {
+          icon: <Icon type="history" />,
+          title: t('更新日志'),
+          url: `https://github.com/antvis/graphin/blob/master/CHANGELOG.md`,
+          openExternal: true,
+        },
+        {
+          icon: <Icon type="github" />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/graphin`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
           title: t('国内镜像'),
           url: `https://antv.gitee.io/graphin`,
           openExternal: true,
@@ -196,11 +295,13 @@ export const getProducts = ({
       category: Categories[1],
       links: [
         {
+          icon: <Icon type="home" />,
           title: t('产品首页'),
           url: `https://chartcube.alipay.com`,
           openExternal: true,
         },
         {
+          icon: <Icon type="area-chart" />,
           title: t('生成图表'),
           url: `https://chartcube.alipay.com/guide`,
           openExternal: true,
@@ -215,7 +316,7 @@ export const getProducts = ({
       category: Categories[2],
       links: [
         {
-          title: t('产品首页'),
+          title: t('学院首页'),
           url: `https://www.yuque.com/mo-college`,
           openExternal: true,
         },

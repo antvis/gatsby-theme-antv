@@ -12,6 +12,9 @@
   "产品首页": "Home Page",
   "图表示例": "Examples",
   "使用文档": "Documentation",
+  "更新日志": "Changelog",
+  "GitHub 仓库": "GitHub Repository",
+  "国内镜像": "China Mirror",
 
   "可视化图形语法": "Grammar of Graphics",
   "图可视化引擎": "Graph Visualization",
@@ -25,6 +28,5 @@
   "在 CodeSandbox 中打开": "Open in CodeSandbox",
 
   "关于我们": "About us",
-  "国内镜像": "China Mirror",
   "返回旧版": "Old site"
 }

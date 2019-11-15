@@ -33,7 +33,7 @@ const Product: React.FC<ProductProps> = ({
       </a>
       <div className={styles.productDescription}>{description}</div>
       <div className={styles.productLinks}>
-        {links.map(item => (
+        {links.slice(0, 2).map(item => (
           <a
             href={item.url}
             target={item.url.startsWith('http') ? '_blank' : '_self'}
