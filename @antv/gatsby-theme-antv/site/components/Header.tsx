@@ -5,6 +5,7 @@ import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Icon } from 'antd';
+import debounce from 'lodash/debounce';
 import Search from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
@@ -81,8 +82,13 @@ const Header: React.FC<HeaderProps> = ({
   const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
   const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
   const [productMenuVisible, setProductMenuVisible] = useState(false);
-  const onProductMouseEnter = () => {
-    setProductMenuVisible(true);
+  const onProductMouseEnter = (e: React.MouseEvent) => {
+    e.persist();
+    setTimeout(() => {
+      if (e.target instanceof Element && e.target.matches(':hover')) {
+        setProductMenuVisible(true);
+      }
+    }, 300);
   };
   const onProductMouseLeave = () => {
     setProductMenuVisible(false);
