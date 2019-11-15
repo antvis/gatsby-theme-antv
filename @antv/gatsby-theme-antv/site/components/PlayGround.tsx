@@ -185,26 +185,29 @@ insertCss(`,
   const fileExtension =
     relativePath.split('.')[relativePath.split('.').length - 1] || 'js';
 
+  const requireMatches =
+    currentSourceCode.match(/require\(['"](.*)['"]\)/g) || [];
+  const importMatches = currentSourceCode.match(/from\s+['"](.*)['"]/g) || [];
+  const deps: {
+    [key: string]: 'latest';
+  } = {};
+  [...requireMatches, ...importMatches].forEach((match: string) => {
+    const requireMatch = match.match(/require\(['"](.*)['"]\)/);
+    if (requireMatch && requireMatch[1]) {
+      deps[requireMatch[1]] = 'latest';
+    }
+    const importMatch = match.match(/from\s+['"](.*)['"]/);
+    if (importMatch && importMatch[1]) {
+      deps[importMatch[1]] = 'latest';
+    }
+  });
+  console.log(deps);
+
   const files = {
     'package.json': {
       content: {
         main: `index.${fileExtension}`,
-        dependencies: {
-          d3: 'latest',
-          'd3-force': 'latest',
-          '@antv/hierarchy': 'latest',
-          '@antv/util': 'latest',
-          '@antv/data-set': 'latest',
-          '@antv/g': 'latest',
-          '@antv/g2plot': 'latest',
-          '@antv/g6': 'latest',
-          '@antv/f2': 'latest',
-          '@antv/l7': 'latest',
-          '@antv/g2': 'latest',
-          'insert-css': 'latest',
-          react: 'latest',
-          'react-dom': 'latest',
-        },
+        dependencies: deps,
       },
     },
     [`index.${fileExtension}`]: {
@@ -217,15 +220,15 @@ insertCss(`,
     [key: string]: any;
   };
 
-  const dataFileMatcher = currentSourceCode.match(/fetch\('(.*)'\)/);
+  const dataFileMatch = currentSourceCode.match(/fetch\('(.*)'\)/);
   if (
-    dataFileMatcher &&
-    dataFileMatcher.length > 0 &&
-    !dataFileMatcher[1].startsWith('http')
+    dataFileMatch &&
+    dataFileMatch.length > 0 &&
+    !dataFileMatch[1].startsWith('http')
   ) {
-    const [filename] = dataFileMatcher[1].split('/').slice(-1);
+    const [filename] = dataFileMatch[1].split('/').slice(-1);
     files[`index.${fileExtension}`].content = currentSourceCode.replace(
-      dataFileMatcher[1],
+      dataFileMatch[1],
       path.join(location!.origin, location!.pathname, `../data/${filename}`),
     );
   }
