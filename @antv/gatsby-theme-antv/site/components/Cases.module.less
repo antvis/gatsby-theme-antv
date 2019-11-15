@@ -1,3 +1,4 @@
+@import './mixins';
 .wrapper {
   height: 667px;
   margin: auto;
@@ -6,10 +7,7 @@
   overflow: hidden;
   background: rgba(250, 251, 252, 1);
   .slider {
-    width: 1440px;
-    max-width: calc(100% - 120px);
-    margin-left: auto;
-    margin-right: auto;
+    .container1440;
   }
   .appWrapper {
     margin-left: 5%;
