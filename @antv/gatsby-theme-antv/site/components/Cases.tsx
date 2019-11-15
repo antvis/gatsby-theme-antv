@@ -55,16 +55,16 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
       );
     }
     const children = cases.map(app => {
-      let linkDiv;
-      if (app.link) {
-        linkDiv = (
-          <div className={styles.detailWrapper}>
-            <a className={styles.detail} href={app.link}>
-              {t('查看详情')}
-            </a>
-          </div>
-        );
-      }
+      const linkDiv = (
+        <div
+          className={styles.detailWrapper}
+          style={{ opacity: app.link ? 1 : 0 }}
+        >
+          <a className={styles.detail} href={app.link}>
+            {t('查看详情')}
+          </a>
+        </div>
+      );
 
       return (
         <div className={styles.appWrapper} key={app.title}>
@@ -93,7 +93,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
     cssEase: 'linear',
     arrows: false,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
     fade: true,
   };
   return (

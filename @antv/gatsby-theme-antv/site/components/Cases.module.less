@@ -5,6 +5,12 @@
   padding: 0;
   overflow: hidden;
   background: rgba(250, 251, 252, 1);
+  .slider {
+    width: 1440px;
+    max-width: calc(100% - 120px);
+    margin-left: auto;
+    margin-right: auto;
+  }
   .appWrapper {
     margin-left: 8.06%;
     margin-bottom: 5%;
@@ -76,6 +82,12 @@
   }
 }
 
+:global {
+  .slick-current {
+    z-index: 2 !important;
+  }
+}
+
 @media (max-width: 1200px) {
   .wrapper {
     .appWrapper {
@@ -95,6 +107,12 @@
   .wrapper {
     width: 100%;
     height: fit-content;
+    .slider {
+      width: 100%;
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
     .appWrapper {
       width: 100%;
       padding-bottom: 150px;

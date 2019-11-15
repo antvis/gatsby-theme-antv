@@ -87,56 +87,64 @@ const Features: React.FC<FeaturesProps> = ({
           className={classNames(styles.lefttopWithoutTitle, styles.lefttop)}
         />
       )}
+      <div
+        className={
+          title
+            ? styles.rightbottom
+            : classNames(styles.rightbottomWithoutTitle, styles.rightbottom)
+        }
+      >
+        <div
+          className={classNames(
+            styles.slicerbar,
+            styles.slicerbarv,
+            styles.slicerbarv1,
+          )}
+        />
+        <div
+          className={classNames(
+            styles.slicerbar,
+            styles.slicerbarv,
+            styles.slicerbarv2,
+          )}
+        />
+        <div
+          className={classNames(
+            styles.slicerbar,
+            styles.slicerbarh,
+            styles.slicerbarh1,
+          )}
+        />
+        <div
+          className={classNames(
+            styles.slicerbar,
+            styles.slicerbarh,
+            styles.slicerbarh2,
+          )}
+        />
+        <div
+          className={classNames(
+            styles.slicerbar,
+            styles.slicerbarh,
+            styles.slicerbarh3,
+          )}
+        />
+        <div
+          className={classNames(
+            styles.slicerbar,
+            styles.slicerbarh,
+            styles.slicerbarh4,
+          )}
+        />
+        {getDots()}
+      </div>
       <div className={styles.content}>
         <div key="content">
           <p key="title" className={styles.title}>
             {title}
           </p>
-          <div key="block" className={styles.rightbottom}>
-            <div
-              className={classNames(
-                styles.slicerbar,
-                styles.slicerbarv,
-                styles.slicerbarv1,
-              )}
-            />
-            <div
-              className={classNames(
-                styles.slicerbar,
-                styles.slicerbarv,
-                styles.slicerbarv2,
-              )}
-            />
-            <div
-              className={classNames(
-                styles.slicerbar,
-                styles.slicerbarh,
-                styles.slicerbarh1,
-              )}
-            />
-            <div
-              className={classNames(
-                styles.slicerbar,
-                styles.slicerbarh,
-                styles.slicerbarh2,
-              )}
-            />
-            <div
-              className={classNames(
-                styles.slicerbar,
-                styles.slicerbarh,
-                styles.slicerbarh3,
-              )}
-            />
-            <div
-              className={classNames(
-                styles.slicerbar,
-                styles.slicerbarh,
-                styles.slicerbarh4,
-              )}
-            />
+          <div key="block" className={styles.cardsContainer}>
             {getSlicers()}
-            {getDots()}
             <Row key="cards" className={styles.cards}>
               {getCards()}
             </Row>
