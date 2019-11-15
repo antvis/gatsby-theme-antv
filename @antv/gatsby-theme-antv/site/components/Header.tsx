@@ -78,7 +78,6 @@ const Header: React.FC<HeaderProps> = ({
     typeof defaultLanguage !== 'undefined'
       ? defaultLanguage
       : i18n.language || '';
-  const LogoLink = (link || '').startsWith('http') ? 'a' : Link;
   const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
   const [productMenuVisible, setProductMenuVisible] = useState(false);
   const onProductMouseEnter = (e: React.MouseEvent) => {
@@ -191,13 +190,7 @@ const Header: React.FC<HeaderProps> = ({
       <div className={styles.container}>
         <div className={styles.left}>
           <h1>
-            {React.createElement(
-              LogoLink,
-              {
-                [LogoLink === 'a' ? 'href' : 'to']: link || `/${lang}`,
-              },
-              img,
-            )}
+            <a href={link || `/${lang}`}>{img}</a>
           </h1>
           {subTitle && (
             <>

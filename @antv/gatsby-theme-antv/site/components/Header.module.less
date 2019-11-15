@@ -37,12 +37,16 @@
   .left {
     display: flex;
     align-items: center;
+    height: 100%;
 
     h1 {
       margin: 0;
+      height: 100%;
 
-      img {
+      img,
+      a {
         display: block;
+        height: 100%;
       }
     }
 
@@ -58,7 +62,12 @@
       margin: 0;
 
       a {
-        color: rgba(0, 0, 0, 0.9);
+        color: rgba(0, 0, 0, 0.85);
+        transition: all 0.3s;
+
+        &:hover {
+          color: rgba(0, 0, 0, 1);
+        }
       }
     }
   }
