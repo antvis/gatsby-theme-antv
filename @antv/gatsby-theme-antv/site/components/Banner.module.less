@@ -76,11 +76,23 @@
         width: 40px;
         margin-left: 2%;
         background-size: contain;
+        border: 1px solid #873bf4;
+        border-radius: 50%;
+        transition: all 0.15s;
         cursor: pointer;
-        background-image: url('https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*rCLDTI4VJGgAAAAAAAAAAABkARQnAQ');
-        background-size: 100% 100%;
+        .videoButtonIcon {
+          margin-left: 50%;
+          margin-top: 50%;
+          transform: translateX(-7px) translateY(-8px);
+          font-size: 18px;
+          color: #873bf4;
+          &:hover {
+            color: #af7dff;
+          }
+        }
         &:hover {
-          background-image: url('https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*RhfRSqL9Iy8AAAAAAAAAAABkARQnAQ');
+          border: 1px solid #af7dff;
+          background-color: rgba(135, 59, 244, 0.03);
         }
       }
       .githubWrapper {
