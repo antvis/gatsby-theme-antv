@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { Editor } from 'codemirror';
 import classNames from 'classnames';
+import path from 'path';
 import { Typography, Icon, Tooltip, Result } from 'antd';
 import debounce from 'lodash/debounce';
 import { getParameters } from 'codesandbox/lib/api/define';
@@ -27,6 +28,7 @@ export interface PlayGroundProps {
   recommended?: boolean;
   filename: string;
   title?: string;
+  location?: Location;
   playground?: {
     container?: string;
     playgroundDidMount?: string;
@@ -75,6 +77,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   babeledSource,
   relativePath = '',
   playground = {},
+  location,
 }) => {
   const { t } = useTranslation();
   const fullscreenNode = useRef<HTMLDivElement>(null);
@@ -182,33 +185,43 @@ insertCss(`,
   const fileExtension =
     relativePath.split('.')[relativePath.split('.').length - 1] || 'js';
 
-  const parameters = getParameters({
-    files: {
-      'package.json': {
-        content: {
-          dependencies: {
-            '@antv/data-set': 'latest',
-            '@antv/g': 'latest',
-            '@antv/g2plot': 'latest',
-            '@antv/g6': 'latest',
-            '@antv/f2': 'latest',
-            '@antv/l7': 'latest',
-            '@antv/graphin': 'latest',
-            '@antv/g2': 'latest',
-            'insert-css': 'latest',
-            react: 'latest',
-            'react-dom': 'latest',
-          },
+  const files = {
+    'package.json': {
+      content: {
+        dependencies: {
+          'd3': 'd3',
+          'd3-force': 'd3-force',
+          '@antv/hierarchy': '@antv/hierarchy',
+          '@antv/util': '@antv/util',
+          '@antv/data-set': 'latest',
+          '@antv/g': 'latest',
+          '@antv/g2plot': 'latest',
+          '@antv/g6': 'latest',
+          '@antv/f2': 'latest',
+          '@antv/l7': 'latest',
+          '@antv/graphin': 'latest',
+          '@antv/g2': 'latest',
+          'insert-css': 'latest',
+          react: 'latest',
+          'react-dom': 'latest',
         },
       },
-      [`index.${fileExtension}`]: {
-        content: currentSourceCode,
-      },
-      'index.html': {
-        content: playground.container || '<div id="container" />',
-      },
     },
-  });
+    [`index.${fileExtension}`]: {
+      content: currentSourceCode,
+    },
+    'index.html': {
+      content: playground.container || '<div id="container" />',
+    },
+  } as {
+    [key: string]: any;
+  };
+
+  const dataFileMatcher = currentSourceCode.match(/fetch\('(.*)'\)/);
+  if (dataFileMatcher && dataFileMatcher.length > 0 && !dataFileMatcher[1].startsWith('http')) {
+    const [filename] = dataFileMatcher[1].split('/').slice(-1);
+    files[`index.${fileExtension}`].content = currentSourceCode.replace(dataFileMatcher[1], path.join(location!.origin, location!.pathname, `../data/${filename}`));
+  }
 
   return (
     <div className={styles.playground} ref={fullscreenNode}>
@@ -240,7 +253,11 @@ insertCss(`,
                 method="POST"
                 target="_blank"
               >
-                <input type="hidden" name="parameters" value={parameters} />
+                <input
+                  type="hidden"
+                  name="parameters"
+                  value={getParameters({ files })}
+                />
                 <button type="submit" className={styles.codesandbox}>
                   <Icon type="code-sandbox" style={{ marginLeft: 12 }} />
                 </button>
