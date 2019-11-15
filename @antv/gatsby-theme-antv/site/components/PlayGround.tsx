@@ -5,6 +5,7 @@ import { Editor } from 'codemirror';
 import classNames from 'classnames';
 import { Typography, Icon, Tooltip, Result } from 'antd';
 import debounce from 'lodash/debounce';
+import { getParameters } from 'codesandbox/lib/api/define';
 import {
   useTranslation,
   withTranslation,
@@ -178,6 +179,37 @@ insertCss(`,
     />
   );
 
+  const fileExtension =
+    relativePath.split('.')[relativePath.split('.').length - 1] || 'js';
+
+  const parameters = getParameters({
+    files: {
+      'package.json': {
+        content: {
+          dependencies: {
+            '@antv/data-set': 'latest',
+            '@antv/g': 'latest',
+            '@antv/g2plot': 'latest',
+            '@antv/g6': 'latest',
+            '@antv/f2': 'latest',
+            '@antv/l7': 'latest',
+            '@antv/graphin': 'latest',
+            '@antv/g2': 'latest',
+            'insert-css': 'latest',
+            react: 'latest',
+            'react-dom': 'latest',
+          },
+        },
+      },
+      [`index.${fileExtension}`]: {
+        content: currentSourceCode,
+      },
+      'index.html': {
+        content: playground.container || '<div id="container" />',
+      },
+    },
+  });
+
   return (
     <div className={styles.playground} ref={fullscreenNode}>
       <SplitPane split="vertical" defaultSize="66%" minSize={100}>
@@ -202,13 +234,26 @@ insertCss(`,
         </div>
         <div className={styles.editor}>
           <div className={styles.toolbar}>
+            <Tooltip title={t('在 CodeSandbox 中打开')}>
+              <form
+                action="https://codesandbox.io/api/v1/sandboxes/define"
+                method="POST"
+                target="_blank"
+              >
+                <input type="hidden" name="parameters" value={parameters} />
+                <button type="submit" className={styles.codesandbox}>
+                  <Icon type="code-sandbox" style={{ marginLeft: 12 }} />
+                </button>
+              </form>
+            </Tooltip>
+            <Paragraph copyable={{ text: currentSourceCode }} />
             <Tooltip title={isFullScreen ? t('离开全屏') : t('进入全屏')}>
               <Icon
                 type={isFullScreen ? 'fullscreen-exit' : 'fullscreen'}
                 onClick={toggleFullscreen}
+                style={{ marginLeft: 12 }}
               />
             </Tooltip>
-            <Paragraph copyable={{ text: currentSourceCode }} />
             <Tooltip title={t('执行代码')}>
               <Icon
                 type="play-circle"
