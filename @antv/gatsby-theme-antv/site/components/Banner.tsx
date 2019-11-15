@@ -1,7 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { Icon } from 'antd';
-import { Modal } from 'antd';
+import { Icon, Modal } from 'antd';
 import GitHubButton from 'react-github-button';
 import gh from 'parse-github-url';
 import classNames from 'classnames';
