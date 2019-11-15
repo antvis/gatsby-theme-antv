@@ -13,6 +13,10 @@
     margin-left: 4.2%;
     margin-bottom: 5%;
     position: relative;
+    width: 1440px;
+    max-width: calc(100% - 120px);
+    margin-left: auto;
+    margin-right: auto;
   }
   .title {
     font-size: 2.8em;
@@ -42,12 +46,23 @@
     height: 75%;
   }
   .rightbottom {
+    position: absolute;
+    width: 95.83%;
+    left: 4.17%;
+    top: 144px;
     background: #fff;
+    height: 65%;
+    box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  .rightbottomWithoutTitle {
+    top: 48px;
+    height: 75%;
+  }
+  .cardsContainer {
     width: 100%;
     height: 65%;
     margin-top: 48px;
     position: relative;
-    box-shadow: -5px 5px 15px rgba(0, 0, 0, 0.1);
     .divider {
       position: absolute;
       width: 1px;
@@ -64,7 +79,7 @@
       width: -webkit-fill-available;
       flex-wrap: wrap;
       margin-left: 4.06%;
-      width: 87.8%; // 1 - (0.08 * 0.92 + 0.06)
+      // width: 87.8%; // 1 - (0.08 * 0.92 + 0.06)
     }
   }
 }
@@ -85,6 +100,43 @@
       height: 100%;
       width: 95.73%;
     }
+    .rightbottom {
+      height: 79.5%;
+      margin-top: 48px;
+      .slicerbarv {
+        position: absolute;
+        background-color: #f2f4f5;
+        width: 1px;
+        height: 100%;
+        margin-left: 3%;
+        display: block;
+      }
+      .slicerbarv2 {
+        margin-left: 92.2%; // 1 - (0.96 * 0.04 + 0.04)
+      }
+      .slicerbarh {
+        position: absolute;
+        background-color: #f2f4f5;
+        width: 100%;
+        height: 1px;
+        display: block;
+        margin-top: 45px;
+      }
+      .slicerbarh2 {
+        margin-top: 395px;
+      }
+      .slicerbarh3 {
+        margin-top: 745px;
+      }
+      .slicerbarh4 {
+        margin-top: 1095px;
+      }
+    }
+
+    .rightbottomWithoutTitle {
+      top: 48px;
+      height: 86.5%;
+    }
     .lefttopWithTitle {
       height: 95.73%;
     }
@@ -92,53 +144,25 @@
       height: 95.73%;
     }
     .content {
-      width: 95.73%;
-      margin-left: 4.27%;
+      // width: 95.73%;
+      // margin-left: 4.27%;
       .title {
         font-size: 2.143rem;
         margin: 80px 0 60px 0;
       }
-      .rightbottom {
+      .cardsContainer {
+        // margin-top: 48px;
         margin-bottom: 70px;
         .cards {
           margin-top: 60px;
           margin-left: 3.34%;
-          width: 88.86%; // 1 - (0.96 * 0.04 + 0.08)
+          // width: 88.86%; // 1 - (0.96 * 0.04 + 0.08)
           padding-top: 45px;
           padding-bottom: 45px;
           .cardWrapper {
             width: 100%;
             height: 350px;
           }
-        }
-
-        .slicerbarv {
-          position: absolute;
-          background-color: #f2f4f5;
-          width: 1px;
-          height: 100%;
-          margin-left: 3%;
-          display: block;
-        }
-        .slicerbarv2 {
-          margin-left: 92.16%; // 1 - (0.96 * 0.04 + 0.04)
-        }
-        .slicerbarh {
-          position: absolute;
-          background-color: #f2f4f5;
-          width: 100%;
-          height: 1px;
-          display: block;
-          margin-top: 45px;
-        }
-        .slicerbarh2 {
-          margin-top: 395px;
-        }
-        .slicerbarh3 {
-          margin-top: 745px;
-        }
-        .slicerbarh4 {
-          margin-top: 1095px;
         }
         .divider {
           display: none;
