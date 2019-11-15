@@ -188,8 +188,9 @@ insertCss(`,
   const files = {
     'package.json': {
       content: {
+        main: `index.${fileExtension}`,
         dependencies: {
-          'd3': 'd3',
+          d3: 'd3',
           'd3-force': 'd3-force',
           '@antv/hierarchy': '@antv/hierarchy',
           '@antv/util': '@antv/util',
@@ -218,9 +219,16 @@ insertCss(`,
   };
 
   const dataFileMatcher = currentSourceCode.match(/fetch\('(.*)'\)/);
-  if (dataFileMatcher && dataFileMatcher.length > 0 && !dataFileMatcher[1].startsWith('http')) {
+  if (
+    dataFileMatcher &&
+    dataFileMatcher.length > 0 &&
+    !dataFileMatcher[1].startsWith('http')
+  ) {
     const [filename] = dataFileMatcher[1].split('/').slice(-1);
-    files[`index.${fileExtension}`].content = currentSourceCode.replace(dataFileMatcher[1], path.join(location!.origin, location!.pathname, `../data/${filename}`));
+    files[`index.${fileExtension}`].content = currentSourceCode.replace(
+      dataFileMatcher[1],
+      path.join(location!.origin, location!.pathname, `../data/${filename}`),
+    );
   }
 
   return (
