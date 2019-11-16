@@ -24,17 +24,11 @@ const Features: React.FC<FeaturesProps> = ({
   style,
 }) => {
   const getCards = () => {
-    const children = features.map((card, i) => {
-      let divider = false;
-      if (i !== 0 && i !== features.length - 1) {
-        divider = true;
-      }
-      return (
-        <Col className={styles.cardWrapper} key={card.title} md={8} xs={24}>
-          <FeatureCard {...card} divider={divider} />
-        </Col>
-      );
-    });
+    const children = features.map((card, i) => (
+      <Col className={styles.cardWrapper} key={card.title} md={8} xs={24}>
+        <FeatureCard {...card} divider={i !== 0 && i !== features.length - 1} />
+      </Col>
+    ));
     return children;
   };
 
