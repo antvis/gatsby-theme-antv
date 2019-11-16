@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { default as RCFooter, FooterProps as RcFooterProps } from 'rc-footer';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'antd';
+import { Icon, notification, Button } from 'antd';
 import { getProducts } from './getProducts';
 import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
@@ -26,6 +26,59 @@ const Footer: React.FC<FooterProps> = ({
     t,
     language: lang,
     rootDomain,
+  });
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (
+        lang !== 'zh' ||
+        window.location.host === 'antv.gitee.io' ||
+        localStorage.getItem('china-mirror-no-more-hint')
+      ) {
+        return;
+      }
+      notification.info({
+        key: 'china-mirror',
+        message: '🇨🇳 中文镜像提示',
+        description:
+          'AntV 系列网站部署在 gh-pages 上，若访问速度不佳，可以前往我们的国内镜像站点。',
+        placement: 'bottomRight',
+        duration: 0,
+        btn: (
+          <>
+            <Button
+              type="primary"
+              size="small"
+              style={{ marginRight: 8 }}
+              onClick={() => {
+                window.location.href = window.location.href.replace(
+                  window.location.host,
+                  'antv.gitee.io',
+                );
+              }}
+            >
+              <Icon type="thunderbolt" />
+              前往国内镜像
+            </Button>
+            <Button
+              size="small"
+              onClick={() => notification.close('china-mirror')}
+            >
+              不再提醒
+            </Button>
+          </>
+        ),
+        onClose: () => {
+          localStorage.setItem(
+            'china-mirror-no-more-hint',
+            Date.now().toString(),
+          );
+        },
+      });
+    }, 5000);
+    return () => {
+      clearTimeout(timeout);
+    };
   });
 
   const more = {
