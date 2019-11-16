@@ -144,7 +144,7 @@ const Features: React.FC<FeaturesProps> = ({
             {title}
           </p>
           <div key="block" className={styles.cardsContainer}>
-            {getSlicers()}
+            {/* {getSlicers()} */}
             <Row key="cards" className={styles.cards}>
               {getCards()}
             </Row>
