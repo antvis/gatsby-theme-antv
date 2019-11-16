@@ -247,7 +247,7 @@ export const getProducts = ({
     {
       title: 'Graphin',
       icon: 'https://gw.alipayobjects.com/zos/antfincdn/0b4HzOcEJY/Graphin.svg',
-      slogan: t('图分析框架'),
+      slogan: t('图分析可视化组件'),
       description: t('开箱即用的图分析应用 React 组件库。'),
       category: Categories[1],
       links: [
