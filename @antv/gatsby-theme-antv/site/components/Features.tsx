@@ -38,7 +38,7 @@ const Features: React.FC<FeaturesProps> = ({
     const slicers = [];
     const slicerNum = features.length - 1;
     for (let i = 0; i < slicerNum; i += 1) {
-      const left = `${(0.878 * 0.3333 * (i + 1) + 0.04) * 100}%`;
+      const left = `${(0.95 * 0.3333 * (i + 1) + 0.05) * 100}%`;
       slicers.push(
         <div key={i} className={styles.divider} style={{ marginLeft: left }} />,
       );
