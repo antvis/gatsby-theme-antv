@@ -24,26 +24,18 @@ const Features: React.FC<FeaturesProps> = ({
   style,
 }) => {
   const getCards = () => {
-    const children = features.map(card => {
+    const children = features.map((card, i) => {
+      let divider = false;
+      if (i !== 0 && i !== features.length - 1) {
+        divider = true;
+      }
       return (
         <Col className={styles.cardWrapper} key={card.title} md={8} xs={24}>
-          <FeatureCard {...card} />
+          <FeatureCard {...card} divider={divider} />
         </Col>
       );
     });
     return children;
-  };
-
-  const getSlicers = () => {
-    const slicers = [];
-    const slicerNum = features.length - 1;
-    for (let i = 0; i < slicerNum; i += 1) {
-      const left = `${(0.95 * 0.3333 * (i + 1) + 0.05) * 100}%`;
-      slicers.push(
-        <div key={i} className={styles.divider} style={{ marginLeft: left }} />,
-      );
-    }
-    return slicers;
   };
 
   // for small screen
@@ -144,7 +136,6 @@ const Features: React.FC<FeaturesProps> = ({
             {title}
           </p>
           <div key="block" className={styles.cardsContainer}>
-            {/* {getSlicers()} */}
             <Row key="cards" className={styles.cards}>
               {getCards()}
             </Row>
