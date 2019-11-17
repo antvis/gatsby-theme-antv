@@ -228,7 +228,11 @@ insertCss(`,
     const [filename] = dataFileMatch[1].split('/').slice(-1);
     files[`index.${fileExtension}`].content = currentSourceCode.replace(
       dataFileMatch[1],
-      path.join(location!.origin, location!.pathname, `../data/${filename}`),
+      path.join(
+        location!.origin || '',
+        location!.pathname || '',
+        `../data/${filename}`,
+      ),
     );
   }
 
