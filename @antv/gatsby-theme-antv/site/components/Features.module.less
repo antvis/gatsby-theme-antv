@@ -68,6 +68,13 @@
       width: -webkit-fill-available;
       flex-wrap: wrap;
       margin-left: 4.06%;
+      .cardWrapper {
+        margin: 68px 0 93px 0;
+        border-right: 1px solid rgba(0, 0, 0, 0.1);
+        &:last-child {
+          border-right: 0px;
+        }
+      }
     }
   }
 }
@@ -98,6 +105,7 @@
         height: 100%;
         margin-left: 3%;
         display: block;
+        z-index: 1;
       }
       .slicerbarv2 {
         margin-left: 92.2%; // 1 - (0.96 * 0.04 + 0.04)
@@ -144,8 +152,10 @@
           padding-top: 45px;
           padding-bottom: 45px;
           .cardWrapper {
+            margin: 68px 0 68px 0;
             width: 100%;
-            height: 350px;
+            height: 216px;
+            border-right: 0px;
           }
         }
       }
@@ -153,5 +163,6 @@
   }
   .dot {
     display: block;
+    z-index: 2;
   }
 }
