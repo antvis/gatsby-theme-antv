@@ -143,7 +143,11 @@ const Banner: React.FC<BannerProps> = ({
       style={{ marginLeft: i === 0 ? '0%' : '2%' }}
     >
       <div
-        className={classNames(styles.button, styles[button.type || ''])}
+        className={classNames(
+          styles.button,
+          styles[button.type || ''],
+          'primary-button',
+        )}
         style={button.style}
       >
         {button.text}
@@ -188,8 +192,10 @@ const Banner: React.FC<BannerProps> = ({
           <div className={styles.buttons}>{renderButtons}</div>
         </div>
         <div className={styles.notifications}>{getNotifications()}</div>
-        <div className={styles.teaser}>
-          <div className={styles.teaserimg}>{coverImage}</div>
+        <div className={classNames(styles.teaser, 'teaser')}>
+          <div className={classNames(styles.teaserimg, 'teaser-img')}>
+            {coverImage}
+          </div>
         </div>
         <img
           className={styles.backLeftBottom}
