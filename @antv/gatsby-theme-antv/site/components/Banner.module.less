@@ -72,27 +72,32 @@
           }
         }
       }
-      .videoButton {
-        width: 40px;
+      .videoButtonWrapper {
         margin-left: 2%;
-        background-size: contain;
-        border: 1px solid #873bf4;
-        border-radius: 50%;
-        transition: all 0.15s;
-        cursor: pointer;
-        .videoButtonIcon {
-          margin-left: 50%;
-          margin-top: 50%;
-          transform: translateX(-7px) translateY(-8px);
-          font-size: 18px;
-          color: #873bf4;
-          &:hover {
-            color: #af7dff;
+        width: fit-content;
+        height: fit-content;
+        .videoButton {
+          width: 40px;
+          height: 40px;
+          background-size: contain;
+          border: 1px solid #873bf4;
+          border-radius: 50%;
+          transition: all 0.15s;
+          cursor: pointer;
+          .videoButtonIcon {
+            margin-left: 50%;
+            margin-top: 50%;
+            transform: translateX(-7px) translateY(-8px);
+            font-size: 18px;
+            color: #873bf4;
+            &:hover {
+              color: #af7dff;
+            }
           }
-        }
-        &:hover {
-          border: 1px solid #af7dff;
-          background-color: rgba(135, 59, 244, 0.03);
+          &:hover {
+            border: 1px solid #af7dff;
+            background-color: rgba(135, 59, 244, 0.03);
+          }
         }
       }
       .githubWrapper {
@@ -279,8 +284,10 @@
         .githubIframe {
           height: 40px;
         }
-        .videoButton {
-          width: 51px;
+        .videoButtonWrapper {
+          margin-left: 10%;
+          width: fit-content;
+          height: fit-content;
         }
       }
     }

@@ -157,12 +157,18 @@ const Banner: React.FC<BannerProps> = ({
 
   if (video) {
     renderButtons.push(
-      <div key="video" onClick={showVideo} className={styles.videoButton}>
-        <Icon
-          type="caret-right"
-          className={styles.videoButtonIcon}
-          style={{ fontSize: '16px', color: '#873BF4' }}
-        />
+      <div
+        key="video"
+        onClick={showVideo}
+        className={styles.videoButtonWrapper}
+      >
+        <div className={styles.videoButton}>
+          <Icon
+            type="caret-right"
+            className={styles.videoButtonIcon}
+            style={{ fontSize: '16px', color: '#873BF4' }}
+          />
+        </div>
       </div>,
     );
   }
