@@ -82,23 +82,30 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     return children;
   }
 
-  let rediectUrl;
-  (redirects || []).forEach(
-    ({ from, to }: { from: string | RegExp; to: string }) => {
+  const getRediectUrl = () => {
+    const list = redirects || [];
+    for (let i = 0; i < list.length; i += 1) {
+      const { from = '', to, keepUrl } = list[i] as {
+        from: string | RegExp;
+        to: string;
+        keepUrl?: boolean;
+      };
       // 支持字符串和正则表达式比较
       if (
-        location.pathname === from ||
-        new RegExp(from || '').test(location.pathname)
+        location.pathname !== from &&
+        !new RegExp(from).test(location.pathname)
       ) {
-        if (to) {
-          rediectUrl = to;
-        } else {
-          // 如果没有指定 to，则直接用替换成老版本的域名
-          rediectUrl = `${OLD_SITE_DOMAIN}${location.pathname}`;
-        }
+        return;
       }
-    },
-  );
+      if (keepUrl && new RegExp(from).test(location.pathname)) {
+        return location.pathname.replace(new RegExp(from), to);
+      }
+      // 如果没有指定 to，则直接用替换成老版本的域名
+      return to || `${OLD_SITE_DOMAIN}${location.pathname}`;
+    }
+  };
+
+  const rediectUrl = getRediectUrl();
 
   return (
     <>
