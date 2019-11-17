@@ -55,16 +55,7 @@ const Header: React.FC<HeaderProps> = ({
   showSearch = true,
   showGithubCorner = true,
   showLanguageSwitcher = true,
-  logo: { img, link } = {
-    img: (
-      <img
-        src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
-        alt="AntV"
-        width="94"
-      />
-    ),
-    link: '',
-  },
+  logo,
   onLanguageChange,
   githubUrl = 'https://github.com/antvis',
   defaultLanguage,
@@ -98,6 +89,17 @@ const Header: React.FC<HeaderProps> = ({
   const [popupMenuVisible, setPopupMenuVisible] = useState(false);
   const onTogglePopupMenuVisible = () => {
     setPopupMenuVisible(!popupMenuVisible);
+  };
+
+  const { img, link } = {
+    img: (
+      <img
+        src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
+        alt="logo"
+      />
+    ),
+    link: '',
+    ...logo,
   };
 
   useEffect(() => {

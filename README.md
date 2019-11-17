@@ -53,6 +53,7 @@ module.exports = {
     title: `AntV`,
     description: `Ant Visualization solution home page`,
     githubUrl: repository.url,
+    logoUrl: '', // 自定义 logo
     navs: [], // 用于定义顶部菜单
     docs: [], // 用于定义文档页面的二级分类菜单
     examples: [], // 用于定义演示页面的二级菜单，属性见下方

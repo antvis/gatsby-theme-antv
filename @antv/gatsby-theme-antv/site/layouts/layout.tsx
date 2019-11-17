@@ -35,6 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         siteMetadata {
           title
           githubUrl
+          logoUrl
           showLanguageSwitcher
           navs {
             slug
@@ -58,6 +59,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
       title,
       navs = [],
       githubUrl,
+      logoUrl = '',
       showLanguageSwitcher,
       redirects = [],
     },
@@ -110,6 +112,17 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         path={path}
         pathPrefix={pathPrefix}
         navs={navs}
+        logo={{
+          img: (
+            <img
+              src={
+                logoUrl ||
+                'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg'
+              }
+              alt="logo"
+            />
+          ),
+        }}
         githubUrl={githubUrl}
         Link={Link}
         transparent={isHomePage}
