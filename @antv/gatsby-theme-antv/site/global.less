@@ -1,3 +1,5 @@
+@import '~antd/es/style/themes/default.less';
+
 html {
   overflow-x: hidden;
 }
@@ -56,4 +58,27 @@ iframe[src="https://tracert.alipay.com/cross.html"] {
   left: -100px;
   bottom: -100px;
   display: none;
+}
+
+.algolia-autocomplete {
+  .ds-dropdown-menu {
+    border: none;
+    box-shadow: @box-shadow-base;
+
+    [class^='ds-dataset-'] {
+      border: none;
+    }
+
+    &::before {
+      display: none;
+    }
+  }
+
+  .algolia-docsearch-suggestion--title {
+    color: @text-color;
+  }
+
+  .algolia-docsearch-suggestion--highlight {
+    color: @primary-color;
+  }
 }
