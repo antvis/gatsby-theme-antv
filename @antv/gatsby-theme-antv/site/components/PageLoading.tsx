@@ -1,11 +1,10 @@
 import React from 'react';
-import { Skeleton } from 'antd';
+import { Icon } from 'antd';
+import styles from './PageLoading.module.less';
 
 const PageLoading = () => (
-  <div style={{ padding: '100px 20% 0' }}>
-    <Skeleton />
-    <Skeleton />
-    <Skeleton />
+  <div className={styles.container}>
+    <Icon type="loading" className={styles.loading} />
   </div>
 );
 
