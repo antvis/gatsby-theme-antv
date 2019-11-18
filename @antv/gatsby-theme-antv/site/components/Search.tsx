@@ -5,8 +5,8 @@ import styles from './Search.module.less';
 
 function initDocSearch(docsearch: any, lang: string) {
   docsearch({
-    apiKey: '60ac2c1a7d26ab713757e4a081e133d0',
-    indexName: 'ant_design',
+    apiKey: '194b1be7fb1254c787f4e036912af3eb',
+    indexName: 'antv',
     inputSelector: `.${styles.input}`,
     algoliaOptions: { facetFilters: [`tags:${lang}`] },
     transformData(hits: Array<{ url: string }>) {
@@ -16,7 +16,7 @@ function initDocSearch(docsearch: any, lang: string) {
       });
       return hits;
     },
-    debug: true, // Set debug to true if you want to inspect the dropdown
+    debug: false, // Set debug to true if you want to inspect the dropdown
   });
 }
 
@@ -30,10 +30,10 @@ const Search = () => {
     }
   }, []);
   return (
-    <span className={styles.search}>
+    <label className={styles.search} htmlFor="search">
       <Icon type="search" className={styles.icon} />
-      <input className={styles.input} placeholder={t('搜索…')} />
-    </span>
+      <input className={styles.input} id="search" placeholder={t('搜索…')} />
+    </label>
   );
 };
 
