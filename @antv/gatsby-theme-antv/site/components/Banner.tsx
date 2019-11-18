@@ -32,8 +32,8 @@ interface BannerProps {
   video?: string;
   showGithubStars?: boolean;
   buttons?: BannerButton[];
-  onCloseVideo?: any;
-  onPlayVideo?: Function;
+  onCloseVideo?: () => void;
+  onPlayVideo?: () => void;
 }
 
 const numImgs = [
@@ -54,7 +54,7 @@ const Banner: React.FC<BannerProps> = ({
   video,
   showGithubStars = true,
   buttons = [],
-  onCloseVideo = undefined,
+  onCloseVideo,
   onPlayVideo,
 }) => {
   const { t } = useTranslation();
