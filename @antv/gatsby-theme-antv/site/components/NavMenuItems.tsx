@@ -30,7 +30,7 @@ const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
     <>
       {navs.map((nav: Nav, i) => {
         const href = `/${i18n.language}/${nav.slug}`;
-        const className = classNames({
+        const className = classNames('header-menu-item-active', {
           [styles.activeItem]:
             path.startsWith(href) ||
             shallowequal(
