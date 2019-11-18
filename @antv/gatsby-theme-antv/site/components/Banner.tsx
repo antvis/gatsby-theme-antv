@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Icon, Modal } from 'antd';
 import GitHubButton from 'react-github-button';
@@ -136,9 +137,9 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   const renderButtons = buttons.map((button: BannerButton, i) => (
-    <a
+    <Link
       key={i}
-      href={button.link}
+      to={button.link}
       target="newtag"
       style={{ marginLeft: i === 0 ? '0%' : '2%' }}
     >
@@ -152,7 +153,7 @@ const Banner: React.FC<BannerProps> = ({
       >
         {button.text}
       </div>
-    </a>
+    </Link>
   ));
 
   if (video) {
