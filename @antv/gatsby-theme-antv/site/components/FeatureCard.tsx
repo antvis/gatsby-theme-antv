@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import styles from './FeatureCard.module.less';
 
 interface FeatureProps {
@@ -16,14 +17,12 @@ const FeatureCard: React.FC<FeatureProps> = ({
 }) => {
   return (
     <div className={styles.card}>
-      <div
-        className={styles.content}
-        // style={{
-        //   borderRight: divider ? '1px solid rgba(0, 0, 0, 0.1)' : '0px',
-        //   borderLeft: divider ? '1px solid rgba(0, 0, 0, 0.1)' : '0px',
-        // }}
-      >
-        <img className={styles.icon} src={icon} alt="advantage" />
+      <div className={styles.content}>
+        <img
+          className={classNames(styles.icon, 'feature-logo')}
+          src={icon}
+          alt="advantage"
+        />
         <p className={styles.title}>{title}</p>
         <p className={styles.description}>{description}</p>
       </div>
