@@ -5,8 +5,8 @@ import GitHubButton from 'react-github-button';
 import gh from 'parse-github-url';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import styles from './Banner.module.less';
 import Notification from './Notification';
+import styles from './Banner.module.less';
 
 interface Notification {
   type: string;
