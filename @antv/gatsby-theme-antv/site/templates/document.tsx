@@ -232,7 +232,7 @@ export default function Template({
               dangerouslySetInnerHTML={{ __html: tableOfContents }}
             />
           </Affix>
-          <div className={styles.main} style={{ marginTop: isWide ? 0 : 30 }}>
+          <div className={styles.main}>
             <h1>
               {frontmatter.title}
               <Tooltip title={t('在 GitHub 上编辑')}>

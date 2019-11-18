@@ -108,14 +108,21 @@ const Header: React.FC<HeaderProps> = ({
     }
   }, [path]);
 
+  /*
+  const [menuLoading, setMenuLoading] = useState(true);
+  useEffect(() => {
+    setMenuLoading(false);
+  }, []);
+  */
+
   const isWide = useMedia('(min-width: 767.99px)', true);
-  const menuIcon = (
+  const menuIcon = !isWide ? (
     <Icon
       type="menu"
       className={styles.menuIcon}
       onClick={onTogglePopupMenuVisible}
     />
-  );
+  ) : null;
 
   const productItemProps = isWide
     ? {
@@ -215,7 +222,7 @@ const Header: React.FC<HeaderProps> = ({
         </div>
         <nav className={styles.nav}>
           {menu}
-          {isWide ? null : menuIcon}
+          {menuIcon}
         </nav>
       </div>
     </header>

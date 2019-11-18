@@ -259,10 +259,7 @@ export default function Template({
         className={styles.layout}
       >
         {menuSider}
-        <Article
-          className={styles.markdown}
-          style={{ marginTop: isWide ? 0 : 30 }}
-        >
+        <Article className={styles.markdown}>
           <div className={styles.main} style={{ width: '100%' }}>
             <h1>
               {frontmatter.title}

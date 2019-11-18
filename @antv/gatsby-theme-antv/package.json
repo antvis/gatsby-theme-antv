@@ -90,7 +90,7 @@
     "react-slick": "^0.25.2",
     "react-split-pane": "^0.1.87",
     "react-test-renderer": "^16.9.0",
-    "react-use": "^13.6.3",
+    "react-use": "^13.8.0",
     "release-it": "^12.4.3",
     "shallowequal": "^1.1.0",
     "slick-carousel": "^1.8.1",
