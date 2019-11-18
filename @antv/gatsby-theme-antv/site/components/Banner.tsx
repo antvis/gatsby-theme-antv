@@ -54,7 +54,7 @@ const Banner: React.FC<BannerProps> = ({
   video,
   showGithubStars = true,
   buttons = [],
-  onCloseVideo = () => {},
+  onCloseVideo = undefined,
   onPlayVideo,
 }) => {
   const { t } = useTranslation();
