@@ -11,6 +11,7 @@ function initDocSearch(docsearch: any, lang: string) {
     algoliaOptions: { facetFilters: [`tags:${lang}`] },
     transformData(hits: Array<{ url: string }>) {
       hits.forEach(hit => {
+        hit.url = hit.url.replace('antvis.github.io', window.location.host); // eslint-disable-line
         hit.url = hit.url.replace('antv.alipay.com', window.location.host); // eslint-disable-line
         hit.url = hit.url.replace('https:', window.location.protocol); // eslint-disable-line
       });
