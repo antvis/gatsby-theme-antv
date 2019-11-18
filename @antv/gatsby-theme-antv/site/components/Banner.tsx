@@ -7,7 +7,6 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import styles from './Banner.module.less';
 import Notification from './Notification';
-import { ModalFuncProps } from 'antd/lib/modal';
 
 interface Notification {
   type: string;
@@ -33,7 +32,7 @@ interface BannerProps {
   video?: string;
   showGithubStars?: boolean;
   buttons?: BannerButton[];
-  afterCloseVideo?: any;
+  onCloseVideo?: any;
   onPlayVideo?: Function;
 }
 
@@ -55,7 +54,7 @@ const Banner: React.FC<BannerProps> = ({
   video,
   showGithubStars = true,
   buttons = [],
-  afterCloseVideo = () => {},
+  onCloseVideo = () => {},
   onPlayVideo,
 }) => {
   const { t } = useTranslation();
@@ -127,7 +126,7 @@ const Banner: React.FC<BannerProps> = ({
     onPlayVideo && onPlayVideo();
     Modal.info({
       title: 'This is a notification message',
-      onCancel: afterCloseVideo,
+      onCancel: onCloseVideo,
       content: (
         <video
           className={styles.video}
