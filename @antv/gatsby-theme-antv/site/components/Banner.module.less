@@ -6,7 +6,7 @@
   background: linear-gradient(225deg, #ffffff, #f0f5ff);
   height: calc(94vh);
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
   .content {
     .container1440;
     height: 100%;
@@ -296,7 +296,7 @@
     }
     .notifications {
       width: 100%;
-      bottom: 60px;
+      bottom: 63px;
       .notiWrapper {
         width: 100%;
         position: absolute;
@@ -309,6 +309,7 @@
       .noti1 {
         width: 100%;
         position: absolute;
+        top: 44px;
         animation: showAndHide1 6s infinite;
       }
     }
@@ -373,41 +374,27 @@
   }
 }
 
-@media (max-width: 480px) {
-  .wrapper {
-    .text {
-      .buttons {
-        margin-top: 80%;
-        z-index: 1;
-      }
-    }
-    .teaser {
-      top: 12%;
-    }
-  }
-}
-
 /* Standard syntax */
 @keyframes showAndHide0 {
   0% {
     opacity: 1;
-    margin-top: 0px;
+    top: 0px;
   }
   33.3% {
     opacity: 1;
-    margin-top: 0px;
+    top: 0px;
   }
   50% {
     opacity: 0;
-    margin-top: -30px;
+    top: -30px;
   }
   83.3% {
     opacity: 0;
-    margin-top: 30px;
+    top: 30px;
   }
   100% {
     opacity: 1;
-    margin-top: 0px;
+    top: 0px;
   }
 }
 
@@ -415,22 +402,22 @@
 @keyframes showAndHide1 {
   0% {
     opacity: 0;
-    margin-top: 30px;
+    top: 30px;
   }
   33.3% {
     opacity: 0;
-    margin-top: 30px;
+    top: 30px;
   }
-  40% {
+  50% {
     opacity: 1;
-    padding-top: 0px;
+    top: 0px;
   }
   83.3% {
     opacity: 1;
-    margin-top: 0px;
+    top: 0px;
   }
   100% {
     opacity: 0;
-    margin-top: -30px;
+    top: -30px;
   }
 }
