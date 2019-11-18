@@ -96,7 +96,8 @@
     "shallowequal": "^1.1.0",
     "slick-carousel": "^1.8.1",
     "ts-jest": "^24.1.0",
-    "typescript": "^3.6.3"
+    "typescript": "^3.6.3",
+    "video-react": "^0.14.1"
   },
   "license": "MIT",
   "scripts": {
