@@ -13877,7 +13877,7 @@ react-test-renderer@^16.9.0:
     react-is "^16.8.6"
     scheduler "^0.18.0"
 
-react-use@^13.6.3:
+react-use@^13.8.0:
   version "13.8.0"
   resolved "https://registry.npm.taobao.org/react-use/download/react-use-13.8.0.tgz#5e8badaaa5614a1925fd28ad22d01cc1c52e0ff1"
   integrity sha1-XoutqqVhShkl/SitItAcwcUuD/E=
