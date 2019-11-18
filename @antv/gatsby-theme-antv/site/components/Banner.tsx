@@ -32,6 +32,8 @@ interface BannerProps {
   video?: string;
   showGithubStars?: boolean;
   buttons?: BannerButton[];
+  onCloseVideo?: () => void;
+  onPlayVideo?: () => void;
 }
 
 const numImgs = [
@@ -52,6 +54,8 @@ const Banner: React.FC<BannerProps> = ({
   video,
   showGithubStars = true,
   buttons = [],
+  onCloseVideo,
+  onPlayVideo,
 }) => {
   const { t } = useTranslation();
 
@@ -119,8 +123,13 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   const showVideo = () => {
+    if (onPlayVideo) {
+      onPlayVideo();
+    }
+
     Modal.info({
       title: 'This is a notification message',
+      onCancel: onCloseVideo,
       content: (
         <video
           className={styles.video}
