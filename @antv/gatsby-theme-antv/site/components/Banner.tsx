@@ -5,6 +5,8 @@ import GitHubButton from 'react-github-button';
 import gh from 'parse-github-url';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
+import 'video-react/dist/video-react.css';
+import { Player } from 'video-react';
 import Notification from './Notification';
 import styles from './Banner.module.less';
 
@@ -131,14 +133,11 @@ const Banner: React.FC<BannerProps> = ({
       title: 'This is a notification message',
       onCancel: onCloseVideo,
       content: (
-        <video
+        <Player
           className={styles.video}
-          style={{ width: '100%', height: '100%', objectFit: 'fill' }}
-          controls
+          autoPlay={true}
           src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
-        >
-          <track kind="captions" />
-        </video>
+        />
       ),
       width: '70%',
     });
