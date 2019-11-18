@@ -199,7 +199,9 @@ const Banner: React.FC<BannerProps> = ({
             {renderButtons}
           </div>
         </div>
-        <div className={styles.notifications}>{getNotifications()}</div>
+        <div className={classNames(styles.notifications, 'notifications')}>
+          {getNotifications()}
+        </div>
         <div className={classNames(styles.teaser, 'teaser')}>
           <div className={classNames(styles.teaserimg, 'teaser-img')}>
             {coverImage}
