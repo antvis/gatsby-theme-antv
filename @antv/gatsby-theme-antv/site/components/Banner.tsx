@@ -54,7 +54,11 @@ const Banner: React.FC<BannerProps> = ({
   video,
   showGithubStars = true,
   buttons = [],
+<<<<<<< HEAD
   onCloseVideo,
+=======
+  onCloseVideo = undefined,
+>>>>>>> fix: no-unused-expressions problem
   onPlayVideo,
 }) => {
   const { t } = useTranslation();
