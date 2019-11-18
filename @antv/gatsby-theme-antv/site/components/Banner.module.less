@@ -54,6 +54,7 @@
         background-color: transparent;
         color: #845eff;
         text-align: center;
+        padding-top: 10px;
 
         &:hover {
           color: #a78bff;
@@ -355,9 +356,15 @@
 @media (max-width: 480px) {
   .wrapper {
     .text {
+      height: 70%;
       .buttons {
-        margin-top: 80%;
+        bottom: 10px;
+        margin-top: unset;
         z-index: 1;
+        position: absolute;
+        left: 0;
+        width: 100%;
+        justify-content: flex-end;
       }
     }
     .teaser {
