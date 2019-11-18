@@ -129,7 +129,7 @@ const IndexPage = () => {
         onPlayVideo={() => {
           console.log('play');
         }}
-        afterCloseVideo={() => {
+        onCloseVideo={() => {
           console.log('close');
         }}
       />
