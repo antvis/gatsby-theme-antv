@@ -123,7 +123,10 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   const showVideo = () => {
-    onPlayVideo && onPlayVideo();
+    if (onPlayVideo) {
+      onPlayVideo();
+    }
+
     Modal.info({
       title: 'This is a notification message',
       onCancel: onCloseVideo,
