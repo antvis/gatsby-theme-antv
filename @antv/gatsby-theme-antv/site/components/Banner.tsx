@@ -202,8 +202,12 @@ const Banner: React.FC<BannerProps> = ({
     <section className={classNames(styles.wrapper, className)} style={style}>
       <div className={styles.content}>
         <div className={styles.text}>
-          <div className={styles.title}>{title}</div>
-          <p className={styles.description}>{description}</p>
+          <div className={classNames(styles.title, 'banner-title')}>
+            {title}
+          </div>
+          <p className={classNames(styles.description, 'banner-description')}>
+            {description}
+          </p>
           <div className={classNames(styles.buttons, 'banner-buttons')}>
             {renderButtons}
           </div>
