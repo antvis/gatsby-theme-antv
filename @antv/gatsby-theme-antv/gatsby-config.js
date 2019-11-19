@@ -155,12 +155,12 @@ module.exports = ({
           path: `${__dirname}/site/pages`,
         },
       },
-      ...(pagesPath === './site/pages' ? '' : {
+      {
         resolve: `gatsby-plugin-page-creator`,
         options: {
           path: path.resolve(pagesPath),
         },
-      }),
+      },
       {
         resolve: `gatsby-plugin-layout`,
         options: {
