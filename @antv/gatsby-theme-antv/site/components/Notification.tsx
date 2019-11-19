@@ -2,34 +2,43 @@ import React from 'react';
 import classNames from 'classnames';
 import styles from './Notification.module.less';
 
-interface NotificationProps {
-  className?: string;
-  numImg: string;
-  notificationContent: {
-    type: string;
-    title: string;
-    date: string;
-  };
+export interface NotificationProps {
+  index?: number;
+  type: string;
+  title: string;
+  date: string;
+  link: string;
 }
 
+const numberImages = [
+  'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*ViOPRKPsVzoAAAAAAAAAAABkARQnAQ',
+  'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*NFADS6PF0DYAAAAAAAAAAABkARQnAQ',
+];
+
 const Notification: React.FC<NotificationProps> = ({
-  className,
-  numImg,
-  notificationContent,
-}) => {
-  const { type, title, date } = notificationContent;
-  const description = `${type} ‧ ${title}`;
-  return (
-    <div className={classNames(styles.notification, className)}>
+  index = 0,
+  type,
+  title,
+  date,
+  link,
+}) => (
+  <a href={link} className={styles.notiWrapper}>
+    <div className={classNames(styles.notification, styles[`noti${index}`])}>
       <div className={styles.container}>
-        <img className={styles.number} src={numImg} alt="numberimg" />
+        <img
+          className={styles.number}
+          src={numberImages[index]}
+          alt={index.toString()}
+        />
         <div className={styles.content}>
-          <p className={styles.description}>{description}</p>
+          <p className={styles.description}>
+            {type} ‧ {title}
+          </p>
           <p className={styles.date}>{date}</p>
         </div>
       </div>
     </div>
-  );
-};
+  </a>
+);
 
 export default Notification;

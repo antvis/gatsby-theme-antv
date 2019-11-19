@@ -7,15 +7,8 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import 'video-react/dist/video-react.css';
 import { Player } from 'video-react';
-import Notification from './Notification';
 import styles from './Banner.module.less';
-
-interface Notification {
-  type: string;
-  title: string;
-  date: string;
-  link?: string;
-}
+import Notification, { NotificationProps } from './Notification';
 
 interface BannerButton {
   text: string;
@@ -28,7 +21,7 @@ interface BannerProps {
   coverImage?: React.ReactNode;
   title: string;
   description: string;
-  notifications?: Notification[];
+  notifications?: NotificationProps[];
   style?: React.CSSProperties;
   className?: string;
   video?: string;
@@ -37,11 +30,6 @@ interface BannerProps {
   onCloseVideo?: () => void;
   onPlayVideo?: () => void;
 }
-
-const numImgs = [
-  'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*ViOPRKPsVzoAAAAAAAAAAABkARQnAQ',
-  'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*NFADS6PF0DYAAAAAAAAAAABkARQnAQ',
-];
 
 const backLeftBottom =
   'https://gw.alipayobjects.com/zos/basement_prod/441d5eaf-e623-47cd-b9b9-2a581d9ce1e3.svg';
@@ -73,7 +61,7 @@ const Banner: React.FC<BannerProps> = ({
   const { site } = useStaticQuery(query);
   const { githubUrl } = site.siteMetadata;
 
-  const insNotifications: Notification[] = [
+  const insNotifications: NotificationProps[] = [
     {
       type: t('更新'),
       title: t('L7 发布新版本，让地图动起来！'),
@@ -87,42 +75,12 @@ const Banner: React.FC<BannerProps> = ({
       link: '',
     },
   ];
-  if (notifications) {
-    notifications.forEach((noti, i) => {
-      insNotifications[i] = noti;
-    });
-  }
-  const getNotifications = () => {
-    const children = insNotifications.map((notification, i) => {
-      if (i > 1) {
-        return undefined;
-      }
-      let cstyle;
-      switch (i) {
-        case 0: {
-          cstyle = styles.noti0;
-          break;
-        }
-        case 1: {
-          cstyle = styles.noti1;
-          break;
-        }
-        default: {
-          break;
-        }
-      }
-      return (
-        <a href={notification.link} key={i} className={styles.notiWrapper}>
-          <Notification
-            className={cstyle}
-            numImg={numImgs[i]}
-            notificationContent={notification}
-          />
-        </a>
-      );
-    });
-    return children;
-  };
+
+  const notificationsNode = (notifications || insNotifications)
+    .slice(0, 2)
+    .map((notification, i) => (
+      <Notification index={i} key={i} {...notification} />
+    ));
 
   const showVideo = () => {
     if (onPlayVideo) {
@@ -214,7 +172,7 @@ const Banner: React.FC<BannerProps> = ({
           </div>
         </div>
         <div className={classNames(styles.notifications, 'notifications')}>
-          {getNotifications()}
+          {notificationsNode}
         </div>
         <div className={classNames(styles.teaser, 'teaser')}>
           <div className={classNames(styles.teaserimg, 'teaser-img')}>
