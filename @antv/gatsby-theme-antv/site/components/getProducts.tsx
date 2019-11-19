@@ -54,7 +54,7 @@ export const getProducts = ({
         {
           icon: <Icon type="history" />,
           title: t('更新日志'),
-          url: `https://github.com/antvis/f2/blob/master/CHANGELOG.md`,
+          url: `https://github.com/antvis/g2/blob/master/CHANGELOG.md`,
           openExternal: true,
         },
         {
@@ -93,6 +93,11 @@ export const getProducts = ({
           icon: <Icon type="read" />,
           title: t('使用文档'),
           url: `${rootDomain}/g6/${language}/docs/manual`,
+        },
+        {
+          icon: <Icon type="read" />,
+          title: t('API 文档'),
+          url: `${rootDomain}/g6/${language}/docs/api/GlobalAPI`,
         },
         {
           icon: <Icon type="history" />,
@@ -137,7 +142,12 @@ export const getProducts = ({
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `${rootDomain}/f2/${language}/docs/manual`,
+          url: `${rootDomain}/f2/${language}/docs/tutorial/getting-started`,
+        },
+        {
+          icon: <Icon type="read" />,
+          title: t('API 文档'),
+          url: `${rootDomain}/f2/${language}/docs/api`,
         },
         {
           icon: <Icon type="history" />,
@@ -179,8 +189,13 @@ export const getProducts = ({
         },
         {
           icon: <Icon type="read" />,
-          title: t('使用文档'),
-          url: `${rootDomain}/L7/${language}/docs/manual`,
+          title: t('教程'),
+          url: `${rootDomain}/L7/${language}/docs/manual/tutorial`,
+        },
+        {
+          icon: <Icon type="read" />,
+          title: t('API 文档'),
+          url: `${rootDomain}/L7/${language}/docs/API`,
         },
         {
           icon: <Icon type="history" />,
