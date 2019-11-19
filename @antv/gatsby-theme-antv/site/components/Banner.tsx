@@ -127,6 +127,25 @@ const Banner: React.FC<BannerProps> = ({
           {button.text}
         </div>
       </div>
+    ) : button.link.startsWith('http') ? (
+      <a
+        key={i}
+        href={button.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ marginLeft: i === 0 ? '0%' : '2%' }}
+      >
+        <div
+          className={classNames(
+            styles.button,
+            styles[button.type || ''],
+            'primary-button',
+          )}
+          style={button.style}
+        >
+          {button.text}
+        </div>
+      </a>
     ) : (
       <Link
         key={i}
