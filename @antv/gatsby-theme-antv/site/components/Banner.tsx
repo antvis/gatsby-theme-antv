@@ -57,7 +57,7 @@ const Banner: React.FC<BannerProps> = ({
   showGithubStars = true,
   buttons = [],
   onCloseVideo,
-  onPlayVideo
+  onPlayVideo,
 }) => {
   const { t } = useTranslation();
 
@@ -131,11 +131,12 @@ const Banner: React.FC<BannerProps> = ({
 
     Modal.info({
       title: 'This is a notification message',
+      className: styles.videoModal,
       onCancel: onCloseVideo,
       content: (
         <Player
           className={styles.video}
-          autoPlay={true}
+          autoPlay="true"
           src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
         />
       ),
