@@ -118,7 +118,7 @@ const IndexPage = () => {
     },
     {
       text: t('下载使用'),
-      link: 'https://antv.alipay.com/zh-cn/index.html', //`/${i18n.language}/examples/basic`
+      link: 'https://antv.alipay.com/zh-cn/index.html', // `/${i18n.language}/examples/basic`
     },
   ];
   return (

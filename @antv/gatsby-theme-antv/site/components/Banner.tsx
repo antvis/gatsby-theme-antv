@@ -110,8 +110,9 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   const renderButtons = buttons.map((button: BannerButton, i) => {
+    let rbutton;
     if (button.link.startsWith('#')) {
-      return (
+      rbutton = (
         <div
           key={i}
           style={{ marginLeft: i === 0 ? '0%' : '2%' }}
@@ -130,7 +131,7 @@ const Banner: React.FC<BannerProps> = ({
         </div>
       );
     } else if (button.link.startsWith('http')) {
-      return (
+      rbutton = (
         <a
           key={i}
           href={button.link}
@@ -150,27 +151,29 @@ const Banner: React.FC<BannerProps> = ({
           </div>
         </a>
       );
-    }
-    return (
-      <Link
-        key={i}
-        to={button.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ marginLeft: i === 0 ? '0%' : '2%' }}
-      >
-        <div
-          className={classNames(
-            styles.button,
-            styles[button.type || ''],
-            'primary-button',
-          )}
-          style={button.style}
+    } else {
+      rbutton = (
+        <Link
+          key={i}
+          to={button.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ marginLeft: i === 0 ? '0%' : '2%' }}
         >
-          {button.text}
-        </div>
-      </Link>
-    );
+          <div
+            className={classNames(
+              styles.button,
+              styles[button.type || ''],
+              'primary-button',
+            )}
+            style={button.style}
+          >
+            {button.text}
+          </div>
+        </Link>
+      );
+    }
+    return rbutton;
   });
 
   if (video) {
