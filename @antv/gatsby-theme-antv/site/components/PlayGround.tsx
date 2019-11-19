@@ -2,6 +2,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { Editor } from 'codemirror';
+import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import path from 'path';
 import { Typography, Icon, Tooltip, Result } from 'antd';
@@ -236,9 +237,15 @@ insertCss(`,
     );
   }
 
+  const isWide = useMedia('(min-width: 767.99px)', true);
+
   return (
     <div className={styles.playground} ref={fullscreenNode}>
-      <SplitPane split="vertical" defaultSize="66%" minSize={100}>
+      <SplitPane
+        split={isWide ? 'vertical' : 'horizontal'}
+        defaultSize="66%"
+        minSize={100}
+      >
         <div
           className={classNames(
             styles.preview,
