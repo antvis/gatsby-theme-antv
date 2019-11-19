@@ -60,7 +60,7 @@ const Products: React.FC<ProductsProps> = ({
                 />
               ))}
           </ul>
-          <h3>{t('生态')}</h3>
+          <h3>{t('周边生态')}</h3>
           <ul>
             {data
               .filter(item => item.category === 'ecology')
