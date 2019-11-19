@@ -149,6 +149,7 @@ const Banner: React.FC<BannerProps> = ({
       key={i}
       to={button.link}
       target="_blank"
+      rel="noopener noreferrer"
       style={{ marginLeft: i === 0 ? '0%' : '2%' }}
     >
       <div

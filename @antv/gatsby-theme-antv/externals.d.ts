@@ -11,3 +11,5 @@ declare module 'codesandbox/lib/api/define' {
 }
 
 declare module 'docsearch.js';
+
+declare module 'video-react';
