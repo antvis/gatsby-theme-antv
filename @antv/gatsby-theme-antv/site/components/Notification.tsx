@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import styles from './Notification.module.less';
 
 export interface NotificationProps {
@@ -19,9 +20,9 @@ const Notification: React.FC<NotificationProps> = ({
   type,
   title,
   date,
-  link,
-}) => (
-  <a href={link} className={styles.notification}>
+  link = '',
+}) => {
+  const children = (
     <div className={styles.container}>
       <img
         className={styles.number}
@@ -35,7 +36,24 @@ const Notification: React.FC<NotificationProps> = ({
         <p className={styles.date}>{date}</p>
       </div>
     </div>
-  </a>
-);
+  );
+  if (link.startsWith('http')) {
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.notification}
+      >
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link to={link} className={styles.notification}>
+      {children}
+    </Link>
+  );
+};
 
 export default Notification;
