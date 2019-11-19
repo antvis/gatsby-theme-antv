@@ -102,12 +102,17 @@ const Banner: React.FC<BannerProps> = ({
     });
   };
 
+  const clickToScroll = (id: string) => {
+    const element = document.getElementById(id);
+    element && element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   const renderButtons = buttons.map((button: BannerButton, i) =>
     button.link.startsWith('#') ? (
-      <a
+      <div
         key={i}
-        href={button.link}
         style={{ marginLeft: i === 0 ? '0%' : '2%' }}
+        onClick={() => clickToScroll(button.link.substr(1))}
       >
         <div
           className={classNames(
@@ -119,7 +124,7 @@ const Banner: React.FC<BannerProps> = ({
         >
           {button.text}
         </div>
-      </a>
+      </div>
     ) : (
       <Link
         key={i}
