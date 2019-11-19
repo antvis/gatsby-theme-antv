@@ -189,7 +189,7 @@ export const getProducts = ({
         },
         {
           icon: <Icon type="read" />,
-          title: t('教程'),
+          title: t('使用文档'),
           url: `${rootDomain}/L7/${language}/docs/manual/tutorial`,
         },
         {
