@@ -51,7 +51,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
               {t('查看详情')}
             </a>
           ) : (
-            <Link className={styles.detail} to={app.link}>
+            <Link className={styles.detail} to={app.link ? app.link : ''}>
               {t('查看详情')}
             </Link>
           )}
