@@ -38,7 +38,7 @@ const Banner: React.FC<BannerProps> = ({
   coverImage,
   title,
   description,
-  notifications = [],
+  notifications,
   style = {},
   className,
   video,

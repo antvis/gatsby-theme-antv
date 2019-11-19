@@ -1,10 +1,11 @@
-.notiWrapper {
-  width: 50%;
-}
-
 .notification {
-  width: auto;
+  width: 50%;
   margin-right: 2%;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
   .container {
     height: 44px;
     display: flex;
@@ -37,25 +38,70 @@
 }
 
 @media (max-width: 900px) {
-  .notiWrapper {
-    width: 100%;
+  .notification {
     position: absolute;
-  }
-  .noti0 {
     width: 100%;
-    position: absolute;
-    animation: showAndHide0 6s infinite;
-  }
-  .noti1 {
-    width: 100%;
-    position: absolute;
-    top: 44px;
-    animation: showAndHide1 6s infinite;
+
+    &:nth-child(1) {
+      animation: showAndHide0 6s infinite;
+    }
+
+    &:nth-child(2) {
+      top: 44px;
+      animation: showAndHide1 6s infinite;
+    }
   }
 }
 
 @media (max-width: 768px) {
   .notification {
     width: 100%;
+  }
+}
+
+@keyframes showAndHide0 {
+  0% {
+    opacity: 1;
+    top: 0px;
+  }
+  33.3% {
+    opacity: 1;
+    top: 0px;
+  }
+  50% {
+    opacity: 0;
+    top: -30px;
+  }
+  83.3% {
+    opacity: 0;
+    top: 30px;
+  }
+  100% {
+    opacity: 1;
+    top: 0px;
+  }
+}
+
+/* Standard syntax */
+@keyframes showAndHide1 {
+  0% {
+    opacity: 0;
+    top: 30px;
+  }
+  33.3% {
+    opacity: 0;
+    top: 30px;
+  }
+  50% {
+    opacity: 1;
+    top: 0px;
+  }
+  83.3% {
+    opacity: 1;
+    top: 0px;
+  }
+  100% {
+    opacity: 0;
+    top: -30px;
   }
 }

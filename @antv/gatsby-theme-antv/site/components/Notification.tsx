@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import styles from './Notification.module.less';
 
 export interface NotificationProps {
@@ -22,20 +21,18 @@ const Notification: React.FC<NotificationProps> = ({
   date,
   link,
 }) => (
-  <a href={link} className={styles.notiWrapper}>
-    <div className={classNames(styles.notification, styles[`noti${index}`])}>
-      <div className={styles.container}>
-        <img
-          className={styles.number}
-          src={numberImages[index]}
-          alt={index.toString()}
-        />
-        <div className={styles.content}>
-          <p className={styles.description}>
-            {type} ‧ {title}
-          </p>
-          <p className={styles.date}>{date}</p>
-        </div>
+  <a href={link} className={styles.notification}>
+    <div className={styles.container}>
+      <img
+        className={styles.number}
+        src={numberImages[index]}
+        alt={index.toString()}
+      />
+      <div className={styles.content}>
+        <p className={styles.description}>
+          {type} ‧ {title}
+        </p>
+        <p className={styles.date}>{date}</p>
       </div>
     </div>
   </a>
