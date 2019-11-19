@@ -113,7 +113,7 @@ const IndexPage = () => {
   const bannerButtons = [
     {
       text: t('图表示例'),
-      link: '#products',
+      link: '#features',
       type: 'primary',
     },
     {
@@ -146,6 +146,7 @@ const IndexPage = () => {
         title="我们的优势"
         style={{ width: '100%' }}
       />
+      <a id="features"></a>
       <Features features={features} style={{ width: '100%' }} />
       <Cases cases={cases} />
       <Companies title={t('合作公司')} companies={companies} />
