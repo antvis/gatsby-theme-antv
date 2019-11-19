@@ -5,6 +5,7 @@ import { initReactI18next } from 'react-i18next';
 import { getCurrentLangKey } from 'ptz-i18n';
 import Helmet from 'react-helmet';
 import Header from '../components/Header';
+import PageLoading from '../components/PageLoading';
 import Footer, { OLD_SITE_DOMAIN } from '../components/Footer';
 import styles from './layout.module.less';
 
@@ -29,6 +30,10 @@ interface LayoutProps {
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, location }) => {
+  // https://github.com/gatsbyjs/gatsby/issues/13867#issuecomment-489481343
+  if (location.pathname.includes('offline-plugin-app-shell-fallback')) {
+    return <PageLoading />;
+  }
   const query = graphql`
     query SiteTitleQuery {
       site {

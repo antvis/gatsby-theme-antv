@@ -46,7 +46,7 @@ module.exports = {
         theme: {
           'primary-color': '#722ED1',
         },
-        pwa: false, // 是否开启 gatsby-plugin-offline
+        pwa: true, // 是否开启 gatsby-plugin-offline
       },
     },
   ],

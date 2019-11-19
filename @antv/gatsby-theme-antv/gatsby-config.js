@@ -8,7 +8,7 @@ module.exports = ({
     'primary-color': '#722ED1',
   },
   pathPrefix,
-  pwa = false,
+  pwa = true,
 }) => {
   const config = {
     siteMetadata: {
