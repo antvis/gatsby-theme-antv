@@ -42,10 +42,11 @@ module.exports = {
         // pagesPath: './site/pages',
         GATrackingId: `UA-XXXXXXXXX-X`,
         pathPrefix: '/g2',
-        // https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
+        // antd 主题：https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
         theme: {
           'primary-color': '#722ED1',
         },
+        pwa: false, // 是否开启 gatsby-plugin-offline
       },
     },
   ],
@@ -238,7 +239,7 @@ npm run deploy
 
 > Set envoironment variable `GATSBY_PATH_PREFIX` to `/` in deploy service like netlify to preview pathPrefix site in root domain.
 
-## Install dependency
+## Add Dependency
 
 ```bash
 cd @antv/gatsby-theme-antv

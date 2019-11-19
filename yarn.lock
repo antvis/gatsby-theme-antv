@@ -7038,7 +7038,7 @@ gatsby-plugin-nprogress@^2.1.12:
     "@babel/runtime" "^7.7.2"
     nprogress "^0.2.0"
 
-gatsby-plugin-offline@^3.0.7:
+gatsby-plugin-offline@^3.0.22:
   version "3.0.22"
   resolved "https://registry.npm.taobao.org/gatsby-plugin-offline/download/gatsby-plugin-offline-3.0.22.tgz#a8fb03e4d6abbd8cc14a03a9427424734675d484"
   integrity sha1-qPsD5NarvYzBSgOpQnQkc0Z11IQ=
@@ -7070,6 +7070,11 @@ gatsby-plugin-react-helmet@^3.1.7:
   integrity sha1-D4HsAQboasLUTLcUp5o6ko5cQKY=
   dependencies:
     "@babel/runtime" "^7.7.2"
+
+gatsby-plugin-remove-serviceworker@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/gatsby-plugin-remove-serviceworker/download/gatsby-plugin-remove-serviceworker-1.0.0.tgz#9fb433bc8bd766e14e1d3711c4ac6f051e1dff7c"
+  integrity sha1-n7QzvIvXZuFOHTcRxKxvBR4d/3w=
 
 gatsby-plugin-remove-trailing-slashes@^2.1.9:
   version "2.1.14"

@@ -8,6 +8,7 @@ module.exports = ({
     'primary-color': '#722ED1',
   },
   pathPrefix,
+  pwa = false,
 }) => {
   const config = {
     siteMetadata: {
@@ -106,7 +107,7 @@ module.exports = ({
       },
       `gatsby-plugin-sharp`,
       `gatsby-transformer-sharp`,
-      `gatsby-plugin-offline`,
+      pwa ? `gatsby-plugin-offline` : `gatsby-plugin-remove-serviceworker`,
       {
         resolve: `gatsby-plugin-manifest`,
         options: {
@@ -154,12 +155,12 @@ module.exports = ({
           path: `${__dirname}/site/pages`,
         },
       },
-      {
+      ...(pagesPath === './site/pages' ? '' : {
         resolve: `gatsby-plugin-page-creator`,
         options: {
           path: path.resolve(pagesPath),
         },
-      },
+      }),
       {
         resolve: `gatsby-plugin-layout`,
         options: {
