@@ -11,6 +11,7 @@ export const OLD_SITE_DOMAIN = 'https://antv-2018.alipay.com';
 interface FooterProps extends RcFooterProps {
   rootDomain?: string;
   language?: string;
+  chinaMirrorNotice?: boolean;
 }
 
 const Footer: React.FC<FooterProps> = ({
@@ -19,6 +20,7 @@ const Footer: React.FC<FooterProps> = ({
   theme = 'dark',
   language,
   rootDomain = '',
+  chinaMirrorNotice = true,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = language || i18n.language;
@@ -31,7 +33,9 @@ const Footer: React.FC<FooterProps> = ({
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (
+        !chinaMirrorNotice ||
         lang !== 'zh' ||
+        window.location.host.includes('chartcube') ||
         window.location.host === 'antv.gitee.io' ||
         localStorage.getItem('china-mirror-no-more-hint')
       ) {
