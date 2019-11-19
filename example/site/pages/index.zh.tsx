@@ -142,11 +142,11 @@ const IndexPage = () => {
         }}
       />
       <Features
+        id="features"
         features={features}
         title="我们的优势"
         style={{ width: '100%' }}
       />
-      <a id="features"></a>
       <Features features={features} style={{ width: '100%' }} />
       <Cases cases={cases} />
       <Companies title={t('合作公司')} companies={companies} />
