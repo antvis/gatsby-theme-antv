@@ -304,7 +304,7 @@ export const getProducts = ({
     {
       title: 'ChartCube',
       icon:
-        'https://gw.alipayobjects.com/mdn/rms_5c22b3/afts/img/A*NiCQS5s59fEAAAAAAAAAAABkARQnAQ',
+        'https://gw.alipayobjects.com/zos/antfincdn/Zr74jx8YNX/chartcube.svg',
       slogan: t('图表魔方'),
       description: t('AntV 在线图表制作利器。'),
       category: Categories[1],
