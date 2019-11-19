@@ -12,10 +12,10 @@ ul.tabs {
   list-style: none;
 
   > li {
-    padding: 0;
+    padding: 0 !important;
     margin-right: 36px;
-    margin-left: 0;
-    list-style: none;
+    margin-left: 0 !important;
+    list-style: none !important;
     display: inline-block;
     line-height: 1;
     cursor: pointer;
@@ -60,5 +60,10 @@ ul.tabs {
     &.hidden {
       display: none;
     }
+  }
+}
+
+@media (max-width: 768px) {
+  ul.tabs {
   }
 }
