@@ -207,7 +207,7 @@ const Footer: React.FC<FooterProps> = ({
               >
                 <Icon type="github" />
               </a>
-              <a href={`${rootDomain}/about`}>{t('关于我们')}</a>
+              <a href={`${rootDomain}/${lang}/about`}>{t('关于我们')}</a>
               <a
                 href={OLD_SITE_DOMAIN}
                 target="_blank"
