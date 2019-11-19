@@ -33,7 +33,7 @@ export const getProducts = ({
       icon:
         'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
       slogan: t('可视化图形语法'),
-      description: t('以数据驱动，具有高度的易用性和扩展性的可视化图形语法。'),
+      description: t('数据驱动，高度易用，可扩展的可视化图形语法。'),
       category: Categories[0],
       links: [
         {
@@ -76,7 +76,7 @@ export const getProducts = ({
       icon:
         'https://gw.alipayobjects.com/zos/antfincdn/zS1wZZJVcJ/G6%252520tukeshihuayinqing.svg',
       slogan: t('图可视化引擎'),
-      description: t('一套便捷的关系数据可视化引擎与图分析工具。'),
+      description: t('便捷的关系数据可视化引擎与图分析工具。'),
       category: Categories[0],
       links: [
         {
@@ -125,7 +125,7 @@ export const getProducts = ({
         'https://gw.alipayobjects.com/zos/antfincdn/D%26fDbWqVkv/F2%252520yidongduankeshihuafangan.svg',
       slogan: t('移动可视化方案'),
       description: t(
-        '专注于移动端的可视化解决方案，兼容 H5/Node/小程序/Weex 等多端环境',
+        '专注于移动端的可视化解决方案，兼容 H5/小程序/Weex 等多端环境',
       ),
       category: Categories[0],
       links: [
@@ -174,7 +174,7 @@ export const getProducts = ({
       icon:
         'https://gw.alipayobjects.com/zos/antfincdn/OI%26h7HXH33/L7%252520dilikongjianshujukeshihua.svg',
       slogan: t('地理空间数据可视化'),
-      description: t('一套高性能/高渲染质量的地理空间数据可视化框架。'),
+      description: t('高性能/高渲染质量的地理空间数据可视化框架。'),
       category: Categories[0],
       links: [
         {
@@ -221,7 +221,7 @@ export const getProducts = ({
       title: 'G2Plot',
       icon: 'https://gw.alipayobjects.com/zos/antfincdn/SlbIagEvT7/G2plot.svg',
       slogan: t('强大的图表库'),
-      description: t('开箱即用、易于配置、具有良好视觉和交互体验的通用图表。'),
+      description: t('开箱即用、易于配置、极致体验的通用图表库。'),
       category: Categories[1],
       links: [
         {
@@ -304,7 +304,7 @@ export const getProducts = ({
     {
       title: 'ChartCube',
       icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/kM2Rd6CnlW/ChartCube.svg',
+        'https://gw.alipayobjects.com/mdn/rms_5c22b3/afts/img/A*NiCQS5s59fEAAAAAAAAAAABkARQnAQ',
       slogan: t('图表魔方'),
       description: t('AntV 在线图表制作利器。'),
       category: Categories[1],
@@ -327,7 +327,7 @@ export const getProducts = ({
       title: t('墨者学院'),
       icon:
         'https://gw.alipayobjects.com/zos/antfincdn/12j36RPVldO/mozhexueyuan.svg',
-      description: t('数据可视化社区'),
+      description: t('数据可视化社团'),
       category: Categories[2],
       links: [
         {
