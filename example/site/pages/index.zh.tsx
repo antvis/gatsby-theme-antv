@@ -88,15 +88,6 @@ const IndexPage = () => {
     },
   ];
 
-  const notifications = [
-    {
-      type: t('测试'),
-      title: t('G6 3.2 全新上线！'),
-      date: '2019.12.04',
-      link: '#',
-    },
-  ];
-
   const cases = [
     {
       logo:
