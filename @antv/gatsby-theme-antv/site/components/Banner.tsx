@@ -104,7 +104,9 @@ const Banner: React.FC<BannerProps> = ({
 
   const clickToScroll = (id: string) => {
     const element = document.getElementById(id);
-    element && element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   const renderButtons = buttons.map((button: BannerButton, i) =>
