@@ -136,7 +136,7 @@ const Banner: React.FC<BannerProps> = ({
       content: (
         <Player
           className={styles.video}
-          autoPlay="true"
+          autoPlay
           src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
         />
       ),
@@ -148,7 +148,7 @@ const Banner: React.FC<BannerProps> = ({
     <Link
       key={i}
       to={button.link}
-      target="newtag"
+      target="_blank"
       style={{ marginLeft: i === 0 ? '0%' : '2%' }}
     >
       <div

@@ -26,7 +26,7 @@ const Features: React.FC<FeaturesProps> = ({
   const getCards = () => {
     const children = features.map((card, i) => (
       <Col className={styles.cardWrapper} key={card.title} md={8} xs={24}>
-        <FeatureCard {...card} divider={i !== 0 && i !== features.length - 1} />
+        <FeatureCard {...card} />
       </Col>
     ));
     return children;

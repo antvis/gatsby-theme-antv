@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Icon } from 'antd';
 import { Link } from 'gatsby';
 import Slider from 'react-slick';
 import classNames from 'classnames';
@@ -35,8 +36,24 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
     if (cases.length > 1) {
       buttons = (
         <div className={styles.buttons}>
-          <div className={styles.previousButton} onClick={clickPrevious} />
-          <div className={styles.nextButton} onClick={clickNext} />
+          <div className={styles.controlButton} onClick={clickPrevious}>
+            <Icon
+              type="arrow-left"
+              className={styles.controlButtonIcon}
+              style={{ fontSize: '16px' }}
+            />
+          </div>
+          <div
+            className={styles.controlButton}
+            onClick={clickNext}
+            style={{ marginLeft: '-1px' }}
+          >
+            <Icon
+              type="arrow-right"
+              className={styles.controlButtonIcon}
+              style={{ fontSize: '16px' }}
+            />
+          </div>
         </div>
       );
     }
@@ -47,7 +64,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
           style={{ display: app.link ? 'block' : 'none' }}
         >
           {app.link && app.link.startsWith('http') ? (
-            <a className={styles.detail} href={app.link} target="newtag">
+            <a className={styles.detail} href={app.link} target="_blank">
               {t('查看详情')}
             </a>
           ) : (
