@@ -127,10 +127,10 @@ const IndexPage = () => {
         showGithubStars={false}
         video="https://mdn.alipayobjects.com/afts/file/A*qmPlRYhAlBkAAAAAAAAAAABjAQAAAQ?bz=antv_site"
         onPlayVideo={() => {
-          console.log('play');
+          console.log('play'); // eslint-disable-line no-console
         }}
         onCloseVideo={() => {
-          console.log('close');
+          console.log('close'); // eslint-disable-line no-console
         }}
       />
       <Features
