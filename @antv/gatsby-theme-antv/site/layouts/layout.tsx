@@ -69,7 +69,9 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   const currentLangKey = getCurrentLangKey(lngs, 'zh', path);
 
   const isHomePage =
-    path === `/${currentLangKey}` || path === `/${currentLangKey}/`;
+    path === '/' ||
+    path === `/${currentLangKey}` ||
+    path === `/${currentLangKey}/`;
 
   i18n.init({
     lng: currentLangKey,
