@@ -45,7 +45,6 @@
     "eslint-plugin-jest": "^23.0.3",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.16.0",
-    "eslint-plugin-react-hooks": "^2.2.0",
-    "video-react": "^0.14.1"
+    "eslint-plugin-react-hooks": "^2.2.0"
   }
 }
