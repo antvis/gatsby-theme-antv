@@ -108,12 +108,17 @@ const Header: React.FC<HeaderProps> = ({
     }
   }, [path]);
 
-  /*
-  const [menuLoading, setMenuLoading] = useState(true);
+  // 移动端下弹出菜单时，禁止页面滚动
   useEffect(() => {
-    setMenuLoading(false);
-  }, []);
-  */
+    if (popupMenuVisible) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+    }
+    return () => {
+      document.documentElement.style.overflow = '';
+    };
+  }, [popupMenuVisible]);
 
   const isWide = useMedia('(min-width: 767.99px)', true);
   const menuIcon = !isWide ? (
@@ -194,6 +199,7 @@ const Header: React.FC<HeaderProps> = ({
       className={classNames(styles.header, {
         [styles.transparent]: !!transparent && !productMenuVisible,
         [styles.isHomePage]: !!isHomePage,
+        [styles.fixed]: popupMenuVisible,
       })}
     >
       <div className={styles.container}>

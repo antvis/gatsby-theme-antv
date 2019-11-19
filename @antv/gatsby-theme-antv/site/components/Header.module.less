@@ -17,6 +17,14 @@
     box-shadow: none;
   }
 
+  &.fixed {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: #fff;
+  }
+
   .container {
     max-width: calc(100% - 80px);
     margin: auto;
@@ -136,14 +144,14 @@
 
       &.popup {
         position: fixed;
-        top: 66px;
+        top: 64px;
         left: 0;
         right: 0;
         background: #fff;
         padding: 8px 0;
         text-align: center;
         transition: all 0.3s;
-        height: calc(100vh - 66px);
+        height: calc(100vh - 64px);
         overflow: auto;
         opacity: 1;
 
