@@ -300,7 +300,10 @@
     }
     .notifications {
       width: 100%;
-      bottom: 63px;
+      display: block;
+      bottom: 20px;
+      height: 44px;
+      overflow: hidden;
     }
     .teaser {
       width: 100%;
@@ -360,53 +363,5 @@
     .teaser {
       top: 12%;
     }
-  }
-}
-
-/* Standard syntax */
-@keyframes showAndHide0 {
-  0% {
-    opacity: 1;
-    top: 0px;
-  }
-  33.3% {
-    opacity: 1;
-    top: 0px;
-  }
-  50% {
-    opacity: 0;
-    top: -30px;
-  }
-  83.3% {
-    opacity: 0;
-    top: 30px;
-  }
-  100% {
-    opacity: 1;
-    top: 0px;
-  }
-}
-
-/* Standard syntax */
-@keyframes showAndHide1 {
-  0% {
-    opacity: 0;
-    top: 30px;
-  }
-  33.3% {
-    opacity: 0;
-    top: 30px;
-  }
-  50% {
-    opacity: 1;
-    top: 0px;
-  }
-  83.3% {
-    opacity: 1;
-    top: 0px;
-  }
-  100% {
-    opacity: 0;
-    top: -30px;
   }
 }

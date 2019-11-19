@@ -139,7 +139,6 @@ const IndexPage = () => {
         description={t(
           'AntV 是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。',
         )}
-        notifications={notifications}
         className="banner"
         buttons={bannerButtons}
         showGithubStars={false}
@@ -154,7 +153,6 @@ const IndexPage = () => {
       <Features
         features={features}
         title="我们的优势"
-        // className="features"
         style={{ width: '100%' }}
       />
       <Features features={features} style={{ width: '100%' }} />
