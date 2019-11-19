@@ -102,26 +102,45 @@ const Banner: React.FC<BannerProps> = ({
     });
   };
 
-  const renderButtons = buttons.map((button: BannerButton, i) => (
-    <Link
-      key={i}
-      to={button.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ marginLeft: i === 0 ? '0%' : '2%' }}
-    >
-      <div
-        className={classNames(
-          styles.button,
-          styles[button.type || ''],
-          'primary-button',
-        )}
-        style={button.style}
+  const renderButtons = buttons.map((button: BannerButton, i) =>
+    button.link.startsWith('#') ? (
+      <a
+        key={i}
+        href={button.link}
+        style={{ marginLeft: i === 0 ? '0%' : '2%' }}
       >
-        {button.text}
-      </div>
-    </Link>
-  ));
+        <div
+          className={classNames(
+            styles.button,
+            styles[button.type || ''],
+            'primary-button',
+          )}
+          style={button.style}
+        >
+          {button.text}
+        </div>
+      </a>
+    ) : (
+      <Link
+        key={i}
+        to={button.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{ marginLeft: i === 0 ? '0%' : '2%' }}
+      >
+        <div
+          className={classNames(
+            styles.button,
+            styles[button.type || ''],
+            'primary-button',
+          )}
+          style={button.style}
+        >
+          {button.text}
+        </div>
+      </Link>
+    ),
+  );
 
   if (video) {
     renderButtons.push(
