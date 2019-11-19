@@ -15,6 +15,7 @@ interface FeaturesProps {
   features: Card[];
   className?: string;
   style?: React.CSSProperties;
+  id?: string;
 }
 
 const Features: React.FC<FeaturesProps> = ({
@@ -22,6 +23,7 @@ const Features: React.FC<FeaturesProps> = ({
   features = [],
   className,
   style,
+  id,
 }) => {
   const getCards = () => {
     const children = features.map(card => (
@@ -65,7 +67,11 @@ const Features: React.FC<FeaturesProps> = ({
   };
 
   return (
-    <div className={classNames(styles.wrapper, className)} style={style}>
+    <div
+      id={id}
+      className={classNames(styles.wrapper, className)}
+      style={style}
+    >
       {title ? (
         <div className={classNames(styles.lefttopWithTitle, styles.lefttop)} />
       ) : (
