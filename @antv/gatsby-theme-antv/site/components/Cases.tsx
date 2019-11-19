@@ -64,7 +64,12 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
           style={{ display: app.link ? 'block' : 'none' }}
         >
           {app.link && app.link.startsWith('http') ? (
-            <a className={styles.detail} href={app.link} target="_blank">
+            <a
+              className={styles.detail}
+              href={app.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               {t('查看详情')}
             </a>
           ) : (
