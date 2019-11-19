@@ -109,44 +109,49 @@ const Banner: React.FC<BannerProps> = ({
     }
   };
 
-  const renderButtons = buttons.map((button: BannerButton, i) =>
-    button.link.startsWith('#') ? (
-      <div
-        key={i}
-        style={{ marginLeft: i === 0 ? '0%' : '2%' }}
-        onClick={() => clickToScroll(button.link.substr(1))}
-      >
+  const renderButtons = buttons.map((button: BannerButton, i) => {
+    if (button.link.startsWith('#')) {
+      return (
         <div
-          className={classNames(
-            styles.button,
-            styles[button.type || ''],
-            'primary-button',
-          )}
-          style={button.style}
+          key={i}
+          style={{ marginLeft: i === 0 ? '0%' : '2%' }}
+          onClick={() => clickToScroll(button.link.substr(1))}
         >
-          {button.text}
+          <div
+            className={classNames(
+              styles.button,
+              styles[button.type || ''],
+              'primary-button',
+            )}
+            style={button.style}
+          >
+            {button.text}
+          </div>
         </div>
-      </div>
-    ) : button.link.startsWith('http') ? (
-      <a
-        key={i}
-        href={button.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ marginLeft: i === 0 ? '0%' : '2%' }}
-      >
-        <div
-          className={classNames(
-            styles.button,
-            styles[button.type || ''],
-            'primary-button',
-          )}
-          style={button.style}
+      );
+    } else if (button.link.startsWith('http')) {
+      return (
+        <a
+          key={i}
+          href={button.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ marginLeft: i === 0 ? '0%' : '2%' }}
         >
-          {button.text}
-        </div>
-      </a>
-    ) : (
+          <div
+            className={classNames(
+              styles.button,
+              styles[button.type || ''],
+              'primary-button',
+            )}
+            style={button.style}
+          >
+            {button.text}
+          </div>
+        </a>
+      );
+    }
+    return (
       <Link
         key={i}
         to={button.link}
@@ -165,8 +170,8 @@ const Banner: React.FC<BannerProps> = ({
           {button.text}
         </div>
       </Link>
-    ),
-  );
+    );
+  });
 
   if (video) {
     renderButtons.push(
