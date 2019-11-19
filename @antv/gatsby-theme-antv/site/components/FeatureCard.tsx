@@ -6,15 +6,9 @@ interface FeatureProps {
   icon: string;
   title: string;
   description: string;
-  divider: boolean;
 }
 
-const FeatureCard: React.FC<FeatureProps> = ({
-  icon,
-  title,
-  description,
-  divider = false,
-}) => {
+const FeatureCard: React.FC<FeatureProps> = ({ icon, title, description }) => {
   return (
     <div className={styles.card}>
       <div className={styles.content}>

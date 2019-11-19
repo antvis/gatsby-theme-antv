@@ -56,12 +56,23 @@
         display: flex;
         bottom: 30%;
         height: 100px;
-        .previousButton {
+        .controlButton {
           width: 47px;
-          background-image: url('https://gw.alipayobjects.com/zos/basement_prod/39d0ba49-5ae4-4fb7-86e1-ff90e79e30a0.svg');
-          background-size: 100% 100%;
+          height: 47px;
+          border: 1px solid #a3b1bf;
+          transition: all 0.3s;
           &:hover {
-            background-image: url('https://gw.alipayobjects.com/zos/basement_prod/54e4a76f-db0d-4205-b81d-0ea6c9688292.svg');
+            border: 1px solid #ced4d9;
+            fill: #000000;
+          }
+          &:hover :only-child {
+            color: #ced4d9;
+          }
+          .controlButtonIcon {
+            width: 100%;
+            line-height: 47px;
+            color: #a3b1bf;
+            transition: all 0.3s;
           }
         }
         .nextButton {
