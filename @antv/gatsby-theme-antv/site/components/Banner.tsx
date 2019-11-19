@@ -63,16 +63,16 @@ const Banner: React.FC<BannerProps> = ({
 
   const insNotifications: NotificationProps[] = [
     {
-      type: t('更新'),
-      title: t('L7 发布新版本，让地图动起来！'),
-      date: '2019.12.04',
-      link: '',
+      type: t('推荐'),
+      title: t('AntV 11-22 品牌日：知源·致远'),
+      date: '2019.11.22',
+      link: '/',
     },
     {
-      type: t('推荐'),
-      title: t('Kitchen 3.75，效率大幅提升！'),
-      date: '2019.12.03',
-      link: '',
+      type: t('更新'),
+      title: t('G2Plot 图表库发布'),
+      date: '2019.11.22',
+      link: '/g2plot',
     },
   ];
 
