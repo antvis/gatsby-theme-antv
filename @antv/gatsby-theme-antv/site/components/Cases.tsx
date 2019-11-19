@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'gatsby';
 import Slider from 'react-slick';
 import classNames from 'classnames';
 import 'slick-carousel/slick/slick.css';
@@ -45,9 +46,15 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
           className={styles.detailWrapper}
           style={{ display: app.link ? 'block' : 'none' }}
         >
-          <a className={styles.detail} href={app.link} target="newtag">
-            {t('查看详情')}
-          </a>
+          {app.link && app.link.startsWith('http') ? (
+            <a className={styles.detail} href={app.link} target="newtag">
+              {t('查看详情')}
+            </a>
+          ) : (
+            <Link className={styles.detail} to={app.link}>
+              {t('查看详情')}
+            </Link>
+          )}
         </div>
       );
 
