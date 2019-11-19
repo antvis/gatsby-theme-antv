@@ -40,31 +40,49 @@ const IndexPage = () => {
   const companies = [
     {
       name: '公司1',
+      // img: 'https://gw.alipayobjects.com/zos/basement_prod/8c0770a0-98a6-406d-b35d-0fe3e3f66d79.svg',
       img:
         'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Z1NnQ6L4xCIAAAAAAAAAAABkARQnAQ',
     },
     {
       name: '公司2',
+      // img: 'https://gw.alipayobjects.com/zos/basement_prod/c662aa41-5506-43a8-987f-08e250c5568f.svg',
       img:
         'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*6u3hTpsd7h8AAAAAAAAAAABkARQnAQ',
     },
     {
       name: '公司3',
+      // img: 'https://gw.alipayobjects.com/zos/basement_prod/02272508-c6be-4cb6-8471-dd91e44d7b85.svg',
       img:
         'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*Fw8HTbFgUdAAAAAAAAAAAABkARQnAQ',
     },
     {
       name: '公司4',
+      // img: 'https://gw.alipayobjects.com/zos/basement_prod/13f6ad34-97eb-4356-ad4f-f3b9e9426366.svg',
       img:
         'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*lUdjTqQix48AAAAAAAAAAABkARQnAQ',
     },
     {
       name: '公司5',
+      // img: 'https://gw.alipayobjects.com/zos/basement_prod/8aef4d82-6c25-4709-bcf0-c9d67e5188d6.svg',
       img:
         'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*1q8NQZ9GaN0AAAAAAAAAAABkARQnAQ',
     },
     {
       name: '公司6',
+      // img: 'https://gw.alipayobjects.com/zos/basement_prod/a83afb28-0eef-4380-a284-f5ead42b14d4.svg'
+      img:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*SqmTSqj4FjEAAAAAAAAAAABkARQnAQ',
+    },
+    {
+      name: '公司7',
+      // img: 'https://gw.alipayobjects.com/zos/basement_prod/da5e0fbe-898a-49d4-9def-43ca34c01172.svg'
+      img:
+        'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*1q8NQZ9GaN0AAAAAAAAAAABkARQnAQ',
+    },
+    {
+      name: '公司8',
+      // img: 'https://gw.alipayobjects.com/zos/basement_prod/4533e975-a09a-47af-9429-1ceaefddbd11.svg'
       img:
         'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*SqmTSqj4FjEAAAAAAAAAAABkARQnAQ',
     },

@@ -37,7 +37,7 @@ const Companies: React.FC<CompaniesProps> = ({
         <div key="companies-container" className={styles.companiesContainer}>
           <Row
             key="companies"
-            gutter={[{ xs: 77, sm: 77, md: 30, lg: 50 }, 10]}
+            gutter={[{ xs: 77, sm: 77, md: 50, lg: 124 }, 10]}
             className={styles.companies}
           >
             {getCompanies}
