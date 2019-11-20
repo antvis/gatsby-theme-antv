@@ -71,7 +71,9 @@ const Header: React.FC<HeaderProps> = ({
       : i18n.language || '';
   const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
   const [productMenuVisible, setProductMenuVisible] = useState(false);
+  let productMenuHovering = false;
   const onProductMouseEnter = (e: React.MouseEvent) => {
+    productMenuHovering = true;
     e.persist();
     setTimeout(() => {
       if (e.target instanceof Element && e.target.matches(':hover')) {
@@ -79,8 +81,15 @@ const Header: React.FC<HeaderProps> = ({
       }
     }, 300);
   };
-  const onProductMouseLeave = () => {
-    setProductMenuVisible(false);
+  const onProductMouseLeave = (e: React.MouseEvent) => {
+    e.persist();
+    productMenuHovering = false;
+    setTimeout(() => {
+      if (productMenuHovering) {
+        return;
+      }
+      setProductMenuVisible(false);
+    }, 200);
   };
   const onToggleProductMenuVisible = () => {
     setProductMenuVisible(!productMenuVisible);
