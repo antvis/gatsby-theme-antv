@@ -194,7 +194,8 @@ const Header: React.FC<HeaderProps> = ({
         </li>
       )}
       {!showChinaMirror ||
-      (window.location && window.location.host === 'antv.gitee.io') ? null : (
+      (typeof window !== 'undefined' &&
+        window.location.host === 'antv.gitee.io') ? null : (
         <li>
           <a
             onClick={e => {
