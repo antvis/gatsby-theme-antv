@@ -9,6 +9,7 @@ import Search from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
 import AntvLogo from '../images/antv.svg';
+import ExternalLink from '../images/external-link.svg';
 import styles from './Header.module.less';
 
 interface HeaderProps {
@@ -45,6 +46,8 @@ interface HeaderProps {
   isHomePage?: boolean;
   /** AntV root 域名，直接用主题的可不传 */
   rootDomain?: string;
+  /** 是否展示国内镜像链接 */
+  showChinaMirror?: boolean;
 }
 
 const Header: React.FC<HeaderProps> = ({
@@ -64,6 +67,7 @@ const Header: React.FC<HeaderProps> = ({
   transparent,
   isHomePage,
   rootDomain = '',
+  showChinaMirror = false,
 }) => {
   const { t, i18n } = useTranslation();
   const lang =
@@ -186,6 +190,25 @@ const Header: React.FC<HeaderProps> = ({
             }}
           >
             {t('English')}
+          </a>
+        </li>
+      )}
+      {!showChinaMirror ||
+      (window.location && window.location.host === 'antv.gitee.io') ? null : (
+        <li>
+          <a
+            onClick={e => {
+              e.preventDefault();
+              window.location.href = window.location.href.replace(
+                window.location.host,
+                'antv.gitee.io',
+              );
+            }}
+          >
+            {t('国内镜像')}
+            <i className={styles.export}>
+              <ExternalLink />
+            </i>
           </a>
         </li>
       )}
