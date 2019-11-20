@@ -102,78 +102,35 @@ const Banner: React.FC<BannerProps> = ({
     });
   };
 
-  const clickToScroll = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   const renderButtons = buttons.map((button: BannerButton, i) => {
-    let rbutton;
-    if (button.link.startsWith('#')) {
-      rbutton = (
-        <div
-          key={i}
-          style={{ marginLeft: i === 0 ? '0%' : '2%' }}
-          onClick={() => clickToScroll(button.link.substr(1))}
-        >
-          <div
-            className={classNames(
-              styles.button,
-              styles[button.type || ''],
-              'primary-button',
-            )}
-            style={button.style}
-          >
-            {button.text}
-          </div>
-        </div>
-      );
-    } else if (button.link.startsWith('http')) {
-      rbutton = (
-        <a
-          key={i}
-          href={button.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ marginLeft: i === 0 ? '0%' : '2%' }}
-        >
-          <div
-            className={classNames(
-              styles.button,
-              styles[button.type || ''],
-              'primary-button',
-            )}
-            style={button.style}
-          >
-            {button.text}
-          </div>
-        </a>
-      );
-    } else {
-      rbutton = (
-        <Link
-          key={i}
-          to={button.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          style={{ marginLeft: i === 0 ? '0%' : '2%' }}
-        >
-          <div
-            className={classNames(
-              styles.button,
-              styles[button.type || ''],
-              'primary-button',
-            )}
-            style={button.style}
-          >
-            {button.text}
-          </div>
-        </Link>
-      );
+    const ButtonLink =
+      button.link.startsWith('http') || button.link.startsWith('#')
+        ? 'a'
+        : Link;
+    const buttonProps = {} as any;
+    if (button.link.startsWith('http')) {
+      buttonProps.target = '_blank';
+      buttonProps.rel = 'noopener noreferrer';
     }
-    return rbutton;
+    if (ButtonLink === 'a') {
+      buttonProps.href = button.link;
+    } else {
+      buttonProps.to = button.link;
+    }
+    return (
+      <ButtonLink {...buttonProps} className={styles.buttonLink} key={i}>
+        <div
+          className={classNames(
+            styles.button,
+            styles[button.type || ''],
+            'primary-button',
+          )}
+          style={button.style}
+        >
+          {button.text}
+        </div>
+      </ButtonLink>
+    );
   });
 
   if (video) {
