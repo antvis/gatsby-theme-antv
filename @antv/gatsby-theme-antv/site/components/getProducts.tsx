@@ -66,7 +66,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://antv.gitee.io/g2`,
+          url: `https://g2-antv.gitee.io`,
           openExternal: true,
         },
       ],
@@ -114,7 +114,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://antv.gitee.io/g6`,
+          url: `https://g6-antv.gitee.io`,
           openExternal: true,
         },
       ],
@@ -164,7 +164,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://antv.gitee.io/f2`,
+          url: `https://f2-antv.gitee.io`,
           openExternal: true,
         },
       ],
@@ -212,7 +212,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://antv.gitee.io/L7`,
+          url: `https://l7-antv.gitee.io`,
           openExternal: true,
         },
       ],
@@ -254,7 +254,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://antv.gitee.io/g2plot`,
+          url: `https://g2plot-antv.gitee.io`,
           openExternal: true,
         },
       ],
@@ -296,7 +296,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://antv.gitee.io/graphin`,
+          url: `https://graphin-antv.gitee.io`,
           openExternal: true,
         },
       ],

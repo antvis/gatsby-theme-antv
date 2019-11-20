@@ -36,7 +36,7 @@ const Footer: React.FC<FooterProps> = ({
         !chinaMirrorNotice ||
         lang !== 'zh' ||
         window.location.host.includes('chartcube') ||
-        window.location.host === 'antv.gitee.io' ||
+        window.location.host.includes('gitee.io') ||
         localStorage.getItem('china-mirror-no-more-hint')
       ) {
         return;
@@ -55,10 +55,17 @@ const Footer: React.FC<FooterProps> = ({
               size="small"
               style={{ marginRight: 8 }}
               onClick={() => {
-                window.location.href = window.location.href.replace(
-                  window.location.host,
-                  'antv.gitee.io',
-                );
+                if (window.location.host === 'antv.vision') {
+                  window.location.href = window.location.href.replace(
+                    'antv.vision',
+                    'antv.gitee.io',
+                  );
+                } else {
+                  window.location.href = window.location.href.replace(
+                    '.antv.vision',
+                    '-antv.gitee.io',
+                  );
+                }
               }}
             >
               <Icon type="thunderbolt" />

@@ -196,15 +196,22 @@ const Header: React.FC<HeaderProps> = ({
       )}
       {!showChinaMirror ||
       (typeof window !== 'undefined' &&
-        window.location.host === 'antv.gitee.io') ? null : (
+        window.location.host.includes('gitee.io')) ? null : (
         <li>
           <a
             onClick={e => {
               e.preventDefault();
-              window.location.href = window.location.href.replace(
-                window.location.host,
-                'antv.gitee.io',
-              );
+              if (window.location.host === 'antv.vision') {
+                window.location.href = window.location.href.replace(
+                  'antv.vision',
+                  'antv.gitee.io',
+                );
+              } else {
+                window.location.href = window.location.href.replace(
+                  '.antv.vision',
+                  '-antv.gitee.io',
+                );
+              }
             }}
           >
             {t('国内镜像')}
