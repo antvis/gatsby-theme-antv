@@ -68,12 +68,14 @@
       height: 24px;
       background-color: #ccc;
       display: inline-block;
-      margin: 0 16px;
+      margin: 0 20px;
+      transition: all 0.3s;
     }
 
     .subProduceName {
       margin: 0;
       white-space: nowrap;
+      font-size: 18px;
 
       a {
         color: rgba(0, 0, 0, 0.85);
@@ -206,6 +208,9 @@
 
 @media only screen and (max-width: 931.99px) {
   .header {
+    .divider {
+      margin: 0 16px;
+    }
     .container {
       max-width: calc(100% - 60px);
     }
