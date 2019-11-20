@@ -13,7 +13,7 @@ function initDocSearch(docsearch: any, lang: string) {
       hits.forEach(hit => {
         /* eslint-disable no-param-reassign */
         hit.url = hit.url.replace('antvis.github.io', window.location.host);
-        hit.url = hit.url.replace('antv.alipay.com', window.location.host);
+        hit.url = hit.url.replace('antv.vision', window.location.host);
         hit.url = hit.url.replace('https:', window.location.protocol);
         hit.url = hit.url.replace('#gatsby-focus-wrapper', '');
         /* eslint-enable no-param-reassign */
