@@ -47,6 +47,7 @@ module.exports = {
           'primary-color': '#722ED1',
         },
         pwa: true, // 是否开启 gatsby-plugin-offline
+        cname: true, // 是否自动从 siteUrl 中提取 CNAME 文件
       },
     },
   ],
@@ -257,6 +258,7 @@ yarn workspace @antv/gatsby-theme-antv shallowequal
 - [Gatsby](https://www.gatsbyjs.org/docs/)
 - [Ant Design](https://github.com/ant-design/ant-design)
 - [gatsby-transformer-remark](https://www.gatsbyjs.org/packages/gatsby-transformer-remark/)
+- [gatsby-remark-prismjs](https://www.gatsbyjs.org/packages/gatsby-remark-prismjs/?=highlight#line-highlighting)
 - [Jest](https://jestjs.io/)
 - [Testing Library](https://testing-library.com/)
 - [react-i18next](https://react.i18next.com/)

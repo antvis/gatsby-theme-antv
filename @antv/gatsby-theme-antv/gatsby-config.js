@@ -9,6 +9,7 @@ module.exports = ({
   },
   pathPrefix,
   pwa = true,
+  cname = true,
 }) => {
   const config = {
     siteMetadata: {
@@ -149,6 +150,7 @@ module.exports = ({
           style: true,
         },
       },
+      cname ? `gatsby-plugin-cname` : '',
       `gatsby-plugin-catch-links`,
       `gatsby-plugin-nprogress`,
       `gatsby-plugin-remove-trailing-slashes`,

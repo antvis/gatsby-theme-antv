@@ -47,6 +47,7 @@ module.exports = {
           'primary-color': '#722ED1',
         },
         pwa: true, // 是否开启 gatsby-plugin-offline
+        cname: true, // 是否自动从 siteUrl 中提取 CNAME 文件
       },
     },
   ],
