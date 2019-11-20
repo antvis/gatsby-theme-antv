@@ -10,6 +10,7 @@ import styles from './Cases.module.less';
 
 interface Case {
   logo?: string;
+  isAppLogo?: boolean;
   title: string;
   description: string;
   link?: string;
@@ -85,7 +86,17 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
           <img className={styles.appTeaser} src={app.image} alt={app.title} />
           <div className={styles.appLeft}>
             <div className={styles.appContent}>
-              <img className={styles.appLogo} src={app.logo} alt="logo" />
+              <img
+                className={styles.appLogo}
+                src={app.logo}
+                alt="logo"
+                style={{
+                  borderRadius: app.isAppLogo ? '15px' : '0px',
+                  boxShadow: app.isAppLogo
+                    ? '0px 12px 24px #CED4D9'
+                    : '0px 0px 0px',
+                }}
+              />
               <p className={styles.appTitle}>{app.title}</p>
               <p className={styles.appDescription}>{app.description}</p>
               {linkDiv}

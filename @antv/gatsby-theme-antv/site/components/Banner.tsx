@@ -47,7 +47,7 @@ const Banner: React.FC<BannerProps> = ({
   onCloseVideo,
   onPlayVideo,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const query = graphql`
     query SiteBannerQuery {
@@ -146,6 +146,15 @@ const Banner: React.FC<BannerProps> = ({
             className={styles.videoButtonIcon}
             style={{ fontSize: '16px', color: '#873BF4' }}
           />
+          <p
+            className={styles.videoButtonText}
+            style={{
+              fontSize: i18n.language === 'en' ? '7px' : '14px',
+              lineHeight: i18n.language === 'en' ? '18px' : '40px',
+            }}
+          >
+            {t('知源・致远')}
+          </p>
         </div>
       </div>,
     );

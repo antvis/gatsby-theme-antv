@@ -82,22 +82,24 @@
           height: 40px;
           background-size: contain;
           border: 1px solid #873bf4;
-          border-radius: 50%;
+          border-radius: 20px;
           transition: all 0.15s;
+          display: flex;
           cursor: pointer;
+          overflow-x: hidden;
           .videoButtonIcon {
-            margin-left: 50%;
-            margin-top: 50%;
-            transform: translateX(-7px) translateY(-8px);
+            margin-left: 12px;
             font-size: 18px;
             color: #873bf4;
-            &:hover {
-              color: #af7dff;
-            }
+            line-height: 44px;
+          }
+          .videoButtonText {
+            line-height: 40px;
+            margin-left: 10px;
+            color: #873bf4;
           }
           &:hover {
-            border: 1px solid #af7dff;
-            background-color: rgba(135, 59, 244, 0.03);
+            width: 134px;
           }
         }
       }
@@ -287,7 +289,6 @@
         font-size: 1em;
       }
       .buttons {
-        text-align: center;
         display: inline-flex;
         .more {
           font-size: 1em;
@@ -324,14 +325,25 @@
   }
 }
 
+@media (max-width: 786px) {
+  .wrapper {
+    .text {
+      .buttons {
+        .videoButtonWrapper {
+          .videoButton {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
 @media (max-width: 510px) {
   .wrapper {
     .text {
       .buttons {
         margin-top: 70%;
-        .videoButton {
-          display: none;
-        }
         .githubWrapper {
           display: none;
         }
