@@ -121,7 +121,7 @@ const Footer: React.FC<FooterProps> = ({
       {
         icon: (
           <img
-            src="https://gw.alipayobjects.com/zos/rmsportal/uHocHZfNWZOdsRUonZNr.png"
+            src="https://gw.alipayobjects.com/zos/antfincdn/sAEs8aHCnd/yunfengdie.png"
             alt="yunfengdie"
           />
         ),

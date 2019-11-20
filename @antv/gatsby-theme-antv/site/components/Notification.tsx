@@ -11,8 +11,8 @@ export interface NotificationProps {
 }
 
 const numberImages = [
-  'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*ViOPRKPsVzoAAAAAAAAAAABkARQnAQ',
-  'https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/img/A*NFADS6PF0DYAAAAAAAAAAABkARQnAQ',
+  'https://gw.alipayobjects.com/zos/antfincdn/IqREAm36K7/1.png',
+  'https://gw.alipayobjects.com/zos/antfincdn/3fG1Iqjfnz/2.png',
 ];
 
 const Notification: React.FC<NotificationProps> = ({
