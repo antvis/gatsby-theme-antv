@@ -48,29 +48,46 @@ npm install @antv/g2
 <div id="c1"></div>
 ```
 
-```js
-import G2 from '@antv/g2';
+```jsx
+class FlavorForm extends React.Component { // highlight-line
+  constructor(props) {
+    super(props);
+    this.state = {value: 'coconut'};
 
-const data = [
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 1150 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
-];
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
-const chart = new G2.Chart({
-  container: 'c1',
-  width: 500,
-  height: 500,
-});
+  handleChange(event) {
+    // highlight-next-line
+    this.setState({value: event.target.value});
+  }
 
-chart.source(data);
-chart
-  .interval()
-  .position('genre*sold') // highlight-line
-  .color('genre');
-chart.render();
+  // highlight-start
+  handleSubmit(event) {
+    alert('Your favorite flavor is: ' + this.state.value);
+    event.preventDefault();
+  }
+  // highlight-end
+
+  render() {
+    return (
+      { /* highlight-range{1,4-9,12} */ }
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Pick your favorite flavor:
+          <select value={this.state.value} onChange={this.handleChange}>
+            <option value="grapefruit">Grapefruit</option>
+            <option value="lime">Lime</option>
+            <option value="coconut">Coconut</option>
+            <option value="mango">Mango</option>
+          </select>
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
 ```
 
 [更多示例](https://antv.alipay.com/zh-cn/g2/3.x/demo/index.html)
