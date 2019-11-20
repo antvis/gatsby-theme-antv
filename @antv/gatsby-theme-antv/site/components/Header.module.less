@@ -109,7 +109,7 @@
 
       li {
         display: inline-block;
-        margin-right: 28px;
+        margin-right: 32px;
         transition: box-shadow 0.3s;
 
         &.activeItem {
@@ -228,8 +228,27 @@
   }
 }
 
+@media only screen and (max-width: 1024px) {
+  .header {
+    .nav {
+      .menu {
+        li {
+          margin-right: 24px;
+        }
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 931.99px) {
   .header {
+    .nav {
+      .menu {
+        li {
+          margin-right: 20px;
+        }
+      }
+    }
     .divider {
       margin: 0 16px;
     }
