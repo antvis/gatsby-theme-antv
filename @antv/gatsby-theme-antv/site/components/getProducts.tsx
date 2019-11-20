@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon } from 'antd';
+import { Icon, Popover } from 'antd';
 
 const tuple = <T extends string[]>(...args: T) => args;
 const Categories = tuple('basic', 'extension', 'ecology');
@@ -12,8 +12,8 @@ export interface ProductItem {
   category: typeof Categories[number];
   links?: Array<{
     icon?: React.ReactNode;
-    title: string;
-    url: string;
+    title: React.ReactNode;
+    url?: string;
     openExternal?: boolean;
   }>;
 }
@@ -50,6 +50,11 @@ export const getProducts = ({
           icon: <Icon type="read" />,
           title: t('使用文档'),
           url: `${rootDomain}/g2/${language}/docs/manual`,
+        },
+        {
+          icon: <Icon type="read" />,
+          title: t('API 文档'),
+          url: `${rootDomain}/g2/${language}/docs/api`,
         },
         {
           icon: <Icon type="history" />,
@@ -320,6 +325,31 @@ export const getProducts = ({
           title: t('生成图表'),
           url: `https://chartcube.alipay.com/guide`,
           openExternal: true,
+        },
+        {
+          icon: <Icon type="yuque" />,
+          title: t('语雀社区'),
+          url: `https://www.yuque.com/chartcube`,
+          openExternal: true,
+        },
+        {
+          icon: <Icon type="qrcode" />,
+          title: (
+            <Popover
+              title={t('扫码进 ChartCube 服务群')}
+              content={
+                <img
+                  width={100}
+                  height={100}
+                  src="https://gw.alipayobjects.com/zos/antfincdn/7LIGEbQFF%24/e1a08ef3-8783-4ea2-95fb-997a11138d3f.png"
+                  alt="DingTalk Group"
+                />
+              }
+              overlayStyle={{ textAlign: 'center' }}
+            >
+              {t('钉钉服务群')}
+            </Popover>
+          ),
         },
       ],
     },
