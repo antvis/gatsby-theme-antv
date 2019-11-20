@@ -11,9 +11,12 @@ function initDocSearch(docsearch: any, lang: string) {
     algoliaOptions: { facetFilters: [`tags:${lang}`] },
     transformData(hits: Array<{ url: string }>) {
       hits.forEach(hit => {
-        hit.url = hit.url.replace('antvis.github.io', window.location.host); // eslint-disable-line
-        hit.url = hit.url.replace('antv.alipay.com', window.location.host); // eslint-disable-line
-        hit.url = hit.url.replace('https:', window.location.protocol); // eslint-disable-line
+        /* eslint-disable no-param-reassign */
+        hit.url = hit.url.replace('antvis.github.io', window.location.host);
+        hit.url = hit.url.replace('antv.alipay.com', window.location.host);
+        hit.url = hit.url.replace('https:', window.location.protocol);
+        hit.url = hit.url.replace('#gatsby-focus-wrapper', '');
+        /* eslint-enable no-param-reassign */
       });
       return hits;
     },
