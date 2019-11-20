@@ -169,6 +169,7 @@ const Header: React.FC<HeaderProps> = ({
           className={styles.productsMenu}
           show={productMenuVisible}
           rootDomain={rootDomain}
+          language={defaultLanguage}
         />
       </li>
       {showLanguageSwitcher && (
