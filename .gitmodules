@@ -1,0 +1,3 @@
+[submodule "themes/code-editor"]
+    path = themes/code-editor
+    url = https://github.com/ant-design/ant-design.git
