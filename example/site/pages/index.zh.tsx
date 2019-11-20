@@ -84,8 +84,7 @@ const IndexPage = () => {
     {
       logo:
         'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
-      logoRadius: '10px',
-      logoShadow: '10px 10px 20px rgba(0, 0, 0, 0.1)',
+      isAppLogo: true,
       title: '灯塔专业版',
       description:
         '深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金',
