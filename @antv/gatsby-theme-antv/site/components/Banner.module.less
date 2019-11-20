@@ -86,7 +86,7 @@
           transition: all 0.15s;
           display: flex;
           cursor: pointer;
-          overflow-x: hidden;
+          overflow: hidden;
           .videoButtonIcon {
             margin-left: 12px;
             font-size: 18px;
@@ -223,9 +223,16 @@
 }
 .videoModal {
   :global {
-    .video {
-      .video-react-big-play-button {
-        display: none !important;
+    .video-react-big-play-button {
+      display: none !important;
+    }
+    .video-react-control-bar {
+      border-radius: 0 0 4px 4px;
+    }
+    .video-react {
+      border-radius: 4px;
+      .video-react-video {
+        border-radius: 4px;
       }
     }
     .ant-modal-close {
