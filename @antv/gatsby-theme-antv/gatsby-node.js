@@ -312,11 +312,30 @@ exports.onCreateWebpackConfig = ({ getConfig, stage, plugins }) => {
   ];
 };
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createFieldExtension } = actions;
+
+  createFieldExtension({
+    name: `defaultString`,
+    extend() {
+      return {
+        resolve(source, args, context, info) {
+          if (source[info.fieldName] == null) {
+            return '';
+          }
+          return source[info.fieldName];
+        },
+      };
+    },
+  });
+};
+
 // 补充默认值
 // https://stackoverflow.com/questions/50770217/how-to-give-gatsby-a-graphql-schema
 // https://graphql.org/learn/schema/
 exports.sourceNodes = ({ actions }) => {
   const { createTypes } = actions;
+
   createTypes(`
     type MarkdownRemarkFrontmatter {
       icon: String
@@ -369,7 +388,7 @@ exports.sourceNodes = ({ actions }) => {
       title: String!
       description: String!
       githubUrl: String!
-      siteUrl: String
+      siteUrl: String @defaultString
       logoUrl: String
       navs: [SiteSiteMetadataNavs]
       docs: [SiteSiteMetadataDocs]
