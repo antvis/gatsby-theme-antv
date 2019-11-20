@@ -8,18 +8,20 @@ import styles from './Product.module.less';
 interface ProductsProps {
   show: boolean;
   rootDomain: string;
+  language?: 'zh' | 'en';
   className?: string;
 }
 
 const Products: React.FC<ProductsProps> = ({
   show,
   rootDomain = '',
+  language,
   className,
 }) => {
   const { t, i18n } = useTranslation();
   const data = getProducts({
     t,
-    language: i18n.language,
+    language: language || i18n.language,
     rootDomain,
   });
   return (
