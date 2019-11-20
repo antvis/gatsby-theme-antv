@@ -369,6 +369,7 @@ exports.sourceNodes = ({ actions }) => {
       title: String!
       description: String!
       githubUrl: String!
+      siteUrl: String
       logoUrl: String
       navs: [SiteSiteMetadataNavs]
       docs: [SiteSiteMetadataDocs]
