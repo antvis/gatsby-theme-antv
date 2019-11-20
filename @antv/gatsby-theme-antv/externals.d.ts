@@ -1,4 +1,13 @@
-declare module '*.less';
+declare module '*.less' {
+  const content: {
+    [className: string]: string;
+  };
+  export default content;
+}
+
+declare module '*.svg' {
+  export default React.ReactComponent;
+}
 
 declare module 'ptz-i18n';
 

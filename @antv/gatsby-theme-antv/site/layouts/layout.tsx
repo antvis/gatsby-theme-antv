@@ -113,6 +113,13 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   };
 
   const rediectUrl = getRediectUrl();
+  const logoProps = logoUrl
+    ? {
+        logo: {
+          img: <img src={logoUrl} alt="logo" />,
+        },
+      }
+    : {};
 
   return (
     <>
@@ -126,17 +133,6 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         path={path}
         pathPrefix={pathPrefix}
         navs={navs}
-        logo={{
-          img: (
-            <img
-              src={
-                logoUrl ||
-                'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg'
-              }
-              alt="logo"
-            />
-          ),
-        }}
         githubUrl={githubUrl}
         Link={Link}
         transparent={isHomePage}
@@ -144,6 +140,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         showLanguageSwitcher={
           showLanguageSwitcher === null ? undefined : showLanguageSwitcher
         }
+        {...logoProps}
       />
       <main className={styles.main}>{children}</main>
       <Footer />

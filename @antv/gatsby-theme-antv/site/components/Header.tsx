@@ -8,6 +8,7 @@ import { Icon } from 'antd';
 import Search from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
+import AntvLogo from '../images/antv.svg';
 import styles from './Header.module.less';
 
 interface HeaderProps {
@@ -101,12 +102,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   const { img, link } = {
-    img: (
-      <img
-        src="https://gw.alipayobjects.com/os/s/prod/antv/assets/image/logo-with-text-73b8a.svg"
-        alt="logo"
-      />
-    ),
+    img: <AntvLogo />,
     link: '',
     ...logo,
   };
