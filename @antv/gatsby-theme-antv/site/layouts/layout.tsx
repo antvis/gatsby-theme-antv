@@ -137,6 +137,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         Link={Link}
         transparent={isHomePage}
         isHomePage={isHomePage}
+        showChinaMirror
         showLanguageSwitcher={
           showLanguageSwitcher === null ? undefined : showLanguageSwitcher
         }

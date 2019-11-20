@@ -121,11 +121,26 @@
 
         a {
           color: #697b8c;
-          transition: color 0.3s;
+          transition: all 0.3s;
           display: block;
+
+          .export svg {
+            width: 12px;
+            height: 12px;
+            margin-left: 3px;
+            opacity: 0.3;
+            position: relative;
+            top: 1.5px;
+            transition: all 0.3s;
+            margin-right: -6px;
+          }
 
           &:hover {
             color: @primary-color;
+          }
+
+          &:hover .export svg {
+            opacity: 0.5;
           }
         }
 
@@ -213,8 +228,27 @@
   }
 }
 
+@media only screen and (max-width: 1024px) {
+  .header {
+    .nav {
+      .menu {
+        li {
+          margin-right: 24px;
+        }
+      }
+    }
+  }
+}
+
 @media only screen and (max-width: 931.99px) {
   .header {
+    .nav {
+      .menu {
+        li {
+          margin-right: 20px;
+        }
+      }
+    }
     .divider {
       margin: 0 16px;
     }
