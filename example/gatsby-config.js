@@ -2,15 +2,13 @@ module.exports = {
   plugins: [
     {
       resolve: '@antv/gatsby-theme-antv',
-      options: {
-        pathPrefix: '/gatsby-theme-antv',
-      },
+      options: {},
     },
   ],
   siteMetadata: {
     title: 'AntV test site',
     description: 'Ant Visualization solution home page',
-    siteUrl: 'https://test.antv.vision/gatsby-theme-antv',
+    siteUrl: 'https://test.antv.vision/',
     githubUrl: 'https://github.com/antvis/antvis.github.io',
     navs: [
       {
