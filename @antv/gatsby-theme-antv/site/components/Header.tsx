@@ -35,6 +35,7 @@ interface HeaderProps {
     img?: React.ReactNode;
     link?: string;
   };
+  siteUrl?: string;
   /** github 仓库地址 */
   githubUrl?: string;
   /** 默认语言 */
@@ -91,6 +92,7 @@ const Header: React.FC<HeaderProps> = ({
   showLanguageSwitcher = true,
   logo,
   onLanguageChange,
+  siteUrl,
   githubUrl = 'https://github.com/antvis',
   defaultLanguage,
   Link = 'a',
@@ -253,6 +255,21 @@ const Header: React.FC<HeaderProps> = ({
     </ul>
   );
 
+  let logoLink;
+  if (link) {
+    logoLink = link;
+  } else if (siteUrl === 'https://antv.vision') {
+    logoLink = `/${lang}`;
+  } else {
+    logoLink = `https://antv.vision`;
+  }
+  if (
+    typeof window !== 'undefined' &&
+    window.location.host === 'antv.gitee.io'
+  ) {
+    logoLink = `https://antv.gitee.io`;
+  }
+
   return (
     <header
       className={classNames(styles.header, {
@@ -264,7 +281,7 @@ const Header: React.FC<HeaderProps> = ({
       <div className={styles.container}>
         <div className={styles.left}>
           <h1>
-            <a href={link || `/${lang}`}>{img}</a>
+            <a href={logoLink}>{img}</a>
           </h1>
           {subTitle && (
             <>

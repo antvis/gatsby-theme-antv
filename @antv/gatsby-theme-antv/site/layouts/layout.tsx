@@ -135,6 +135,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         path={path}
         pathPrefix={pathPrefix}
         navs={navs}
+        siteUrl={siteUrl}
         githubUrl={githubUrl}
         Link={Link}
         transparent={isHomePage}
