@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { default as RCFooter, FooterProps as RcFooterProps } from 'rc-footer';
 import { useTranslation } from 'react-i18next';
 import { Icon, notification, Button } from 'antd';
+import { useMedia } from 'react-use';
 import { getProducts } from './getProducts';
 import { redirectToChinaMirror } from './Header';
 import styles from './Footer.module.less';
@@ -32,6 +33,7 @@ const Footer: React.FC<FooterProps> = ({
     language: lang,
     rootDomain,
   });
+  const isWide = useMedia('(min-width: 767.99px)', true);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -40,7 +42,8 @@ const Footer: React.FC<FooterProps> = ({
         lang !== 'zh' ||
         window.location.host.includes('chartcube') ||
         window.location.host.includes('gitee.io') ||
-        localStorage.getItem('china-mirror-no-more-hint')
+        localStorage.getItem('china-mirror-no-more-hint') ||
+        !isWide
       ) {
         return;
       }
