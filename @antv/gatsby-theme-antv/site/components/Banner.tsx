@@ -143,8 +143,8 @@ const Banner: React.FC<BannerProps> = ({
           <p
             className={styles.videoButtonText}
             style={{
-              fontSize: i18n.language === 'en' ? '7px' : '14px',
-              lineHeight: i18n.language === 'en' ? '18px' : '40px',
+              fontSize: '14px',
+              lineHeight: '40px',
             }}
           >
             {t('知源・致远')}
