@@ -61,20 +61,21 @@ export const redirectToChinaMirror = (githubUrl: string) => {
     return;
   }
   // g2plot.antv.vision => antv-g2plot.gitee.io
-  const match = window.location.href.match(/(.*)\.antv\.vision/);
+  const match = window.location.host.match(/(.*)\.antv\.vision/);
   if (match && match[1]) {
     window.location.href = window.location.href.replace(
-      /(.*)\.antv\.vision/,
-      `https://antv-${match[1]}.gitee.io`,
+      window.location.host,
+      `antv-${match[1]}.gitee.io`,
     );
     return;
   }
   const { name } = GitUrlParse(githubUrl);
   if (!name.includes('.') && !name.includes('-')) {
     window.location.href = window.location.href.replace(
-      name,
-      `https://antv-${name}.gitee.io`,
+      window.location.host,
+      `antv-${name}.gitee.io`,
     );
+    return;
   }
   message.info('镜像本地调试暂时无法跳转。');
 };
