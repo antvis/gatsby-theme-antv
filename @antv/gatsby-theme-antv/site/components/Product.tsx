@@ -7,8 +7,8 @@ interface ProductProps {
   description?: string;
   url?: string;
   links?: Array<{
-    title: string;
-    url: string;
+    title: React.ReactNode;
+    url?: string;
     icon?: React.ReactNode;
     openExternal?: boolean;
   }>;
@@ -36,7 +36,7 @@ const Product: React.FC<ProductProps> = ({
         {links.slice(0, 2).map(item => (
           <a
             href={item.url}
-            target={item.url.startsWith('http') ? '_blank' : '_self'}
+            target={(item.url || '').startsWith('http') ? '_blank' : '_self'}
             key={item.url}
           >
             {item.title}
