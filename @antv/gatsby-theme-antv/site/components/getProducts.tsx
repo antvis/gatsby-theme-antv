@@ -226,7 +226,7 @@ export const getProducts = ({
     {
       title: 'G2Plot',
       icon: 'https://gw.alipayobjects.com/zos/antfincdn/SlbIagEvT7/G2plot.svg',
-      slogan: t('强大的图表库'),
+      slogan: t('开箱即用的图表库'),
       description: t('开箱即用、易于配置、极致体验的通用图表库。'),
       category: Categories[1],
       links: [

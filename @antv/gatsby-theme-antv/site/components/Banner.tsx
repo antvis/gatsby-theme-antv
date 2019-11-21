@@ -91,13 +91,7 @@ const Banner: React.FC<BannerProps> = ({
       title: 'This is a notification message',
       className: styles.videoModal,
       onCancel: onCloseVideo,
-      content: (
-        <Player
-          className={styles.video}
-          autoPlay
-          src="https://mdn.alipayobjects.com/afts/file/A*grJPTKqmP9QAAAAAAAAAAABjAQAAAQ?bz=antv_site"
-        />
-      ),
+      content: <Player className={styles.video} autoPlay src={video} />,
       width: '70%',
     });
   };

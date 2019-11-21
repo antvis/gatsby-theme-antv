@@ -126,7 +126,7 @@ const IndexPage = () => {
         className="banner"
         buttons={bannerButtons}
         showGithubStars={false}
-        video="https://mdn.alipayobjects.com/afts/file/A*qmPlRYhAlBkAAAAAAAAAAABjAQAAAQ?bz=antv_site"
+        video="https://gw.alipayobjects.com/mdn/rms_f8c6a0/afts/file/A*PDpiR4U2oFEAAAAAAAAAAABkARQnAQ"
         onCloseVideo={() => {
           console.log('close'); // eslint-disable-line no-console
         }}
