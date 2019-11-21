@@ -104,7 +104,7 @@ const Header: React.FC<HeaderProps> = ({
       ? defaultLanguage
       : i18n.language || '';
   const SubTitleLink = (subTitleHref || '').startsWith('http') ? 'a' : Link;
-  const [productMenuVisible, setProductMenuVisible] = useState(true);
+  const [productMenuVisible, setProductMenuVisible] = useState(false);
   let productMenuHovering = false;
   const onProductMouseEnter = (e: React.MouseEvent) => {
     productMenuHovering = true;
