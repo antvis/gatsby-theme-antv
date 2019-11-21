@@ -66,13 +66,13 @@ const Banner: React.FC<BannerProps> = ({
       type: t('推荐'),
       title: t('AntV 11-22 品牌日：知源·致远'),
       date: '2019.11.22',
-      link: '/',
+      link: 'https://www.yuque.com/antv/blog/2019-release',
     },
     {
       type: t('更新'),
       title: t('G2Plot 图表库发布'),
       date: '2019.11.22',
-      link: '/g2plot',
+      link: 'https://www.yuque.com/antv/blog/charts',
     },
   ];
 
