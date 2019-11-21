@@ -210,9 +210,7 @@ const Header: React.FC<HeaderProps> = ({
           </a>
         </li>
       )}
-      {!showChinaMirror ||
-      (typeof window !== 'undefined' &&
-        window.location.host.includes('gitee.io')) ? null : (
+      {!showChinaMirror ? null : (
         <li>
           <a
             href={chinaMirrorUrl}
