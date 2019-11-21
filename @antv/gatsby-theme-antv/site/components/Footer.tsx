@@ -66,7 +66,13 @@ const Footer: React.FC<FooterProps> = ({
             </Button>
             <Button
               size="small"
-              onClick={() => notification.close('china-mirror')}
+              onClick={() => {
+                localStorage.setItem(
+                  'china-mirror-no-more-hint',
+                  Date.now().toString(),
+                );
+                notification.close('china-mirror');
+              }}
             >
               不再提醒
             </Button>
