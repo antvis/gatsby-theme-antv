@@ -60,19 +60,6 @@ const execute = debounce(
   300,
 );
 
-if (typeof window !== 'undefined') {
-  window.addEventListener(
-    'unhandledrejection',
-    (event: PromiseRejectionEvent) => {
-      // @ts-ignore
-      if (window.__reportErrorInPlayGround) {
-        // @ts-ignore
-        window.__reportErrorInPlayGround(event.reason);
-      }
-    },
-  );
-}
-
 const PlayGround: React.FC<PlayGroundProps> = ({
   source,
   babeledSource,
