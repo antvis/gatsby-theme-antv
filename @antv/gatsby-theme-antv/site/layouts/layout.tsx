@@ -40,6 +40,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         siteMetadata {
           title
           githubUrl
+          siteUrl
           logoUrl
           showLanguageSwitcher
           navs {
@@ -64,6 +65,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
       title,
       navs = [],
       githubUrl,
+      siteUrl,
       logoUrl = '',
       showLanguageSwitcher,
       redirects = [],
@@ -129,7 +131,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         </Helmet>
       )}
       <Header
-        subTitle={pathPrefix === '' ? '' : title}
+        subTitle={siteUrl === 'https://antv.vision' ? '' : title}
         path={path}
         pathPrefix={pathPrefix}
         navs={navs}
