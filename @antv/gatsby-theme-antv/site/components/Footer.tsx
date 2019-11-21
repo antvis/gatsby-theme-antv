@@ -3,6 +3,7 @@ import { default as RCFooter, FooterProps as RcFooterProps } from 'rc-footer';
 import { useTranslation } from 'react-i18next';
 import { Icon, notification, Button } from 'antd';
 import { getProducts } from './getProducts';
+import { redirectToChinaMirror } from './Header';
 import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
 
@@ -12,6 +13,7 @@ interface FooterProps extends RcFooterProps {
   rootDomain?: string;
   language?: string;
   chinaMirrorNotice?: boolean;
+  githubUrl?: string;
 }
 
 const Footer: React.FC<FooterProps> = ({
@@ -21,6 +23,7 @@ const Footer: React.FC<FooterProps> = ({
   language,
   rootDomain = '',
   chinaMirrorNotice = true,
+  githubUrl = '',
 }) => {
   const { t, i18n } = useTranslation();
   const lang = language || i18n.language;
@@ -55,17 +58,7 @@ const Footer: React.FC<FooterProps> = ({
               size="small"
               style={{ marginRight: 8 }}
               onClick={() => {
-                if (window.location.host === 'antv.vision') {
-                  window.location.href = window.location.href.replace(
-                    'antv.vision',
-                    'antv.gitee.io',
-                  );
-                } else {
-                  window.location.href = window.location.href.replace(
-                    '.antv.vision',
-                    '-antv.gitee.io',
-                  );
-                }
+                redirectToChinaMirror(githubUrl);
               }}
             >
               <Icon type="thunderbolt" />

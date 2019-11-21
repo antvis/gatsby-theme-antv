@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'antd';
+import { Icon, message } from 'antd';
+import GitUrlParse from 'git-url-parse';
 import Search from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
@@ -49,6 +50,34 @@ interface HeaderProps {
   /** 是否展示国内镜像链接 */
   showChinaMirror?: boolean;
 }
+
+export const redirectToChinaMirror = (githubUrl: string) => {
+  // antv.vision => antv.gitee.io
+  if (window.location.host === 'antv.vision') {
+    window.location.href = window.location.href.replace(
+      'antv.vision',
+      'antv.gitee.io',
+    );
+    return;
+  }
+  // g2plot.antv.vision => antv-g2plot.gitee.io
+  const match = window.location.href.match(/(.*)\.antv\.vision/);
+  if (match && match[1]) {
+    window.location.href = window.location.href.replace(
+      /(.*)\.antv\.vision/,
+      `https://antv-${match[1]}.gitee.io`,
+    );
+    return;
+  }
+  const { name } = GitUrlParse(githubUrl);
+  if (!name.includes('.') && !name.includes('-')) {
+    window.location.href = window.location.href.replace(
+      name,
+      `https://antv-${name}.gitee.io`,
+    );
+  }
+  message.info('镜像本地调试暂时无法跳转。');
+};
 
 const Header: React.FC<HeaderProps> = ({
   subTitle = '',
@@ -147,6 +176,9 @@ const Header: React.FC<HeaderProps> = ({
         onClick: onToggleProductMenuVisible,
       };
 
+  const { name } = GitUrlParse(githubUrl);
+  const chinaMirrorUrl = name ? `https://antv-${name}.gitee.io` : '';
+
   const menu = (
     <ul
       className={classNames(styles.menu, {
@@ -182,19 +214,10 @@ const Header: React.FC<HeaderProps> = ({
         window.location.host.includes('gitee.io')) ? null : (
         <li>
           <a
+            href={chinaMirrorUrl}
             onClick={e => {
               e.preventDefault();
-              if (window.location.host === 'antv.vision') {
-                window.location.href = window.location.href.replace(
-                  'antv.vision',
-                  'antv.gitee.io',
-                );
-              } else {
-                window.location.href = window.location.href.replace(
-                  '.antv.vision',
-                  '-antv.gitee.io',
-                );
-              }
+              redirectToChinaMirror(githubUrl);
             }}
           >
             {t('国内镜像')}
