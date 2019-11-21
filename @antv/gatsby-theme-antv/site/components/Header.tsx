@@ -155,23 +155,6 @@ const Header: React.FC<HeaderProps> = ({
       })}
     >
       {navs && navs.length ? <NavMenuItems navs={navs} path={path} /> : null}
-      <li {...productItemProps}>
-        <a>
-          {t('所有产品')}
-          <Icon
-            type="caret-down"
-            className={classNames(styles.arrow, {
-              [styles.open]: productMenuVisible,
-            })}
-          />
-        </a>
-        <Products
-          className={styles.productsMenu}
-          show={productMenuVisible}
-          rootDomain={rootDomain}
-          language={defaultLanguage}
-        />
-      </li>
       {showLanguageSwitcher && (
         <li>
           <a
@@ -221,6 +204,23 @@ const Header: React.FC<HeaderProps> = ({
           </a>
         </li>
       )}
+      <li {...productItemProps}>
+        <a>
+          {t('所有产品')}
+          <Icon
+            type="caret-down"
+            className={classNames(styles.arrow, {
+              [styles.open]: productMenuVisible,
+            })}
+          />
+        </a>
+        <Products
+          className={styles.productsMenu}
+          show={productMenuVisible}
+          rootDomain={rootDomain}
+          language={defaultLanguage}
+        />
+      </li>
       {showGithubCorner && (
         <li className={styles.githubCorner}>
           <a href={githubUrl} target="_blank" rel="noopener noreferrer">
