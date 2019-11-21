@@ -84,16 +84,6 @@ module.exports = {
       playgroundDidMount: 'console.log("playgroundDidMount");',
       playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
     },
-    redirects: [
-      {
-        from: '/zh-cn/index\\.html',
-      },
-      {
-        from: '/zh-cn/(g2|g6|f2|l7)/[0-9]\\.x',
-      },
-      {
-        from: '/zh-cn/vis/index\\.html',
-      },
-    ],
+    redirects: [],
   },
 };

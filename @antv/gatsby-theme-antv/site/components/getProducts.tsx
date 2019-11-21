@@ -18,10 +18,11 @@ export interface ProductItem {
   }>;
 }
 
+const ANTV_DOMAIN = 'antv.vision';
+
 export const getProducts = ({
   t,
   language,
-  rootDomain = '',
 }: {
   t: (key: string) => string;
   language: string;
@@ -39,22 +40,22 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `${rootDomain}/g2/${language}`,
+          url: `https://g2.${ANTV_DOMAIN}/${language}`,
         },
         {
           icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
-          url: `${rootDomain}/g2/${language}/examples`,
+          url: `https://g2.${ANTV_DOMAIN}/${language}/examples`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `${rootDomain}/g2/${language}/docs/manual`,
+          url: `https://g2.${ANTV_DOMAIN}/${language}/docs/manual`,
         },
         {
           icon: <Icon type="read" />,
           title: t('API 文档'),
-          url: `${rootDomain}/g2/${language}/docs/api`,
+          url: `https://g2.${ANTV_DOMAIN}/${language}/docs/api`,
         },
         {
           icon: <Icon type="history" />,
@@ -71,7 +72,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://g2-antv.gitee.io`,
+          url: `https://antv-g2.gitee.io`,
           openExternal: true,
         },
       ],
@@ -87,22 +88,22 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `${rootDomain}/g6/${language}`,
+          url: `https://g6.${ANTV_DOMAIN}/${language}`,
         },
         {
           icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
-          url: `${rootDomain}/g6/${language}/examples`,
+          url: `https://g6.${ANTV_DOMAIN}/${language}/examples`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `${rootDomain}/g6/${language}/docs/manual`,
+          url: `https://g6.${ANTV_DOMAIN}/${language}/docs/manual`,
         },
         {
           icon: <Icon type="read" />,
           title: t('API 文档'),
-          url: `${rootDomain}/g6/${language}/docs/api/GlobalAPI`,
+          url: `https://g6.${ANTV_DOMAIN}/${language}/docs/api/GlobalAPI`,
         },
         {
           icon: <Icon type="history" />,
@@ -119,7 +120,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://g6-antv.gitee.io`,
+          url: `https://antv-g6.gitee.io`,
           openExternal: true,
         },
       ],
@@ -137,22 +138,22 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `${rootDomain}/f2/${language}`,
+          url: `https://f2.${ANTV_DOMAIN}/${language}`,
         },
         {
           icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
-          url: `${rootDomain}/f2/${language}/examples`,
+          url: `https://f2.${ANTV_DOMAIN}/${language}/examples`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `${rootDomain}/f2/${language}/docs/tutorial/getting-started`,
+          url: `https://f2.${ANTV_DOMAIN}/${language}/docs/tutorial/getting-started`,
         },
         {
           icon: <Icon type="read" />,
           title: t('API 文档'),
-          url: `${rootDomain}/f2/${language}/docs/api`,
+          url: `https://f2.${ANTV_DOMAIN}/${language}/docs/api`,
         },
         {
           icon: <Icon type="history" />,
@@ -169,7 +170,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://f2-antv.gitee.io`,
+          url: `https://antv-f2.gitee.io`,
           openExternal: true,
         },
       ],
@@ -185,22 +186,22 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `${rootDomain}/L7/${language}`,
+          url: `https://l7.${ANTV_DOMAIN}/${language}`,
         },
         {
           icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
-          url: `${rootDomain}/L7/${language}/examples`,
+          url: `https://l7.${ANTV_DOMAIN}/${language}/examples`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `${rootDomain}/L7/${language}/docs/manual/tutorial`,
+          url: `https://l7.${ANTV_DOMAIN}/${language}/docs/manual/tutorial`,
         },
         {
           icon: <Icon type="read" />,
           title: t('API 文档'),
-          url: `${rootDomain}/L7/${language}/docs/API`,
+          url: `https://l7.${ANTV_DOMAIN}/${language}/docs/API`,
         },
         {
           icon: <Icon type="history" />,
@@ -217,7 +218,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://l7-antv.gitee.io`,
+          url: `https://antv-l7.gitee.io`,
           openExternal: true,
         },
       ],
@@ -232,17 +233,17 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `${rootDomain}/g2plot/${language}`,
+          url: `https://g2plot.${ANTV_DOMAIN}/${language}`,
         },
         {
           icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
-          url: `${rootDomain}/g2plot/${language}/examples`,
+          url: `https://g2plot.${ANTV_DOMAIN}/${language}/examples`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `${rootDomain}/g2plot/${language}/docs/manual`,
+          url: `https://g2plot.${ANTV_DOMAIN}/${language}/docs/manual`,
         },
         {
           icon: <Icon type="history" />,
@@ -259,7 +260,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://g2plot-antv.gitee.io`,
+          url: `https://antv-g2plot.gitee.io`,
           openExternal: true,
         },
       ],
@@ -274,17 +275,17 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `${rootDomain}/graphin/${language}`,
+          url: `https://graphin.${ANTV_DOMAIN}/${language}`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `${rootDomain}/graphin/${language}/docs/manual/introduction`,
+          url: `https://graphin.${ANTV_DOMAIN}/${language}/docs/manual/introduction`,
         },
         {
           icon: <Icon type="read" />,
           title: t('API 文档'),
-          url: `${rootDomain}/graphin/${language}/docs/api/graphin`,
+          url: `https://graphin.${ANTV_DOMAIN}/${language}/docs/api/graphin`,
         },
         {
           icon: <Icon type="history" />,
@@ -301,7 +302,7 @@ export const getProducts = ({
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://graphin-antv.gitee.io`,
+          url: `https://antv-graphin.gitee.io`,
           openExternal: true,
         },
       ],
