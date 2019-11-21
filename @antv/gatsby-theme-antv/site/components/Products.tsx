@@ -39,11 +39,13 @@ const Products: React.FC<ProductsProps> = ({
               .map(product => (
                 <Product
                   key={product.title}
-                  name={`${product.title} ${product.slogan || ''}`}
+                  name={product.title}
+                  slogan={product.slogan || ''}
                   description={product.description}
                   url={(product.links || [])[0].url}
                   icon={product.icon as string}
                   links={product.links}
+                  language={language || i18n.language}
                 />
               ))}
           </ul>
@@ -54,11 +56,13 @@ const Products: React.FC<ProductsProps> = ({
               .map(product => (
                 <Product
                   key={product.title}
-                  name={`${product.title} ${product.slogan || ''}`}
+                  name={product.title}
+                  slogan={product.slogan || ''}
                   description={product.description}
                   url={(product.links || [])[0].url}
                   icon={product.icon as string}
                   links={product.links}
+                  language={language || i18n.language}
                 />
               ))}
           </ul>
@@ -69,10 +73,12 @@ const Products: React.FC<ProductsProps> = ({
               .map(product => (
                 <Product
                   key={product.title}
-                  name={`${product.title} ${product.slogan || ''}`}
+                  name={product.title}
+                  slogan={product.slogan || ''}
                   description={product.description}
                   url={(product.links || [])[0].url}
                   icon={product.icon as string}
+                  language={language || i18n.language}
                 />
               ))}
           </ul>

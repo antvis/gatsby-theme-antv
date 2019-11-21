@@ -4,6 +4,7 @@ import styles from './Product.module.less';
 interface ProductProps {
   name?: string;
   icon?: string;
+  slogan?: string;
   description?: string;
   url?: string;
   links?: Array<{
@@ -13,15 +14,18 @@ interface ProductProps {
     openExternal?: boolean;
   }>;
   style?: React.CSSProperties;
+  language?: string;
 }
 
 const Product: React.FC<ProductProps> = ({
   name,
   icon,
   url = '',
+  slogan,
   description,
   links = [],
   style,
+  language,
 }) => (
   <li className={styles.product} style={style}>
     <a href={url} target={url.startsWith('http') ? '_blank' : '_self'}>
@@ -29,7 +33,15 @@ const Product: React.FC<ProductProps> = ({
     </a>
     <div className={styles.productContent}>
       <a href={url} target={url.startsWith('http') ? '_blank' : '_self'}>
-        <h4>{name}</h4>
+        <h4>
+          {name}
+          <span
+            className={styles.productSlogan}
+            style={{ opacity: language === 'en' ? 0.7 : '' }}
+          >
+            {slogan}
+          </span>
+        </h4>
       </a>
       <div className={styles.productDescription}>{description}</div>
       <div className={styles.productLinks}>
