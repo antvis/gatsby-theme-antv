@@ -116,7 +116,7 @@ const Header: React.FC<HeaderProps> = ({
       if (e.target instanceof Element && e.target.matches(':hover')) {
         setProductMenuVisible(true);
       }
-    }, 300);
+    }, 200);
   };
   const onProductMouseLeave = (e: React.MouseEvent) => {
     e.persist();

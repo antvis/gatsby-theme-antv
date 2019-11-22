@@ -7,10 +7,9 @@
   z-index: 100;
   left: 0;
   top: 64px;
-  max-height: 0;
   opacity: 0;
-  transform: translateY(-8px);
-  transition: all 0.3s ease-out;
+  transform: translateY(-12px);
+  transition: all 0.3s ease-in;
   background: #fff;
   padding: 0;
   overflow: hidden;
@@ -25,7 +24,6 @@
   }
 
   &.show {
-    max-height: 1000px;
     opacity: 1;
     box-shadow: 0 2px 8px #f0f1f2 inset;
     pointer-events: auto;
@@ -140,9 +138,6 @@
 
 @media only screen and (max-width: 767.99px) {
   .products {
-    &.show {
-      max-height: 2000px;
-    }
     .product {
       width: 100%;
       padding-right: 0;
