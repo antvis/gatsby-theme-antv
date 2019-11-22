@@ -49,11 +49,18 @@ const Footer: React.FC<FooterProps> = ({
       }
       notification.info({
         key: 'china-mirror',
-        message: '🇨🇳 中文镜像提示',
+        icon: (
+          <img
+            width={32}
+            src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png"
+            alt="antv logo"
+          />
+        ),
+        message: '国内镜像提示 🇨🇳',
         description:
-          'AntV 系列网站部署在 gh-pages 上，若访问速度不佳，可以前往我们的国内镜像站点。',
-        placement: 'bottomRight',
+          'AntV 系列网站部署在 gh-pages 上，若访问速度不佳，可以前往国内镜像站点。你也可以在顶部导航找到镜像链接。',
         duration: 0,
+        top: 64,
         btn: (
           <>
             <Button
