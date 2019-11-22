@@ -58,6 +58,11 @@ const SEO: React.FC<SEOProps> = ({
           content: metaDescription,
         },
         {
+          property: `og:image`,
+          content:
+            'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png',
+        },
+        {
           property: `og:type`,
           content: `website`,
         },
