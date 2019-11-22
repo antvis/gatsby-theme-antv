@@ -255,20 +255,21 @@ const Header: React.FC<HeaderProps> = ({
     </ul>
   );
 
-  let logoLink;
+  let defaultLogoLink;
   if (link) {
-    logoLink = link;
+    defaultLogoLink = link;
   } else if (siteUrl === 'https://antv.vision') {
-    logoLink = `/${lang}`;
+    defaultLogoLink = `/${lang}`;
   } else {
-    logoLink = `https://antv.vision`;
+    defaultLogoLink = `https://antv.vision`;
   }
-  if (
-    typeof window !== 'undefined' &&
-    window.location.host === 'antv.gitee.io'
-  ) {
-    logoLink = `https://antv.gitee.io`;
-  }
+
+  const [logoLink, setLogoLink] = useState(defaultLogoLink);
+  useEffect(() => {
+    if (window.location.host === 'antv.gitee.io') {
+      setLogoLink('https://antv.gitee.io');
+    }
+  }, []);
 
   return (
     <header
