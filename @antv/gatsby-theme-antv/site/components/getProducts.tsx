@@ -33,7 +33,7 @@ export const getProducts = ({
       title: 'G2',
       icon:
         'https://gw.alipayobjects.com/zos/antfincdn/trEfLRh5pc/G2%252520keshihuatuxingyufa.svg',
-      slogan: t('可视化图形语法'),
+      slogan: t('可视化引擎'),
       description: t('数据驱动，高度易用，可扩展的可视化图形语法。'),
       category: Categories[0],
       links: [
