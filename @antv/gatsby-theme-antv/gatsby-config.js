@@ -152,6 +152,7 @@ module.exports = ({
       },
       cname ? `gatsby-plugin-cname` : '',
       `gatsby-plugin-catch-links`,
+      `gatsby-plugin-sitemap`,
       `gatsby-plugin-nprogress`,
       `gatsby-plugin-remove-trailing-slashes`,
       // You can have multiple instances of this plugin
