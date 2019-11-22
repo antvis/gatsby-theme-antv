@@ -15,7 +15,7 @@ const data = [
 
 const chart = new G2.Chart({
   container: document.getElementById('container'),
-  width: 500,
+  forceFit: true,
   height: 500,
 });
 
