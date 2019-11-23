@@ -32,6 +32,10 @@
 - ✨ https://l7.antv.vision
 - ✨ https://graphin.antv.vision
 
+<img width="1295" alt="图片" src="https://user-images.githubusercontent.com/507615/69481549-49b39d00-0e4d-11ea-87fd-1e7741f4bdf1.png">
+
+<img width="1341" alt="图片" src="https://user-images.githubusercontent.com/507615/69481568-69e35c00-0e4d-11ea-8193-8e9330820e62.png">
+
 ## Usage
 
 ```bash
