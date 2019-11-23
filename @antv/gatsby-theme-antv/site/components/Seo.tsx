@@ -14,6 +14,7 @@ interface SEOProps {
   lang?: string;
   meta?: any[];
   title?: string;
+  titleSuffix?: string;
 }
 
 const SEO: React.FC<SEOProps> = ({
@@ -21,6 +22,7 @@ const SEO: React.FC<SEOProps> = ({
   lang = '',
   meta = [],
   title,
+  titleSuffix,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -43,7 +45,7 @@ const SEO: React.FC<SEOProps> = ({
         lang,
       }}
       title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      titleTemplate={`%s | ${titleSuffix || site.siteMetadata.title}`}
       meta={[
         {
           name: `description`,

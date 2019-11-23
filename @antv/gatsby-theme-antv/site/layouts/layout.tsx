@@ -4,6 +4,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getCurrentLangKey } from 'ptz-i18n';
 import Helmet from 'react-helmet';
+import Seo from '../components/Seo';
 import Header from '../components/Header';
 import PageLoading from '../components/PageLoading';
 import Footer, { OLD_SITE_DOMAIN } from '../components/Footer';
@@ -130,6 +131,10 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
           <meta httpEquiv="refresh" content={`0;url=${rediectUrl}`} />
         </Helmet>
       )}
+      <Seo
+        title={siteUrl === 'https://antv.vision' ? '' : title}
+        lang={i18n.language}
+      />
       <Header
         subTitle={siteUrl === 'https://antv.vision' ? '' : title}
         path={path}
