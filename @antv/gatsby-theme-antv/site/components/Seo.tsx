@@ -78,6 +78,11 @@ const SEO: React.FC<SEOProps> = ({
           name: `twitter:description`,
           content: metaDescription,
         },
+        {
+          property: `twitter:image`,
+          content:
+            'https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png',
+        },
       ].concat(meta)}
     />
   );
