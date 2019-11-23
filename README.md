@@ -7,7 +7,7 @@
 [![devDependencies Status](https://david-dm.org/antvis/gatsby-theme-antv/dev-status.svg?style=flat-square&path=@antv/gatsby-theme-antv)](https://david-dm.org/antvis/gatsby-theme-antv?type=dev&path=@antv/gatsby-theme-antv)
 ![prettier code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 
-## How to use it for AntV
+## How to use it
 
 - ✨ AntV 站点 [接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442)
 - 参考例子: https://github.com/antvis/gatsby-theme-antv/tree/master/example
@@ -21,6 +21,16 @@
 - 🏗 Unified Theme and Layout
 - 🆙 Easy customized header nav
 - 🧩 Built-in home page components
+
+## Websites using it
+
+- 🔥 https://antv.vision
+- 🔥 https://g2plot.antv.vision
+- 🔥 https://g2.antv.vision
+- 🔥 https://g6.antv.vision
+- 🔥 https://f2.antv.vision
+- 🔥 https://l7.antv.vision
+- 🔥 https://graphin.antv.vision
 
 ## Usage
 
@@ -253,7 +263,7 @@ or
 yarn workspace @antv/gatsby-theme-antv shallowequal
 ```
 
-## Used libraries
+## Related libraries
 
 - [Gatsby](https://www.gatsbyjs.org/docs/)
 - [Ant Design](https://github.com/ant-design/ant-design)
@@ -262,7 +272,3 @@ yarn workspace @antv/gatsby-theme-antv shallowequal
 - [Jest](https://jestjs.io/)
 - [Testing Library](https://testing-library.com/)
 - [react-i18next](https://react.i18next.com/)
-
-## Websites using it
-
-- https://github.com/antvis/antvis.github.io
