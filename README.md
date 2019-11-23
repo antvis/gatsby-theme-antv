@@ -1,3 +1,7 @@
+<div align="center">
+  
+<img width="1295" alt="图片" src="https://user-images.githubusercontent.com/507615/69481549-49b39d00-0e4d-11ea-87fd-1e7741f4bdf1.png">
+  
 # Gatsby Theme for AntV ⚛
 
 [![](https://flat.badgen.net/npm/v/@antv/gatsby-theme-antv?icon=npm)](https://www.npmjs.com/package/@antv/gatsby-theme-antv)
@@ -6,6 +10,8 @@
 [![Dependency Status](https://david-dm.org/antvis/gatsby-theme-antv.svg?style=flat-square&path=@antv/gatsby-theme-antv)](https://david-dm.org/antvis/gatsby-theme-antv?path=@antv/gatsby-theme-antv)
 [![devDependencies Status](https://david-dm.org/antvis/gatsby-theme-antv/dev-status.svg?style=flat-square&path=@antv/gatsby-theme-antv)](https://david-dm.org/antvis/gatsby-theme-antv?type=dev&path=@antv/gatsby-theme-antv)
 ![prettier code style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
+
+</div>
 
 ## How to use it
 
@@ -31,10 +37,6 @@
 - ✨ https://f2.antv.vision
 - ✨ https://l7.antv.vision
 - ✨ https://graphin.antv.vision
-
-<img width="1295" alt="图片" src="https://user-images.githubusercontent.com/507615/69481549-49b39d00-0e4d-11ea-87fd-1e7741f4bdf1.png">
-
-<img width="1341" alt="图片" src="https://user-images.githubusercontent.com/507615/69481568-69e35c00-0e4d-11ea-8193-8e9330820e62.png">
 
 ## Usage
 
