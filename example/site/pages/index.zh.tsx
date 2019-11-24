@@ -114,10 +114,13 @@ const IndexPage = () => {
       link: 'https://antv.alipay.com/zh-cn/index.html', // `/${i18n.language}/examples/basic`
     },
   ];
+
+  // const coverImage = <img width='100%' src='https://gw.alipayobjects.com/mdn/antv_site/afts/img/A*o40BRo-ANLoAAAAAAAAAAABkARQnAQ' alt='cover' />
   return (
     <>
       <SEO title={t('蚂蚁数据可视化')} lang={i18n.language} />
       <Banner
+        // coverImage={coverImage}
         coverImage={<BannerSVG />}
         title={t('让数据栩栩如生')}
         description={t(
