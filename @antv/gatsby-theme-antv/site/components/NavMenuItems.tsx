@@ -24,12 +24,22 @@ interface NavMenuItemsProps {
   path: string;
 }
 
+const capitalize = (s: string) => {
+  if (typeof s !== 'string') {
+    return '';
+  }
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
 const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
   const { i18n } = useTranslation();
   return (
     <>
       {navs.map((nav: Nav, i) => {
         const href = `/${i18n.language}/${nav.slug}`;
+        const title = capitalize(
+          getDocument(navs, nav.slug).title[i18n.language],
+        );
         const className = classNames('header-menu-item-active', {
           [styles.activeItem]:
             path.startsWith(href) ||
@@ -42,12 +52,10 @@ const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
           <li key={i} className={className}>
             {nav.target === '_blank' ? (
               <a href={href} target="_blank" rel="noopener noreferrer">
-                {getDocument(navs, nav.slug).title[i18n.language]}
+                {title}
               </a>
             ) : (
-              <Link to={href}>
-                {getDocument(navs, nav.slug).title[i18n.language]}
-              </Link>
+              <Link to={href}>{title}</Link>
             )}
           </li>
         );
