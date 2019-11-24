@@ -270,7 +270,7 @@ const Header: React.FC<HeaderProps> = ({
       window.location.host.includes('gitee.io') &&
       window.location.host.includes('antv')
     ) {
-      setLogoLink('https://antv.gitee.io');
+      setLogoLink(`https://antv.gitee.io/${lang}`);
     }
   }, []);
 
