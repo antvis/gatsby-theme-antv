@@ -266,7 +266,10 @@ const Header: React.FC<HeaderProps> = ({
 
   const [logoLink, setLogoLink] = useState(defaultLogoLink);
   useEffect(() => {
-    if (window.location.host === 'antv.gitee.io') {
+    if (
+      window.location.host.includes('gitee.io') &&
+      window.location.host.includes('antv')
+    ) {
       setLogoLink('https://antv.gitee.io');
     }
   }, []);
