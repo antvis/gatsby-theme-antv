@@ -11,6 +11,13 @@ import NavigatorBanner from '../components/NavigatorBanner';
 import SEO from '../components/Seo';
 import styles from './markdown.module.less';
 
+const capitalize = (s: string) => {
+  if (typeof s !== 'string') {
+    return '';
+  }
+  return s.charAt(0).toUpperCase() + s.slice(1);
+};
+
 const shouldBeShown = (slug: string, path: string, lang: string) => {
   if (!slug.startsWith(`/${lang}/`)) {
     return false;
@@ -108,7 +115,7 @@ const renderMenu = (menuData: MenuData[]) =>
       return (
         item.children &&
         item.children.length > 0 && (
-          <Menu.SubMenu key={item.slug} title={item.title}>
+          <Menu.SubMenu key={item.slug} title={capitalize(item.title)}>
             {renderMenu(item.children)}
           </Menu.SubMenu>
         )
