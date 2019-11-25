@@ -401,6 +401,7 @@ exports.sourceNodes = ({ actions }) => {
 
     type Site implements Node {
       siteMetadata: SiteSiteMetadata
+      pathPrefix: String
     }
   `);
 };
