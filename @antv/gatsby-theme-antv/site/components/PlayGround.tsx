@@ -8,6 +8,7 @@ import path from 'path';
 import { Typography, Icon, Tooltip, Result } from 'antd';
 import debounce from 'lodash/debounce';
 import { getParameters } from 'codesandbox/lib/api/define';
+import stackblitzSdk from '@stackblitz/sdk';
 import {
   useTranslation,
   withTranslation,
@@ -69,7 +70,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   relativePath = '',
   playground = {},
   location,
-  title,
+  title = '',
 }) => {
   const { t } = useTranslation();
   const fullscreenNode = useRef<HTMLDivElement>(null);
@@ -240,6 +241,17 @@ insertCss(`,
     html: playground.container || '<div id="container" />',
   };
 
+  const stackblitzPrefillConfig = {
+    title,
+    description: '',
+    template: 'create-react-app',
+    dependencies: deps,
+    files: {
+      [`index.${fileExtension}`]: currentSourceCode,
+      'index.html': playground.container || '<div id="container" />',
+    },
+  };
+
   const isWide = useMedia('(min-width: 767.99px)', true);
 
   return (
@@ -288,6 +300,15 @@ insertCss(`,
                 />
               </Tooltip>
             </form>
+            <Tooltip title={t('在 StackBlitz 中打开')}>
+              <Icon
+                type="thunderbolt"
+                style={{ marginLeft: 8 }}
+                onClick={() => {
+                  stackblitzSdk.openProject(stackblitzPrefillConfig);
+                }}
+              />
+            </Tooltip>
             <Tooltip title={t('在 CodeSandbox 中打开')}>
               <form
                 action="https://codesandbox.io/api/v1/sandboxes/define"
@@ -300,7 +321,7 @@ insertCss(`,
                   value={getParameters({ files })}
                 />
                 <button type="submit" className={styles.codesandbox}>
-                  <Icon type="code-sandbox" style={{ marginLeft: 6 }} />
+                  <Icon type="code-sandbox" style={{ marginLeft: 8 }} />
                 </button>
               </form>
             </Tooltip>
