@@ -9,14 +9,8 @@ import Article from '../components/Article';
 import ReadingTime from '../components/ReadingTime';
 import NavigatorBanner from '../components/NavigatorBanner';
 import SEO from '../components/Seo';
+import { capitalize } from '../utils';
 import styles from './markdown.module.less';
-
-const capitalize = (s: string) => {
-  if (typeof s !== 'string') {
-    return '';
-  }
-  return s.charAt(0).toUpperCase() + s.slice(1);
-};
 
 const shouldBeShown = (slug: string, path: string, lang: string) => {
   if (!slug.startsWith(`/${lang}/`)) {
