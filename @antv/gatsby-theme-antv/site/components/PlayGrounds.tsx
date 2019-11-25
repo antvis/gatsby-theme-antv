@@ -128,6 +128,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
         filename={currentExample.filename}
         playground={playground}
         location={location}
+        title={currentExample.title}
       />
     </div>
   );
