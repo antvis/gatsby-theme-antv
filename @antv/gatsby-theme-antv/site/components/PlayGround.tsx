@@ -34,6 +34,9 @@ export interface PlayGroundProps {
     container?: string;
     playgroundDidMount?: string;
     playgroundWillUnmount?: string;
+    dependencies?: {
+      [key: string]: string;
+    };
   };
 }
 
@@ -177,7 +180,7 @@ insertCss(`,
     currentSourceCode.match(/require\(['"](.*)['"]\)/g) || [];
   const importMatches = currentSourceCode.match(/from\s+['"](.*)['"]/g) || [];
   const deps: {
-    [key: string]: 'latest';
+    [key: string]: string;
   } = {};
   [...requireMatches, ...importMatches].forEach((match: string) => {
     const requireMatch = match.match(/require\(['"](.*)['"]\)/);
@@ -188,6 +191,12 @@ insertCss(`,
     if (importMatch && importMatch[1]) {
       deps[importMatch[1]] = 'latest';
     }
+  });
+
+  // 使用 playground.dependencies 定义的版本号
+  const dependencies = playground.dependencies || {};
+  Object.keys(dependencies).forEach(name => {
+    deps[name] = dependencies[name];
   });
 
   const files = {

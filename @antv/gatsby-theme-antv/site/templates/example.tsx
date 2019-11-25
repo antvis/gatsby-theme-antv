@@ -354,6 +354,7 @@ export const pageQuery = graphql`
           container
           playgroundDidMount
           playgroundWillUnmount
+          dependencies
         }
       }
       pathPrefix

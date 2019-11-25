@@ -204,7 +204,7 @@ module.exports = ({
     ) {
       config.pathPrefix = process.env.GATSBY_PATH_PREFIX;
     }
-  } else {
+  } else if (pathPrefix) {
     config.pathPrefix = pathPrefix;
   }
 
