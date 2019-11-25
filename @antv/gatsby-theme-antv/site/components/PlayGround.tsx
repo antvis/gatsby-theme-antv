@@ -4,22 +4,17 @@ import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { Editor } from 'codemirror';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
-import path from 'path';
-import { Typography, Icon, Tooltip, Result } from 'antd';
+import { Result } from 'antd';
 import debounce from 'lodash/debounce';
-import { getParameters } from 'codesandbox/lib/api/define';
-import stackblitzSdk from '@stackblitz/sdk';
 import {
   useTranslation,
   withTranslation,
   WithTranslation,
 } from 'react-i18next';
 import { transform } from '@babel/standalone';
-
 import SplitPane from 'react-split-pane';
+import Toolbar from './Toolbar';
 import styles from './PlayGround.module.less';
-
-const { Paragraph } = Typography;
 
 export interface PlayGroundProps {
   source: string;
@@ -73,10 +68,8 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   title = '',
 }) => {
   const { t } = useTranslation();
-  const fullscreenNode = useRef<HTMLDivElement>(null);
   const playgroundNode = useRef<HTMLDivElement>(null);
   const cmInstance = useRef<Editor>();
-  const [isFullScreen, updateIsFullScreen] = useState(false);
   const [error, setError] = useState<Error | null>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
   const [currentSourceCode, updateCurrentSourceCode] = useState(source);
@@ -89,6 +82,8 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     };
   }
 
+  const fullscreenNode = useRef<HTMLDivElement>(null);
+  const [isFullScreen, updateIsFullScreen] = useState(false);
   const toggleFullscreen = () => {
     updateIsFullScreen(!isFullScreen);
     if (fullscreenNode.current) {
@@ -178,84 +173,6 @@ insertCss(`,
   const fileExtension =
     relativePath.split('.')[relativePath.split('.').length - 1] || 'js';
 
-  const requireMatches =
-    currentSourceCode.match(/require\(['"](.*)['"]\)/g) || [];
-  const importMatches = currentSourceCode.match(/from\s+['"](.*)['"]/g) || [];
-  const deps: {
-    [key: string]: string;
-  } = {};
-  [...requireMatches, ...importMatches].forEach((match: string) => {
-    const requireMatch = match.match(/require\(['"](.*)['"]\)/);
-    if (requireMatch && requireMatch[1]) {
-      deps[requireMatch[1]] = 'latest';
-    }
-    const importMatch = match.match(/from\s+['"](.*)['"]/);
-    if (importMatch && importMatch[1]) {
-      deps[importMatch[1]] = 'latest';
-    }
-  });
-
-  // 使用 playground.dependencies 定义的版本号
-  const dependencies = playground.dependencies || {};
-  Object.keys(dependencies).forEach(name => {
-    deps[name] = dependencies[name];
-  });
-
-  const codeSandboxConfig = {
-    files: {
-      'package.json': {
-        content: {
-          main: `index.${fileExtension}`,
-          dependencies: deps,
-        },
-      },
-      [`index.${fileExtension}`]: {
-        content: currentSourceCode,
-      },
-      'index.html': {
-        content: playground.container || '<div id="container" />',
-      },
-    } as {
-      [key: string]: any;
-    },
-  };
-
-  const dataFileMatch = currentSourceCode.match(/fetch\('(.*)'\)/);
-  if (
-    dataFileMatch &&
-    dataFileMatch.length > 0 &&
-    !dataFileMatch[1].startsWith('http')
-  ) {
-    const [filename] = dataFileMatch[1].split('/').slice(-1);
-    codeSandboxConfig.files[
-      `index.${fileExtension}`
-    ].content = currentSourceCode.replace(
-      dataFileMatch[1],
-      path.join(
-        location!.origin || '',
-        location!.pathname || '',
-        `../data/${filename}`,
-      ),
-    );
-  }
-
-  const riddlePrefillConfig = {
-    title,
-    js: currentSourceCode,
-    html: playground.container || '<div id="container" />',
-  };
-
-  const stackblitzPrefillConfig = {
-    title,
-    description: '',
-    template: 'create-react-app',
-    dependencies: deps,
-    files: {
-      [`index.${fileExtension}`]: currentSourceCode,
-      'index.html': playground.container || '<div id="container" />',
-    },
-  };
-
   const isWide = useMedia('(min-width: 767.99px)', true);
 
   return (
@@ -285,66 +202,16 @@ insertCss(`,
           )}
         </div>
         <div className={styles.editor}>
-          <div className={styles.toolbar}>
-            <form
-              action="//riddle.alibaba-inc.com/riddles/define"
-              method="POST"
-              target="_blank"
-            >
-              <input
-                type="hidden"
-                name="data"
-                value={JSON.stringify(riddlePrefillConfig)}
-              />
-              <Tooltip title={t('在 Riddle 中打开')}>
-                <input
-                  type="submit"
-                  value="Create New Riddle with Prefilled Data"
-                  className={styles.riddle}
-                />
-              </Tooltip>
-            </form>
-            <Tooltip title={t('在 StackBlitz 中打开')}>
-              <Icon
-                type="thunderbolt"
-                style={{ marginLeft: 8 }}
-                onClick={() => {
-                  stackblitzSdk.openProject(stackblitzPrefillConfig);
-                }}
-              />
-            </Tooltip>
-            <Tooltip title={t('在 CodeSandbox 中打开')}>
-              <form
-                action="https://codesandbox.io/api/v1/sandboxes/define"
-                method="POST"
-                target="_blank"
-              >
-                <input
-                  type="hidden"
-                  name="parameters"
-                  value={getParameters(codeSandboxConfig)}
-                />
-                <button type="submit" className={styles.codesandbox}>
-                  <Icon type="code-sandbox" style={{ marginLeft: 8 }} />
-                </button>
-              </form>
-            </Tooltip>
-            <Paragraph copyable={{ text: currentSourceCode }} />
-            <Tooltip title={isFullScreen ? t('离开全屏') : t('进入全屏')}>
-              <Icon
-                type={isFullScreen ? 'fullscreen-exit' : 'fullscreen'}
-                onClick={toggleFullscreen}
-                style={{ marginLeft: 12 }}
-              />
-            </Tooltip>
-            <Tooltip title={t('执行代码')}>
-              <Icon
-                type="play-circle"
-                onClick={executeCode}
-                style={{ marginLeft: 12 }}
-              />
-            </Tooltip>
-          </div>
+          <Toolbar
+            fileExtension={fileExtension}
+            sourceCode={currentSourceCode}
+            playground={playground}
+            location={location}
+            title={title}
+            isFullScreen={isFullScreen}
+            onToggleFullscreen={toggleFullscreen}
+            onExecuteCode={executeCode}
+          />
           <div className={styles.codemirror}>{editor}</div>
         </div>
       </SplitPane>
