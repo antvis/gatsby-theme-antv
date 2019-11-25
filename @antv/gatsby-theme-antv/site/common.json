@@ -43,6 +43,8 @@
 
   "执行代码": "Run code",
   "在 CodeSandbox 中打开": "Open in CodeSandbox",
+  "在 Riddle 中打开": "Open in Riddle",
+  "在 StackBlitz 中打开": "Open in StackBlitz",
 
   "关于我们": "About us",
   "返回旧版": "Old site",
