@@ -69,6 +69,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   relativePath = '',
   playground = {},
   location,
+  title,
 }) => {
   const { t } = useTranslation();
   const fullscreenNode = useRef<HTMLDivElement>(null);
@@ -233,6 +234,12 @@ insertCss(`,
     );
   }
 
+  const riddlePrefillConfig = {
+    title,
+    js: currentSourceCode,
+    html: playground.container || '<div id="container" />',
+  };
+
   const isWide = useMedia('(min-width: 767.99px)', true);
 
   return (
@@ -263,6 +270,24 @@ insertCss(`,
         </div>
         <div className={styles.editor}>
           <div className={styles.toolbar}>
+            <form
+              action="//riddle.alibaba-inc.com/riddles/define"
+              method="POST"
+              target="_blank"
+            >
+              <input
+                type="hidden"
+                name="data"
+                value={JSON.stringify(riddlePrefillConfig)}
+              />
+              <Tooltip title={t('在 Riddle 中打开')}>
+                <input
+                  type="submit"
+                  value="Create New Riddle with Prefilled Data"
+                  className={styles.riddle}
+                />
+              </Tooltip>
+            </form>
             <Tooltip title={t('在 CodeSandbox 中打开')}>
               <form
                 action="https://codesandbox.io/api/v1/sandboxes/define"
@@ -275,7 +300,7 @@ insertCss(`,
                   value={getParameters({ files })}
                 />
                 <button type="submit" className={styles.codesandbox}>
-                  <Icon type="code-sandbox" style={{ marginLeft: 12 }} />
+                  <Icon type="code-sandbox" style={{ marginLeft: 6 }} />
                 </button>
               </form>
             </Tooltip>
