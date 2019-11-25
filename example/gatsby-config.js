@@ -81,6 +81,9 @@ module.exports = {
       container: '<div id="container" class="ok" />',
       playgroundDidMount: 'console.log("playgroundDidMount");',
       playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
+      dependencies: {
+        '@antv/g2': 'beta',
+      },
     },
     redirects: [],
   },

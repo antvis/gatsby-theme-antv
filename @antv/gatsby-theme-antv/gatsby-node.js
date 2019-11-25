@@ -353,6 +353,7 @@ exports.sourceNodes = ({ actions }) => {
       container: String
       playgroundDidMount: String
       playgroundWillUnmount: String
+      dependencies: Json
     }
 
     type SiteSiteMetadataTitle implements Node {
