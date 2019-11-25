@@ -82,7 +82,7 @@ module.exports = {
       playgroundDidMount: 'console.log("playgroundDidMount");',
       playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
       dependencies: {
-        '@antv/g2': 'beta',
+        '@antv/l7': 'beta',
       },
     },
     redirects: [],
