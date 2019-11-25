@@ -201,21 +201,23 @@ insertCss(`,
     deps[name] = dependencies[name];
   });
 
-  const files = {
-    'package.json': {
-      content: {
-        main: `index.${fileExtension}`,
-        dependencies: deps,
+  const codeSandboxConfig = {
+    files: {
+      'package.json': {
+        content: {
+          main: `index.${fileExtension}`,
+          dependencies: deps,
+        },
       },
+      [`index.${fileExtension}`]: {
+        content: currentSourceCode,
+      },
+      'index.html': {
+        content: playground.container || '<div id="container" />',
+      },
+    } as {
+      [key: string]: any;
     },
-    [`index.${fileExtension}`]: {
-      content: currentSourceCode,
-    },
-    'index.html': {
-      content: playground.container || '<div id="container" />',
-    },
-  } as {
-    [key: string]: any;
   };
 
   const dataFileMatch = currentSourceCode.match(/fetch\('(.*)'\)/);
@@ -225,7 +227,9 @@ insertCss(`,
     !dataFileMatch[1].startsWith('http')
   ) {
     const [filename] = dataFileMatch[1].split('/').slice(-1);
-    files[`index.${fileExtension}`].content = currentSourceCode.replace(
+    codeSandboxConfig.files[
+      `index.${fileExtension}`
+    ].content = currentSourceCode.replace(
       dataFileMatch[1],
       path.join(
         location!.origin || '',
@@ -318,7 +322,7 @@ insertCss(`,
                 <input
                   type="hidden"
                   name="parameters"
-                  value={getParameters({ files })}
+                  value={getParameters(codeSandboxConfig)}
                 />
                 <button type="submit" className={styles.codesandbox}>
                   <Icon type="code-sandbox" style={{ marginLeft: 8 }} />
