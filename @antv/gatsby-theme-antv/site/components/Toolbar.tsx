@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography, Icon, Tooltip } from 'antd';
 import path from 'path';
 import { getParameters } from 'codesandbox/lib/api/define';
 import stackblitzSdk from '@stackblitz/sdk';
 import { useTranslation } from 'react-i18next';
+import { ping } from '../utils';
 import styles from './Toolbar.module.less';
 
 const { Paragraph } = Typography;
@@ -38,8 +39,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const requireMatches =
-    sourceCode.match(/require\(['"](.*)['"]\)/g) || [];
+  const requireMatches = sourceCode.match(/require\(['"](.*)['"]\)/g) || [];
   const importMatches = sourceCode.match(/from\s+['"](.*)['"]/g) || [];
   const deps: {
     [key: string]: string;
@@ -116,26 +116,35 @@ const Toolbar: React.FC<ToolbarProps> = ({
     },
   };
 
+  const [riddleVisible, updateRiddleVisible] = useState(false);
+  useEffect(() => {
+    ping(status => {
+      updateRiddleVisible(status === 'responded');
+    });
+  }, []);
+
   return (
     <div className={styles.toolbar}>
-      <form
-        action="//riddle.alibaba-inc.com/riddles/define"
-        method="POST"
-        target="_blank"
-      >
-        <input
-          type="hidden"
-          name="data"
-          value={JSON.stringify(riddlePrefillConfig)}
-        />
-        <Tooltip title={t('在 Riddle 中打开')}>
+      {riddleVisible ? (
+        <form
+          action="//riddle.alibaba-inc.com/riddles/define"
+          method="POST"
+          target="_blank"
+        >
           <input
-            type="submit"
-            value="Create New Riddle with Prefilled Data"
-            className={styles.riddle}
+            type="hidden"
+            name="data"
+            value={JSON.stringify(riddlePrefillConfig)}
           />
-        </Tooltip>
-      </form>
+          <Tooltip title={t('在 Riddle 中打开')}>
+            <input
+              type="submit"
+              value="Create New Riddle with Prefilled Data"
+              className={styles.riddle}
+            />
+          </Tooltip>
+        </form>
+      ) : null}
       <Tooltip title={t('在 StackBlitz 中打开')}>
         <Icon
           type="thunderbolt"
