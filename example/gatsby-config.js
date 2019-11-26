@@ -48,7 +48,7 @@ module.exports = {
           zh: '分类一',
           en: 'category1',
         },
-        order: 3,
+        order: 4,
       },
       {
         slug: 'specification/category/three',
@@ -56,7 +56,7 @@ module.exports = {
           zh: '第三层',
           en: 'three level',
         },
-        order: 1,
+        order: 2,
       },
       {
         slug: 'other/category',

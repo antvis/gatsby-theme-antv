@@ -69,10 +69,9 @@ function isSameCategory(target = {}, current = {}) {
   );
 }
 
-function findPrevAndNext(current, posts = []) {
-  const index = posts.indexOf(current);
+function findPrevAndNext(current, index, posts = []) {
   const result = {};
-  if (!current || index < 0) {
+  if (!current || index < 0 || posts.length === 0) {
     return result;
   }
   for (let i = index + 1; i <= posts.length; i += 1) {
@@ -284,11 +283,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
             getExampleOrder(a, siteMetadata) - getExampleOrder(b, siteMetadata)
           );
         });
-      const { prev, next } = findPrevAndNext(posts[index], examplePosts);
+      const { prev, next } = findPrevAndNext(posts[index], index, examplePosts);
       context.prev = prev;
       context.next = next;
     } else {
-      const { prev, next } = findPrevAndNext(posts[index], posts);
+      const { prev, next } = findPrevAndNext(posts[index], index, posts);
       context.prev = prev;
       context.next = next;
     }
