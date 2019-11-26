@@ -125,7 +125,13 @@ export default function Template({
       pathWithoutTrailingSlashes === slug ||
       pathWithoutTrailingSlashes.endsWith(slug)
     );
-  });
+  }) || {
+    node: {
+      frontmatter: { title: '' },
+      fields: { slug: '', readingTime: {} },
+      parent: { relativePath: '' },
+    },
+  };
   const {
     frontmatter,
     html,
@@ -170,7 +176,7 @@ export default function Template({
     activeTab = 'design';
     exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
   }
-  const { exampleSections, prev, next } = pageContext;
+  const { exampleSections = {}, prev, next } = pageContext;
 
   const menu = (
     <Menu

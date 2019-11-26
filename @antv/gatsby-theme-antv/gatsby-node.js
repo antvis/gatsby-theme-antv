@@ -173,6 +173,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           examples {
             slug
           }
+          navs {
+            slug
+          }
         }
       }
     }
@@ -182,6 +185,8 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     reporter.panicOnBuild(`Error while running GraphQL query.`);
     return;
   }
+
+  const createdPages = [];
 
   const {
     site: { siteMetadata },
@@ -293,6 +298,30 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       component: isExamplePage ? exampleTemplate : documentTemplate,
       context,
     });
+    createdPages.push(slug);
+  });
+
+  const { navs = [] } = siteMetadata;
+  navs.forEach(({ slug }) => {
+    if (!slug.startsWith(`examples`) && !slug.startsWith(`docs`)) {
+      return;
+    }
+    if (!createdPages.includes(`/zh/${slug}`)) {
+      createPage({
+        path: `/zh/${slug}`, // required
+        component: slug.startsWith(`examples`)
+          ? exampleTemplate
+          : documentTemplate,
+      });
+    }
+    if (!createdPages.includes(`/en/${slug}`)) {
+      createPage({
+        path: `/en/${slug}`, // required
+        component: slug.startsWith(`examples`)
+          ? exampleTemplate
+          : documentTemplate,
+      });
+    }
   });
 };
 

@@ -137,7 +137,11 @@ export default function Template({
     tableOfContents,
     fields: { slug, readingTime },
     parent: { relativePath },
-  } = markdownRemark;
+  } = markdownRemark || {
+    frontmatter: { title: '' },
+    fields: { slug: '', readingTime: {} },
+    parent: { relativePath: '' },
+  };
   const { edges = [] } = allMarkdownRemark;
   const edgesInDocs = edges.filter((item: any) =>
     item.node.fields.slug.includes('/docs/'),
