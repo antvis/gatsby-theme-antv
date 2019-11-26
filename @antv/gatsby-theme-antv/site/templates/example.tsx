@@ -179,6 +179,7 @@ export default function Template({
       style={{ height: '100%' }}
       openKeys={openKeys}
       onOpenChange={currentOpenKeys => setOpenKeys(currentOpenKeys)}
+      forceSubMenuRender
     >
       {Object.keys(groupedEdges)
         .filter(key => key.startsWith(`/${i18n.language}/`))

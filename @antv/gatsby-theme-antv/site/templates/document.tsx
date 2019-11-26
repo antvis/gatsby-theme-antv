@@ -189,6 +189,7 @@ export default function Template({
       openKeys={openKeys}
       onOpenChange={currentOpenKeys => setOpenKeys(currentOpenKeys)}
       inlineIndent={16}
+      forceSubMenuRender
     >
       {renderMenu(menuData)}
     </Menu>
