@@ -27,6 +27,18 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
     ) || examples[0];
   const [currentExample, updateCurrentExample] = useState(defaultExample);
 
+  // 滚动到当前节点
+  useEffect(() => {
+    const id = currentExample?.filename?.split('.')[0];
+    const cardNode = document.getElementById(id);
+    if (cardNode) {
+      cardNode.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+    }
+  }, [currentExample]);
+
   const [hasHorizontalScrollbar, updateHasHorizontalScrollbar] = useState(
     false,
   );
@@ -102,6 +114,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
                     );
                     updateCurrentExample(example);
                   }}
+                  id={example.filename.split('.')[0]}
                   className={classNames(styles.card, {
                     [styles.current]:
                       example.relativePath === currentExample.relativePath,
