@@ -334,23 +334,10 @@ export const getProducts = ({
           openExternal: true,
         },
         {
-          icon: <Icon type="qrcode" />,
-          title: (
-            <Popover
-              title={t('扫码进 ChartCube 服务群')}
-              content={
-                <img
-                  width={100}
-                  height={100}
-                  src="https://gw.alipayobjects.com/zos/antfincdn/7LIGEbQFF%24/e1a08ef3-8783-4ea2-95fb-997a11138d3f.png"
-                  alt="DingTalk Group"
-                />
-              }
-              overlayStyle={{ textAlign: 'center' }}
-            >
-              {t('钉钉服务群')}
-            </Popover>
-          ),
+          icon: <Icon type="dingding" />,
+          title: t('钉钉服务群'),
+          url: `dingtalk://dingtalkclient/action/joingroup?cid=8305538734`,
+          openExternal: true,
         },
       ],
     },
