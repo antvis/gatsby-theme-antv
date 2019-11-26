@@ -1,5 +1,5 @@
 import React from 'react';
-import { Icon, Popover } from 'antd';
+import { Icon } from 'antd';
 
 const tuple = <T extends string[]>(...args: T) => args;
 const Categories = tuple('basic', 'extension', 'ecology');
