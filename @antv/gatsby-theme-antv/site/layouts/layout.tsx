@@ -56,6 +56,10 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
             from
             to
           }
+          docsearchOptions {
+            apiKey
+            indexName
+          }
         }
       }
     }
@@ -70,6 +74,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
       logoUrl = '',
       showLanguageSwitcher,
       redirects = [],
+      docsearchOptions,
     },
   } = site;
   const pathPrefix = withPrefix('/').replace(/\/$/, '');
@@ -146,6 +151,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         transparent={isHomePage}
         isHomePage={isHomePage}
         showChinaMirror
+        docsearchOptions={docsearchOptions}
         showLanguageSwitcher={
           showLanguageSwitcher === null ? undefined : showLanguageSwitcher
         }

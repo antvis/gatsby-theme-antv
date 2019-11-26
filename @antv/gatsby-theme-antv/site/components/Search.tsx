@@ -3,10 +3,27 @@ import { useTranslation } from 'react-i18next';
 import { Icon } from 'antd';
 import styles from './Search.module.less';
 
-function initDocSearch(docsearch: any, lang: string) {
+export interface SearchProps {
+  docsearchOptions?: {
+    apiKey: string;
+    indexName: string;
+  };
+}
+
+function initDocSearch({
+  docsearch,
+  lang,
+  docsearchOptions,
+}: {
+  docsearch: any;
+  lang: string;
+  docsearchOptions: SearchProps['docsearchOptions'];
+}) {
+  const { apiKey = '194b1be7fb1254c787f4e036912af3eb', indexName = 'antv' } =
+    docsearchOptions || {};
   docsearch({
-    apiKey: '194b1be7fb1254c787f4e036912af3eb',
-    indexName: 'antv',
+    apiKey,
+    indexName,
     inputSelector: `.${styles.input}`,
     algoliaOptions: { facetFilters: [`tags:${lang}`] },
     transformData(hits: Array<{ url: string }>) {
@@ -28,12 +45,16 @@ function initDocSearch(docsearch: any, lang: string) {
   });
 }
 
-const Search = () => {
+const Search: React.FC<SearchProps> = ({ docsearchOptions }) => {
   const { t, i18n } = useTranslation();
   useEffect(() => {
     if (typeof window !== 'undefined') {
       import('docsearch.js').then(({ default: docsearch }) => {
-        initDocSearch(docsearch, i18n.language);
+        initDocSearch({
+          docsearch,
+          lang: i18n.language,
+          docsearchOptions,
+        });
       });
     }
   }, []);

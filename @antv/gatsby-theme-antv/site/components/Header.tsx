@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { Icon, message } from 'antd';
 import GitUrlParse from 'git-url-parse';
-import Search from './Search';
+import Search, { SearchProps } from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
 import AntvLogo from '../images/antv.svg';
@@ -50,6 +50,8 @@ interface HeaderProps {
   rootDomain?: string;
   /** 是否展示国内镜像链接 */
   showChinaMirror?: boolean;
+  /** algolia 搜索配置 */
+  docsearchOptions?: SearchProps['docsearchOptions'];
 }
 
 export const redirectToChinaMirror = (githubUrl: string) => {
@@ -100,6 +102,7 @@ const Header: React.FC<HeaderProps> = ({
   isHomePage,
   rootDomain = '',
   showChinaMirror = false,
+  docsearchOptions,
 }) => {
   const { t, i18n } = useTranslation();
   const lang =
@@ -304,7 +307,7 @@ const Header: React.FC<HeaderProps> = ({
               </h2>
             </>
           )}
-          {showSearch && <Search />}
+          {showSearch && <Search docsearchOptions={docsearchOptions} />}
         </div>
         <nav className={styles.nav}>
           {menu}
