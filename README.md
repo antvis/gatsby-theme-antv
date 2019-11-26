@@ -1,7 +1,7 @@
 <div align="center">
-  
+
 <img width="1295" alt="图片" src="https://user-images.githubusercontent.com/507615/69481549-49b39d00-0e4d-11ea-87fd-1e7741f4bdf1.png">
-  
+
 # Gatsby Theme for AntV ⚛
 
 [![](https://flat.badgen.net/npm/v/@antv/gatsby-theme-antv?icon=npm)](https://www.npmjs.com/package/@antv/gatsby-theme-antv)
@@ -64,6 +64,7 @@ module.exports = {
         },
         pwa: true, // 是否开启 gatsby-plugin-offline
         cname: true, // 是否自动从 siteUrl 中提取 CNAME 文件
+        codeSplit: true, // 是否开启 gatsby 按路由的代码分割，默认为 false
       },
     },
   ],
