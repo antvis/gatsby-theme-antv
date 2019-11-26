@@ -389,6 +389,11 @@ exports.sourceNodes = ({ actions }) => {
   `);
 
   createTypes(`
+    type DocsearchOptions implements Node {
+      apiKey: String
+      indexName: String
+    }
+
     type PlayGround implements Node {
       container: String
       playgroundDidMount: String
@@ -437,6 +442,7 @@ exports.sourceNodes = ({ actions }) => {
       redirects: [SiteSiteMetadataRedirects]
       showLanguageSwitcher: Boolean
       playground: PlayGround
+      docsearchOptions: DocsearchOptions
     }
 
     type Site implements Node {
