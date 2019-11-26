@@ -8,6 +8,7 @@
 const path = require(`path`);
 const fs = require('fs');
 const mkdirp = require('mkdirp');
+const webpack = require('webpack');
 const shallowequal = require('shallowequal');
 const { getSlugAndLang } = require('ptz-i18n');
 const { transform } = require('@babel/standalone');
@@ -324,7 +325,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   });
 };
 
-exports.onCreateWebpackConfig = ({ getConfig, stage, plugins }) => {
+exports.onCreateWebpackConfig = (
+  { getConfig, stage, plugins },
+  { codeSplit },
+) => {
   const config = getConfig();
   if (stage.startsWith('develop') && config.resolve) {
     config.resolve.alias = {
@@ -332,12 +336,20 @@ exports.onCreateWebpackConfig = ({ getConfig, stage, plugins }) => {
       'react-dom': '@hot-loader/react-dom',
     };
   }
-  config.plugins = [
-    ...config.plugins,
+
+  config.plugins.push(
     plugins.define({
       I18NEXT_RESOURCES: JSON.stringify(resources),
     }),
-  ];
+  );
+
+  if (config.optimization && !codeSplit) {
+    config.plugins.push(
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1,
+      }),
+    );
+  }
 };
 
 exports.createSchemaCustomization = ({ actions }) => {
