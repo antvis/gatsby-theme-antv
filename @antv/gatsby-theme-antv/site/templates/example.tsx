@@ -110,28 +110,26 @@ export default function Template({
   const edgesInExamples = edges.filter((item: any) =>
     item.node.fields.slug.includes('/examples/'),
   );
-  const { node: markdownRemark } = edgesInExamples.find((edge: any) => {
-    const {
-      fields: { slug },
-    } = edge.node;
-    const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
-    if (
-      /\/examples\/.*\/API$/.test(pathWithoutTrailingSlashes) ||
-      /\/examples\/.*\/design$/.test(pathWithoutTrailingSlashes)
-    ) {
-      return pathWithoutTrailingSlashes.indexOf(slug) >= 0;
-    }
-    return (
-      pathWithoutTrailingSlashes === slug ||
-      pathWithoutTrailingSlashes.endsWith(slug)
-    );
-  }) || {
-    node: {
-      frontmatter: { title: '' },
-      fields: { slug: '', readingTime: {} },
-      parent: { relativePath: '' },
-    },
-  };
+  const { node: markdownRemark } =
+    edgesInExamples.find((edge: any) => {
+      const {
+        fields: { slug },
+      } = edge.node;
+      const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
+      if (
+        /\/examples\/.*\/API$/.test(pathWithoutTrailingSlashes) ||
+        /\/examples\/.*\/design$/.test(pathWithoutTrailingSlashes)
+      ) {
+        return pathWithoutTrailingSlashes.indexOf(slug) >= 0;
+      }
+      return (
+        pathWithoutTrailingSlashes === slug ||
+        pathWithoutTrailingSlashes.endsWith(slug)
+      );
+    }) || {};
+  if (!markdownRemark) {
+    return null;
+  }
   const {
     frontmatter,
     html,

@@ -131,17 +131,16 @@ export default function Template({
   };
 }) {
   const { markdownRemark, allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
+  if (!markdownRemark) {
+    return null;
+  }
   const {
     frontmatter,
     html,
     tableOfContents,
     fields: { slug, readingTime },
     parent: { relativePath },
-  } = markdownRemark || {
-    frontmatter: { title: '' },
-    fields: { slug: '', readingTime: {} },
-    parent: { relativePath: '' },
-  };
+  } = markdownRemark;
   const { edges = [] } = allMarkdownRemark;
   const edgesInDocs = edges.filter((item: any) =>
     item.node.fields.slug.includes('/docs/'),
