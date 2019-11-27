@@ -185,6 +185,25 @@ const Header: React.FC<HeaderProps> = ({
   const { name } = GitUrlParse(githubUrl);
   const chinaMirrorUrl = name ? `https://antv-${name}.gitee.io` : '';
 
+  let defaultLogoLink;
+  if (link) {
+    defaultLogoLink = link;
+  } else if (siteUrl === 'https://antv.vision') {
+    defaultLogoLink = `/${lang}`;
+  } else {
+    defaultLogoLink = `https://antv.vision`;
+  }
+
+  const [logoLink, setLogoLink] = useState(defaultLogoLink);
+  useEffect(() => {
+    if (
+      window.location.host.includes('gitee.io') &&
+      window.location.host.includes('antv')
+    ) {
+      setLogoLink(`https://antv.gitee.io/${lang}`);
+    }
+  }, []);
+
   const menu = (
     <ul
       className={classNames(styles.menu, {
@@ -215,8 +234,8 @@ const Header: React.FC<HeaderProps> = ({
           </a>
         </li>
       )}
-      {!showChinaMirror ? null : (
-        <li>
+      {showChinaMirror ? (
+        <li style={{ display: logoLink.includes('gitee') ? 'none' : '' }}>
           <a
             href={chinaMirrorUrl}
             onClick={e => {
@@ -230,7 +249,7 @@ const Header: React.FC<HeaderProps> = ({
             </i>
           </a>
         </li>
-      )}
+      ) : null}
       <li {...productItemProps}>
         <a>
           {t('所有产品')}
@@ -257,25 +276,6 @@ const Header: React.FC<HeaderProps> = ({
       )}
     </ul>
   );
-
-  let defaultLogoLink;
-  if (link) {
-    defaultLogoLink = link;
-  } else if (siteUrl === 'https://antv.vision') {
-    defaultLogoLink = `/${lang}`;
-  } else {
-    defaultLogoLink = `https://antv.vision`;
-  }
-
-  const [logoLink, setLogoLink] = useState(defaultLogoLink);
-  useEffect(() => {
-    if (
-      window.location.host.includes('gitee.io') &&
-      window.location.host.includes('antv')
-    ) {
-      setLogoLink(`https://antv.gitee.io/${lang}`);
-    }
-  }, []);
 
   return (
     <header
