@@ -47,7 +47,7 @@ const Banner: React.FC<BannerProps> = ({
   onCloseVideo,
   onPlayVideo,
 }) => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const query = graphql`
     query SiteBannerQuery {
