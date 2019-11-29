@@ -8,7 +8,7 @@ const ReadingTime: React.FC<any> = ({ readingTime }) => {
   return (
     <Tag>
       {i18n.language === 'zh'
-        ? text.replace(/(\d)\smin\sread/, (_: string, min: string) => {
+        ? text.replace(/(\d+)\smin\sread/, (_: string, min: string) => {
             if (min) {
               return `阅读时间约 ${min} 分钟`;
             }
