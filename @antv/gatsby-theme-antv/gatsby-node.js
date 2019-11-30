@@ -250,11 +250,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         return postSlug === `${exampleRootSlug}/API`;
       });
       const examples = allDemos
-        .filter(item => {
-          return `${exampleRootSlug}/demo`.endsWith(
+        .filter(item =>
+          `${exampleRootSlug}/demo`.endsWith(
             path.join('examples', path.dirname(item.relativePath)),
-          );
-        })
+          ),
+        )
         .sort((a, b) => a.order - b.order);
       context.exampleSections = {
         examples,
