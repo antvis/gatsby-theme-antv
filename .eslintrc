@@ -13,10 +13,7 @@
     "browser": true,
     "node": true,
     "jest": true
-  },
-  "globals": {
-    "I18NEXT_RESOURCES": true
-  },
+  },  
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {

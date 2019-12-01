@@ -14,8 +14,6 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     initImmediate: false,
-    // @ts-ignore
-    resources: I18NEXT_RESOURCES,
     fallbackLng: 'zh',
     keySeparator: false,
     react: {
@@ -28,6 +26,7 @@ const lngs = ['zh', 'en'];
 interface LayoutProps {
   children: React.ReactElement<any>;
   location: Location;
+  pageContext: any;
 }
 
 const Layout: React.FC<LayoutProps> = ({ children, location }) => {
@@ -62,9 +61,14 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
           }
         }
       }
+      locales {
+        internal {
+          content
+        }
+      }
     }
   `;
-  const { site } = useStaticQuery(query);
+  const { site, locales } = useStaticQuery(query);
   const {
     siteMetadata: {
       title,
@@ -77,6 +81,12 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
       docsearchOptions,
     },
   } = site;
+  let resources = {};
+  try {
+    resources = JSON.parse(locales.internal.content);
+  } catch (e) {
+    // empty
+  }
   const pathPrefix = withPrefix('/').replace(/\/$/, '');
   const path = location.pathname.replace(pathPrefix, '');
   const currentLangKey = getCurrentLangKey(lngs, 'zh', path);
@@ -89,6 +99,12 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   i18n.init({
     lng: currentLangKey,
   });
+
+  if (!i18n.options.resources) {
+    i18n.init({
+      resources,
+    });
+  }
 
   if (
     location.pathname === pathPrefix ||
