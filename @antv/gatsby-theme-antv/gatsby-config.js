@@ -47,6 +47,20 @@ module.exports = ({
         },
       },
       {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          name: `common.json`,
+          path: `${__dirname}/site/common.json`,
+        },
+      },
+      {
+        resolve: `gatsby-source-filesystem`,
+        options: {
+          name: `locale.json`,
+          path: path.resolve('./site/locale.json'),
+        },
+      },
+      {
         resolve: 'gatsby-plugin-copy-files',
         options: {
           source: path.resolve('./examples/data'),

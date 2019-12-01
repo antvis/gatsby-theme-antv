@@ -16,24 +16,28 @@ const { transform } = require('@babel/standalone');
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
 
-let locale = {};
-try {
-  locale = JSON.parse(
-    fs.readFileSync(path.resolve(`site/locale.json`), `utf8`),
-  );
-} catch (e) {
-  // eslint-disable-next-line no-console
-  console.error(e);
-}
+function getLocaleResources() {
+  let locale = {};
+  try {
+    locale = JSON.parse(
+      fs.readFileSync(path.resolve(`site/locale.json`), `utf8`),
+    );
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+  }
 
-const resources = {
-  en: {
-    translation: {
-      ...locale,
-      ...require('./site/common.json'), // eslint-disable-line global-require
+  const resources = {
+    en: {
+      translation: {
+        ...locale,
+        ...require('./site/common.json'), // eslint-disable-line global-require
+      },
     },
-  },
-};
+  };
+
+  return resources;
+}
 
 function getExampleOrder(post, siteMetadata) {
   if (!post) {
@@ -110,8 +114,8 @@ exports.onPreBootstrap = ({ store, reporter }) => {
 };
 
 // Add custom url pathname for posts
-exports.onCreateNode = ({ node, actions, store }) => {
-  const { createNodeField } = actions;
+exports.onCreateNode = ({ node, actions, store, createNodeId, createContentDigest }) => {
+  const { createNodeField, createNode } = actions;
   const { program } = store.getState();
   if (node.internal.type === `File`) {
     createNodeField({
@@ -142,6 +146,26 @@ exports.onCreateNode = ({ node, actions, store }) => {
       value: langKey,
     });
   }
+
+  const resources = getLocaleResources();
+  const nodeContent = JSON.stringify(resources || {});
+
+  const nodeMeta = {
+    id: createNodeId(`locales`),
+    parent: null,
+    children: [],
+    internal: {
+      type: `Locales`,
+      mediaType: `application/json`,
+      content: nodeContent,
+      contentDigest: createContentDigest(resources),
+    },
+  };
+
+  createNode({
+    ...resources,
+    ...nodeMeta,
+  });
 };
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
@@ -325,10 +349,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   });
 };
 
-exports.onCreateWebpackConfig = (
-  { getConfig, stage, plugins },
-  { codeSplit },
-) => {
+exports.onCreateWebpackConfig = ({ getConfig, stage }, { codeSplit }) => {
   const config = getConfig();
   if (stage.startsWith('develop') && config.resolve) {
     config.resolve.alias = {
@@ -336,12 +357,6 @@ exports.onCreateWebpackConfig = (
       'react-dom': '@hot-loader/react-dom',
     };
   }
-
-  config.plugins.push(
-    plugins.define({
-      I18NEXT_RESOURCES: JSON.stringify(resources),
-    }),
-  );
 
   if (config.optimization && !codeSplit) {
     config.plugins.push(
