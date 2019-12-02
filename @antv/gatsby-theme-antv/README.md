@@ -13,11 +13,6 @@
 
 </div>
 
-## How to use it
-
-- ✨ AntV 站点 [接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442)
-- 参考例子: https://github.com/antvis/gatsby-theme-antv/tree/master/example
-
 ## Features
 
 - ⚛ Prerendered static site
@@ -40,11 +35,23 @@
 
 ## Usage
 
+Create a Gatsby site from [gatsby-starter-theme-antv](https://github.com/antvis/gatsby-starter-theme-antv).
+
 ```bash
-npm install gatsby @antv/gatsby-theme-antv react-i18next --save-dev
+$ yarn global add gatsby-cli // or npm install gatsby-cli -g
+$ gatsby new mysite https://github.com/antvis/gatsby-starter-theme-antv
 ```
 
-Add `gatsby-config.js`:
+Start developing.
+
+```bash
+$ cd mysite
+$ yarn start
+```
+
+> ✨ AntV 站点 [接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442)
+
+### `gatsby-config.js`
 
 ```js
 // gatsby-config.js
@@ -96,7 +103,7 @@ module.exports = {
 - `docs`: [props](https://github.com/antvis/gatsby-theme-antv/blob/aa8cdd7e24e965174cbe7173a841fd7d23537e52/%40antv/gatsby-theme-antv/gatsby-node.js#L242-L264)
 - `examples`: [props](https://github.com/antvis/gatsby-theme-antv/blob/aa8cdd7e24e965174cbe7173a841fd7d23537e52/%40antv/gatsby-theme-antv/gatsby-node.js#L242-L264)
 
-## Components
+### Components
 
 - [Header Props](https://github.com/antvis/gatsby-theme-antv/blob/master/%40antv/gatsby-theme-antv/site/components/Header.tsx#L13-L39)
 - [Footer Props](https://github.com/antvis/gatsby-theme-antv/blob/046a9c4e32eea50b49347b114714425a9f99b4b7/%40antv/gatsby-theme-antv/site/components/Footer.tsx#L149-L159)
