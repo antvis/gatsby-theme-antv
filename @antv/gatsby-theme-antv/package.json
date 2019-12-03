@@ -1,7 +1,7 @@
 {
   "name": "@antv/gatsby-theme-antv",
   "description": "Ant Visualization solution home page",
-  "version": "0.10.8",
+  "version": "0.10.9",
   "author": "AntV Team <antv@antfin.com>",
   "keywords": [
     "gatsby",
