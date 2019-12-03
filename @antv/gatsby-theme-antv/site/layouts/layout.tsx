@@ -186,6 +186,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         showAntVProductsCard={parseNulltoUndefined(showAntVProductsCard)}
         showChinaMirror={parseNulltoUndefined(showChinaMirror)}
         showLanguageSwitcher={parseNulltoUndefined(showLanguageSwitcher)}
+        docsearchOptions={docsearchOptions}
         {...logoProps}
       />
       <main className={styles.main}>{children}</main>
