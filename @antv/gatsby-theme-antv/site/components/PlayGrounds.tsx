@@ -93,7 +93,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
             hasHorizontalScrollbar,
         })}
       >
-        <ul
+        <div
           className={styles.cards}
           ref={playgroundScrollDiv}
           onScroll={onScroll}
@@ -105,8 +105,10 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
                 : example.title;
             return (
               <Tooltip title={title || ''} key={example.relativePath}>
-                <li
-                  onClick={() => {
+                <a
+                  href={`#${example.filename.split('.')[0]}`}
+                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                    e.preventDefault();
                     window.history.pushState(
                       {},
                       '',
@@ -127,11 +129,11 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
                     }
                     alt={title || example.relativePath}
                   />
-                </li>
+                </a>
               </Tooltip>
             );
           })}
-        </ul>
+        </div>
       </div>
       <PlayGround
         key={currentExample.relativePath}
