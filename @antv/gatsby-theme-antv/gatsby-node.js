@@ -10,6 +10,7 @@ const fs = require('fs');
 const mkdirp = require('mkdirp');
 const webpack = require('webpack');
 const shallowequal = require('shallowequal');
+const { isEqual } = require('lodash');
 const { getSlugAndLang } = require('ptz-i18n');
 const { transform } = require('@babel/standalone');
 
@@ -174,8 +175,8 @@ exports.onCreateNode = ({
   });
 };
 
-exports.createPages = async ({ actions, graphql, reporter }) => {
-  const { createPage } = actions;
+exports.createPages = async ({ actions, graphql, reporter, store }) => {
+  const { createPage, deletePage } = actions;
   const result = await graphql(`
     {
       allMarkdownRemark(limit: 1000) {
@@ -321,6 +322,15 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       const { prev, next } = findPrevAndNext(posts[index], index, posts);
       context.prev = prev;
       context.next = next;
+    }
+
+    // 修复修改 example 代码不及时生效的问题
+    const { pages } = store.getState();
+    const oldPage = Array.from(pages)
+      .map(item => item[1])
+      .find(p => p.path === slug);
+    if (oldPage && !isEqual(oldPage.context, context)) {
+      deletePage(oldPage);
     }
 
     createPage({
