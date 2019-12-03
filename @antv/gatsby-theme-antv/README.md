@@ -83,7 +83,11 @@ module.exports = {
     navs: [], // 用于定义顶部菜单
     docs: [], // 用于定义文档页面的二级分类菜单
     examples: [], // 用于定义演示页面的二级菜单，属性见下方
+    showSearch: true, // 是否展示搜索框
+    showChinaMirror: true, // 是否展示国内镜像链接
     showLanguageSwitcher: true, // 用于定义是否展示语言切换
+    showAntVProductsCard: true, // 是否展示 AntV 系列产品的卡片链接
+    showGithubCorner: true, // 是否展示角落的 GitHub 图标
     playground: {
       container: '<canvas id="container" />', // 定义演示的渲染节点，默认 <div id="container" />
       playgroundDidMount: 'console.log("playgroundDidMount");',

@@ -29,6 +29,13 @@ interface LayoutProps {
   pageContext: any;
 }
 
+function parseNulltoUndefined<T>(value: T) {
+  if (value === null) {
+    return undefined;
+  }
+  return value;
+}
+
 const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   // https://github.com/gatsbyjs/gatsby/issues/13867#issuecomment-489481343
   if (location.pathname.includes('offline-plugin-app-shell-fallback')) {
@@ -42,7 +49,11 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
           githubUrl
           siteUrl
           logoUrl
+          showSearch
+          showChinaMirror
           showLanguageSwitcher
+          showAntVProductsCard
+          showGithubCorner
           navs {
             slug
             title {
@@ -77,6 +88,10 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
       siteUrl,
       logoUrl = '',
       showLanguageSwitcher,
+      showSearch,
+      showChinaMirror,
+      showGithubCorner,
+      showAntVProductsCard,
       redirects = [],
       docsearchOptions,
     },
@@ -166,11 +181,11 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         Link={Link}
         transparent={isHomePage}
         isHomePage={isHomePage}
-        showChinaMirror
-        docsearchOptions={docsearchOptions}
-        showLanguageSwitcher={
-          showLanguageSwitcher === null ? undefined : showLanguageSwitcher
-        }
+        showSearch={parseNulltoUndefined(showSearch)}
+        showGithubCorner={parseNulltoUndefined(showGithubCorner)}
+        showAntVProductsCard={parseNulltoUndefined(showAntVProductsCard)}
+        showChinaMirror={parseNulltoUndefined(showChinaMirror)}
+        showLanguageSwitcher={parseNulltoUndefined(showLanguageSwitcher)}
         {...logoProps}
       />
       <main className={styles.main}>{children}</main>

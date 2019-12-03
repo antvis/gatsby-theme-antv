@@ -50,6 +50,8 @@ interface HeaderProps {
   rootDomain?: string;
   /** 是否展示国内镜像链接 */
   showChinaMirror?: boolean;
+  /** 是否显示 AntV 产品卡片 */
+  showAntVProductsCard?: boolean;
   /** algolia 搜索配置 */
   docsearchOptions?: SearchProps['docsearchOptions'];
 }
@@ -91,7 +93,9 @@ const Header: React.FC<HeaderProps> = ({
   navs = [],
   showSearch = true,
   showGithubCorner = true,
+  showAntVProductsCard = true,
   showLanguageSwitcher = true,
+  showChinaMirror = true,
   logo,
   onLanguageChange,
   siteUrl,
@@ -101,7 +105,6 @@ const Header: React.FC<HeaderProps> = ({
   transparent,
   isHomePage,
   rootDomain = '',
-  showChinaMirror = false,
   docsearchOptions,
 }) => {
   const { t, i18n } = useTranslation();
@@ -250,23 +253,25 @@ const Header: React.FC<HeaderProps> = ({
           </a>
         </li>
       ) : null}
-      <li {...productItemProps}>
-        <a>
-          {t('所有产品')}
-          <Icon
-            type="caret-down"
-            className={classNames(styles.arrow, {
-              [styles.open]: productMenuVisible,
-            })}
+      {showAntVProductsCard ? (
+        <li {...productItemProps}>
+          <a>
+            {t('所有产品')}
+            <Icon
+              type="caret-down"
+              className={classNames(styles.arrow, {
+                [styles.open]: productMenuVisible,
+              })}
+            />
+          </a>
+          <Products
+            className={styles.productsMenu}
+            show={productMenuVisible}
+            rootDomain={rootDomain}
+            language={defaultLanguage}
           />
-        </a>
-        <Products
-          className={styles.productsMenu}
-          show={productMenuVisible}
-          rootDomain={rootDomain}
-          language={defaultLanguage}
-        />
-      </li>
+        </li>
+      ) : null}
       {showGithubCorner && (
         <li className={styles.githubCorner}>
           <a href={githubUrl} target="_blank" rel="noopener noreferrer">

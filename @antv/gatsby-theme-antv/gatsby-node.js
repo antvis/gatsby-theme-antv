@@ -114,7 +114,13 @@ exports.onPreBootstrap = ({ store, reporter }) => {
 };
 
 // Add custom url pathname for posts
-exports.onCreateNode = ({ node, actions, store, createNodeId, createContentDigest }) => {
+exports.onCreateNode = ({
+  node,
+  actions,
+  store,
+  createNodeId,
+  createContentDigest,
+}) => {
   const { createNodeField, createNode } = actions;
   const { program } = store.getState();
   if (node.internal.type === `File`) {
@@ -455,7 +461,11 @@ exports.sourceNodes = ({ actions }) => {
       docs: [SiteSiteMetadataDocs]
       examples: [SiteSiteMetadataExamples]
       redirects: [SiteSiteMetadataRedirects]
+      showSearch: Boolean
+      showChinaMirror: Boolean
+      showGithubCorner: Boolean
       showLanguageSwitcher: Boolean
+      showAntVProductsCard: Boolean
       playground: PlayGround
       docsearchOptions: DocsearchOptions
     }
