@@ -43,7 +43,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
     false,
   );
   const [scrollPostion, updateScrollPostion] = useState('left');
-  const playgroundScrollDiv = useRef<HTMLUListElement>(null);
+  const playgroundScrollDiv = useRef<HTMLDivElement>(null);
 
   const calcScrollPostion = (node: HTMLElement) => {
     if (node.scrollLeft < 2) {
