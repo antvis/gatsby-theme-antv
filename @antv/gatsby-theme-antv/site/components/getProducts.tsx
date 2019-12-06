@@ -196,7 +196,7 @@ export const getProducts = ({
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `https://l7.${ANTV_DOMAIN}/${language}/docs/manual/tutorial`,
+          url: `https://l7.${ANTV_DOMAIN}/${language}/docs/tutorial`,
         },
         {
           icon: <Icon type="read" />,
