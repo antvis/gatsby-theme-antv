@@ -112,17 +112,17 @@ const Banner: React.FC<BannerProps> = ({
       buttonProps.to = button.link;
     }
     return (
-      <ButtonLink {...buttonProps} className={styles.buttonLink} key={i}>
-        <div
-          className={classNames(
-            styles.button,
-            styles[button.type || ''],
-            'primary-button',
-          )}
-          style={button.style}
-        >
-          {button.text}
-        </div>
+      <ButtonLink
+        {...buttonProps}
+        className={classNames(
+          styles.buttonLink,
+          styles[button.type || ''],
+          button.type === 'primary' ? 'primary-button' : 'common-button',
+        )}
+        key={i}
+        style={button.style}
+      >
+        <span className={styles.button}>{button.text}</span>
       </ButtonLink>
     );
   });
