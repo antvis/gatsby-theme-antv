@@ -155,23 +155,16 @@ exports.onCreateNode = ({
   }
 
   const resources = getLocaleResources();
-  const nodeContent = JSON.stringify(resources || {});
-
-  const nodeMeta = {
+  createNode({
     id: createNodeId(`locales`),
     parent: null,
     children: [],
     internal: {
       type: `Locales`,
       mediaType: `application/json`,
-      content: nodeContent,
+      content: JSON.stringify(resources || {}),
       contentDigest: createContentDigest(resources),
     },
-  };
-
-  createNode({
-    ...resources,
-    ...nodeMeta,
   });
 };
 
