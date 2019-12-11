@@ -62,7 +62,7 @@ export const onServiceWorkerUpdateFound = () => {
       </Button>
     </>
   );
-  notification.open({
+  notification.info({
     message: lang === 'zh' ? '站点更新' : 'Site Updated',
     description:
       lang === 'zh'
@@ -70,5 +70,6 @@ export const onServiceWorkerUpdateFound = () => {
         : 'This site has been updated with new data. Do you wish to reload the site to get the new data?',
     btn,
     key: 'onServiceWorkerUpdateFound',
+    placement: 'bottomRight',
   });
 };
