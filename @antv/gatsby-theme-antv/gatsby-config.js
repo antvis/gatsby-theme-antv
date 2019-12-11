@@ -1,5 +1,10 @@
 /* eslint @typescript-eslint/camelcase: 0 */
+const fs = require('fs');
 const path = require('path');
+
+const { name } = JSON.parse(
+  fs.readFileSync(path.resolve(`package.json`), `utf8`),
+);
 
 module.exports = ({
   pagesPath = './site/pages',
@@ -126,8 +131,8 @@ module.exports = ({
       {
         resolve: `gatsby-plugin-manifest`,
         options: {
-          name: `gatsby-starter-default`,
-          short_name: `starter`,
+          name,
+          short_name: name,
           start_url: `/`,
           background_color: theme['primary-color'],
           theme_color: theme['primary-color'],
