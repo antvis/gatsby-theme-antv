@@ -21,7 +21,7 @@ import 'rc-drawer/assets/index.css';
 import 'docsearch.js/dist/cdn/docsearch.min.css';
 import './site/global.less';
 import React from 'react';
-import { notification } from 'antd';
+import { Button, notification } from 'antd';
 import insertCss from 'insert-css';
 
 window.insertCss = insertCss;
