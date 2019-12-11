@@ -86,7 +86,6 @@ const Toolbar: React.FC<ToolbarProps> = ({
     dataFileMatch.length > 0 &&
     !dataFileMatch[1].startsWith('http')
   ) {
-    const [filename] = dataFileMatch[1].split('/').slice(-1);
     codeSandboxConfig.files[
       `index.${fileExtension}`
     ].content = sourceCode.replace(
@@ -94,7 +93,8 @@ const Toolbar: React.FC<ToolbarProps> = ({
       path.join(
         location!.origin || '',
         location!.pathname || '',
-        `../data/${filename}`,
+        '..',
+        dataFileMatch[1],
       ),
     );
   }

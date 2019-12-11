@@ -1,6 +1,6 @@
 import G2 from '@antv/g2';
 
-fetch('data/fireworks-sales.json')
+fetch('../data/fireworks-sales.json')
   .then(response => response.json())
   .then(data => {
     const chart = new G2.Chart({
