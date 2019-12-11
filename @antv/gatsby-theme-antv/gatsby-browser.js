@@ -20,6 +20,8 @@ import 'codemirror/theme/mdn-like.css';
 import 'rc-drawer/assets/index.css';
 import 'docsearch.js/dist/cdn/docsearch.min.css';
 import './site/global.less';
+import React from 'react';
+import { notification } from 'antd';
 
 window.insertCss = require('insert-css');
 
@@ -38,3 +40,34 @@ if (window.location.host.includes('antv')) {
   // 启动脚本
   Tracert.start();
 }
+
+// gatsby-browser.js
+exports.onServiceWorkerUpdateFound = () => {
+  const lang = window.location.pathname.startsWith('/zh') ? 'zh' : 'en';
+  const btn = (
+    <>
+      <Button
+        type="primary"
+        size="small"
+        onClick={() => window.location.reload(true)}
+      >
+        {lang === 'zh' ? '刷新' : 'Refresh'}
+      </Button>
+      <Button
+        size="small"
+        onClick={() => notification.close('onServiceWorkerUpdateFound')}
+      >
+        {lang === 'zh' ? '取消' : 'Cancel'}
+      </Button>
+    </>
+  );
+  notification.open({
+    message: lang === 'zh' ? '站点更新' : 'Site Updated',
+    description:
+      lang === 'zh'
+        ? '发现新的网站版本数据，是否需要重载页面以更新。'
+        : 'This site has been updated with new data. Do you wish to reload the site to get the new data?',
+    btn,
+    key: 'onServiceWorkerUpdateFound',
+  });
+};
