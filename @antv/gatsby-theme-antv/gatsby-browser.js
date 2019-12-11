@@ -22,8 +22,9 @@ import 'docsearch.js/dist/cdn/docsearch.min.css';
 import './site/global.less';
 import React from 'react';
 import { notification } from 'antd';
+import insertCss from 'insert-css';
 
-window.insertCss = require('insert-css');
+window.insertCss = insertCss;
 
 if (window.location.host.includes('antv')) {
   // prettier-ignore
@@ -42,7 +43,7 @@ if (window.location.host.includes('antv')) {
 }
 
 // gatsby-browser.js
-exports.onServiceWorkerUpdateFound = () => {
+export const onServiceWorkerUpdateFound = () => {
   const lang = window.location.pathname.startsWith('/zh') ? 'zh' : 'en';
   const btn = (
     <>
