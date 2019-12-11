@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { default as RCFooter, FooterProps as RcFooterProps } from 'rc-footer';
 import { useTranslation } from 'react-i18next';
-import { Icon, notification, Button } from 'antd';
-import { useMedia } from 'react-use';
+import { Icon } from 'antd';
 import { getProducts } from './getProducts';
-import { redirectToChinaMirror } from './Header';
 import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
 
@@ -13,7 +11,6 @@ export const OLD_SITE_DOMAIN = 'https://antv-2018.alipay.com';
 interface FooterProps extends RcFooterProps {
   rootDomain?: string;
   language?: string;
-  chinaMirrorNotice?: boolean;
   githubUrl?: string;
 }
 
@@ -23,8 +20,6 @@ const Footer: React.FC<FooterProps> = ({
   theme = 'dark',
   language,
   rootDomain = '',
-  chinaMirrorNotice = true,
-  githubUrl = '',
 }) => {
   const { t, i18n } = useTranslation();
   const lang = language || i18n.language;
@@ -32,73 +27,6 @@ const Footer: React.FC<FooterProps> = ({
     t,
     language: lang,
     rootDomain,
-  });
-  const isWide = useMedia('(min-width: 767.99px)', true);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (
-        !chinaMirrorNotice ||
-        lang !== 'zh' ||
-        window.location.host.includes('chartcube') ||
-        window.location.host.includes('gitee.io') ||
-        localStorage.getItem('china-mirror-no-more-hint') ||
-        !isWide
-      ) {
-        return;
-      }
-      notification.info({
-        key: 'china-mirror',
-        icon: (
-          <img
-            width={32}
-            src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png"
-            alt="antv logo"
-          />
-        ),
-        message: '国内镜像提示 🇨🇳',
-        description:
-          'AntV 系列网站部署在 gh-pages 上，若访问速度不佳，可以前往国内镜像站点。你也可以在顶部导航找到镜像链接。',
-        duration: 0,
-        top: 64,
-        btn: (
-          <>
-            <Button
-              type="primary"
-              size="small"
-              style={{ marginRight: 8 }}
-              onClick={() => {
-                redirectToChinaMirror(githubUrl);
-              }}
-            >
-              <Icon type="thunderbolt" />
-              前往国内镜像
-            </Button>
-            <Button
-              size="small"
-              onClick={() => {
-                localStorage.setItem(
-                  'china-mirror-no-more-hint',
-                  Date.now().toString(),
-                );
-                notification.close('china-mirror');
-              }}
-            >
-              不再提醒
-            </Button>
-          </>
-        ),
-        onClose: () => {
-          localStorage.setItem(
-            'china-mirror-no-more-hint',
-            Date.now().toString(),
-          );
-        },
-      });
-    }, 5000);
-    return () => {
-      clearTimeout(timeout);
-    };
   });
 
   const more = {
