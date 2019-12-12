@@ -26,6 +26,15 @@ ul.tabs {
       color: #697b8c;
       position: relative;
       z-index: 1;
+
+      > h2 {
+        margin: 0;
+        font-size: 24px;
+        line-height: 1;
+        transition: all 0.3s;
+        position: relative;
+        z-index: 1;
+      }
     }
 
     &:hover a {
@@ -44,7 +53,9 @@ ul.tabs {
       height: 0;
       bottom: -3px;
       background-image: transparent;
-      transition: all 3s;
+      transition: all 0.3s;
+      max-width: 0;
+      height: 8px;
       background-image: linear-gradient(45deg, #b67aff 0%, #c4a1ff 100%);
     }
 
@@ -54,16 +65,11 @@ ul.tabs {
     }
 
     &.active:after {
-      height: 8px;
+      max-width: 100%;
     }
 
     &.hidden {
       display: none;
     }
-  }
-}
-
-@media (max-width: 768px) {
-  ul.tabs {
   }
 }
