@@ -110,12 +110,12 @@ export default function Template({
   const edgesInExamples = edges.filter((item: any) =>
     item.node.fields.slug.includes('/examples/'),
   );
+  const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
   const { node: markdownRemark } =
     edgesInExamples.find((edge: any) => {
       const {
         fields: { slug },
       } = edge.node;
-      const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
       if (
         /\/examples\/.*\/API$/.test(pathWithoutTrailingSlashes) ||
         /\/examples\/.*\/design$/.test(pathWithoutTrailingSlashes)
@@ -167,10 +167,10 @@ export default function Template({
   const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys);
   let activeTab = 'examples' as 'examples' | 'API' | 'design';
   let exampleRootSlug = slug;
-  if (/\/examples\/.*\/API$/.test(location.pathname)) {
+  if (/\/examples\/.*\/API$/.test(pathWithoutTrailingSlashes)) {
     activeTab = 'API';
     exampleRootSlug = exampleRootSlug.replace(/\/API$/, '');
-  } else if (/\/examples\/.*\/design$/.test(location.pathname)) {
+  } else if (/\/examples\/.*\/design$/.test(pathWithoutTrailingSlashes)) {
     activeTab = 'design';
     exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
   }
