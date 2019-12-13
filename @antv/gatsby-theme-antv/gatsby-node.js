@@ -16,6 +16,7 @@ const { transform } = require('@babel/standalone');
 
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
+const orderCaches = {};
 
 function getLocaleResources() {
   let locale = {};
@@ -40,18 +41,31 @@ function getLocaleResources() {
   return resources;
 }
 
-function getExampleOrder(post, siteMetadata) {
-  if (!post) {
-    return 0;
-  }
+function getPostOrder(post, siteMetadata, type) {
   const {
     fields: { slug },
     frontmatter: { order },
   } = post.node;
-  const { examples = [] } = siteMetadata;
-  const categoryOrder =
-    examples.findIndex(item => item.slug === slug.split('/')[3]) + 1;
-  return (order || 0) + categoryOrder * 100;
+  if (slug && orderCaches[slug] !== undefined) {
+    return orderCaches[slug];
+  }
+  let result;
+  const categories = siteMetadata[type] || [];
+  if (type === 'examples') {
+    const categoryOrder = categories.findIndex(item => item.slug === slug.split('/')[3]) + 1;
+    result = (order || 0) + categoryOrder * 100;
+    orderCaches[slug] = result;
+    return result;
+  }
+  let categoryOrder = 0;
+  categories.forEach(item => {
+    if (slug.includes(item.slug)) {
+      categoryOrder += item.order * (0.1 ** item.slug.split('/').length - 2);
+    }
+  });
+  result = (order || 0) + categoryOrder;
+  orderCaches[slug] = result;
+  return result;
 }
 
 function isSameCategory(target = {}, current = {}) {
@@ -194,6 +208,10 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
       }
       site {
         siteMetadata {
+          docs {
+            slug
+            order
+          }
           examples {
             slug
           }
@@ -218,7 +236,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
     allFile,
   } = result.data;
 
-  const posts = allMarkdownRemark.edges;
+  const posts = allMarkdownRemark.edges.filter(item => !!item);
   const allDemos = allFile.nodes
     .filter(node => /demo\/(.*)\.[t|j]sx?$/.test(node.relativePath))
     .map(item => {
@@ -286,7 +304,6 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         API,
       };
       const examplePosts = posts
-        .filter(item => !!item)
         .filter(
           ({
             node: {
@@ -303,16 +320,39 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
             },
           }) => !postSlug.endsWith('/design') && !postSlug.endsWith('/API'),
         )
-        .sort((a, b) => {
-          return (
-            getExampleOrder(a, siteMetadata) - getExampleOrder(b, siteMetadata)
-          );
-        });
-      const { prev, next } = findPrevAndNext(posts[index], index, examplePosts);
+        .sort(
+          (a, b) =>
+            getPostOrder(a, siteMetadata, 'examples') -
+            getPostOrder(b, siteMetadata, 'examples'),
+        );
+      const { prev, next } = findPrevAndNext(
+        posts[index],
+        examplePosts.indexOf(posts[index]),
+        examplePosts,
+      );
       context.prev = prev;
       context.next = next;
     } else {
-      const { prev, next } = findPrevAndNext(posts[index], index, posts);
+      const documentPosts = posts
+        .filter(
+          ({
+            node: {
+              fields: { slug: postSlug },
+            },
+          }) =>
+            !postSlug.startsWith(`/zh/examples`) &&
+            !postSlug.startsWith(`/en/examples`),
+        )
+        .sort(
+          (a, b) =>
+            getPostOrder(a, siteMetadata, 'docs') -
+            getPostOrder(b, siteMetadata, 'docs'),
+        );
+      const { prev, next } = findPrevAndNext(
+        posts[index],
+        documentPosts.indexOf(posts[index]),
+        documentPosts,
+      );
       context.prev = prev;
       context.next = next;
     }
