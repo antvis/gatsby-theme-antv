@@ -13,7 +13,7 @@ module.exports = ({
     'primary-color': '#722ED1',
   },
   pathPrefix,
-  pwa = true,
+  pwa = false,
   cname = true,
 }) => {
   const config = {
