@@ -12,6 +12,7 @@ interface PlayGroundsProps {
     container?: string;
     playgroundDidMount?: string;
     playgroundWillUnmount?: string;
+    htmlCodeTemplate?: string;
   };
 }
 

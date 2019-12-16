@@ -52,7 +52,8 @@ function getPostOrder(post, siteMetadata, type) {
   let result;
   const categories = siteMetadata[type] || [];
   if (type === 'examples') {
-    const categoryOrder = categories.findIndex(item => item.slug === slug.split('/')[3]) + 1;
+    const categoryOrder =
+      categories.findIndex(item => item.slug === slug.split('/')[3]) + 1;
     result = (order || 0) + categoryOrder * 100;
     orderCaches[slug] = result;
     return result;
@@ -463,6 +464,7 @@ exports.sourceNodes = ({ actions }) => {
       playgroundDidMount: String
       playgroundWillUnmount: String
       dependencies: Json
+      htmlCodeTemplate: String
     }
 
     type SiteSiteMetadataTitle implements Node {

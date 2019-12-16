@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Icon, Tooltip } from 'antd';
+import { Typography, Icon, Tooltip, Modal, Button } from 'antd';
 import path from 'path';
+import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { getParameters } from 'codesandbox/lib/api/define';
 import stackblitzSdk from '@stackblitz/sdk';
 import { useTranslation } from 'react-i18next';
+import indentString from 'indent-string';
 import { ping } from '../utils';
 import styles from './Toolbar.module.less';
 
@@ -12,7 +14,12 @@ const { Paragraph } = Typography;
 interface ToolbarProps {
   sourceCode: string;
   fileExtension: string;
-  title: string;
+  title:
+    | {
+        zh?: string;
+        en?: string;
+      }
+    | string;
   location?: Location;
   playground: {
     container?: string;
@@ -21,6 +28,7 @@ interface ToolbarProps {
     dependencies?: {
       [key: string]: string;
     };
+    htmlCodeTemplate?: string;
   };
   isFullScreen: boolean;
   onToggleFullscreen: () => void;
@@ -37,7 +45,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
   onToggleFullscreen,
   onExecuteCode,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const requireMatches = sourceCode.match(/require\(['"](.*)['"]\)/g) || [];
   const importMatches = sourceCode.match(/from\s+['"](.*)['"]/g) || [];
@@ -54,6 +62,9 @@ const Toolbar: React.FC<ToolbarProps> = ({
       deps[importMatch[1]] = 'latest';
     }
   });
+
+  const exmapleTitle =
+    typeof title === 'object' ? title[i18n.language as 'zh' | 'en'] : title;
 
   // 使用 playground.dependencies 定义的版本号
   const dependencies = playground.dependencies || {};
@@ -80,33 +91,67 @@ const Toolbar: React.FC<ToolbarProps> = ({
     },
   };
 
-  const dataFileMatch = sourceCode.match(/fetch\('(.*)'\)/);
-  if (
-    dataFileMatch &&
-    dataFileMatch.length > 0 &&
-    !dataFileMatch[1].startsWith('http')
-  ) {
-    codeSandboxConfig.files[
-      `index.${fileExtension}`
-    ].content = sourceCode.replace(
-      dataFileMatch[1],
-      path.join(
-        location!.origin || '',
-        location!.pathname || '',
-        '..',
+  function replaceFetchUrl(text: string) {
+    const dataFileMatch = sourceCode.match(/fetch\('(.*)'\)/);
+    if (
+      dataFileMatch &&
+      dataFileMatch.length > 0 &&
+      !dataFileMatch[1].startsWith('http')
+    ) {
+      return text.replace(
         dataFileMatch[1],
-      ),
-    );
+        path.join(
+          location!.origin || '',
+          location!.pathname || '',
+          '..',
+          dataFileMatch[1],
+        ),
+      );
+    }
+    return text;
+  }
+
+  codeSandboxConfig.files[`index.${fileExtension}`].content = replaceFetchUrl(
+    sourceCode,
+  );
+
+  function getHtmlCodeTemplate() {
+    const { htmlCodeTemplate = '', container = '' } = playground;
+    const insertCssMatcher = /insertCss\(`\s*(.*)\s*`\);/;
+    const code = replaceFetchUrl(sourceCode)
+      .replace(/import\s+.*\s+from\s+['"].*['"];?/g, '')
+      .replace(insertCssMatcher, '')
+      .replace(/^\s+|\s+$/g, '');
+    let result = htmlCodeTemplate
+      .replace('{{code}}', indentString(code, 4))
+      .replace('{{title}}', exmapleTitle || 'example');
+    const customStyles = sourceCode.match(insertCssMatcher);
+    if (customStyles && customStyles[1]) {
+      result = result.replace(
+        '</head>',
+        `  <style>\n${indentString(
+          customStyles[1],
+          4,
+        )}\n    </style>\n  </head>`,
+      );
+    }
+    if (container) {
+      result = result.replace(
+        '<body>',
+        `<body>\n${indentString(container, 4)}`,
+      );
+    }
+    return result;
   }
 
   const riddlePrefillConfig = {
-    title,
+    title: exmapleTitle,
     js: sourceCode,
     html: playground.container || '<div id="container" />',
   };
 
   const stackblitzPrefillConfig = {
-    title,
+    title: exmapleTitle || '',
     description: '',
     template: 'create-react-app',
     dependencies: deps,
@@ -122,6 +167,8 @@ const Toolbar: React.FC<ToolbarProps> = ({
       updateRiddleVisible(status === 'responded');
     });
   }, []);
+
+  const [htmlModalVisible, updateHtmlModalVisible] = useState(false);
 
   return (
     <div className={styles.toolbar}>
@@ -171,6 +218,49 @@ const Toolbar: React.FC<ToolbarProps> = ({
         </form>
       </Tooltip>
       <Paragraph copyable={{ text: sourceCode }} />
+      {playground.htmlCodeTemplate && (
+        <>
+          <Tooltip title={t('HTML 代码')}>
+            <Icon
+              type="html5"
+              className={styles.html}
+              onClick={() => updateHtmlModalVisible(true)}
+            />
+          </Tooltip>
+          <Modal
+            visible={htmlModalVisible}
+            title={t('HTML 代码')}
+            onCancel={() => updateHtmlModalVisible(false)}
+            width="60vw"
+            footer={
+              <Button onClick={() => updateHtmlModalVisible(false)}>
+                {t('取消')}
+              </Button>
+            }
+          >
+            <div className={styles.editor}>
+              <CodeMirrorEditor
+                value={getHtmlCodeTemplate()}
+                options={{
+                  mode: 'htmlembedded',
+                  readOnly: true,
+                  theme: 'mdn-like',
+                  lineNumbers: true,
+                  tabSize: 2,
+                  // @ts-ignore
+                  styleActiveLine: true, // 当前行背景高亮
+                  matchBrackets: true, // 括号匹配
+                  autoCloseBrackets: true,
+                  autofocus: false,
+                  matchTags: {
+                    bothTags: true,
+                  },
+                }}
+              />
+            </div>
+          </Modal>
+        </>
+      )}
       <Tooltip title={isFullScreen ? t('离开全屏') : t('进入全屏')}>
         <Icon
           type={isFullScreen ? 'fullscreen-exit' : 'fullscreen'}
