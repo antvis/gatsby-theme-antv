@@ -13,13 +13,14 @@
     "browser": true,
     "node": true,
     "jest": true
-  },  
+  },
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
     "consistent-return": 0,
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
+    "import/extensions": [2, "always", { "ts": "never", "tsx": "never", "js": "never", "jsx": "never" }],
     "import/no-named-default": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js", ".jsx"] }],
     "react/prop-types": 0,
