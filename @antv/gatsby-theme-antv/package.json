@@ -74,6 +74,7 @@
     "gatsby-transformer-sharp": "^2.2.14",
     "git-url-parse": "^11.1.2",
     "i18next": "^19.0.0",
+    "indent-string": "^4.0.0",
     "insert-css": "^2.0.0",
     "less": "^3.10.3",
     "lodash": "^4.17.15",

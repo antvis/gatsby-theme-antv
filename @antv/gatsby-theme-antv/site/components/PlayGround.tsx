@@ -33,6 +33,7 @@ export interface PlayGroundProps {
     dependencies?: {
       [key: string]: string;
     };
+    htmlCodeTemplate?: string;
   };
 }
 

@@ -84,6 +84,21 @@ module.exports = {
       dependencies: {
         '@antv/l7': 'beta',
       },
+      htmlCodeTemplate: `<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{title}}</title>
+  </head>
+  <body>
+    <div id="container" />
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.g2-3.5.1/dist/g2.min.js"></script>
+    <script src="https://gw.alipayobjects.com/os/antv/pkg/_antv.data-set-0.10.1/dist/data-set.min.js"></script>
+    <script>
+{{code}}
+    </script>
+  </body>
+</html>`,
     },
     redirects: [],
   },

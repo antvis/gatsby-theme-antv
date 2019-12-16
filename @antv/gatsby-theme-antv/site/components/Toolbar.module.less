@@ -46,7 +46,13 @@
   .stackblitz {
     position: relative;
     top: 1px;
-    margin-left: 8px;
+    margin-left: 12px;
+  }
+
+  .html {
+    margin-left: 12px;
+    position: relative;
+    top: 0.5px;
   }
 
   :global(.ant-typography-copy:not(.ant-typography-copy-success)) {
@@ -55,5 +61,19 @@
     &:hover {
       color: #222;
     }
+  }
+}
+
+.editor {
+  :global(.CodeMirror) {
+    min-height: 500px;
+    background-image: none !important;
+    font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+      monospace;
+    line-height: 1.6;
+    font-size: 13px;
+  }
+  :global(.cm-s-mdn-like .CodeMirror-gutters) {
+    border-color: #eee;
   }
 }
