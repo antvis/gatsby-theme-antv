@@ -26,7 +26,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
     examples.find(
       item => `#${item.filename.split('.')[0]}` === location.hash,
     ) || examples[0];
-  const [currentExample, updateCurrentExample] = useState(defaultExample);
+  const [currentExample, updateCurrentExample] = useState(defaultExample || {});
 
   // 滚动到当前节点
   useEffect(() => {

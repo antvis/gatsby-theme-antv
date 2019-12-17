@@ -117,8 +117,8 @@ exports.onPreBootstrap = ({ store, reporter }) => {
     path.join(program.directory, 'docs'),
     path.join(program.directory, 'site'),
     path.join(program.directory, 'examples'),
-    path.join(program.directory, 'examples/data'),
-    path.join(program.directory, 'site/images'),
+    path.join(program.directory, 'examples', 'data'),
+    path.join(program.directory, 'site', 'images'),
   ];
 
   dirs.forEach(dir => {
