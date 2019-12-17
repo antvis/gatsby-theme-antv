@@ -5,7 +5,8 @@
  */
 
 // You can delete this file if you're not using it
-const path = require(`path`);
+const path = require('path');
+const slash = require('slash');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const webpack = require('webpack');
@@ -295,7 +296,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
       const examples = allDemos
         .filter(item =>
           `${exampleRootSlug}/demo`.endsWith(
-            path.join('examples', path.dirname(item.relativePath)),
+            slash(path.join('examples', path.dirname(item.relativePath))),
           ),
         )
         .sort((a, b) => a.order - b.order);
