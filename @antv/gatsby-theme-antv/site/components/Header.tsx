@@ -370,9 +370,8 @@ const Header: React.FC<HeaderProps> = ({
                     .replace(`/${lang}/`, `/${value}/`),
                 );
               }}
-              style={{ fontSize: 16 }}
             >
-              {t('En')}
+              {t('EN')}
             </a>
           </Tooltip>
         </li>
