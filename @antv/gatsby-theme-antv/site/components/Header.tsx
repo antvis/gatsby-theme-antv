@@ -372,7 +372,7 @@ const Header: React.FC<HeaderProps> = ({
               }}
               style={{ fontSize: 16 }}
             >
-              {t('🇺🇸')}
+              {t('En')}
             </a>
           </Tooltip>
         </li>
