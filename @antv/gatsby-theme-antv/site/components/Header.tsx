@@ -326,8 +326,8 @@ const Header: React.FC<HeaderProps> = ({
             className={styles.versions}
             dropdownMatchSelectWidth={false}
             size="small"
-            onChange={value => {
-              window.location = value;
+            onChange={(value: string) => {
+              window.location.href = value;
             }}
           >
             {Object.keys(versions).map((version: string) => {
