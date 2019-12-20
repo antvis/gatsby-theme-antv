@@ -514,6 +514,7 @@ exports.sourceNodes = ({ actions }) => {
       showAntVProductsCard: Boolean
       playground: PlayGround
       docsearchOptions: DocsearchOptions
+      versions: Json
     }
 
     type Site implements Node {
