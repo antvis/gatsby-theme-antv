@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { Icon, Popover, Button, Tooltip, message } from 'antd';
+import { Icon, Popover, Button, Tooltip, Select, message } from 'antd';
 import GitUrlParse from 'git-url-parse';
 import Search, { SearchProps } from './Search';
 import Products from './Products';
@@ -12,6 +12,8 @@ import NavMenuItems, { Nav } from './NavMenuItems';
 import AntvLogo from '../images/antv.svg';
 import ExternalLink from '../images/external-link.svg';
 import styles from './Header.module.less';
+
+const { Option } = Select;
 
 interface HeaderProps {
   pathPrefix?: string;
@@ -54,6 +56,8 @@ interface HeaderProps {
   showAntVProductsCard?: boolean;
   /** algolia 搜索配置 */
   docsearchOptions?: SearchProps['docsearchOptions'];
+  /** 展示版本切换 */
+  versions?: { [key: string]: string };
 }
 
 export const redirectToChinaMirror = (githubUrl: string) => {
@@ -106,6 +110,7 @@ const Header: React.FC<HeaderProps> = ({
   isHomePage,
   rootDomain = '',
   docsearchOptions,
+  versions,
 }) => {
   const { t, i18n } = useTranslation();
   const lang =
@@ -312,6 +317,31 @@ const Header: React.FC<HeaderProps> = ({
             rootDomain={rootDomain}
             language={defaultLanguage}
           />
+        </li>
+      ) : null}
+      {versions ? (
+        <li>
+          <Select
+            defaultValue={Object.keys(versions)[0]}
+            className={styles.versions}
+            dropdownMatchSelectWidth={false}
+            size="small"
+            onChange={value => {
+              window.location = value;
+            }}
+          >
+            {Object.keys(versions).map((version: string) => {
+              const url = versions[version];
+              if (url.startsWith('http')) {
+                return (
+                  <Option key={url} value={url}>
+                    {version}
+                  </Option>
+                );
+              }
+              return null;
+            })}
+          </Select>
         </li>
       ) : null}
       {showLanguageSwitcher && (

@@ -1,3 +1,5 @@
+const { version, repository, homepage } = require('./package.json');
+
 module.exports = {
   plugins: [
     {
@@ -8,8 +10,8 @@ module.exports = {
   siteMetadata: {
     title: 'AntV test site',
     description: 'Ant Visualization solution home page',
-    siteUrl: 'https://test.antv.vision/',
-    githubUrl: 'https://github.com/antvis/antvis.github.io',
+    siteUrl: homepage,
+    githubUrl: repository.url,
     navs: [
       {
         slug: 'docs/specification/getting-started',
@@ -77,6 +79,11 @@ module.exports = {
         },
       },
     ],
+    versions: {
+      [version]: 'https://ant.design',
+      '2.x': 'https://2x.ant.design',
+      '1.x': 'https://1x.ant.design',
+    },
     playground: {
       container: '<div id="container" class="ok" />',
       playgroundDidMount: 'console.log("playgroundDidMount");',

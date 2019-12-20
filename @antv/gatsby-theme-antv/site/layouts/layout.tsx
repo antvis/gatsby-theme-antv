@@ -70,6 +70,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
             apiKey
             indexName
           }
+          versions
         }
       }
       locales {
@@ -94,6 +95,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
       showAntVProductsCard,
       redirects = [],
       docsearchOptions,
+      versions,
     },
   } = site;
   let resources = {};
@@ -187,6 +189,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         showChinaMirror={parseNulltoUndefined(showChinaMirror)}
         showLanguageSwitcher={parseNulltoUndefined(showLanguageSwitcher)}
         docsearchOptions={docsearchOptions}
+        versions={versions}
         {...logoProps}
       />
       <main className={styles.main}>{children}</main>
