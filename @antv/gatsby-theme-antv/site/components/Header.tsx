@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { Icon, Popover, Button, message } from 'antd';
+import { Icon, Popover, Button, Tooltip, message } from 'antd';
 import GitUrlParse from 'git-url-parse';
 import Search, { SearchProps } from './Search';
 import Products from './Products';
@@ -236,28 +236,6 @@ const Header: React.FC<HeaderProps> = ({
       })}
     >
       {navs && navs.length ? <NavMenuItems navs={navs} path={path} /> : null}
-      {showLanguageSwitcher && (
-        <li>
-          <a
-            onClick={e => {
-              e.preventDefault();
-              const value = lang === 'en' ? 'zh' : 'en';
-              i18n.changeLanguage(value);
-              if (onLanguageChange) {
-                return onLanguageChange(value);
-              }
-              if (path.endsWith(`/${lang}`)) {
-                return navigate(`/${value}`);
-              }
-              navigate(
-                path.replace(pathPrefix, '').replace(`/${lang}/`, `/${value}/`),
-              );
-            }}
-          >
-            {t('English')}
-          </a>
-        </li>
-      )}
       {showChinaMirror ? (
         <Popover
           title={null}
@@ -320,8 +298,9 @@ const Header: React.FC<HeaderProps> = ({
         <li {...productItemProps}>
           <a>
             {t('所有产品')}
-            <Icon
-              type="caret-down"
+            <img
+              src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png"
+              alt="antv logo arrow"
               className={classNames(styles.arrow, {
                 [styles.open]: productMenuVisible,
               })}
@@ -335,6 +314,39 @@ const Header: React.FC<HeaderProps> = ({
           />
         </li>
       ) : null}
+      {showLanguageSwitcher && (
+        <li>
+          <Tooltip
+            title={t('English')}
+            align={{
+              offset: [0, -16],
+            }}
+            placement="bottom"
+          >
+            <a
+              onClick={e => {
+                e.preventDefault();
+                const value = lang === 'en' ? 'zh' : 'en';
+                i18n.changeLanguage(value);
+                if (onLanguageChange) {
+                  return onLanguageChange(value);
+                }
+                if (path.endsWith(`/${lang}`)) {
+                  return navigate(`/${value}`);
+                }
+                navigate(
+                  path
+                    .replace(pathPrefix, '')
+                    .replace(`/${lang}/`, `/${value}/`),
+                );
+              }}
+              style={{ fontSize: 16 }}
+            >
+              {t('🇺🇸')}
+            </a>
+          </Tooltip>
+        </li>
+      )}
       {showGithubCorner && (
         <li className={styles.githubCorner}>
           <a href={githubUrl} target="_blank" rel="noopener noreferrer">
