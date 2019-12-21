@@ -4,12 +4,13 @@ import React, { useState, useEffect } from 'react';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { Icon, Popover, Button, Tooltip, Select, message } from 'antd';
+import { Icon, Popover, Button, Menu, Select, Dropdown, message } from 'antd';
 import GitUrlParse from 'git-url-parse';
 import Search, { SearchProps } from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
 import AntvLogo from '../images/antv.svg';
+import TranslationIcon from '../images/translation.svg';
 import ExternalLink from '../images/external-link.svg';
 import styles from './Header.module.less';
 
@@ -346,34 +347,57 @@ const Header: React.FC<HeaderProps> = ({
       ) : null}
       {showLanguageSwitcher && (
         <li>
-          <Tooltip
-            title={t('English')}
-            align={{
-              offset: [0, -16],
-            }}
-            placement="bottom"
+          <Dropdown
+            placement="bottomRight"
+            overlay={
+              <Menu
+                defaultSelectedKeys={[lang]}
+                selectable
+                onSelect={({ key }) => {
+                  if (key === lang) {
+                    return;
+                  }
+                  if (onLanguageChange) {
+                    onLanguageChange(key);
+                    return;
+                  }
+                  if (path.endsWith(`/${lang}`)) {
+                    navigate(`/${key}`);
+                    return;
+                  }
+                  navigate(
+                    path
+                      .replace(pathPrefix, '')
+                      .replace(`/${lang}/`, `/${key}/`),
+                  );
+                }}
+              >
+                <Menu.Item key="en">
+                  <Icon
+                    type="check"
+                    style={{
+                      visibility: lang === 'en' ? 'visible' : 'hidden',
+                      color: '#52c41a',
+                    }}
+                  />
+                  English
+                </Menu.Item>
+                <Menu.Item key="zh">
+                  <Icon
+                    type="check"
+                    style={{
+                      visibility: lang === 'zh' ? 'visible' : 'hidden',
+                      color: '#52c41a',
+                    }}
+                  />
+                  简体中文
+                </Menu.Item>
+              </Menu>
+            }
+            className={styles.translation}
           >
-            <a
-              onClick={e => {
-                e.preventDefault();
-                const value = lang === 'en' ? 'zh' : 'en';
-                i18n.changeLanguage(value);
-                if (onLanguageChange) {
-                  return onLanguageChange(value);
-                }
-                if (path.endsWith(`/${lang}`)) {
-                  return navigate(`/${value}`);
-                }
-                navigate(
-                  path
-                    .replace(pathPrefix, '')
-                    .replace(`/${lang}/`, `/${value}/`),
-                );
-              }}
-            >
-              {t('EN')}
-            </a>
-          </Tooltip>
+            <TranslationIcon />
+          </Dropdown>
         </li>
       )}
       {showGithubCorner && (
