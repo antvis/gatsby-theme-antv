@@ -49,7 +49,7 @@ $ cd mysite
 $ yarn start
 ```
 
-> ✨ AntV 站点 [接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442)
+> ✨ AntV 站点 [接入方式](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-548754442) 和 [额外功能](https://github.com/antvis/antvis.github.io/issues/18#issuecomment-568692771)
 
 ### `gatsby-config.js`
 
@@ -93,6 +93,14 @@ module.exports = {
       playgroundDidMount: 'console.log("playgroundDidMount");',
       playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
     },
+    versions: [
+      {
+        '1.x': 'https://1x.ant.design',
+        '2.x': 'https://2x.ant.design',
+        '3.x': 'https://ant.design',
+        '4.x': 'https://next.ant.design',
+      },
+    ],
     redirects: [
       {
         from: /\/old-url/,
