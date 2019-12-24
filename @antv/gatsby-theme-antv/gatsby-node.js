@@ -276,9 +276,43 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
   posts.forEach(({ node }, index) => {
     const { slug } = node.fields;
     const context = {};
+    const isGallaryPage = slug.includes('/examples/gallary');
     const isExamplePage =
       slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`);
-    if (isExamplePage) {
+    if (isGallaryPage) {
+      // 找到所有的演示
+      context.allDemos = allDemos.map(demo => {
+        const postOfDemo = posts.find(post => {
+          // 标记演示所属的文章用于分类
+          const postSlug = post.node.fields.slug;
+          if (
+            !postSlug.startsWith(`/zh/examples`) &&
+            !postSlug.startsWith(`/en/examples`)
+          ) {
+            return false;
+          }
+          if (postSlug.endsWith(`/API`) || postSlug.endsWith(`/design`)) {
+            return false;
+          }
+          return postSlug.endsWith(demo.relativePath.split('/demo/')[0]);
+        });
+
+        const postFrontmatter = {
+          order: getPostOrder(postOfDemo, siteMetadata, 'examples'),
+        };
+        if (postOfDemo.node.fields.slug.startsWith(`/zh/examples`)) {
+          postFrontmatter.zh = postOfDemo.node.frontmatter;
+        } else if (postOfDemo.node.fields.slug.startsWith(`/en/examples`)) {
+          postFrontmatter.en = postOfDemo.node.frontmatter;
+        }
+        return postOfDemo
+          ? {
+              ...demo,
+              postFrontmatter,
+            }
+          : demo;
+      });
+    } else if (isExamplePage) {
       let exampleRootSlug = slug;
       if (/\/examples\/.*\/API$/.test(slug)) {
         exampleRootSlug = exampleRootSlug.replace(/\/API$/, '');
@@ -305,9 +339,6 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         design,
         API,
       };
-      if (slug.includes('/examples/gallary')) {
-        context.allDemos = allDemos;
-      }
       const examplePosts = posts
         .filter(
           ({

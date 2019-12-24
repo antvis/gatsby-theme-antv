@@ -257,6 +257,15 @@ export default function Template({
     </Drawer>
   );
 
+  const allDemosInCategory = groupBy(allDemos, demo => {
+    if (!demo.postFrontmatter || !demo.postFrontmatter[i18n.language]) {
+      return 'OTHER';
+    }
+    return demo.postFrontmatter[i18n.language].title;
+  });
+
+  console.log(allDemosInCategory);
+
   const gallaryPageContent = (
     <>
       <h1>{frontmatter.title}</h1>
@@ -264,36 +273,51 @@ export default function Template({
         /* eslint-disable-next-line react/no-danger */
         dangerouslySetInnerHTML={{ __html: html }}
       />
-      <ul className={styles.gallery}>
-        {allDemos.map(demo => {
-          const cardTitle = demo.title
-            ? demo.title[i18n.language]
-            : demo.filename;
-          const demoSlug = demo.relativePath.replace(
-            /\/demo\/(.*)\..*/,
-            (_: string, filename: string) => {
-              return `#${filename}`;
-            },
-          );
-          return (
-            <li className={styles.galleryCard} key={demo.relativePath}>
-              <Link
-                to={`${i18n.language}/examples/${demoSlug}`}
-                className={styles.galleryCardLink}
-              >
-                <img
-                  src={
-                    demo.screenshot ||
-                    'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
-                  }
-                  alt={cardTitle}
-                />
-                <h4>{cardTitle}</h4>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      {Object.keys(allDemosInCategory)
+        .sort((a: string, b: string) => {
+          if (a === 'OTHER') {
+            return -1;
+          }
+          if (b === 'OTHER') {
+            return 1;
+          }
+          return 0;
+        })
+        .map((category: string) => (
+          <div key={category}>
+            {category !== 'OTHER' && <h3>{category}</h3>}
+            <ul className={styles.gallery}>
+              {allDemosInCategory[category].map(demo => {
+                const cardTitle = demo.title
+                  ? demo.title[i18n.language]
+                  : demo.filename;
+                const demoSlug = demo.relativePath.replace(
+                  /\/demo\/(.*)\..*/,
+                  (_: string, filename: string) => {
+                    return `#${filename}`;
+                  },
+                );
+                return (
+                  <li className={styles.galleryCard} key={demo.relativePath}>
+                    <Link
+                      to={`${i18n.language}/examples/${demoSlug}`}
+                      className={styles.galleryCardLink}
+                    >
+                      <img
+                        src={
+                          demo.screenshot ||
+                          'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
+                        }
+                        alt={cardTitle}
+                      />
+                      <h4>{cardTitle}</h4>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
     </>
   );
 
