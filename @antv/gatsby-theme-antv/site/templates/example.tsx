@@ -256,6 +256,81 @@ export default function Template({
     </Drawer>
   );
 
+  const gallaryPageContent = (
+    <>
+      <h1>{frontmatter.title}</h1>
+      <div
+        /* eslint-disable-next-line react/no-danger */
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+      图表
+    </>
+  );
+
+  const exmaplePageContent = (
+    <>
+      <h1>
+        {frontmatter.title}
+        <Tooltip title={t('在 GitHub 上编辑')}>
+          <a
+            href={`${githubUrl}/edit/master/examples/${relativePath}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.editOnGtiHubButton}
+          >
+            <Icon type="edit" />
+          </a>
+        </Tooltip>
+      </h1>
+      <div
+        /* eslint-disable-next-line react/no-danger */
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+      <Tabs
+        slug={exampleRootSlug}
+        active={activeTab}
+        showTabs={{
+          examples:
+            exampleSections.examples && exampleSections.examples.length > 0,
+          API: !!exampleSections.API,
+          design: !!exampleSections.design,
+        }}
+        examplesCount={(exampleSections.examples || []).length}
+      />
+      {exampleSections.examples && (
+        <div style={{ display: activeTab === 'examples' ? 'block' : 'none' }}>
+          <PlayGrounds
+            examples={exampleSections.examples}
+            location={location}
+            playground={playground || {}}
+          />
+        </div>
+      )}
+      {exampleSections.API && (
+        <div
+          style={{ display: activeTab === 'API' ? 'block' : 'none' }}
+          /* eslint-disable-next-line react/no-danger */
+          dangerouslySetInnerHTML={{
+            __html: exampleSections.API.node.html,
+          }}
+        />
+      )}
+      {exampleSections.design && (
+        <div
+          style={{ display: activeTab === 'design' ? 'block' : 'none' }}
+          /* eslint-disable-next-line react/no-danger */
+          dangerouslySetInnerHTML={{
+            __html: exampleSections.design.node.html,
+          }}
+        />
+      )}
+      <div>
+        <NavigatorBanner type="prev" post={prev} />
+        <NavigatorBanner type="next" post={next} />
+      </div>
+    </>
+  );
+
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -267,68 +342,9 @@ export default function Template({
         {menuSider}
         <Article className={styles.markdown}>
           <div className={styles.main} style={{ width: '100%' }}>
-            <h1>
-              {frontmatter.title}
-              <Tooltip title={t('在 GitHub 上编辑')}>
-                <a
-                  href={`${githubUrl}/edit/master/examples/${relativePath}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.editOnGtiHubButton}
-                >
-                  <Icon type="edit" />
-                </a>
-              </Tooltip>
-            </h1>
-            <div
-              /* eslint-disable-next-line react/no-danger */
-              dangerouslySetInnerHTML={{ __html: html }}
-            />
-            <Tabs
-              slug={exampleRootSlug}
-              active={activeTab}
-              showTabs={{
-                examples:
-                  exampleSections.examples &&
-                  exampleSections.examples.length > 0,
-                API: !!exampleSections.API,
-                design: !!exampleSections.design,
-              }}
-              examplesCount={(exampleSections.examples || []).length}
-            />
-            {exampleSections.examples && (
-              <div
-                style={{ display: activeTab === 'examples' ? 'block' : 'none' }}
-              >
-                <PlayGrounds
-                  examples={exampleSections.examples}
-                  location={location}
-                  playground={playground || {}}
-                />
-              </div>
-            )}
-            {exampleSections.API && (
-              <div
-                style={{ display: activeTab === 'API' ? 'block' : 'none' }}
-                /* eslint-disable-next-line react/no-danger */
-                dangerouslySetInnerHTML={{
-                  __html: exampleSections.API.node.html,
-                }}
-              />
-            )}
-            {exampleSections.design && (
-              <div
-                style={{ display: activeTab === 'design' ? 'block' : 'none' }}
-                /* eslint-disable-next-line react/no-danger */
-                dangerouslySetInnerHTML={{
-                  __html: exampleSections.design.node.html,
-                }}
-              />
-            )}
-            <div>
-              <NavigatorBanner type="prev" post={prev} />
-              <NavigatorBanner type="next" post={next} />
-            </div>
+            {pathWithoutTrailingSlashes.includes('/examples/gallary')
+              ? gallaryPageContent
+              : exmaplePageContent}
           </div>
         </Article>
       </AntLayout>
