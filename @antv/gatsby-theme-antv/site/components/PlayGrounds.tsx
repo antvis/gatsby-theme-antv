@@ -136,16 +136,18 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
           })}
         </div>
       </div>
-      <PlayGround
-        key={currentExample.relativePath}
-        relativePath={currentExample.relativePath}
-        source={currentExample.source}
-        babeledSource={currentExample.babeledSource}
-        filename={currentExample.filename}
-        playground={playground}
-        location={location}
-        title={currentExample.title}
-      />
+      {playground && (
+        <PlayGround
+          key={currentExample.relativePath}
+          relativePath={currentExample.relativePath}
+          source={currentExample.source}
+          babeledSource={currentExample.babeledSource}
+          filename={currentExample.filename}
+          playground={playground}
+          location={location}
+          title={currentExample.title}
+        />
+      )}
     </div>
   );
 };

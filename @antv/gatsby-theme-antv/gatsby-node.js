@@ -305,6 +305,9 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         design,
         API,
       };
+      if (slug.includes('/examples/gallary')) {
+        context.allDemos = allDemos;
+      }
       const examplePosts = posts
         .filter(
           ({
