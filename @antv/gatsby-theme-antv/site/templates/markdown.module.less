@@ -232,14 +232,14 @@
 
   .galleryCard {
     display: inline-block;
-    width: 33.33%;
-    margin: 16px 0;
+    width: 25%;
+    margin: 12px 0;
     padding: 0;
 
     .galleryCardLink {
       display: block;
       position: relative;
-      margin: 0 16px;
+      margin: 0 12px;
       cursor: pointer;
       border: 1px solid @border-color-split;
       transition: all 0.3s;
@@ -248,8 +248,8 @@
 
       img {
         width: 100%;
-        height: calc(100vw / 7 - 10px);
-        min-height: 180px;
+        height: calc(100vw / 8 - 20px);
+        min-height: 160px;
         max-height: 280px;
         object-fit: cover;
       }
@@ -264,17 +264,19 @@
         opacity: 0;
         transition: all 0.3s;
         text-align: center;
-        line-height: 230px;
         font-size: 20px;
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
         transform: translateY(4px);
-        text-shadow: 0 3px 16px rgba(0, 0, 0, .1);
+        text-shadow: 0 3px 16px rgba(0, 0, 0, 0.1);
       }
 
       &:hover {
         border-color: fade(@primary-color, 80%);
 
         h4 {
-          display: block;
           opacity: 1;
           background: fade(@primary-color, 10%);
           transform: translateY(0);
@@ -284,12 +286,20 @@
   }
 }
 
+@media only screen and (max-width: 1199.99px) {
+  .gallery {
+    .galleryCard {
+      width: 33.3%;
+    }
+  }
+}
+
 @media only screen and (max-width: 991.99px) {
   .markdown {
     .main {
       width: 100%;
-      padding-left: 16px;
-      padding-right: 16px;
+      padding-left: 32px;
+      padding-right: 32px;
     }
     .toc {
       display: none;
@@ -320,7 +330,12 @@
   }
   .main {
     margin-top: 30px;
+    padding-left: 24px;
+    padding-right: 24px;
   }
+}
+
+@media only screen and (max-width: 575.99px) {
   .gallery {
     .galleryCard {
       width: 100%;
