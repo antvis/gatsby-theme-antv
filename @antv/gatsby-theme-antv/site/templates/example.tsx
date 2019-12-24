@@ -103,6 +103,7 @@ export default function Template({
     prev: any;
     next: any;
     exampleSections: any;
+    allDemos?: any[];
   };
 }) {
   const { allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
@@ -174,7 +175,7 @@ export default function Template({
     activeTab = 'design';
     exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
   }
-  const { exampleSections = {}, prev, next } = pageContext;
+  const { exampleSections = {}, prev, next, allDemos = [] } = pageContext;
 
   const menu = (
     <Menu
@@ -256,6 +257,8 @@ export default function Template({
     </Drawer>
   );
 
+  console.log(allDemos);
+
   const gallaryPageContent = (
     <>
       <h1>{frontmatter.title}</h1>
@@ -263,7 +266,7 @@ export default function Template({
         /* eslint-disable-next-line react/no-danger */
         dangerouslySetInnerHTML={{ __html: html }}
       />
-      图表
+      <PlayGrounds examples={allDemos} location={location} />
     </>
   );
 
