@@ -65,11 +65,20 @@ ul.tabs {
     }
 
     &.active:after {
-      max-width: 100%;
+      max-width: calc(100% + 4px);
     }
 
     &.hidden {
       display: none;
+    }
+
+    .count {
+      font-size: 13px;
+      opacity: 0.4;
+      margin-left: 4px;
+      position: absolute;
+      top: 0;
+      right: -16px;
     }
   }
 }

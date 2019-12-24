@@ -12,7 +12,8 @@ const Tabs: React.FC<{
     API?: boolean;
     design?: boolean;
   };
-}> = ({ active, slug, showTabs = {} }) => {
+  examplesCount?: number;
+}> = ({ active, slug, showTabs = {}, examplesCount }) => {
   const { t } = useTranslation();
   if (showTabs.API === false && showTabs.design === false) {
     return <h3 className={styles.title}>{t('演示')}</h3>;
@@ -26,7 +27,12 @@ const Tabs: React.FC<{
         })}
       >
         <Link to={slug}>
-          <h2>{t('代码演示')}</h2>
+          <h2>
+            {t('代码演示')}
+            {examplesCount && examplesCount > 1 ? (
+              <sup className={styles.count}>({examplesCount})</sup>
+            ) : null}
+          </h2>
         </Link>
       </li>
       <li

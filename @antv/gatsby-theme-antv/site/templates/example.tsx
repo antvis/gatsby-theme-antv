@@ -294,6 +294,7 @@ export default function Template({
                 API: !!exampleSections.API,
                 design: !!exampleSections.design,
               }}
+              examplesCount={(exampleSections.examples || []).length}
             />
             {exampleSections.examples && (
               <div
