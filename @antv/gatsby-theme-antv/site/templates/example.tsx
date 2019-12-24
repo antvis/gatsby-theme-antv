@@ -289,9 +289,14 @@ export default function Template({
             {category !== 'OTHER' && <h2>{category}</h2>}
             <ul className={styles.gallery}>
               {allDemosInCategory[category].map(demo => {
-                const cardTitle = demo.title
-                  ? demo.title[i18n.language]
-                  : demo.filename;
+                let cardTitle;
+                if (typeof demo.title === 'string') {
+                  cardTitle = demo.title;
+                } else {
+                  cardTitle = demo.title
+                    ? demo.title[i18n.language]
+                    : demo.filename;
+                }
                 const demoSlug = demo.relativePath.replace(
                   /\/demo\/(.*)\..*/,
                   (_: string, filename: string) => {
