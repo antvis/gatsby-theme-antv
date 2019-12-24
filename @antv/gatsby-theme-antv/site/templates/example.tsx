@@ -257,8 +257,6 @@ export default function Template({
     </Drawer>
   );
 
-  console.log(allDemos);
-
   const gallaryPageContent = (
     <>
       <h1>{frontmatter.title}</h1>
@@ -266,7 +264,36 @@ export default function Template({
         /* eslint-disable-next-line react/no-danger */
         dangerouslySetInnerHTML={{ __html: html }}
       />
-      <PlayGrounds examples={allDemos} location={location} />
+      <ul className={styles.gallery}>
+        {allDemos.map(demo => {
+          const cardTitle = demo.title
+            ? demo.title[i18n.language]
+            : demo.filename;
+          const demoSlug = demo.relativePath.replace(
+            /\/demo\/(.*)\..*/,
+            (_: string, filename: string) => {
+              return `#${filename}`;
+            },
+          );
+          return (
+            <li className={styles.galleryCard} key={demo.relativePath}>
+              <Link
+                to={`${i18n.language}/examples/${demoSlug}`}
+                className={styles.galleryCardLink}
+              >
+                <img
+                  src={
+                    demo.screenshot ||
+                    'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
+                  }
+                  alt={cardTitle}
+                />
+                <h4>{cardTitle}</h4>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 
