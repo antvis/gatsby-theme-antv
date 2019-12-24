@@ -257,7 +257,7 @@ export default function Template({
     </Drawer>
   );
 
-  const allDemosInCategory = groupBy(allDemos, demo => {
+  const allDemosInCategory = groupBy(allDemos || [], demo => {
     if (!demo.postFrontmatter || !demo.postFrontmatter[i18n.language]) {
       return 'OTHER';
     }
