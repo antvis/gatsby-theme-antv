@@ -264,8 +264,6 @@ export default function Template({
     return demo.postFrontmatter[i18n.language].title;
   });
 
-  console.log(allDemosInCategory);
-
   const gallaryPageContent = (
     <>
       <h1>{frontmatter.title}</h1>
@@ -281,11 +279,14 @@ export default function Template({
           if (b === 'OTHER') {
             return 1;
           }
-          return 0;
+          return (
+            allDemosInCategory[a][0].postFrontmatter[i18n.language].order -
+            allDemosInCategory[b][0].postFrontmatter[i18n.language].order
+          );
         })
         .map((category: string) => (
           <div key={category}>
-            {category !== 'OTHER' && <h3>{category}</h3>}
+            {category !== 'OTHER' && <h2>{category}</h2>}
             <ul className={styles.gallery}>
               {allDemosInCategory[category].map(demo => {
                 const cardTitle = demo.title
