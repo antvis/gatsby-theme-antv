@@ -276,10 +276,10 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
   posts.forEach(({ node }, index) => {
     const { slug } = node.fields;
     const context = {};
-    const isGallaryPage = slug.includes('/examples/gallary');
+    const isGalleryPage = slug.includes('/examples/gallery');
     const isExamplePage =
       slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`);
-    if (isGallaryPage) {
+    if (isGalleryPage) {
       // 找到所有的演示
       context.allDemos = allDemos.map(demo => {
         const postsOfDemo = posts.filter(post => {

@@ -279,7 +279,7 @@ export default function Template({
     },
   );
 
-  const gallaryPageContent = (
+  const galleryPageContent = (
     <div className={styles.gallery}>
       <div className={styles.anchor}>
         <Anchor>
@@ -303,7 +303,7 @@ export default function Template({
             {category !== 'OTHER' && (
               <h2 id={`category-${category}`}>{category}</h2>
             )}
-            <ul className={styles.gallaryList}>
+            <ul className={styles.galleryList}>
               {allDemosInCategory[category].map(demo => {
                 let cardTitle;
                 if (typeof demo.title === 'string') {
@@ -419,8 +419,8 @@ export default function Template({
         {menuSider}
         <Article className={styles.markdown}>
           <div className={styles.main} style={{ width: '100%' }}>
-            {pathWithoutTrailingSlashes.includes('/examples/gallary')
-              ? gallaryPageContent
+            {pathWithoutTrailingSlashes.includes('/examples/gallery')
+              ? galleryPageContent
               : exmaplePageContent}
           </div>
         </Article>
