@@ -276,7 +276,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
   posts.forEach(({ node }, index) => {
     const { slug } = node.fields;
     const context = {};
-    const isGalleryPage = slug.includes('/examples/gallery');
+    const isGalleryPage = slug.endsWith('/examples/gallery');
     const isExamplePage =
       slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`);
     if (isGalleryPage) {

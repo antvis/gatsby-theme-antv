@@ -419,7 +419,7 @@ export default function Template({
         {menuSider}
         <Article className={styles.markdown}>
           <div className={styles.main} style={{ width: '100%' }}>
-            {pathWithoutTrailingSlashes.includes('/examples/gallery')
+            {pathWithoutTrailingSlashes.endsWith('/examples/gallery')
               ? galleryPageContent
               : exmaplePageContent}
           </div>
