@@ -281,67 +281,65 @@ export default function Template({
 
   const gallaryPageContent = (
     <div className={styles.gallery}>
-      <h1>{frontmatter.title}</h1>
-      <div className={styles.galleryContainer}>
-        <div className={styles.anchor}>
-          <Anchor>
-            {Categories.map((category: string) => (
-              <Anchor.Link
-                href={`#category-${category}`}
-                key={category}
-                title={category}
-              />
-            ))}
-          </Anchor>
-        </div>
-        <div className={styles.galleryContent}>
-          <div
-            /* eslint-disable-next-line react/no-danger */
-            dangerouslySetInnerHTML={{ __html: html }}
-          />
+      <div className={styles.anchor}>
+        <Anchor>
           {Categories.map((category: string) => (
-            <div key={category}>
-              {category !== 'OTHER' && (
-                <h2 id={`category-${category}`}>{category}</h2>
-              )}
-              <ul className={styles.gallaryList}>
-                {allDemosInCategory[category].map(demo => {
-                  let cardTitle;
-                  if (typeof demo.title === 'string') {
-                    cardTitle = demo.title;
-                  } else {
-                    cardTitle = demo.title
-                      ? demo.title[i18n.language]
-                      : demo.filename;
-                  }
-                  const demoSlug = demo.relativePath.replace(
-                    /\/demo\/(.*)\..*/,
-                    (_: string, filename: string) => {
-                      return `#${filename}`;
-                    },
-                  );
-                  return (
-                    <li className={styles.galleryCard} key={demo.relativePath}>
-                      <Link
-                        to={`${i18n.language}/examples/${demoSlug}`}
-                        className={styles.galleryCardLink}
-                      >
-                        <img
-                          src={
-                            demo.screenshot ||
-                            'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
-                          }
-                          alt={cardTitle}
-                        />
-                        <h4>{cardTitle}</h4>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
+            <Anchor.Link
+              href={`#category-${category}`}
+              key={category}
+              title={category}
+            />
           ))}
-        </div>
+        </Anchor>
+      </div>
+      <div className={styles.galleryContent}>
+        <h1>{frontmatter.title}</h1>
+        <div
+          /* eslint-disable-next-line react/no-danger */
+          dangerouslySetInnerHTML={{ __html: html }}
+        />
+        {Categories.map((category: string) => (
+          <div key={category}>
+            {category !== 'OTHER' && (
+              <h2 id={`category-${category}`}>{category}</h2>
+            )}
+            <ul className={styles.gallaryList}>
+              {allDemosInCategory[category].map(demo => {
+                let cardTitle;
+                if (typeof demo.title === 'string') {
+                  cardTitle = demo.title;
+                } else {
+                  cardTitle = demo.title
+                    ? demo.title[i18n.language]
+                    : demo.filename;
+                }
+                const demoSlug = demo.relativePath.replace(
+                  /\/demo\/(.*)\..*/,
+                  (_: string, filename: string) => {
+                    return `#${filename}`;
+                  },
+                );
+                return (
+                  <li className={styles.galleryCard} key={demo.relativePath}>
+                    <Link
+                      to={`${i18n.language}/examples/${demoSlug}`}
+                      className={styles.galleryCardLink}
+                    >
+                      <img
+                        src={
+                          demo.screenshot ||
+                          'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
+                        }
+                        alt={cardTitle}
+                      />
+                      <h4>{cardTitle}</h4>
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );
