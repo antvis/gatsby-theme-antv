@@ -13,6 +13,8 @@
 
 </div>
 
+Polished Gatsby theme for documentation site.
+
 ## Features
 
 - ⚛ Prerendered static site
