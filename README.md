@@ -67,7 +67,7 @@ module.exports = {
         pathPrefix: '/g2',
         // antd 主题：https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less
         theme: {
-          'primary-color': '#722ED1',
+          'primary-color': '#873bf4',
         },
         pwa: true, // 是否开启 gatsby-plugin-offline
         cname: true, // 是否自动从 siteUrl 中提取 CNAME 文件

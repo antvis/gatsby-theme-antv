@@ -51,23 +51,32 @@
         z-index: 10;
         position: relative;
         transition: all 0.3s;
-        border: 1px solid #845eff;
+        border: 1px solid @primary-color;
         background: transparent;
         text-align: center;
         font-size: 1.14em;
         line-height: 40px;
+
         &:hover {
-          color: #a78bff;
-          border: 1px solid #a78bff;
-          background-color: rgba(167, 139, 255, 0.03);
+          color: tint(@primary-color, 25%);
+          border: 1px solid tint(@primary-color, 25%);
+          background-color: fade(@primary-color, 3%);
         }
+
         &.primary {
           border: none;
           outline: none;
           color: #fff;
-          background: #845eff;
+          background: linear-gradient(
+            60deg,
+            fade(@primary-color, 70%),
+            shade(@primary-color, 20%)
+          );
+          opacity: 0.8;
+          box-shadow: 0 8px 10px fade(@primary-color, 20%);
+
           &:hover {
-            background: #a78bff;
+            opacity: 1;
           }
         }
       }
@@ -79,7 +88,7 @@
           width: 40px;
           height: 40px;
           background-size: contain;
-          border: 1px solid #873bf4;
+          border: 1px solid @primary-color;
           border-radius: 20px;
           transition: all 0.15s;
           display: flex;
@@ -88,13 +97,13 @@
           .videoButtonIcon {
             margin-left: 12px;
             font-size: 18px;
-            color: #873bf4;
+            color: @primary-color;
             line-height: 44px;
           }
           .videoButtonText {
             line-height: 40px;
             margin-left: 10px;
-            color: #873bf4;
+            color: @primary-color;
           }
           &:hover {
             width: 134px;
