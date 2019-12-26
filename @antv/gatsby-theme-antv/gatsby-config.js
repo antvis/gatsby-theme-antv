@@ -10,7 +10,7 @@ module.exports = ({
   pagesPath = './site/pages',
   GATrackingId,
   theme = {
-    'primary-color': '#722ED1',
+    'primary-color': '#873bf4',
   },
   pathPrefix,
   pwa = false,
@@ -146,7 +146,7 @@ module.exports = ({
         options: {
           javascriptEnabled: true,
           modifyVars: {
-            'primary-color': '#722ED1',
+            'primary-color': '#873bf4',
             'text-color': '#0D1A26',
             'heading-color': '#0D1A26',
             'menu-item-color': '#314659',
