@@ -55,7 +55,7 @@ module.exports = ({
         resolve: `gatsby-source-filesystem`,
         options: {
           name: `common.json`,
-          path: `${ __dirname }/site/common.json`,
+          path: `${__dirname}/site/common.json`,
         },
       },
       {
@@ -84,7 +84,7 @@ module.exports = ({
         options: {
           langKeyDefault: 'zh',
           useLangKeyLayout: false,
-          pagesPaths: [`${ __dirname }/site/pages`, path.resolve(pagesPath)],
+          pagesPaths: [`${__dirname}/site/pages`, path.resolve(pagesPath)],
         },
       },
       {
@@ -182,7 +182,7 @@ module.exports = ({
       {
         resolve: `gatsby-plugin-page-creator`,
         options: {
-          path: `${ __dirname }/site/pages`,
+          path: `${__dirname}/site/pages`,
         },
       },
       {
@@ -210,12 +210,12 @@ module.exports = ({
   if ('GATSBY_PATH_PREFIX' in process.env) {
     // eslint-disable-next-line no-console
     console.log(
-      `'GATSBY_PATH_PREFIX' in process.env: ${ process.env.GATSBY_PATH_PREFIX }`,
+      `'GATSBY_PATH_PREFIX' in process.env: ${process.env.GATSBY_PATH_PREFIX}`,
     );
     // eslint-disable-next-line no-console
     console.log(
-      `typeof process.env.GATSBY_PATH_PREFIX: ${ typeof process.env
-        .GATSBY_PATH_PREFIX }`,
+      `typeof process.env.GATSBY_PATH_PREFIX: ${typeof process.env
+        .GATSBY_PATH_PREFIX}`,
     );
     if (
       process.env.GATSBY_PATH_PREFIX &&
