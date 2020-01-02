@@ -135,11 +135,7 @@ const Banner: React.FC<BannerProps> = ({
         className={styles.videoButtonWrapper}
       >
         <div className={styles.videoButton}>
-          <Icon
-            type="caret-right"
-            className={styles.videoButtonIcon}
-            style={{ fontSize: '16px', color: '#873BF4' }}
-          />
+          <Icon type="caret-right" className={styles.videoButtonIcon} />
           <p
             className={styles.videoButtonText}
             style={{
