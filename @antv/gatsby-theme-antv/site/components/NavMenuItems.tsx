@@ -35,7 +35,7 @@ const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
   const { i18n } = useTranslation();
   return (
     <>
-      {navs.map((nav: Nav, i) => {
+      {navs.map((nav: Nav) => {
         const href = `/${i18n.language}/${nav.slug}`;
         const title = capitalize(
           getDocument(navs, nav.slug).title[i18n.language],
@@ -49,7 +49,7 @@ const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
             ),
         });
         return (
-          <li key={i} className={className}>
+          <li key={title} className={className}>
             {nav.target === '_blank' ? (
               <a href={href} target="_blank" rel="noopener noreferrer">
                 {title}
