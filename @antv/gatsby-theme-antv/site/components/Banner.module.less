@@ -36,14 +36,10 @@
     .buttons {
       display: flex;
       margin-top: 5.56%;
-
       .buttonLink + .buttonLink {
         margin-left: 2%;
       }
-
       .buttonLink {
-        cursor: pointer;
-        border-radius: 50px;
         min-width: 134px;
         padding-left: 15px;
         padding-right: 15px;
@@ -51,33 +47,12 @@
         z-index: 10;
         position: relative;
         transition: all 0.3s;
-        border: 1px solid @primary-color;
-        background: transparent;
         text-align: center;
         font-size: 1.14em;
         line-height: 40px;
-
         &:hover {
-          color: tint(@primary-color, 25%);
-          border: 1px solid tint(@primary-color, 25%);
-          background-color: fade(@primary-color, 3%);
-        }
-
-        &.primary {
-          border: none;
-          outline: none;
-          color: #fff;
-          background: linear-gradient(
-            60deg,
-            fade(@primary-color, 70%),
-            shade(@primary-color, 20%)
-          );
-          opacity: 0.8;
-          box-shadow: 0 8px 10px fade(@primary-color, 20%);
-
-          &:hover {
-            opacity: 1;
-          }
+          opacity: .8;
+          cursor: pointer;
         }
       }
       .videoButtonWrapper {

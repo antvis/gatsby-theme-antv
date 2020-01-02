@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
-import { Icon, Modal } from 'antd';
+import { Button, Icon, Modal } from 'antd';
 import GitHubButton from 'react-github-button';
 import gh from 'parse-github-url';
 import classNames from 'classnames';
@@ -15,6 +15,7 @@ interface BannerButton {
   link: string;
   style?: React.CSSProperties;
   type?: string;
+  shape?: string;
 }
 
 interface BannerProps {
@@ -97,34 +98,40 @@ const Banner: React.FC<BannerProps> = ({
   };
 
   const renderButtons = buttons.map((button: BannerButton, i) => {
+    const { link, type = 'primary', shape } = button
     const ButtonLink =
-      button.link.startsWith('http') || button.link.startsWith('#')
+      link.startsWith('http') || link.startsWith('#')
         ? 'a'
         : Link;
-    const buttonProps = {} as any;
-    if (button.link.startsWith('http')) {
+    // buttonProps可读写，便于业务方传入更多的组件props配置
+    let buttonProps = {} as any;
+    if (link.startsWith('http')) {
       buttonProps.target = '_blank';
       buttonProps.rel = 'noopener noreferrer';
     }
     if (ButtonLink === 'a') {
-      buttonProps.href = button.link;
+      buttonProps.href = link;
     } else {
-      buttonProps.to = button.link;
+      buttonProps.to = link;
+    }
+    // 复合属性，仅ant design支持的type属性提供透明配置
+    buttonProps = {
+      ...buttonProps,
+      ...button,
+      type,
+      shape: shape || 'round',
+      ghost: !i ? false : (['primary', 'dashed', 'danger', 'link'].includes(type) ? true : false)
     }
     return (
-      <ButtonLink
+      <Button
         {...buttonProps}
         className={classNames(
-          styles.buttonLink,
-          styles[button.type || ''],
-          button.type === 'primary' ? 'primary-button' : 'common-button',
+          styles.buttonLink
         )}
         key={i}
-        style={button.style}
-      >
-        <span className={styles.button}>{button.text}</span>
-      </ButtonLink>
-    );
+      >{button.text}
+      </Button>
+    )
   });
 
   if (video) {
