@@ -4,6 +4,8 @@
 
 # Gatsby Theme for AntV ⚛
 
+✨ Polished Gatsby theme for documentation site.
+
 [![](https://flat.badgen.net/npm/v/@antv/gatsby-theme-antv?icon=npm)](https://www.npmjs.com/package/@antv/gatsby-theme-antv)
 [![NPM downloads](http://img.shields.io/npm/dm/@antv/gatsby-theme-antv.svg?style=flat-square)](http://npmjs.com/@antv/gatsby-theme-antv)
 ![CI status](https://github.com/antvis/gatsby-theme-antv/workflows/Node%20CI/badge.svg)
