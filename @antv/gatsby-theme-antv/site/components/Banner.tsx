@@ -10,11 +10,14 @@ import { Player } from 'video-react';
 import styles from './Banner.module.less';
 import Notification, { NotificationProps } from './Notification';
 
+type BannerButtonShape = 'round' | 'square';
+
 interface BannerButton {
   text: string;
   link: string;
   style?: React.CSSProperties;
   type?: string;
+  shape?: BannerButtonShape;
 }
 
 interface BannerProps {
@@ -111,6 +114,7 @@ const Banner: React.FC<BannerProps> = ({
     } else {
       buttonProps.to = button.link;
     }
+    const { shape = 'round' } = button;
     return (
       <ButtonLink
         {...buttonProps}
@@ -120,7 +124,10 @@ const Banner: React.FC<BannerProps> = ({
           button.type === 'primary' ? 'primary-button' : 'common-button',
         )}
         key={i}
-        style={button.style}
+        style={{
+          borderRadius: shape === 'round' ? '50%' : '4px',
+          ...button.style,
+        }}
       >
         <span className={styles.button}>{button.text}</span>
       </ButtonLink>
