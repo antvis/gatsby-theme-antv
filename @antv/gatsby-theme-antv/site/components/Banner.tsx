@@ -125,7 +125,7 @@ const Banner: React.FC<BannerProps> = ({
         )}
         key={i}
         style={{
-          borderRadius: shape === 'round' ? '50%' : '4px',
+          borderRadius: shape === 'round' ? '1000px' : '4px',
           ...button.style,
         }}
       >
