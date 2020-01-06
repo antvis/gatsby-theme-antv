@@ -95,14 +95,12 @@ module.exports = {
       playgroundDidMount: 'console.log("playgroundDidMount");',
       playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
     },
-    versions: [
-      {
-        '1.x': 'https://1x.ant.design',
-        '2.x': 'https://2x.ant.design',
-        '3.x': 'https://ant.design',
-        '4.x': 'https://next.ant.design',
-      },
-    ],
+    versions: {
+      '1.x': 'https://1x.ant.design',
+      '2.x': 'https://2x.ant.design',
+      '3.x': 'https://ant.design',
+      '4.x': 'https://next.ant.design',
+    },
     redirects: [
       {
         from: /\/old-url/,
