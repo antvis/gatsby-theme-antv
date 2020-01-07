@@ -18,6 +18,7 @@ const { transform } = require('@babel/standalone');
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
 const orderCaches = {};
+const babelCaches = {};
 
 function getLocaleResources() {
   let locale = {};
@@ -254,12 +255,18 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
       } catch (e) {
         meta = {};
       }
-      const { code } = transform(source, {
-        filename: item.absolutePath,
-        presets: ['react', 'typescript', 'es2015', 'stage-3'],
-        plugins: ['transform-modules-umd'],
-        babelrc: false,
-      });
+      let code;
+      if (babelCaches[source]) {
+        code = babelCaches[source];
+      } else {
+        code = transform(source, {
+          filename: item.absolutePath,
+          presets: ['react', 'typescript', 'es2015', 'stage-3'],
+          plugins: ['transform-modules-umd'],
+          babelrc: false,
+        });
+        babelCaches[source] = code;
+      }
       const order = (meta.demos || []).findIndex(
         ({ filename }) => filename === path.basename(item.relativePath),
       );
