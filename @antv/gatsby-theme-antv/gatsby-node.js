@@ -463,7 +463,7 @@ exports.onCreateWebpackConfig = ({ getConfig, stage }, { codeSplit }) => {
 };
 
 exports.createSchemaCustomization = ({ actions }) => {
-  const { createFieldExtension } = actions;
+  const { createFieldExtension, createTypes } = actions;
 
   createFieldExtension({
     name: `defaultString`,
@@ -478,6 +478,12 @@ exports.createSchemaCustomization = ({ actions }) => {
       };
     },
   });
+
+  createTypes(`
+    type SitePage implements Node @dontInfer {
+      path: String!
+    }
+  `);
 };
 
 // 补充默认值
