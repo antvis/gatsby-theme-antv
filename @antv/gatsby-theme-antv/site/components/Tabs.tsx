@@ -4,16 +4,18 @@ import { Link } from 'gatsby';
 import { useTranslation } from 'react-i18next';
 import styles from './Tabs.module.less';
 
+interface ShowTabsProps {
+  examples?: boolean;
+  API?: boolean;
+  design?: boolean;
+}
+
 const Tabs: React.FC<{
   active: 'examples' | 'API' | 'design';
   slug: string;
-  showTabs: {
-    examples?: boolean;
-    API?: boolean;
-    design?: boolean;
-  };
+  showTabs: ShowTabsProps;
   examplesCount?: number;
-}> = ({ active, slug, showTabs = {}, examplesCount }) => {
+}> = ({ active, slug, showTabs = {} as ShowTabsProps, examplesCount }) => {
   const { t } = useTranslation();
   if (showTabs.API === false && showTabs.design === false) {
     return <h3 className={styles.title}>{t('演示')}</h3>;

@@ -16,7 +16,7 @@ declare module 'i18next-fetch-backend';
 declare module '@babel/standalone';
 
 declare module 'codesandbox/lib/api/define' {
-  export const getParameters = ({ files: object }) => string;
+  export function getParameters({ files: object }): string;
 }
 
 declare module 'docsearch.js';
