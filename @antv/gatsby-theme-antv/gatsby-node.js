@@ -264,7 +264,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
           presets: ['react', 'typescript', 'es2015', 'stage-3'],
           plugins: ['transform-modules-umd'],
           babelrc: false,
-        });
+        }).code;
         babelCaches[source] = code;
       }
       const order = (meta.demos || []).findIndex(
