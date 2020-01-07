@@ -164,12 +164,12 @@ const Header: React.FC<HeaderProps> = ({
   // 移动端下弹出菜单时，禁止页面滚动
   useEffect(() => {
     if (popupMenuVisible) {
-      document.documentElement.style.overflow = 'hidden';
+      document.documentElement!.style.overflow = 'hidden';
     } else {
-      document.documentElement.style.overflow = '';
+      document.documentElement!.style.overflow = '';
     }
     return () => {
-      document.documentElement.style.overflow = '';
+      document.documentElement!.style.overflow = '';
     };
   }, [popupMenuVisible]);
 
