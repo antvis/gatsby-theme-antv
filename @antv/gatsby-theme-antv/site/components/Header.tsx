@@ -9,6 +9,7 @@ import GitUrlParse from 'git-url-parse';
 import Search, { SearchProps } from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
+import { getChinaMirrorHost } from '../utils';
 import AntvLogo from '../images/antv.svg';
 import TranslationIcon from '../images/translation.svg';
 import ExternalLink from '../images/external-link.svg';
@@ -62,20 +63,11 @@ interface HeaderProps {
 }
 
 export const redirectToChinaMirror = (githubUrl: string) => {
-  // antv.vision => antv.gitee.io
-  if (window.location.host === 'antv.vision') {
-    window.location.href = window.location.href.replace(
-      'antv.vision',
-      'antv.gitee.io',
-    );
-    return;
-  }
-  // g2plot.antv.vision => antv-g2plot.gitee.io
-  const match = window.location.host.match(/(.*)\.antv\.vision/);
-  if (match && match[1]) {
+  const chinaMirrorHost = getChinaMirrorHost();
+  if (chinaMirrorHost !== window.location.host) {
     window.location.href = window.location.href.replace(
       window.location.host,
-      `antv-${match[1]}.gitee.io`,
+      chinaMirrorHost,
     );
     return;
   }

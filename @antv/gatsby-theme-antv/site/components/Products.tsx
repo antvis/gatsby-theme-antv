@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Product from './Product';
 import { getProducts } from './getProducts';
+import { useChinaMirrorHost } from '../hooks';
 import styles from './Product.module.less';
 
 interface ProductsProps {
@@ -19,10 +20,12 @@ const Products: React.FC<ProductsProps> = ({
   className,
 }) => {
   const { t, i18n } = useTranslation();
+  const [isChinaMirrorHost] = useChinaMirrorHost();
   const data = getProducts({
     t,
     language: language || i18n.language,
     rootDomain,
+    isChinaMirrorHost,
   });
   return (
     <>

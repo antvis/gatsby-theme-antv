@@ -1,5 +1,6 @@
 import React from 'react';
 import { Icon } from 'antd';
+import { getChinaMirrorHost } from '../utils';
 
 const tuple = <T extends string[]>(...args: T) => args;
 const Categories = tuple('basic', 'extension', 'ecology');
@@ -20,14 +21,26 @@ export interface ProductItem {
 
 const ANTV_DOMAIN = 'antv.vision';
 
+export type ValuesOf<T extends any[]> = T[number];
+
 export const getProducts = ({
   t,
   language,
+  isChinaMirrorHost = false,
 }: {
   t: (key: string) => string;
   language: string;
   rootDomain?: string;
+  isChinaMirrorHost?: boolean;
 }): ProductItem[] => {
+  const hosts: { [name: string]: string } = {};
+  ['g2', 'g2plot', 'g6', 'l7', 'f2', 'graphin', 'g', 'x6', 'ava'].forEach(
+    (name: string) => {
+      hosts[name] = isChinaMirrorHost
+        ? getChinaMirrorHost(`${name}.${ANTV_DOMAIN}`)
+        : `${name}.${ANTV_DOMAIN}`;
+    },
+  );
   const products = [
     {
       title: 'G2',
@@ -40,22 +53,22 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `https://g2.${ANTV_DOMAIN}/${language}`,
+          url: `https://${hosts.g2}/${language}`,
         },
         {
           icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
-          url: `https://g2.${ANTV_DOMAIN}/${language}/examples`,
+          url: `https://${hosts.g2}/${language}/examples`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `https://g2.${ANTV_DOMAIN}/${language}/docs/manual`,
+          url: `https://${hosts.g2}/${language}/docs/manual`,
         },
         {
           icon: <Icon type="read" />,
           title: t('API 文档'),
-          url: `https://g2.${ANTV_DOMAIN}/${language}/docs/api`,
+          url: `https://${hosts.g2}/${language}/docs/api`,
         },
         {
           icon: <Icon type="history" />,
@@ -88,22 +101,22 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `https://g6.${ANTV_DOMAIN}/${language}`,
+          url: `https://${hosts.g6}/${language}`,
         },
         {
           icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
-          url: `https://g6.${ANTV_DOMAIN}/${language}/examples`,
+          url: `https://${hosts.g6}/${language}/examples`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `https://g6.${ANTV_DOMAIN}/${language}/docs/manual`,
+          url: `https://${hosts.g6}/${language}/docs/manual`,
         },
         {
           icon: <Icon type="read" />,
           title: t('API 文档'),
-          url: `https://g6.${ANTV_DOMAIN}/${language}/docs/api/GlobalAPI`,
+          url: `https://${hosts.g6}/${language}/docs/api/GlobalAPI`,
         },
         {
           icon: <Icon type="history" />,
@@ -138,22 +151,22 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `https://f2.${ANTV_DOMAIN}/${language}`,
+          url: `https://${hosts.f2}/${language}`,
         },
         {
           icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
-          url: `https://f2.${ANTV_DOMAIN}/${language}/examples`,
+          url: `https://${hosts.f2}/${language}/examples`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `https://f2.${ANTV_DOMAIN}/${language}/docs/tutorial/getting-started`,
+          url: `https://${hosts.f2}/${language}/docs/tutorial/getting-started`,
         },
         {
           icon: <Icon type="read" />,
           title: t('API 文档'),
-          url: `https://f2.${ANTV_DOMAIN}/${language}/docs/api`,
+          url: `https://${hosts.f2}/${language}/docs/api`,
         },
         {
           icon: <Icon type="history" />,
@@ -186,22 +199,22 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `https://l7.${ANTV_DOMAIN}/${language}`,
+          url: `https://${hosts.l7}/${language}`,
         },
         {
           icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
-          url: `https://l7.${ANTV_DOMAIN}/${language}/examples`,
+          url: `https://${hosts.l7}/${language}/examples`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `https://l7.${ANTV_DOMAIN}/${language}/docs/tutorial`,
+          url: `https://${hosts.l7}/${language}/docs/tutorial`,
         },
         {
           icon: <Icon type="read" />,
           title: t('API 文档'),
-          url: `https://l7.${ANTV_DOMAIN}/${language}/docs/API`,
+          url: `https://${hosts.l7}/${language}/docs/API`,
         },
         {
           icon: <Icon type="history" />,
@@ -233,17 +246,17 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `https://g2plot.${ANTV_DOMAIN}/${language}`,
+          url: `https://${hosts.g2plot}/${language}`,
         },
         {
           icon: <Icon type="pie-chart" />,
           title: t('图表示例'),
-          url: `https://g2plot.${ANTV_DOMAIN}/${language}/examples`,
+          url: `https://${hosts.g2plot}/${language}/examples`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `https://g2plot.${ANTV_DOMAIN}/${language}/docs/manual`,
+          url: `https://${hosts.g2plot}/${language}/docs/manual`,
         },
         {
           icon: <Icon type="history" />,
@@ -275,17 +288,17 @@ export const getProducts = ({
         {
           icon: <Icon type="home" />,
           title: t('产品首页'),
-          url: `https://graphin.${ANTV_DOMAIN}/${language}`,
+          url: `https://${hosts.graphin}/${language}`,
         },
         {
           icon: <Icon type="read" />,
           title: t('使用文档'),
-          url: `https://graphin.${ANTV_DOMAIN}/${language}/docs/manual/introduction`,
+          url: `https://${hosts.graphin}/${language}/docs/manual/introduction`,
         },
         {
           icon: <Icon type="read" />,
           title: t('API 文档'),
-          url: `https://graphin.${ANTV_DOMAIN}/${language}/docs/api/graphin`,
+          url: `https://${hosts.graphin}/${language}/docs/api/graphin`,
         },
         {
           icon: <Icon type="history" />,
