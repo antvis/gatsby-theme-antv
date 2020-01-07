@@ -22,3 +22,12 @@ declare module 'codesandbox/lib/api/define' {
 declare module 'docsearch.js';
 
 declare module 'video-react';
+
+interface Document {
+  exitFullscreen: () => void;
+  mozCancelFullScreen: () => void;
+  webkitExitFullscreen: () => void;
+  fullscreenElement: () => void;
+  mozFullScreenElement: () => void;
+  webkitFullscreenElement: () => void;
+}
