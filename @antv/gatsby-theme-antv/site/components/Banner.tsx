@@ -67,15 +67,15 @@ const Banner: React.FC<BannerProps> = ({
   const insNotifications: NotificationProps[] = [
     {
       type: t('推荐'),
+      title: t('欢迎进入 2020 可视化智能研发时代'),
+      date: '2020.01.08',
+      link: 'https://www.yuque.com/antv/blog/ygdubv',
+    },
+    {
+      type: t('推荐'),
       title: t('AntV 11-22 品牌日：知源·致远'),
       date: '2019.11.22',
       link: 'https://www.yuque.com/antv/blog/2019-release',
-    },
-    {
-      type: t('更新'),
-      title: t('G2Plot 图表库发布'),
-      date: '2019.11.22',
-      link: 'https://www.yuque.com/antv/blog/charts',
     },
   ];
 
