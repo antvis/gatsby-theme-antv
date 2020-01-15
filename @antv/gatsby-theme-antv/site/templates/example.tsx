@@ -11,6 +11,7 @@ import Tabs from '../components/Tabs';
 import PlayGrounds from '../components/PlayGrounds';
 import NavigatorBanner from '../components/NavigatorBanner';
 import { capitalize } from '../utils';
+import { usePrevAndNext } from '../hooks';
 import styles from './markdown.module.less';
 
 const MenuIcon = Icon.createFromIconfontCN({
@@ -100,8 +101,6 @@ export default function Template({
   data: any;
   location: Location;
   pageContext: {
-    prev: any;
-    next: any;
     exampleSections: any;
     allDemos?: any[];
   };
@@ -173,7 +172,8 @@ export default function Template({
     activeTab = 'design';
     exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
   }
-  const { exampleSections = {}, prev, next, allDemos = [] } = pageContext;
+  const { exampleSections = {}, allDemos = [] } = pageContext;
+  const [prev, next] = usePrevAndNext();
 
   const menu = (
     <Menu
@@ -399,10 +399,6 @@ export default function Template({
           }}
         />
       )}
-      <div>
-        <NavigatorBanner type="prev" post={prev} />
-        <NavigatorBanner type="next" post={next} />
-      </div>
     </>
   );
 
@@ -420,6 +416,10 @@ export default function Template({
             {pathWithoutTrailingSlashes.endsWith('/examples/gallery')
               ? galleryPageContent
               : exmaplePageContent}
+            <div>
+              <NavigatorBanner type="prev" post={prev} />
+              <NavigatorBanner type="next" post={next} />
+            </div>
           </div>
         </Article>
       </AntLayout>

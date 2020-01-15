@@ -9,6 +9,7 @@ import Article from '../components/Article';
 import ReadingTime from '../components/ReadingTime';
 import NavigatorBanner from '../components/NavigatorBanner';
 import SEO from '../components/Seo';
+import { usePrevAndNext } from '../hooks';
 import { capitalize } from '../utils';
 import styles from './markdown.module.less';
 
@@ -121,15 +122,11 @@ const renderMenu = (menuData: MenuData[]) =>
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
   location,
-  pageContext: { prev, next },
 }: {
   data: any;
   location: Location;
-  pageContext: {
-    prev: any;
-    next: any;
-  };
 }) {
+  const [prev, next] = usePrevAndNext();
   const { markdownRemark, allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
   if (!markdownRemark) {
     return null;

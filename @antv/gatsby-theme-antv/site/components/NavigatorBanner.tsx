@@ -4,8 +4,11 @@ import { Link } from 'gatsby';
 import { useTranslation } from 'react-i18next';
 import styles from './NavigatorBanner.module.less';
 
-interface NavigatorBannerProps {
-  post?: any;
+export interface NavigatorBannerProps {
+  post?: {
+    slug?: string;
+    title?: string;
+  };
   type: 'prev' | 'next';
 }
 
@@ -14,12 +17,10 @@ const NavigatorBanner: React.FC<NavigatorBannerProps> = ({ post, type }) => {
   if (!post) {
     return <div className={classNames(styles.button, styles.hidden)} />;
   }
-  const {
-    node: {
-      fields: { slug },
-      frontmatter: { title },
-    },
-  } = post;
+  const { slug, title } = post;
+  if (!slug || !title) {
+    return null;
+  }
   return (
     <Link to={slug} className={classNames(styles.button, styles[type])}>
       <div className={styles.label}>
