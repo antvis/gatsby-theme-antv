@@ -32,12 +32,15 @@
   h3 {
     font-size: 18px;
   }
+
   h4 {
     font-size: 16px;
   }
+
   h5 {
     font-size: 14px;
   }
+
   h6 {
     font-size: 12px;
   }
@@ -75,6 +78,7 @@
     margin-left: 20px;
     padding-left: 4px;
     list-style-type: circle;
+
     &:empty {
       display: none;
     }
@@ -181,6 +185,7 @@
     list-style: none;
     padding: 0;
     margin-left: 16px;
+
     a {
       color: @text-color;
     }
@@ -203,9 +208,11 @@
   :global(.drawer) {
     z-index: 9;
   }
+
   :global(.ant-menu) {
     border-right: 0;
   }
+
   .menuSwitch {
     position: absolute;
     top: 72px;
@@ -237,10 +244,12 @@
   .anchor {
     width: 160px;
     padding-left: 24px;
+
     :global {
       .ant-anchor {
         font-size: 12px;
       }
+
       .ant-anchor-link {
         padding-top: 5px;
         padding-bottom: 5px;
@@ -255,6 +264,7 @@
 
   .galleryCard {
     display: inline-block;
+    vertical-align: top;
     width: 25%;
     margin: 0;
     padding: 0;
@@ -272,7 +282,7 @@
         overflow: hidden;
         width: 100%;
         height: calc(100vw / 9 - 20px);
-        min-height: 100px;
+        min-height: 130px;
         max-height: 280px;
         object-fit: cover;
         transition: all 0.3s;
@@ -312,6 +322,7 @@
       padding-left: 32px;
       padding-right: 32px;
     }
+
     .toc {
       display: none;
     }
@@ -325,6 +336,7 @@
     .galleryCard {
       width: 50%;
     }
+
     .anchor {
       display: none;
     }
@@ -335,6 +347,7 @@
   .layout {
     flex-direction: column !important;
   }
+
   .sider {
     width: 100% !important;
     margin-bottom: 32px;
@@ -342,6 +355,7 @@
     border-bottom: 1px solid #e8e8e8;
     display: none;
   }
+
   .main {
     margin-top: 30px;
     padding-left: 24px;
