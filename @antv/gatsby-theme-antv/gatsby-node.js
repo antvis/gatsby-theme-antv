@@ -10,7 +10,6 @@ const slash = require('slash');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const webpack = require('webpack');
-const shallowequal = require('shallowequal');
 const { isEqual } = require('lodash');
 const { getSlugAndLang } = require('ptz-i18n');
 const { transform } = require('@babel/standalone');
@@ -18,7 +17,6 @@ const { transform } = require('@babel/standalone');
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
 const orderCaches = {};
-const babelCaches = {};
 
 function getLocaleResources() {
   let locale = {};
@@ -68,47 +66,6 @@ function getPostOrder(post, siteMetadata, type) {
   });
   result = (order || 0) + categoryOrder;
   orderCaches[slug] = result;
-  return result;
-}
-
-function isSameCategory(target = {}, current = {}) {
-  if (!target.node || !current.node) {
-    return false;
-  }
-  const currentSlug = current.node.fields.slug;
-  const targetSlug = target.node.fields.slug;
-  if (
-    currentSlug.startsWith('/zh/examples/') ||
-    currentSlug.startsWith('/en/examples/')
-  ) {
-    return shallowequal(
-      targetSlug.split('/').slice(0, 3),
-      currentSlug.split('/').slice(0, 3),
-    );
-  }
-  return shallowequal(
-    targetSlug.split('/').slice(0, 4),
-    currentSlug.split('/').slice(0, 4),
-  );
-}
-
-function findPrevAndNext(current, index, posts = []) {
-  const result = {};
-  if (!current || index < 0 || posts.length === 0) {
-    return result;
-  }
-  for (let i = index + 1; i <= posts.length; i += 1) {
-    if (isSameCategory(posts[i], current)) {
-      result.next = posts[i];
-      break;
-    }
-  }
-  for (let i = index - 1; i >= 0; i -= 1) {
-    if (isSameCategory(posts[i], current)) {
-      result.prev = posts[i];
-      break;
-    }
-  }
   return result;
 }
 
@@ -243,7 +200,6 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
   const allDemos = allFile.nodes
     .filter(node => /demo\/(.*)\.[t|j]sx?$/.test(node.relativePath))
     .map(item => {
-      const source = fs.readFileSync(item.absolutePath, 'utf8');
       let meta;
       try {
         meta = JSON.parse(
@@ -255,32 +211,18 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
       } catch (e) {
         meta = {};
       }
-      let code;
-      if (babelCaches[source]) {
-        code = babelCaches[source];
-      } else {
-        code = transform(source, {
-          filename: item.absolutePath,
-          presets: ['react', 'typescript', 'es2015', 'stage-3'],
-          plugins: ['transform-modules-umd'],
-          babelrc: false,
-        }).code;
-        babelCaches[source] = code;
-      }
       const order = (meta.demos || []).findIndex(
         ({ filename }) => filename === path.basename(item.relativePath),
       );
       const demoInfo = (meta.demos || [])[order] || {};
       return {
         ...item,
-        source,
-        babeledSource: code,
         order: order || 0,
         filename: path.basename(item.relativePath),
         ...demoInfo,
       };
     });
-  posts.forEach(({ node }, index) => {
+  posts.forEach(({ node }) => {
     const { slug } = node.fields;
     const context = {};
     const isGalleryPage = slug.endsWith('/examples/gallery');
@@ -343,64 +285,26 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
             slash(path.join('examples', path.dirname(item.relativePath))),
           ),
         )
-        .sort((a, b) => a.order - b.order);
+        .sort((a, b) => a.order - b.order)
+        .map(item => {
+          const source = fs.readFileSync(item.absolutePath, 'utf8');
+          const { code } = transform(source, {
+            filename: item.absolutePath,
+            presets: ['react', 'typescript', 'es2015', 'stage-3'],
+            plugins: ['transform-modules-umd'],
+            babelrc: false,
+          });
+          return {
+            ...item,
+            source,
+            babeledSource: code,
+          };
+        });
       context.exampleSections = {
         examples,
         design,
         API,
       };
-      const examplePosts = posts
-        .filter(
-          ({
-            node: {
-              fields: { slug: postSlug },
-            },
-          }) =>
-            postSlug.startsWith(`/zh/examples`) ||
-            postSlug.startsWith(`/en/examples`),
-        )
-        .filter(
-          ({
-            node: {
-              fields: { slug: postSlug },
-            },
-          }) => !postSlug.endsWith('/design') && !postSlug.endsWith('/API'),
-        )
-        .sort(
-          (a, b) =>
-            getPostOrder(a, siteMetadata, 'examples') -
-            getPostOrder(b, siteMetadata, 'examples'),
-        );
-      const { prev, next } = findPrevAndNext(
-        posts[index],
-        examplePosts.indexOf(posts[index]),
-        examplePosts,
-      );
-      context.prev = prev;
-      context.next = next;
-    } else {
-      const documentPosts = posts
-        .filter(
-          ({
-            node: {
-              fields: { slug: postSlug },
-            },
-          }) =>
-            !postSlug.startsWith(`/zh/examples`) &&
-            !postSlug.startsWith(`/en/examples`),
-        )
-        .sort(
-          (a, b) =>
-            getPostOrder(a, siteMetadata, 'docs') -
-            getPostOrder(b, siteMetadata, 'docs'),
-        );
-      const { prev, next } = findPrevAndNext(
-        posts[index],
-        documentPosts.indexOf(posts[index]),
-        documentPosts,
-      );
-      context.prev = prev;
-      context.next = next;
     }
 
     // 修复修改 example 代码不及时生效的问题
@@ -417,6 +321,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
       component: isExamplePage ? exampleTemplate : documentTemplate,
       context,
     });
+
     createdPages.push(slug);
   });
 
