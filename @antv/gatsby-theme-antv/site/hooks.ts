@@ -19,9 +19,9 @@ export const usePrevAndNext = () => {
     NavigatorBannerProps['post'][]
   >([]);
   useEffect(() => {
-    const menuNodes = document.querySelectorAll('aside .ant-menu-item');
+    const menuNodes = document.querySelectorAll('aside .ant-menu-item a');
     const currentMenuNode = document.querySelector(
-      'aside .ant-menu-item-selected',
+      'aside .ant-menu-item-selected a',
     );
     const currentIndex = Array.from(menuNodes).findIndex(
       node => node === currentMenuNode,
@@ -34,14 +34,14 @@ export const usePrevAndNext = () => {
         : undefined;
     const prev = prevNode
       ? {
-          slug: prevNode.querySelector('a')?.getAttribute('href') || undefined,
-          title: prevNode.querySelector('a')?.innerText,
+          slug: prevNode.getAttribute('href') || undefined,
+          title: prevNode.textContent || undefined,
         }
       : undefined;
     const next = nextNode
       ? {
-          slug: nextNode.querySelector('a')?.getAttribute('href') || undefined,
-          title: nextNode.querySelector('a')?.innerText,
+          slug: nextNode.getAttribute('href') || undefined,
+          title: nextNode.textContent || undefined,
         }
       : undefined;
     setPrevAndNext([prev, next]);
