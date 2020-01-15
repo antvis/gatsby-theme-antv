@@ -318,7 +318,11 @@ export default function Template({
                   },
                 );
                 return (
-                  <li className={styles.galleryCard} key={demo.relativePath}>
+                  <li
+                    className={styles.galleryCard}
+                    key={demo.relativePath}
+                    title={cardTitle}
+                  >
                     <Link
                       to={`${i18n.language}/examples/${demoSlug}`}
                       className={styles.galleryCardLink}
