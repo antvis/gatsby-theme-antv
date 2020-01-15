@@ -307,6 +307,7 @@ export const pageQuery = graphql`
       }
     }
     allMarkdownRemark(
+      filter: { fields: { slug: { regex: "//docs//" } } }
       sort: { order: ASC, fields: [frontmatter___order] }
       limit: 1000
     ) {
