@@ -108,9 +108,7 @@ export default function Template({
 }) {
   const { allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
   const { edges = [] } = allMarkdownRemark;
-  const edgesInExamples = edges.filter((item: any) =>
-    item.node.fields.slug.includes('/examples/'),
-  );
+  const edgesInExamples = edges;
   const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
   const { node: markdownRemark } =
     edgesInExamples.find((edge: any) => {
@@ -454,6 +452,7 @@ export const pageQuery = graphql`
       pathPrefix
     }
     allMarkdownRemark(
+      filter: { fields: { slug: { regex: "//examples//" } } }
       sort: { order: ASC, fields: [frontmatter___order] }
       limit: 1000
     ) {
