@@ -388,16 +388,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     type SitePage implements Node @dontInfer {
       path: String!
     }
-  `);
-};
 
-// 补充默认值
-// https://stackoverflow.com/questions/50770217/how-to-give-gatsby-a-graphql-schema
-// https://graphql.org/learn/schema/
-exports.sourceNodes = ({ actions }) => {
-  const { createTypes } = actions;
-
-  createTypes(`
     type MarkdownRemarkFrontmatter {
       icon: String
       order: Int
@@ -407,9 +398,7 @@ exports.sourceNodes = ({ actions }) => {
     type MarkdownRemark implements Node {
       frontmatter: MarkdownRemarkFrontmatter
     }
-  `);
 
-  createTypes(`
     type DocsearchOptions implements Node {
       apiKey: String
       indexName: String
