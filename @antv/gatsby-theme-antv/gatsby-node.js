@@ -404,18 +404,18 @@ exports.sourceNodes = ({ actions }) => {
       redirect_from: [String]
     }
 
-    type MarkdownRemark implements Node {
+    type MarkdownRemark {
       frontmatter: MarkdownRemarkFrontmatter
     }
   `);
 
   createTypes(`
-    type DocsearchOptions implements Node {
+    type DocsearchOptions {
       apiKey: String
       indexName: String
     }
 
-    type PlayGround implements Node {
+    type PlayGround {
       container: String
       playgroundDidMount: String
       playgroundWillUnmount: String
@@ -423,36 +423,36 @@ exports.sourceNodes = ({ actions }) => {
       htmlCodeTemplate: String
     }
 
-    type SiteSiteMetadataTitle implements Node {
+    type SiteSiteMetadataTitle {
       zh: String
       en: String
     }
 
-    type SiteSiteMetadataDocs implements Node {
+    type SiteSiteMetadataDocs {
       slug: String!
       title: SiteSiteMetadataTitle!
       order: Int
     }
 
-    type SiteSiteMetadataExamples implements Node {
+    type SiteSiteMetadataExamples {
       slug: String!
       title: SiteSiteMetadataTitle!
       icon: String
       order: Int
     }
 
-    type SiteSiteMetadataNavs implements Node {
+    type SiteSiteMetadataNavs {
       slug: String!
       title: SiteSiteMetadataTitle!
       target: String
     }
 
-    type SiteSiteMetadataRedirects implements Node {
+    type SiteSiteMetadataRedirects {
       from: String!
       to: String
     }
 
-    type SiteSiteMetadata implements Node {
+    type SiteSiteMetadata {
       title: String!
       description: String!
       githubUrl: String!
