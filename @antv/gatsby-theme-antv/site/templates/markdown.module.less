@@ -62,12 +62,6 @@
     line-height: 1.8;
   }
 
-  > img,
-  > p > img {
-    max-width: ~'calc(100% - 32px)';
-    margin: 1em 0;
-  }
-
   ul,
   ol {
     margin: 0;
@@ -174,6 +168,11 @@
     > p > img {
       max-width: ~'calc(100% - 32px)';
       margin: 1em 0;
+    }
+
+    > br,
+    > p > br {
+      clear: both;
     }
   }
 }
