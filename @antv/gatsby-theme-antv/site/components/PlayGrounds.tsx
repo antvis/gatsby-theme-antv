@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
-import { Tooltip } from 'antd';
+import { Tooltip, Skeleton } from 'antd';
 import { useTranslation } from 'react-i18next';
 import PlayGround, { PlayGroundProps } from './PlayGround';
 import styles from './PlayGrounds.module.less';
@@ -22,15 +22,22 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
   playground,
 }) => {
   const { i18n } = useTranslation();
-  const defaultExample =
-    examples.find(
-      item => `#${item.filename.split('.')[0]}` === location.hash,
-    ) || examples[0];
-  const [currentExample, updateCurrentExample] = useState(defaultExample || {});
+  const [currentExample, updateCurrentExample] = useState();
+
+  useEffect(() => {
+    const defaultExample =
+      examples.find(
+        item => `#${item.filename.split('.')[0]}` === location.hash,
+      ) || examples[0];
+    updateCurrentExample(defaultExample);
+  }, []);
 
   // 滚动到当前节点
   useEffect(() => {
-    const id = currentExample?.filename?.split('.')[0];
+    if (!currentExample || !currentExample?.filename) {
+      return;
+    }
+    const id = `example-${currentExample?.filename?.split('.')[0]}`;
     const cardNode = document.getElementById(id);
     if (cardNode) {
       cardNode.scrollIntoView({
@@ -117,9 +124,10 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
                     );
                     updateCurrentExample(example);
                   }}
-                  id={example.filename.split('.')[0]}
+                  id={`example-${example.filename.split('.')[0]}`}
                   className={classNames(styles.card, {
                     [styles.current]:
+                      currentExample &&
                       example.relativePath === currentExample.relativePath,
                   })}
                 >
@@ -136,7 +144,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
           })}
         </div>
       </div>
-      {playground && (
+      {playground && currentExample ? (
         <PlayGround
           key={currentExample.relativePath}
           relativePath={currentExample.relativePath}
@@ -147,6 +155,8 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
           location={location}
           title={currentExample.title}
         />
+      ) : (
+        <Skeleton paragraph={{ rows: 8 }} />
       )}
     </div>
   );
