@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'antd';
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
 import { Link } from 'gatsby';
 import Slider from 'react-slick';
 import classNames from 'classnames';
@@ -38,8 +38,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
       buttons = (
         <div className={styles.buttons}>
           <div className={styles.controlButton} onClick={clickPrevious}>
-            <Icon
-              type="arrow-left"
+            <ArrowLeftOutlined
               className={styles.controlButtonIcon}
               style={{ fontSize: '16px' }}
             />
@@ -49,8 +48,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
             onClick={clickNext}
             style={{ marginLeft: '-1px' }}
           >
-            <Icon
-              type="arrow-right"
+            <ArrowRightOutlined
               className={styles.controlButtonIcon}
               style={{ fontSize: '16px' }}
             />

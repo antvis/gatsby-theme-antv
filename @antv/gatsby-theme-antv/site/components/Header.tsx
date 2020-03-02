@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { Icon, Popover, Button, Menu, Select, Dropdown, message } from 'antd';
+import { CheckOutlined, GithubOutlined, MenuOutlined } from '@ant-design/icons';
+import { Popover, Button, Menu, Select, Dropdown, message } from 'antd';
 import GitUrlParse from 'git-url-parse';
 import Search, { SearchProps } from './Search';
 import Products from './Products';
@@ -167,8 +168,7 @@ const Header: React.FC<HeaderProps> = ({
 
   const isWide = useMedia('(min-width: 767.99px)', true);
   const menuIcon = !isWide ? (
-    <Icon
-      type="menu"
+    <MenuOutlined
       className={styles.menuIcon}
       onClick={onTogglePopupMenuVisible}
     />
@@ -317,7 +317,7 @@ const Header: React.FC<HeaderProps> = ({
           <Select
             defaultValue={Object.keys(versions)[0]}
             className={styles.versions}
-            dropdownMatchSelectWidth={false}
+            bordered={false}
             size="small"
             onChange={(value: string) => {
               window.location.href = value;
@@ -365,8 +365,7 @@ const Header: React.FC<HeaderProps> = ({
                 }}
               >
                 <Menu.Item key="en">
-                  <Icon
-                    type="check"
+                  <CheckOutlined
                     style={{
                       visibility: lang === 'en' ? 'visible' : 'hidden',
                       color: '#52c41a',
@@ -375,8 +374,7 @@ const Header: React.FC<HeaderProps> = ({
                   English
                 </Menu.Item>
                 <Menu.Item key="zh">
-                  <Icon
-                    type="check"
+                  <CheckOutlined
                     style={{
                       visibility: lang === 'zh' ? 'visible' : 'hidden',
                       color: '#52c41a',
@@ -395,7 +393,7 @@ const Header: React.FC<HeaderProps> = ({
       {showGithubCorner && (
         <li className={styles.githubCorner}>
           <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-            <Icon type="github" />
+            <GithubOutlined />
           </a>
         </li>
       )}

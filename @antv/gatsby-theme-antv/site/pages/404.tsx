@@ -1,5 +1,6 @@
 import React from 'react';
-import { Result, Button, Icon } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
+import { Result, Button } from 'antd';
 import { Link } from 'gatsby';
 import SEO from '../components/Seo';
 
@@ -7,13 +8,13 @@ const NotFoundPage = () => (
   <>
     <SEO title="404: Not found" />
     <Result
-      status="404"
+      status={'404' as any}
       title="404"
       subTitle="Sorry, the page you visited does not exist."
       extra={
         <Link to="/">
           <Button type="primary">
-            <Icon type="home" />
+            <HomeOutlined />
             Back Home
           </Button>
         </Link>

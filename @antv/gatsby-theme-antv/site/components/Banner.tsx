@@ -1,6 +1,7 @@
 import React from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
-import { Icon, Modal } from 'antd';
+import { CaretRightOutlined } from '@ant-design/icons';
+import { Modal } from 'antd';
 import GitHubButton from 'react-github-button';
 import gh from 'parse-github-url';
 import classNames from 'classnames';
@@ -142,7 +143,7 @@ const Banner: React.FC<BannerProps> = ({
         className={styles.videoButtonWrapper}
       >
         <div className={styles.videoButton}>
-          <Icon type="caret-right" className={styles.videoButtonIcon} />
+          <CaretRightOutlined className={styles.videoButtonIcon} />
           <p
             className={styles.videoButtonText}
             style={{

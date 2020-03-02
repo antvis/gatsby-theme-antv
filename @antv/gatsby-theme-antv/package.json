@@ -17,6 +17,7 @@
     "url": "https://github.com/antvis/gatsby-theme-antv/issues"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.0.2",
     "@babel/plugin-transform-modules-umd": "^7.2.0",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
@@ -25,7 +26,7 @@
     "@hot-loader/react-dom": "^16.9.0+4.12.11",
     "@stackblitz/sdk": "^1.3.0",
     "@types/classnames": "^2.2.9",
-    "@types/codemirror": "^0.0.85",
+    "@types/codemirror": "^0.0.87",
     "@types/git-url-parse": "^9.0.0",
     "@types/lodash-es": "^4.17.3",
     "@types/parse-github-url": "^1.0.0",
@@ -34,7 +35,7 @@
     "@types/react-github-button": "^0.1.0",
     "@types/react-helmet": "^5.0.10",
     "@types/shallowequal": "^1.1.1",
-    "antd": "^3.25.0",
+    "antd": "^4.0.0",
     "babel-preset-gatsby": "^0.2.13",
     "classnames": "^2.2.6",
     "codemirror": "^5.49.2",
@@ -79,6 +80,7 @@
     "less": "^3.10.3",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
+    "matchmedia-polyfill": "^0.3.2",
     "mkdirp": "^1.0.3",
     "normalize.css": "^8.0.1",
     "parse-github-url": "^1.0.2",

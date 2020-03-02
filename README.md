@@ -286,7 +286,7 @@ yarn add shallowequal
 or
 
 ```bash
-yarn workspace @antv/gatsby-theme-antv shallowequal
+yarn workspace @antv/gatsby-theme-antv add shallowequal
 ```
 
 ## Related libraries
