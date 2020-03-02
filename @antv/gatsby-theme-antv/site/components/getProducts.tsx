@@ -1,5 +1,16 @@
 import React from 'react';
-import { Icon } from 'antd';
+
+import {
+  AreaChartOutlined,
+  DingdingOutlined,
+  GithubOutlined,
+  HistoryOutlined,
+  HomeOutlined,
+  PieChartOutlined,
+  ReadOutlined,
+  YuqueOutlined,
+} from '@ant-design/icons';
+
 import { getChinaMirrorHost } from '../utils';
 
 const tuple = <T extends string[]>(...args: T) => args;
@@ -51,33 +62,33 @@ export const getProducts = ({
       category: Categories[0],
       links: [
         {
-          icon: <Icon type="home" />,
+          icon: <HomeOutlined />,
           title: t('产品首页'),
           url: `https://${hosts.g2}/${language}`,
         },
         {
-          icon: <Icon type="pie-chart" />,
+          icon: <PieChartOutlined />,
           title: t('图表示例'),
           url: `https://${hosts.g2}/${language}/examples`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('使用文档'),
           url: `https://${hosts.g2}/${language}/docs/manual`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('API 文档'),
           url: `https://${hosts.g2}/${language}/docs/api`,
         },
         {
-          icon: <Icon type="history" />,
+          icon: <HistoryOutlined />,
           title: t('更新日志'),
           url: `https://github.com/antvis/g2/blob/master/CHANGELOG.md`,
           openExternal: true,
         },
         {
-          icon: <Icon type="github" />,
+          icon: <GithubOutlined />,
           title: t('GitHub 仓库'),
           url: `https://github.com/antvis/g2`,
           openExternal: true,
@@ -99,33 +110,33 @@ export const getProducts = ({
       category: Categories[0],
       links: [
         {
-          icon: <Icon type="home" />,
+          icon: <HomeOutlined />,
           title: t('产品首页'),
           url: `https://${hosts.g6}/${language}`,
         },
         {
-          icon: <Icon type="pie-chart" />,
+          icon: <PieChartOutlined />,
           title: t('图表示例'),
           url: `https://${hosts.g6}/${language}/examples`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('使用文档'),
           url: `https://${hosts.g6}/${language}/docs/manual`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('API 文档'),
           url: `https://${hosts.g6}/${language}/docs/api/GlobalAPI`,
         },
         {
-          icon: <Icon type="history" />,
+          icon: <HistoryOutlined />,
           title: t('更新日志'),
           url: `https://github.com/antvis/g6/blob/master/CHANGELOG.md`,
           openExternal: true,
         },
         {
-          icon: <Icon type="github" />,
+          icon: <GithubOutlined />,
           title: t('GitHub 仓库'),
           url: `https://github.com/antvis/g6`,
           openExternal: true,
@@ -149,33 +160,33 @@ export const getProducts = ({
       category: Categories[0],
       links: [
         {
-          icon: <Icon type="home" />,
+          icon: <HomeOutlined />,
           title: t('产品首页'),
           url: `https://${hosts.f2}/${language}`,
         },
         {
-          icon: <Icon type="pie-chart" />,
+          icon: <PieChartOutlined />,
           title: t('图表示例'),
           url: `https://${hosts.f2}/${language}/examples`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('使用文档'),
           url: `https://${hosts.f2}/${language}/docs/tutorial/getting-started`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('API 文档'),
           url: `https://${hosts.f2}/${language}/docs/api`,
         },
         {
-          icon: <Icon type="history" />,
+          icon: <HistoryOutlined />,
           title: t('更新日志'),
           url: `https://github.com/antvis/f2/blob/master/CHANGELOG.md`,
           openExternal: true,
         },
         {
-          icon: <Icon type="github" />,
+          icon: <GithubOutlined />,
           title: t('GitHub 仓库'),
           url: `https://github.com/antvis/f2`,
           openExternal: true,
@@ -197,33 +208,33 @@ export const getProducts = ({
       category: Categories[0],
       links: [
         {
-          icon: <Icon type="home" />,
+          icon: <HomeOutlined />,
           title: t('产品首页'),
           url: `https://${hosts.l7}/${language}`,
         },
         {
-          icon: <Icon type="pie-chart" />,
+          icon: <PieChartOutlined />,
           title: t('图表示例'),
           url: `https://${hosts.l7}/${language}/examples`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('使用文档'),
           url: `https://${hosts.l7}/${language}/docs/tutorial`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('API 文档'),
           url: `https://${hosts.l7}/${language}/docs/API`,
         },
         {
-          icon: <Icon type="history" />,
+          icon: <HistoryOutlined />,
           title: t('更新日志'),
           url: `https://github.com/antvis/L7/blob/master/CHANGELOG.md`,
           openExternal: true,
         },
         {
-          icon: <Icon type="github" />,
+          icon: <GithubOutlined />,
           title: t('GitHub 仓库'),
           url: `https://github.com/antvis/L7`,
           openExternal: true,
@@ -244,28 +255,28 @@ export const getProducts = ({
       category: Categories[1],
       links: [
         {
-          icon: <Icon type="home" />,
+          icon: <HomeOutlined />,
           title: t('产品首页'),
           url: `https://${hosts.g2plot}/${language}`,
         },
         {
-          icon: <Icon type="pie-chart" />,
+          icon: <PieChartOutlined />,
           title: t('图表示例'),
           url: `https://${hosts.g2plot}/${language}/examples`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('使用文档'),
           url: `https://${hosts.g2plot}/${language}/docs/manual`,
         },
         {
-          icon: <Icon type="history" />,
+          icon: <HistoryOutlined />,
           title: t('更新日志'),
           url: `https://github.com/antvis/g2plot/blob/master/CHANGELOG.md`,
           openExternal: true,
         },
         {
-          icon: <Icon type="github" />,
+          icon: <GithubOutlined />,
           title: t('GitHub 仓库'),
           url: `https://github.com/antvis/g2plot`,
           openExternal: true,
@@ -286,28 +297,28 @@ export const getProducts = ({
       category: Categories[1],
       links: [
         {
-          icon: <Icon type="home" />,
+          icon: <HomeOutlined />,
           title: t('产品首页'),
           url: `https://${hosts.graphin}/${language}`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('使用文档'),
           url: `https://${hosts.graphin}/${language}/docs/manual/introduction`,
         },
         {
-          icon: <Icon type="read" />,
+          icon: <ReadOutlined />,
           title: t('API 文档'),
           url: `https://${hosts.graphin}/${language}/docs/api/graphin`,
         },
         {
-          icon: <Icon type="history" />,
+          icon: <HistoryOutlined />,
           title: t('更新日志'),
           url: `https://github.com/antvis/graphin/blob/master/CHANGELOG.md`,
           openExternal: true,
         },
         {
-          icon: <Icon type="github" />,
+          icon: <GithubOutlined />,
           title: t('GitHub 仓库'),
           url: `https://github.com/antvis/graphin`,
           openExternal: true,
@@ -329,25 +340,25 @@ export const getProducts = ({
       category: Categories[1],
       links: [
         {
-          icon: <Icon type="home" />,
+          icon: <HomeOutlined />,
           title: t('产品首页'),
           url: `https://chartcube.alipay.com`,
           openExternal: true,
         },
         {
-          icon: <Icon type="area-chart" />,
+          icon: <AreaChartOutlined />,
           title: t('生成图表'),
           url: `https://chartcube.alipay.com/guide`,
           openExternal: true,
         },
         {
-          icon: <Icon type="yuque" />,
+          icon: <YuqueOutlined />,
           title: t('语雀社区'),
           url: `https://www.yuque.com/chartcube`,
           openExternal: true,
         },
         {
-          icon: <Icon type="dingding" />,
+          icon: <DingdingOutlined />,
           title: t('钉钉服务群'),
           url: `dingtalk://dingtalkclient/action/joingroup?cid=8305538734`,
           openExternal: true,

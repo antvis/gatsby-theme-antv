@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 import styles from './Search.module.less';
 
 export interface SearchProps {
@@ -60,7 +60,7 @@ const Search: React.FC<SearchProps> = ({ docsearchOptions }) => {
   }, []);
   return (
     <label className={styles.search} htmlFor="search">
-      <Icon type="search" className={styles.icon} />
+      <SearchOutlined className={styles.icon} />
       <input className={styles.input} id="search" placeholder={t('搜索…')} />
     </label>
   );

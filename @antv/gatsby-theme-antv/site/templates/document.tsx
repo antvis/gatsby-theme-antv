@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { graphql, Link } from 'gatsby';
-import { Layout as AntLayout, Menu, Icon, Tooltip, Affix } from 'antd';
+import {
+  EditOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+} from '@ant-design/icons';
+import { Layout as AntLayout, Menu, Tooltip, Affix } from 'antd';
 import { groupBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
@@ -204,10 +209,11 @@ export default function Template({
   ) : (
     <Drawer
       handler={
-        <Icon
-          className={styles.menuSwitch}
-          type={drawOpen ? 'menu-fold' : 'menu-unfold'}
-        />
+        drawOpen ? (
+          <MenuFoldOutlined className={styles.menuSwitch} />
+        ) : (
+          <MenuUnfoldOutlined className={styles.menuSwitch} />
+        )
       }
       wrapperClassName={styles.menuDrawer}
       onChange={open => setDrawOpen(!!open)}
@@ -244,7 +250,7 @@ export default function Template({
                   rel="noopener noreferrer"
                   className={styles.editOnGtiHubButton}
                 >
-                  <Icon type="edit" />
+                  <EditOutlined />
                 </a>
               </Tooltip>
             </h1>

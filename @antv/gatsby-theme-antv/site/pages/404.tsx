@@ -1,5 +1,6 @@
 import React from 'react';
-import { Result, Button, Icon } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
+import { Result, Button } from 'antd';
 import { Link } from 'gatsby';
 import SEO from '../components/Seo';
 
@@ -13,7 +14,7 @@ const NotFoundPage = () => (
       extra={
         <Link to="/">
           <Button type="primary">
-            <Icon type="home" />
+            <HomeOutlined />
             Back Home
           </Button>
         </Link>

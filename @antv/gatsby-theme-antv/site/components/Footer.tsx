@@ -1,7 +1,11 @@
 import React from 'react';
 import { default as RCFooter, FooterProps as RcFooterProps } from 'rc-footer';
 import { useTranslation } from 'react-i18next';
-import { Icon } from 'antd';
+import {
+  GithubOutlined,
+  WeiboOutlined,
+  ZhihuOutlined,
+} from '@ant-design/icons';
 import { getProducts } from './getProducts';
 import { useChinaMirrorHost } from '../hooks';
 import styles from './Footer.module.less';
@@ -142,21 +146,21 @@ const Footer: React.FC<FooterProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Icon type="weibo" />
+                <WeiboOutlined />
               </a>
               <a
                 href="https://zhuanlan.zhihu.com/aiux-antv"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Icon type="zhihu" />
+                <ZhihuOutlined />
               </a>
               <a
                 href="https://github.com/antvis"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Icon type="github" />
+                <GithubOutlined />
               </a>
               <a href={`${rootDomain}/${lang}/about`}>{t('关于我们')}</a>
               <a

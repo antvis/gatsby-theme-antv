@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Typography, Icon, Tooltip, Modal, Button } from 'antd';
+import {
+  CodeSandboxOutlined,
+  Html5Outlined,
+  PlayCircleOutlined,
+  ThunderboltOutlined,
+  FullscreenExitOutlined,
+  FullscreenOutlined,
+} from '@ant-design/icons';
+import { Typography, Tooltip, Modal, Button } from 'antd';
 import path from 'path';
 import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { getParameters } from 'codesandbox/lib/api/define';
@@ -193,8 +201,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
         </form>
       ) : null}
       <Tooltip title={t('在 StackBlitz 中打开')}>
-        <Icon
-          type="thunderbolt"
+        <ThunderboltOutlined
           className={styles.stackblitz}
           onClick={() => {
             stackblitzSdk.openProject(stackblitzPrefillConfig);
@@ -213,7 +220,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
             value={getParameters(codeSandboxConfig)}
           />
           <button type="submit" className={styles.codesandbox}>
-            <Icon type="code-sandbox" style={{ marginLeft: 8 }} />
+            <CodeSandboxOutlined style={{ marginLeft: 8 }} />
           </button>
         </form>
       </Tooltip>
@@ -221,8 +228,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
       {playground.htmlCodeTemplate && (
         <>
           <Tooltip title={t('HTML 代码')}>
-            <Icon
-              type="html5"
+            <Html5Outlined
               className={styles.html}
               onClick={() => updateHtmlModalVisible(true)}
             />
@@ -262,15 +268,20 @@ const Toolbar: React.FC<ToolbarProps> = ({
         </>
       )}
       <Tooltip title={isFullScreen ? t('离开全屏') : t('进入全屏')}>
-        <Icon
-          type={isFullScreen ? 'fullscreen-exit' : 'fullscreen'}
-          onClick={onToggleFullscreen}
-          style={{ marginLeft: 12 }}
-        />
+        {isFullScreen ? (
+          <FullscreenExitOutlined
+            onClick={onToggleFullscreen}
+            style={{ marginLeft: 12 }}
+          />
+        ) : (
+          <FullscreenOutlined
+            onClick={onToggleFullscreen}
+            style={{ marginLeft: 12 }}
+          />
+        )}
       </Tooltip>
       <Tooltip title={t('执行代码')}>
-        <Icon
-          type="play-circle"
+        <PlayCircleOutlined
           onClick={onExecuteCode}
           style={{ marginLeft: 12 }}
         />
