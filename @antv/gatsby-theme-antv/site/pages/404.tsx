@@ -8,7 +8,7 @@ const NotFoundPage = () => (
   <>
     <SEO title="404: Not found" />
     <Result
-      status={404}
+      status={'404' as any}
       title="404"
       subTitle="Sorry, the page you visited does not exist."
       extra={
