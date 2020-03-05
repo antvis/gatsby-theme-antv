@@ -26,7 +26,11 @@
   .slicer {
     width: 32px;
     height: 6px;
-    background: linear-gradient(145deg, #c65aff, #248dff);
+    background: linear-gradient(
+      145deg,
+      fade(@primary-color, 70%),
+      shade(@primary-color, 20%)
+    );
     margin-top: 64px;
   }
 
