@@ -33,7 +33,11 @@
     display: none;
   }
   .lefttop {
-    background: linear-gradient(130deg, #aa6aff 40%, #706dff);
+    background: linear-gradient(
+      130deg,
+      fade(@primary-color, 70%),
+      shade(@primary-color, 20%)
+    );
     width: 100%;
     top: 0;
     position: absolute;
