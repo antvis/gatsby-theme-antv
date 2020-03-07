@@ -101,7 +101,7 @@
     "react-split-pane": "^0.1.87",
     "react-test-renderer": "^16.9.0",
     "react-use": "^13.8.0",
-    "release-it": "^12.4.3",
+    "release-it": "^13.0.0",
     "shallowequal": "^1.1.0",
     "slash": "^3.0.0",
     "slick-carousel": "^1.8.1",
