@@ -309,43 +309,47 @@ export default function Template({
               <h2 id={`category-${category}`}>{category}</h2>
             )}
             <ul className={styles.galleryList}>
-              {allDemosInCategory[category].map(demo => {
-                let cardTitle;
-                if (typeof demo.title === 'string') {
-                  cardTitle = demo.title;
-                } else {
-                  cardTitle = demo.title
-                    ? demo.title[i18n.language]
-                    : demo.filename;
-                }
-                const demoSlug = demo.relativePath.replace(
-                  /\/demo\/(.*)\..*/,
-                  (_: string, filename: string) => {
-                    return `#${filename}`;
-                  },
-                );
-                return (
-                  <li
-                    className={styles.galleryCard}
-                    key={demo.relativePath}
-                    title={cardTitle}
-                  >
-                    <Link
-                      to={`${i18n.language}/examples/${demoSlug}`}
-                      className={styles.galleryCardLink}
+              {allDemosInCategory[category]
+                .sort((a, b) => {
+                  return (a.order || -1) - (b.order || -1);
+                })
+                .map(demo => {
+                  let cardTitle;
+                  if (typeof demo.title === 'string') {
+                    cardTitle = demo.title;
+                  } else {
+                    cardTitle = demo.title
+                      ? demo.title[i18n.language]
+                      : demo.filename;
+                  }
+                  const demoSlug = demo.relativePath.replace(
+                    /\/demo\/(.*)\..*/,
+                    (_: string, filename: string) => {
+                      return `#${filename}`;
+                    },
+                  );
+                  return (
+                    <li
+                      className={styles.galleryCard}
+                      key={demo.relativePath}
+                      title={cardTitle}
                     >
-                      <img
-                        src={
-                          demo.screenshot ||
-                          'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
-                        }
-                        alt={cardTitle}
-                      />
-                      <h4>{cardTitle}</h4>
-                    </Link>
-                  </li>
-                );
-              })}
+                      <Link
+                        to={`${i18n.language}/examples/${demoSlug}`}
+                        className={styles.galleryCardLink}
+                      >
+                        <img
+                          src={
+                            demo.screenshot ||
+                            'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
+                          }
+                          alt={cardTitle}
+                        />
+                        <h4>{cardTitle}</h4>
+                      </Link>
+                    </li>
+                  );
+                })}
             </ul>
           </div>
         ))}

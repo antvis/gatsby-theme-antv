@@ -5,7 +5,7 @@
   },
   "demos": [
     {
-      "filename": "basic.js",
+      "filename": "basic.jsx",
       "title": {
         "zh": "演示一",
         "en": "example one"
