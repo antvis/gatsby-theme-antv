@@ -11,6 +11,7 @@ import Search, { SearchProps } from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
 import { getChinaMirrorHost } from '../utils';
+import { useLogoLink } from '../hooks';
 import AntvLogo from '../images/antv.svg';
 import TranslationIcon from '../images/translation.svg';
 import ExternalLink from '../images/external-link.svg';
@@ -186,24 +187,11 @@ const Header: React.FC<HeaderProps> = ({
   const { name } = GitUrlParse(githubUrl);
   const chinaMirrorUrl = name ? `https://antv-${name}.gitee.io` : '';
 
-  let defaultLogoLink;
-  if (link) {
-    defaultLogoLink = link;
-  } else if (siteUrl === 'https://antv.vision') {
-    defaultLogoLink = `/${lang}`;
-  } else {
-    defaultLogoLink = `https://antv.vision`;
-  }
-
-  const [logoLink, setLogoLink] = useState(defaultLogoLink);
-  useEffect(() => {
-    if (
-      window.location.host.includes('gitee.io') &&
-      window.location.host.includes('antv')
-    ) {
-      setLogoLink(`https://antv.gitee.io/${lang}`);
-    }
-  }, []);
+  const [logoLink] = useLogoLink({
+    siteUrl,
+    lang,
+    link,
+  });
 
   const [chinaMirrorHintVisible, updateChinaMirrorHintVisible] = useState(
     false,
