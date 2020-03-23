@@ -22,7 +22,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
   playground,
 }) => {
   const { i18n } = useTranslation();
-  const [currentExample, updateCurrentExample] = useState();
+  const [currentExample, updateCurrentExample] = useState<PlayGroundProps>();
 
   useEffect(() => {
     const defaultExample =
@@ -144,7 +144,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
           })}
         </div>
       </div>
-      {playground && currentExample ? (
+      {(playground && currentExample) ? (
         <PlayGround
           key={currentExample.relativePath}
           relativePath={currentExample.relativePath}
