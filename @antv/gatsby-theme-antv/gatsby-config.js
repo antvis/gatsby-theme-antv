@@ -106,6 +106,7 @@ module.exports = ({
             },
             `gatsby-remark-autolink-headers`,
             `gatsby-remark-reading-time`,
+            `gatsby-remark-component`,
           ],
         },
       },

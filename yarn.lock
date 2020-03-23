@@ -1525,6 +1525,13 @@
   dependencies:
     core-js "^2.5.7"
 
+"@mapbox/hast-util-table-cell-style@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.npm.taobao.org/@mapbox/hast-util-table-cell-style/download/@mapbox/hast-util-table-cell-style-0.1.3.tgz#5b7166ae01297d72216932b245e4b2f0b642dca6"
+  integrity sha1-W3FmrgEpfXIhaTKyReSy8LZC3KY=
+  dependencies:
+    unist-util-visit "^1.3.0"
+
 "@mikaelkristiansson/domready@^1.0.10":
   version "1.0.10"
   resolved "https://registry.npm.taobao.org/@mikaelkristiansson/domready/download/@mikaelkristiansson/domready-1.0.10.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40mikaelkristiansson%2Fdomready%2Fdownload%2F%40mikaelkristiansson%2Fdomready-1.0.10.tgz#f6d69866c0857664e70690d7a0bfedb72143adb5"
@@ -2043,6 +2050,13 @@
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
+
+"@types/rehype-react@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.npm.taobao.org/@types/rehype-react/download/@types/rehype-react-4.0.0.tgz#55b71cc7329b6effb8f66b8ea08c2d016680db97"
+  integrity sha1-VbccxzKbbv+49muOoIwtAWaA25c=
+  dependencies:
+    "@types/react" "*"
 
 "@types/responselike@*":
   version "1.0.0"
@@ -7499,6 +7513,13 @@ gatsby-remark-autolink-headers@^2.1.13:
     mdast-util-to-string "^1.1.0"
     unist-util-visit "^1.4.1"
 
+gatsby-remark-component@^1.1.3:
+  version "1.1.3"
+  resolved "https://registry.npm.taobao.org/gatsby-remark-component/download/gatsby-remark-component-1.1.3.tgz#9a5276d19028b7eaf1ab30f44070124360b8e34e"
+  integrity sha1-mlJ20ZAot+rxqzD0QHASQ2C4404=
+  dependencies:
+    unist-util-visit "^1.1.1"
+
 gatsby-remark-external-links@^0.0.4:
   version "0.0.4"
   resolved "https://registry.npm.taobao.org/gatsby-remark-external-links/download/gatsby-remark-external-links-0.0.4.tgz#85b98c1e9dacfaa58085319648c904ff3cab42f0"
@@ -8487,6 +8508,18 @@ hast-to-hyperscript@^5.0.0:
     style-to-object "^0.2.1"
     unist-util-is "^2.0.0"
     web-namespaces "^1.1.2"
+
+hast-to-hyperscript@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.npm.taobao.org/hast-to-hyperscript/download/hast-to-hyperscript-8.0.0.tgz#ad1182144366ed8d4f65f1a771c7f1da6f812648"
+  integrity sha1-rRGCFENm7Y1PZfGnccfx2m+BJkg=
+  dependencies:
+    comma-separated-tokens "^1.0.0"
+    property-information "^5.0.0"
+    space-separated-tokens "^1.0.0"
+    style-to-object "^0.3.0"
+    unist-util-is "^4.0.0"
+    web-namespaces "^1.0.0"
 
 hast-util-from-parse5@^4.0.2:
   version "4.0.2"
@@ -13521,6 +13554,13 @@ property-information@^4.0.0:
   dependencies:
     xtend "^4.0.1"
 
+property-information@^5.0.0:
+  version "5.4.0"
+  resolved "https://registry.npm.taobao.org/property-information/download/property-information-5.4.0.tgz#16e08f13f4e5c4a7be2e4ec431c01c4f8dba869a"
+  integrity sha1-FuCPE/TlxKe+Lk7EMcAcT426hpo=
+  dependencies:
+    xtend "^4.0.0"
+
 proto-list@~1.2.1:
   version "1.2.4"
   resolved "https://registry.npm.taobao.org/proto-list/download/proto-list-1.2.4.tgz#212d5bfe1318306a420f6402b8e26ff39647a849"
@@ -14623,6 +14663,14 @@ regjsparser@^0.6.4:
   integrity sha1-p2n4aEMIQBpm6bUp0kNv9NBmYnI=
   dependencies:
     jsesc "~0.5.0"
+
+rehype-react@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npm.taobao.org/rehype-react/download/rehype-react-5.0.0.tgz#7c08017b125d86839a13577851512cb4e23a2be4"
+  integrity sha1-fAgBexJdhoOaE1d4UVEstOI6K+Q=
+  dependencies:
+    "@mapbox/hast-util-table-cell-style" "^0.1.3"
+    hast-to-hyperscript "^8.0.0"
 
 release-it@^13.0.0:
   version "13.1.2"
@@ -16318,6 +16366,13 @@ style-to-object@^0.2.1:
   dependencies:
     inline-style-parser "0.1.1"
 
+style-to-object@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.npm.taobao.org/style-to-object/download/style-to-object-0.3.0.tgz#b1b790d205991cc783801967214979ee19a76e46"
+  integrity sha1-sbeQ0gWZHMeDgBlnIUl57hmnbkY=
+  dependencies:
+    inline-style-parser "0.1.1"
+
 stylehacks@^4.0.0:
   version "4.0.3"
   resolved "https://registry.npm.taobao.org/stylehacks/download/stylehacks-4.0.3.tgz#6718fcaf4d1e07d8a1318690881e8d96726a71d5"
@@ -17181,7 +17236,7 @@ unist-util-visit-parents@^3.0.0:
     "@types/unist" "^2.0.0"
     unist-util-is "^4.0.0"
 
-unist-util-visit@^1.0.0, unist-util-visit@^1.1.0, unist-util-visit@^1.1.3, unist-util-visit@^1.4.1:
+unist-util-visit@^1.0.0, unist-util-visit@^1.1.0, unist-util-visit@^1.1.1, unist-util-visit@^1.1.3, unist-util-visit@^1.3.0, unist-util-visit@^1.4.1:
   version "1.4.1"
   resolved "https://registry.npm.taobao.org/unist-util-visit/download/unist-util-visit-1.4.1.tgz?cache=0&sync_timestamp=1581869747917&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Funist-util-visit%2Fdownload%2Funist-util-visit-1.4.1.tgz#4724aaa8486e6ee6e26d7ff3c8685960d560b1e3"
   integrity sha1-RySqqEhububibX/zyGhZYNVgseM=
