@@ -144,7 +144,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
           })}
         </div>
       </div>
-      {(playground && currentExample) ? (
+      {playground && currentExample ? (
         <PlayGround
           key={currentExample.relativePath}
           relativePath={currentExample.relativePath}
