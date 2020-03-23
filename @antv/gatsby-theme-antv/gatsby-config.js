@@ -92,22 +92,6 @@ module.exports = ({
         options: {
           plugins: [
             {
-              resolve: `gatsby-remark-prettier`,
-              options: {
-                // Look for local .prettierrc file.
-                // The same as `prettier.resolveConfig(process.cwd())`
-                usePrettierrc: false,
-                // Overwrite prettier options, check out https://prettier.io/docs/en/options.html
-                prettierOptions: {
-                  endOfLine: 'lf',
-                  semi: true,
-                  singleQuote: true,
-                  tabWidth: 2,
-                  trailingComma: 'all',
-                },
-              },
-            },
-            {
               resolve: `gatsby-remark-prismjs`,
               options: {
                 inlineCodeMarker: '±',

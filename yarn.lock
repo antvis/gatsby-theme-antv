@@ -985,14 +985,6 @@
     core-js-pure "^3.0.0"
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@7.0.0-beta.51":
-  version "7.0.0-beta.51"
-  resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.0.0-beta.51.tgz#48b8ed18307034c6620f643514650ca2ccc0165a"
-  integrity sha1-SLjtGDBwNMZiD2Q1FGUMoszAFlo=
-  dependencies:
-    core-js "^2.5.7"
-    regenerator-runtime "^0.11.1"
-
 "@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
   version "7.9.2"
   resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.9.2.tgz#d90df0583a3a252f09aaa619665367bae518db06"
@@ -7516,14 +7508,6 @@ gatsby-remark-external-links@^0.0.4:
     is-relative-url "^2.0.0"
     unist-util-find "^1.0.1"
     unist-util-visit "^1.1.3"
-
-gatsby-remark-prettier@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npm.taobao.org/gatsby-remark-prettier/download/gatsby-remark-prettier-1.0.0.tgz#ca426a594f45d0febefec63708bf0b4c4b085daf"
-  integrity sha1-ykJqWU9F0P6+/sY3CL8LTEsIXa8=
-  dependencies:
-    "@babel/runtime" "7.0.0-beta.51"
-    unist-util-visit "^1.3.0"
 
 gatsby-remark-prismjs@^3.3.29:
   version "3.4.0"
@@ -14543,7 +14527,7 @@ regenerate@^1.4.0:
   resolved "https://registry.npm.taobao.org/regenerate/download/regenerate-1.4.0.tgz#4a856ec4b56e4077c557589cae85e7a4c8869a11"
   integrity sha1-SoVuxLVuQHfFV1icroXnpMiGmhE=
 
-regenerator-runtime@^0.11.0, regenerator-runtime@^0.11.1:
+regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.npm.taobao.org/regenerator-runtime/download/regenerator-runtime-0.11.1.tgz?cache=0&sync_timestamp=1584052392667&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fregenerator-runtime%2Fdownload%2Fregenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
   integrity sha1-vgWtf5v30i4Fb5cmzuUBf78Z4uk=
@@ -17197,7 +17181,7 @@ unist-util-visit-parents@^3.0.0:
     "@types/unist" "^2.0.0"
     unist-util-is "^4.0.0"
 
-unist-util-visit@^1.0.0, unist-util-visit@^1.1.0, unist-util-visit@^1.1.3, unist-util-visit@^1.3.0, unist-util-visit@^1.4.1:
+unist-util-visit@^1.0.0, unist-util-visit@^1.1.0, unist-util-visit@^1.1.3, unist-util-visit@^1.4.1:
   version "1.4.1"
   resolved "https://registry.npm.taobao.org/unist-util-visit/download/unist-util-visit-1.4.1.tgz?cache=0&sync_timestamp=1581869747917&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Funist-util-visit%2Fdownload%2Funist-util-visit-1.4.1.tgz#4724aaa8486e6ee6e26d7ff3c8685960d560b1e3"
   integrity sha1-RySqqEhububibX/zyGhZYNVgseM=
