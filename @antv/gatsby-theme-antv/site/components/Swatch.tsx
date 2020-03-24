@@ -6,8 +6,9 @@ import styles from './Swatch.module.less';
 interface SwatchProps {
   title: string;
   darkmode?: boolean;
-  colors?: string[];
-  colorNames?: string[];
+  colors?: string;
+  colornames?: string;
+  hidecolorname: boolean;
 }
 
 const copyToClipboard = (str: string) => {
@@ -22,12 +23,13 @@ const copyToClipboard = (str: string) => {
 const Swatch: FC<SwatchProps> = ({
   title,
   darkmode = true,
-  colors = [],
-  colorNames = [],
+  colors = '',
+  colornames = '',
+  hidecolorname = false,
 }) => {
   const [dark, toggleDark] = useState(false);
   const colorsArray = colors.split(',');
-  const colorNamesArray = colors.split(',');
+  const colorNamesArray = colornames.split(',');
   return (
     <div
       className={classNames(styles.swatch, {
@@ -70,7 +72,7 @@ const Swatch: FC<SwatchProps> = ({
               );
             }}
           >
-            {colorNamesArray[i] || color}
+            {!hidecolorname && <span>{colorNamesArray[i] || color}</span>}
           </div>
         ))}
       </div>

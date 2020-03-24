@@ -17,7 +17,7 @@
     border-radius: 4px;
     transition: all 0.3s;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 
     .color {
       height: 50px;
@@ -27,12 +27,23 @@
       transition: all 0.3s;
       overflow: hidden;
       color: #fff;
-      font-size: 12px;
-      text-align: center;
+      text-align: right;
+      position: relative;
 
       &:hover {
         margin-top: -8px;
         height: 58px;
+      }
+
+      > span {
+        position: absolute;
+        bottom: 6px;
+        right: 6px;
+        width: calc(100% - 6px);
+        font-size: 12px;
+        transform: scale(10 / 12);
+        transform-origin: right bottom;
+        line-height: 1.1;
       }
     }
   }
