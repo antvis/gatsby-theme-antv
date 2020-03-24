@@ -12,13 +12,42 @@
   }
 
   .colors {
-    padding: 12px;
+    padding: 24px 14px 18px;
     background-color: #f9f9fb;
     border-radius: 4px;
     transition: all 0.3s;
+    display: flex;
+    justify-content: space-between;
+
+    .color {
+      height: 50px;
+      width: 50px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+      overflow: hidden;
+      color: #fff;
+      font-size: 12px;
+      text-align: center;
+
+      &:hover {
+        margin-top: -8px;
+        height: 58px;
+      }
+    }
   }
 
   &.dark .colors {
     background-color: #141414;
   }
+}
+
+.block {
+  height: 12px;
+  width: 12px;
+  border-radius: 2px;
+  margin: 0 0.2em;
+  display: inline-block;
+  position: relative;
+  top: 1px;
 }
