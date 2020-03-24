@@ -28,6 +28,15 @@ const Swatch: FC<SwatchProps> = ({
   const [dark, toggleDark] = useState(false);
   const colorsArray = colors.split(',');
   const colorNamesArray = colornames.split(',');
+  const colorStyle: React.CSSProperties = {};
+  if (colorsArray.length < 5) {
+    colorStyle.width = `calc(${100 / colorsArray.length}% - 120px)`;
+    colorStyle.minWidth = 150;
+    colorStyle.height = 50;
+  } else if (colorsArray.length > 10) {
+    colorStyle.width = 25;
+    colorStyle.height = 25;
+  }
   return (
     <div
       className={classNames(styles.swatch, {
@@ -54,6 +63,7 @@ const Swatch: FC<SwatchProps> = ({
           <div
             className={styles.color}
             style={{
+              ...colorStyle,
               backgroundColor: color,
             }}
             key={color}
@@ -71,7 +81,9 @@ const Swatch: FC<SwatchProps> = ({
               );
             }}
           >
-            <span>{colorNamesArray[i]}</span>
+            <span style={{ display: colorsArray.length > 10 ? 'hidden' : '' }}>
+              {colorNamesArray[i]}
+            </span>
           </div>
         ))}
       </div>
