@@ -8,7 +8,6 @@ interface SwatchProps {
   darkmode?: boolean;
   colors?: string;
   colornames?: string;
-  hidecolorname: boolean;
 }
 
 const copyToClipboard = (str: string) => {
@@ -25,7 +24,6 @@ const Swatch: FC<SwatchProps> = ({
   darkmode = true,
   colors = '',
   colornames = '',
-  hidecolorname = false,
 }) => {
   const [dark, toggleDark] = useState(false);
   const colorsArray = colors.split(',');
@@ -36,9 +34,9 @@ const Swatch: FC<SwatchProps> = ({
         [styles.dark]: dark,
       })}
     >
-      {title && (
+      {(title || darkmode) && (
         <div className={styles.heading}>
-          <h4>{title}</h4>
+          {title && <h4>{title}</h4>}
           {darkmode && (
             <div>
               <span className={styles.darkmode}>Dark Mode</span>
@@ -73,7 +71,7 @@ const Swatch: FC<SwatchProps> = ({
               );
             }}
           >
-            {!hidecolorname && <span>{colorNamesArray[i] || color}</span>}
+            <span>{colorNamesArray[i]}</span>
           </div>
         ))}
       </div>
