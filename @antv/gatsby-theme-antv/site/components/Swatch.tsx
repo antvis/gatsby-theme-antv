@@ -38,12 +38,13 @@ const Swatch: FC<SwatchProps> = ({
     >
       {title && (
         <div className={styles.heading}>
-          <h3>{title}</h3>
+          <h4>{title}</h4>
           {darkmode && (
             <div>
-              Dark mode:{' '}
+              <span className={styles.darkmode}>Dark Mode</span>
               <Switch
                 checked={dark}
+                size="small"
                 onChange={checked => toggleDark(checked)}
               />
             </div>
