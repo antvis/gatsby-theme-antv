@@ -8,6 +8,7 @@ interface SwatchProps {
   darkmode?: boolean;
   colors?: string;
   colornames?: string;
+  grid?: 'sudoku';
 }
 
 const copyToClipboard = (str: string) => {
@@ -19,28 +20,91 @@ const copyToClipboard = (str: string) => {
   document.body.removeChild(el);
 };
 
+interface ColorsProps {
+  colorStyle: React.CSSProperties;
+  colors: string[];
+  names: string[];
+  name: string;
+}
+
+const Colors: FC<ColorsProps> = ({
+  colorStyle = {},
+  colors = [],
+  names = [],
+  name,
+}) => {
+  if (colors.length === 0) {
+    return null;
+  }
+  return (
+    <div className={styles.colors} data-name={name}>
+      {colors.map((color: string, i: number) => (
+        <div
+          className={styles.color}
+          style={{
+            ...colorStyle,
+            backgroundColor: color,
+          }}
+          key={i}
+          onClick={() => {
+            copyToClipboard(color);
+            message.success(
+              <span>
+                Copied
+                <span
+                  style={{ backgroundColor: color }}
+                  className={styles.block}
+                />
+                {color}
+              </span>,
+            );
+          }}
+        >
+          <span
+            className={styles.name}
+            style={{ display: colors.length > 10 ? 'hidden' : '' }}
+          >
+            {names[i]}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const Swatch: FC<SwatchProps> = ({
   title,
   darkmode = true,
   colors = '',
   colornames = '',
+  grid,
 }) => {
   const [dark, toggleDark] = useState(false);
-  const colorsArray = colors.split(',');
+  let colorsArray = [] as string[];
+  const colorsSwatchArray = [] as string[][];
   const colorNamesArray = colornames.split(',');
   const colorStyle: React.CSSProperties = {};
-  if (colorsArray.length < 5) {
-    colorStyle.width = `calc(${100 / colorsArray.length}% - 120px)`;
-    colorStyle.minWidth = 150;
-    colorStyle.height = 50;
-  } else if (colorsArray.length > 10) {
-    colorStyle.width = 25;
-    colorStyle.height = 25;
+  if (colors.includes('|')) {
+    colors.split('|').forEach((item: string) => {
+      colorsSwatchArray.push(item.split(','));
+    });
+  } else {
+    colorsArray = colors.split(',');
+    if (colorsArray.length < 5) {
+      colorStyle.width = `calc(${100 / colorsArray.length}% - 120px)`;
+      colorStyle.minWidth = 150;
+    } else if (colorsArray.length > 10) {
+      colorStyle.width = 25;
+      colorStyle.height = 25;
+    }
   }
+
   return (
     <div
       className={classNames(styles.swatch, {
         [styles.dark]: dark,
+        [styles.multiple]: colors.includes('|'),
+        [styles.sudoku]: grid === 'sudoku',
       })}
     >
       {(title || darkmode) && (
@@ -58,34 +122,20 @@ const Swatch: FC<SwatchProps> = ({
           )}
         </div>
       )}
-      <div className={styles.colors}>
-        {colorsArray.map((color: string, i: number) => (
-          <div
-            className={styles.color}
-            style={{
-              ...colorStyle,
-              backgroundColor: color,
-            }}
-            key={color}
-            onClick={() => {
-              copyToClipboard(color);
-              message.success(
-                <span>
-                  成功复制
-                  <span
-                    style={{ backgroundColor: color }}
-                    className={styles.block}
-                  />
-                  {color}
-                </span>,
-              );
-            }}
-          >
-            <span style={{ display: colorsArray.length > 10 ? 'hidden' : '' }}>
-              {colorNamesArray[i]}
-            </span>
-          </div>
+      <div className={styles.panel}>
+        {colorsSwatchArray.map((swatch, i) => (
+          <Colors
+            key={i}
+            name={colorNamesArray[i]}
+            colorStyle={colorStyle}
+            colors={swatch}
+          />
         ))}
+        <Colors
+          names={colorNamesArray}
+          colorStyle={colorStyle}
+          colors={colorsArray}
+        />
       </div>
     </div>
   );

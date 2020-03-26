@@ -19,44 +19,79 @@
     }
   }
 
-  .colors {
-    padding: 24px 14px 18px;
+  .panel {
+    padding: 0 14px;
     background-color: #f9f9fb;
     border-radius: 4px;
     transition: all 0.3s;
-    display: flex;
-    justify-content: space-around;
+    text-align: center;
+    font-size: 0;
+  }
+
+  .colors {
+    display: inline-block;
+    font-size: 0;
+    margin: 20px 0;
+    position: relative;
 
     .color {
       height: 50px;
       width: 50px;
       border-radius: 4px;
+      display: inline-block;
       cursor: pointer;
       transition: all 0.3s;
       overflow: hidden;
       color: #fff;
       text-align: right;
       position: relative;
+      margin-right: 16px;
+
+      &:last-child {
+        margin-right: 0;
+      }
 
       &:hover {
         margin-top: -8px;
         height: 58px;
       }
+    }
 
-      > span {
-        position: absolute;
-        bottom: 6px;
-        right: 6px;
-        width: calc(100% - 6px);
-        font-size: 12px;
-        transform: scale(10 / 12);
-        transform-origin: right bottom;
-        line-height: 1.1;
+    .name {
+      position: absolute;
+      bottom: 6px;
+      right: 6px;
+      width: calc(100% - 6px);
+      font-size: 12px;
+      transform: scale(10 / 12);
+      transform-origin: right bottom;
+      line-height: 1.1;
+    }
+  }
+
+  &.multiple .colors {
+    width: 50%;
+    .color {
+      border-radius: 0;
+      margin-right: 0;
+      height: 70px;
+      width: 34px;
+
+      &:hover {
+        margin-top: -8px;
+        height: 78px;
+      }
+
+      &:first-child {
+        border-radius: 4px 0 0 4px;
+      }
+      &:last-child {
+        border-radius: 0 4px 4px 0;
       }
     }
   }
 
-  &.dark .colors {
+  &.dark .panel {
     background-color: #141414;
   }
 }
