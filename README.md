@@ -22,6 +22,7 @@
 - 📝 Markdown-based documentation and menus
 - 🎬 Examples with live playground
 - 🏗 Unified Theme and Layout
+- 📱 Mobile friendly
 - 🆙 Easy customized header nav
 - 🧩 Built-in home page components
 
