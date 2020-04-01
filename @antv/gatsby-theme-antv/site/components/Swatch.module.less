@@ -75,11 +75,12 @@
     .container {
       position: relative;
       display: inline-block;
+      white-space: nowrap;
 
       .name {
         position: absolute;
         right: 6px;
-        z-index: 1;
+        z-index: 2;
         font-size: 14px;
         color: #fff;
         line-height: 1.1;
@@ -109,6 +110,44 @@
 
   &.dark .panel {
     background-color: #141414;
+  }
+
+  &.sudoku {
+    .colors {
+      .container {
+        width: 140px;
+        white-space: normal;
+      }
+      .color {
+        width: 140px / 3;
+        height: 140px / 3;
+        transform-origin: center;
+
+        &:hover {
+          margin-top: 0;
+          height: 140px / 3;
+          transform: scale(1.1);
+          position: relative;
+          z-index: 1;
+        }
+
+        &.first {
+          border-radius: 4px 0 0 0;
+        }
+
+        &.third {
+          border-radius: 0 4px 0 0;
+        }
+
+        &.seventh {
+          border-radius: 0 0 0 4px;
+        }
+
+        &.last {
+          border-radius: 0 0 4px 0;
+        }
+      }
+    }
   }
 }
 

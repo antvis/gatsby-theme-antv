@@ -44,6 +44,8 @@ const Colors: FC<ColorsProps> = ({
           <div
             className={classNames(styles.color, {
               [styles.first]: i === 0,
+              [styles.third]: i === 2,
+              [styles.seventh]: i === 6,
               [styles.last]: i === colors.length - 1,
             })}
             style={{
@@ -108,7 +110,7 @@ const Swatch: FC<SwatchProps> = ({
   return (
     <div
       className={classNames(styles.swatch, {
-        [styles.dark]: dark,
+        [styles.dark]: !!dark,
         [styles.multiple]: colors.includes('|'),
         [styles.sudoku]: grid === 'sudoku',
       })}
