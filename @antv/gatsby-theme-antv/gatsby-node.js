@@ -16,7 +16,6 @@ const { transform } = require('@babel/standalone');
 
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
-const orderCaches = {};
 
 function getLocaleResources() {
   let locale = {};
@@ -46,16 +45,12 @@ function getPostOrder(post, siteMetadata, type) {
     fields: { slug },
     frontmatter: { order },
   } = post.node;
-  if (slug && orderCaches[slug] !== undefined) {
-    return orderCaches[slug];
-  }
   let result;
   const categories = siteMetadata[type] || [];
   if (type === 'examples') {
     const categoryOrder =
       categories.findIndex(item => item.slug === slug.split('/')[3]) + 1;
     result = (order || 0) + categoryOrder * 100;
-    orderCaches[slug] = result;
     return result;
   }
   let categoryOrder = 0;
@@ -65,7 +60,6 @@ function getPostOrder(post, siteMetadata, type) {
     }
   });
   result = (order || 0) + categoryOrder;
-  orderCaches[slug] = result;
   return result;
 }
 
