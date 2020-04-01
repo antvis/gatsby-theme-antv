@@ -71,6 +71,22 @@
 
   &.multiple .colors {
     width: 50%;
+
+    .container {
+      position: relative;
+      display: inline-block;
+
+      .name {
+        position: absolute;
+        right: 6px;
+        z-index: 1;
+        font-size: 14px;
+        color: #fff;
+        line-height: 1.1;
+        text-align: right;
+      }
+    }
+
     .color {
       border-radius: 0;
       margin-right: 0;
@@ -82,10 +98,10 @@
         height: 78px;
       }
 
-      &:first-child {
+      &.first {
         border-radius: 4px 0 0 4px;
       }
-      &:last-child {
+      &.last {
         border-radius: 0 4px 4px 0;
       }
     }

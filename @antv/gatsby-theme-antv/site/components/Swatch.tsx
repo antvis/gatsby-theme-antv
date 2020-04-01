@@ -23,8 +23,8 @@ const copyToClipboard = (str: string) => {
 interface ColorsProps {
   colorStyle: React.CSSProperties;
   colors: string[];
-  names: string[];
-  name: string;
+  names?: string[];
+  name?: string;
 }
 
 const Colors: FC<ColorsProps> = ({
@@ -37,37 +37,43 @@ const Colors: FC<ColorsProps> = ({
     return null;
   }
   return (
-    <div className={styles.colors} data-name={name}>
-      {colors.map((color: string, i: number) => (
-        <div
-          className={styles.color}
-          style={{
-            ...colorStyle,
-            backgroundColor: color,
-          }}
-          key={i}
-          onClick={() => {
-            copyToClipboard(color);
-            message.success(
-              <span>
-                Copied
-                <span
-                  style={{ backgroundColor: color }}
-                  className={styles.block}
-                />
-                {color}
-              </span>,
-            );
-          }}
-        >
-          <span
-            className={styles.name}
-            style={{ display: colors.length > 10 ? 'hidden' : '' }}
+    <div className={styles.colors}>
+      <div className={styles.container}>
+        <span className={styles.name}>{name}</span>
+        {colors.map((color: string, i: number) => (
+          <div
+            className={classNames(styles.color, {
+              [styles.first]: i === 0,
+              [styles.last]: i === colors.length - 1,
+            })}
+            style={{
+              ...colorStyle,
+              backgroundColor: color,
+            }}
+            key={i}
+            onClick={() => {
+              copyToClipboard(color);
+              message.success(
+                <span>
+                  Copied
+                  <span
+                    style={{ backgroundColor: color }}
+                    className={styles.block}
+                  />
+                  {color}
+                </span>,
+              );
+            }}
           >
-            {names[i]}
-          </span>
-        </div>
-      ))}
+            <span
+              className={styles.name}
+              style={{ display: colors.length > 10 ? 'hidden' : '' }}
+            >
+              {names[i]}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
