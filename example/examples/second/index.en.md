@@ -1,5 +1,5 @@
 ---
-title: Component Two
+title: Two
 order: 1
 icon: line
 ---

@@ -288,10 +288,10 @@ export default function Template({
     <div className={styles.gallery}>
       <div className={styles.anchor}>
         <Anchor>
-          {Categories.map((category: string) => (
+          {Categories.map((category: string, i) => (
             <Anchor.Link
               href={`#category-${category}`}
-              key={category}
+              key={i}
               title={category}
             />
           ))}
@@ -303,8 +303,8 @@ export default function Template({
           /* eslint-disable-next-line react/no-danger */
           dangerouslySetInnerHTML={{ __html: html }}
         />
-        {Categories.map((category: string) => (
-          <div key={category}>
+        {Categories.map((category: string, i) => (
+          <div key={i}>
             {category !== 'OTHER' && (
               <h2 id={`category-${category}`}>{category}</h2>
             )}
