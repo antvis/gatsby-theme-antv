@@ -10,6 +10,8 @@ import { groupBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
 import { useMedia } from 'react-use';
+import RehypeReact from 'rehype-react';
+import Swatch from '../components/Swatch';
 import Article from '../components/Article';
 import ReadingTime from '../components/ReadingTime';
 import NavigatorBanner from '../components/NavigatorBanner';
@@ -138,7 +140,7 @@ export default function Template({
   }
   const {
     frontmatter,
-    html,
+    htmlAst,
     tableOfContents,
     fields: { slug, readingTime },
     parent: { relativePath },
@@ -223,6 +225,13 @@ export default function Template({
     </Drawer>
   );
 
+  const renderAst = new RehypeReact({
+    createElement: React.createElement,
+    components: {
+      swatch: Swatch,
+    },
+  }).Compiler;
+
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -257,11 +266,7 @@ export default function Template({
             <div className={styles.meta}>
               <ReadingTime readingTime={readingTime} />
             </div>
-            <div
-              /* eslint-disable-next-line react/no-danger */
-              dangerouslySetInnerHTML={{ __html: html }}
-              className={styles.content}
-            />
+            <div className={styles.content}>{renderAst(htmlAst)}</div>
             <div>
               <NavigatorBanner type="prev" post={prev} />
               <NavigatorBanner type="next" post={next} />
@@ -291,7 +296,7 @@ export const pageQuery = graphql`
       pathPrefix
     }
     markdownRemark(fields: { slug: { eq: $path } }) {
-      html
+      htmlAst
       tableOfContents
       fields {
         slug
