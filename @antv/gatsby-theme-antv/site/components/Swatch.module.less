@@ -20,7 +20,7 @@
   }
 
   .panel {
-    padding: 0 14px;
+    padding: 0 24px;
     background-color: #f9f9fb;
     border-radius: 4px;
     transition: all 0.3s;
@@ -71,44 +71,52 @@
     }
   }
 
-  &.multiple .colors {
-    width: 50%;
-    margin: 20px 0;
-    min-width: auto;
-
-    .container {
-      position: relative;
+  &.multiple {
+    .panelContainer {
+      width: 748px;
+      max-width: 100%;
       display: inline-block;
-      white-space: nowrap;
-
-      .name {
-        position: absolute;
-        right: 6px;
-        z-index: 2;
-        font-size: 14px;
-        color: #fff;
-        line-height: 1.1;
-        text-align: right;
-      }
     }
 
-    .color {
-      border-radius: 0;
-      margin-right: 0;
-      margin-bottom: 0;
-      height: 70px;
-      width: 34px;
+    .colors {
+      width: 50%;
+      margin: 20px 0;
+      min-width: auto;
 
-      &:hover {
-        margin-top: -8px;
-        height: 78px;
+      .container {
+        position: relative;
+        display: inline-block;
+        white-space: nowrap;
+
+        .name {
+          position: absolute;
+          right: 6px;
+          z-index: 2;
+          font-size: 14px;
+          color: #fff;
+          line-height: 1.1;
+          text-align: right;
+        }
       }
 
-      &.first {
-        border-radius: 4px 0 0 4px;
-      }
-      &.last {
-        border-radius: 0 4px 4px 0;
+      .color {
+        border-radius: 0;
+        margin-right: 0;
+        margin-bottom: 0;
+        height: 60px;
+        width: 38px;
+
+        &:hover {
+          margin-top: -16px;
+          height: 76px;
+        }
+
+        &.first {
+          border-radius: 4px 0 0 4px;
+        }
+        &.last {
+          border-radius: 0 4px 4px 0;
+        }
       }
     }
   }
@@ -168,7 +176,7 @@
   top: 1px;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1280px) {
   .swatch.multiple .colors {
     width: 100%;
   }

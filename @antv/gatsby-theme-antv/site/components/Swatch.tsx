@@ -133,19 +133,21 @@ const Swatch: FC<SwatchProps> = ({
         </div>
       )}
       <div className={styles.panel}>
-        {colorsSwatchArray.map((swatch, i) => (
+        <div className={styles.panelContainer}>
+          {colorsSwatchArray.map((swatch, i) => (
+            <Colors
+              key={i}
+              name={colorNamesArray[i]}
+              colorStyle={colorStyle}
+              colors={swatch}
+            />
+          ))}
           <Colors
-            key={i}
-            name={colorNamesArray[i]}
+            names={colorNamesArray}
             colorStyle={colorStyle}
-            colors={swatch}
+            colors={colorsArray}
           />
-        ))}
-        <Colors
-          names={colorNamesArray}
-          colorStyle={colorStyle}
-          colors={colorsArray}
-        />
+        </div>
       </div>
     </div>
   );
