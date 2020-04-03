@@ -42,6 +42,7 @@
       display: inline-block;
       cursor: pointer;
       transition: all 0.3s;
+      box-shadow: 0 0 0 0 currentColor;
       overflow: hidden;
       color: #fff;
       text-align: right;
@@ -55,19 +56,19 @@
       }
 
       &:hover {
-        margin-top: -8px;
-        height: 58px;
+        box-shadow: 0 -8px 0 0 currentColor;
       }
     }
 
     .name {
       position: absolute;
-      bottom: 6px;
-      right: 6px;
-      width: calc(100% - 6px);
-      transform: scale(10 / 12);
+      bottom: 4px;
+      right: 4px;
+      width: 100%;
+      transform: scale(0.8);
       transform-origin: right bottom;
       line-height: 1.1;
+      color: #fff;
     }
   }
 
@@ -106,11 +107,6 @@
         height: 60px;
         width: 38px;
 
-        &:hover {
-          margin-top: -16px;
-          height: 76px;
-        }
-
         &.first {
           border-radius: 4px 0 0 4px;
         }
@@ -144,6 +140,7 @@
           transform: scale(1.1);
           position: relative;
           z-index: 1;
+          box-shadow: none;
         }
 
         &.first {

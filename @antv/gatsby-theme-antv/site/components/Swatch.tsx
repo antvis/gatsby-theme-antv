@@ -51,6 +51,7 @@ const Colors: FC<ColorsProps> = ({
             style={{
               ...colorStyle,
               backgroundColor: color,
+              color,
             }}
             key={i}
             onClick={() => {
