@@ -31,8 +31,9 @@
   .colors {
     display: inline-block;
     font-size: 0;
-    margin: 20px 0;
+    margin: 20px 0 4px 0;
     position: relative;
+    min-width: calc(100% - 32px);
 
     .color {
       height: 50px;
@@ -46,6 +47,8 @@
       text-align: right;
       position: relative;
       margin-right: 16px;
+      margin-bottom: 16px;
+      font-size: 12px;
 
       &:last-child {
         margin-right: 0;
@@ -62,7 +65,6 @@
       bottom: 6px;
       right: 6px;
       width: calc(100% - 6px);
-      font-size: 12px;
       transform: scale(10 / 12);
       transform-origin: right bottom;
       line-height: 1.1;
@@ -71,6 +73,8 @@
 
   &.multiple .colors {
     width: 50%;
+    margin: 20px 0;
+    min-width: auto;
 
     .container {
       position: relative;
@@ -91,6 +95,7 @@
     .color {
       border-radius: 0;
       margin-right: 0;
+      margin-bottom: 0;
       height: 70px;
       width: 34px;
 
@@ -161,4 +166,14 @@
   display: inline-block;
   position: relative;
   top: 1px;
+}
+
+@media (max-width: 1200px) {
+  .swatch.multiple .colors {
+    width: 100%;
+  }
+
+  .swatch.multiple.sudoku .colors {
+    width: 50%;
+  }
 }

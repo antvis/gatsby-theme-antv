@@ -69,7 +69,7 @@ const Colors: FC<ColorsProps> = ({
           >
             <span
               className={styles.name}
-              style={{ display: colors.length > 10 ? 'hidden' : '' }}
+              style={{ display: colors.length > 10 ? 'none' : '' }}
             >
               {names[i]}
             </span>
@@ -99,11 +99,13 @@ const Swatch: FC<SwatchProps> = ({
   } else {
     colorsArray = colors.split(',');
     if (colorsArray.length < 5) {
-      colorStyle.width = `calc(${100 / colorsArray.length}% - 120px)`;
-      colorStyle.minWidth = 150;
+      colorStyle.width = `calc(${100 / colorsArray.length}% - 150px)`;
+      colorStyle.minWidth = 100;
+      colorStyle.fontSize = 16;
     } else if (colorsArray.length > 10) {
       colorStyle.width = 25;
       colorStyle.height = 25;
+      colorStyle.marginRight = 8;
     }
   }
 
