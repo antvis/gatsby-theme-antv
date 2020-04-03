@@ -161,7 +161,7 @@
     margin-bottom: 1.2em;
   }
 
-  .content {
+  .contentReset() {
     min-height: 400px;
 
     > img,
@@ -173,6 +173,13 @@
     > br,
     > p > br {
       clear: both;
+    }
+  }
+
+  .content {
+    .contentReset;
+    > div {
+      .contentReset;
     }
   }
 }
