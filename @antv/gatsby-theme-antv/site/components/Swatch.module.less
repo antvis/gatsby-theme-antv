@@ -62,13 +62,21 @@
 
     .name {
       position: absolute;
-      bottom: 4px;
+      bottom: 6px;
       right: 4px;
       width: 100%;
       transform: scale(0.8);
       transform-origin: right bottom;
       line-height: 1.1;
       color: #fff;
+    }
+  }
+
+  &.less {
+    .name {
+      right: 9px;
+      bottom: 9px;
+      font-size: 15px;
     }
   }
 
@@ -91,9 +99,11 @@
 
         .name {
           position: absolute;
-          right: 6px;
+          right: 10px;
+          bottom: 10px;
           z-index: 2;
-          font-size: 14px;
+          font-size: 15px;
+          line-height: 24px;
           color: #fff;
           line-height: 1.1;
           text-align: right;

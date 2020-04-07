@@ -117,6 +117,7 @@ const Swatch: FC<SwatchProps> = ({
         [styles.dark]: !!dark,
         [styles.multiple]: colors.includes('|'),
         [styles.sudoku]: grid === 'sudoku',
+        [styles.less]: colors.split(',').length < 5,
       })}
     >
       {(title || darkmode) && (
