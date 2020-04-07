@@ -14,7 +14,7 @@ redirect_from:
 
 G2 是一套基于可视化编码的图形语法，以数据驱动，具有高度的易用性和扩展性，用户无需关注各种繁琐的实现细节，一条语句即可构建出各种各样的可交互的统计图表。
 
-<swatch title="色板" colors="#F4664A,#30BF78,#FAAD14" colorNames="Red,Green,Yellow"></swatch>
+<swatch colors="#F4664A,#30BF78,#FAAD14" colorNames="Red,Green,Yellow"></swatch>
 
 <swatch title="色板" colors="#227BA2,#22BAED,#8AD4FF,#C9E9FF,#F2EAEA,#FFC5AC,#FF895D,#F3470D,#A4300C,#5B8FF9" colorNames="Geek Blue,Geek Blue,Geek Blue"></swatch>
 

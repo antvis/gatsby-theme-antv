@@ -101,7 +101,8 @@ const Swatch: FC<SwatchProps> = ({
     colorsArray = colors.split(',');
     if (colorsArray.length < 5) {
       colorStyle.width = `calc(${100 / colorsArray.length}% - 150px)`;
-      colorStyle.minWidth = 100;
+      colorStyle.minWidth = 120;
+      colorStyle.marginRight = 24;
       colorStyle.fontSize = 16;
     } else if (colorsArray.length > 10) {
       colorStyle.width = 25;
@@ -120,7 +121,7 @@ const Swatch: FC<SwatchProps> = ({
     >
       {(title || darkmode) && (
         <div className={styles.heading}>
-          {title && <h4>{title}</h4>}
+          <h4>{title}</h4>
           {darkmode && (
             <div>
               <span className={styles.darkmode}>Dark Mode</span>
