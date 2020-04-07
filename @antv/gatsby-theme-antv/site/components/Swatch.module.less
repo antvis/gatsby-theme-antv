@@ -120,6 +120,7 @@
         &.first {
           border-radius: 4px 0 0 4px;
         }
+
         &.last {
           border-radius: 0 4px 4px 0;
         }
@@ -169,6 +170,13 @@
           border-radius: 0 0 4px 0;
         }
       }
+    }
+  }
+
+  &.multiple:not(.sudoku) {
+    .color:hover {
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
     }
   }
 }
