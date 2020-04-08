@@ -102,21 +102,25 @@ const Swatch: FC<SwatchProps> = ({
     if (colorsArray.length < 5) {
       colorStyle.width = `calc(${100 / colorsArray.length}% - 150px)`;
       colorStyle.minWidth = 120;
-      colorStyle.marginRight = 24;
+      colorStyle.marginLeft = 12;
+      colorStyle.marginRight = 12;
       colorStyle.fontSize = 16;
     } else if (colorsArray.length > 10) {
       colorStyle.width = 25;
       colorStyle.height = 25;
-      colorStyle.marginRight = 8;
+      colorStyle.marginLeft = 4;
+      colorStyle.marginRight = 4;
     }
   }
+
+  const isSudoKu = grid === 'sudoku';
 
   return (
     <div
       className={classNames(styles.swatch, {
         [styles.dark]: !!dark,
         [styles.multiple]: colors.includes('|'),
-        [styles.sudoku]: grid === 'sudoku',
+        [styles.sudoku]: isSudoKu,
         [styles.less]: colors.split(',').length < 5,
       })}
     >
@@ -141,7 +145,10 @@ const Swatch: FC<SwatchProps> = ({
             <Colors
               key={i}
               name={colorNamesArray[i]}
-              colorStyle={colorStyle}
+              colorStyle={{
+                ...colorStyle,
+                maxWidth: isSudoKu ? undefined : `${100 / swatch.length}%`,
+              }}
               colors={swatch}
             />
           ))}
