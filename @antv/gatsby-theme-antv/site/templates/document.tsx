@@ -45,6 +45,11 @@ const getDocument = (docs: any[], slug = '', level: number) => {
   return docs.find(doc => doc.slug === slug);
 };
 
+// https://github.com/antvis/gatsby-theme-antv/issues/114
+const parseTableOfContents = (tableOfContents: string) => {
+  return tableOfContents.replace(/\/#/g, '#');
+};
+
 interface MenuData {
   type: 'SubMenu' | 'Item';
   title: string;
@@ -246,7 +251,9 @@ export default function Template({
             <div
               className={styles.toc}
               /* eslint-disable-next-line react/no-danger */
-              dangerouslySetInnerHTML={{ __html: tableOfContents }}
+              dangerouslySetInnerHTML={{
+                __html: parseTableOfContents(tableOfContents),
+              }}
             />
           </Affix>
           <div className={styles.main}>
