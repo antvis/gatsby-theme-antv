@@ -14407,10 +14407,10 @@ react-test-renderer@^16.9.0:
     react-is "^16.8.6"
     scheduler "^0.19.1"
 
-react-use@^13.8.0:
-  version "13.27.1"
-  resolved "https://registry.npmjs.org/react-use/-/react-use-13.27.1.tgz#e2ae2b708dafc7893c4772628801589aab9de370"
-  integrity sha512-bAwdqDMXs5lovEanXnL1izledfrPEUUv1afoTVB59eUiYcDyKul+M/dT/2WcgHjoY/R6QlrTcZoW4R7ifwvBfw==
+react-use@^14.0.0:
+  version "14.0.0"
+  resolved "https://registry.npm.taobao.org/react-use/download/react-use-14.0.0.tgz?cache=0&sync_timestamp=1585992322993&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Freact-use%2Fdownload%2Freact-use-14.0.0.tgz#a46d055346bb8728b966f50d665ce22aa535e74c"
+  integrity sha1-pG0FU0a7hyi5ZvUNZlziKqU150w=
   dependencies:
     "@types/js-cookie" "2.2.5"
     "@xobotyi/scrollbar-width" "1.9.5"
