@@ -14294,10 +14294,10 @@ react-error-overlay@^6.0.3:
   resolved "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.7.tgz#1dcfb459ab671d53f660a991513cb2f0a0553108"
   integrity sha512-TAv1KJFh3RhqxNvhzxj6LeT5NWklP6rDr2a0jaTfsZ5wSZWHOGeqQyejUp3xxLfPt2UpyJEcVQB/zyPcmonNFA==
 
-react-fast-compare@^2.0.2:
+react-fast-compare@^2.0.4:
   version "2.0.4"
-  resolved "https://registry.npmjs.org/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
-  integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
+  resolved "https://registry.npm.taobao.org/react-fast-compare/download/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
+  integrity sha1-6EtNRVsP7BE+BALDKTUnFRlvgfk=
 
 react-github-button@^0.1.11:
   version "0.1.11"
@@ -14306,15 +14306,15 @@ react-github-button@^0.1.11:
   dependencies:
     prop-types "^15.5.10"
 
-react-helmet@^5.2.1:
-  version "5.2.1"
-  resolved "https://registry.npmjs.org/react-helmet/-/react-helmet-5.2.1.tgz#16a7192fdd09951f8e0fe22ffccbf9bb3e591ffa"
-  integrity sha512-CnwD822LU8NDBnjCpZ4ySh8L6HYyngViTZLfBBb3NjtrpN8m49clH8hidHouq20I51Y6TpCTISCBbqiY5GamwA==
+react-helmet@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.npm.taobao.org/react-helmet/download/react-helmet-6.0.0.tgz#fcb93ebaca3ba562a686eb2f1f9d46093d83b5f8"
+  integrity sha1-/Lk+uso7pWKmhusvH51GCT2Dtfg=
   dependencies:
     object-assign "^4.1.1"
-    prop-types "^15.5.4"
-    react-fast-compare "^2.0.2"
-    react-side-effect "^1.1.0"
+    prop-types "^15.7.2"
+    react-fast-compare "^2.0.4"
+    react-side-effect "^2.1.0"
 
 react-hot-loader@^4.12.20:
   version "4.12.20"
@@ -14363,12 +14363,10 @@ react-refresh@^0.7.0:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.7.2.tgz#f30978d21eb8cac6e2f2fde056a7d04f6844dd50"
   integrity sha512-u5l7fhAJXecWUJzVxzMRU2Zvw8m4QmDNHlTrT5uo3KBlYBhmChd7syAakBoay1yIiVhx/8Fi7a6v6kQZfsw81Q==
 
-react-side-effect@^1.1.0:
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/react-side-effect/-/react-side-effect-1.2.0.tgz#0e940c78faba0c73b9b0eba9cd3dda8dfb7e7dae"
-  integrity sha512-v1ht1aHg5k/thv56DRcjw+WtojuuDHFUgGfc+bFHOWsF4ZK6C2V57DO0Or0GPsg6+LSTE0M6Ry/gfzhzSwbc5w==
-  dependencies:
-    shallowequal "^1.0.1"
+react-side-effect@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npm.taobao.org/react-side-effect/download/react-side-effect-2.1.0.tgz#1ce4a8b4445168c487ed24dab886421f74d380d3"
+  integrity sha1-HOSotERRaMSH7STauIZCH3TTgNM=
 
 react-slick@^0.25.2:
   version "0.25.2"
@@ -15521,7 +15519,7 @@ shallow-compare@^1.2.2:
   resolved "https://registry.npmjs.org/shallow-compare/-/shallow-compare-1.2.2.tgz#fa4794627bf455a47c4f56881d8a6132d581ffdb"
   integrity sha512-LUMFi+RppPlrHzbqmFnINTrazo0lPNwhcgzuAXVVcfy/mqPDrQmHAyz5bvV0gDAuRFrk804V0HpQ6u9sZ0tBeg==
 
-shallowequal@^1.0.1, shallowequal@^1.0.2, shallowequal@^1.1.0:
+shallowequal@^1.0.2, shallowequal@^1.1.0:
   version "1.1.0"
   resolved "https://registry.npmjs.org/shallowequal/-/shallowequal-1.1.0.tgz#188d521de95b9087404fd4dcb68b13df0ae4e7f8"
   integrity sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==
