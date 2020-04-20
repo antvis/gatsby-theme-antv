@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useStaticQuery, graphql, withPrefix, Link } from 'gatsby';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
@@ -124,6 +124,12 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
       resources,
     });
   }
+
+  useEffect(() => {
+    if (i18n.language !== currentLangKey) {
+      i18n.changeLanguage(currentLangKey);
+    }
+  }, [currentLangKey]);
 
   if (
     location.pathname === pathPrefix ||
