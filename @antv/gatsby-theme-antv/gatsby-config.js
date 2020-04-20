@@ -110,8 +110,6 @@ module.exports = ({
           ],
         },
       },
-      `gatsby-plugin-sharp`,
-      `gatsby-transformer-sharp`,
       pwa ? `gatsby-plugin-offline` : `gatsby-plugin-remove-serviceworker`,
       {
         resolve: `gatsby-plugin-manifest`,
