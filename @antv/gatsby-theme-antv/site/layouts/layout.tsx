@@ -113,9 +113,11 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     path === `/${currentLangKey}` ||
     path === `/${currentLangKey}/`;
 
-  i18n.init({
-    lng: currentLangKey,
-  });
+  if (!i18n.options.lng) {
+    i18n.init({
+      lng: currentLangKey,
+    });
+  }
 
   if (!i18n.options.resources) {
     i18n.init({
