@@ -3,7 +3,7 @@ import { useStaticQuery, graphql, withPrefix, Link } from 'gatsby';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getCurrentLangKey } from 'ptz-i18n';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import Seo from '../components/Seo';
 import Header from '../components/Header';
 import PageLoading from '../components/PageLoading';
