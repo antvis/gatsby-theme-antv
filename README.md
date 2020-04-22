@@ -1,6 +1,6 @@
 <div align="center">
 
-<img width="1295" alt="图片" src="https://user-images.githubusercontent.com/507615/69481549-49b39d00-0e4d-11ea-87fd-1e7741f4bdf1.png">
+<img alt="screenshot" src="https://user-images.githubusercontent.com/507615/79978554-b00f1b00-84d2-11ea-8b18-8d0b2828aefb.png">
 
 # Gatsby Theme for AntV ⚛
 
