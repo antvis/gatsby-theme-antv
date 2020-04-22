@@ -113,7 +113,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
     path === `/${currentLangKey}` ||
     path === `/${currentLangKey}/`;
 
-  if (!i18n.options.lng) {
+  if (!i18n.options.lng || process.env.NODE_ENV === 'production') {
     i18n.init({
       lng: currentLangKey,
     });
