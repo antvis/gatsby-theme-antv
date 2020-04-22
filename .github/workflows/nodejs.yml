@@ -18,6 +18,6 @@ jobs:
           yarn lint
           yarn test
           yarn tsc
-          yarn workspace example build
+          yarn run build
         env:
           CI: true
