@@ -140,7 +140,10 @@ insertCss(`,
         styleActiveLine: true, // 当前行背景高亮
         matchBrackets: true, // 括号匹配
         autoCloseBrackets: true,
+        lineNumbers: true,
         autofocus: false,
+        foldGutter: true,
+        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
         matchTags: {
           bothTags: true,
         },
@@ -180,7 +183,7 @@ insertCss(`,
     <div className={styles.playground} ref={fullscreenNode}>
       <SplitPane
         split={isWide ? 'vertical' : 'horizontal'}
-        defaultSize="66%"
+        defaultSize="62%"
         minSize={100}
       >
         <div
