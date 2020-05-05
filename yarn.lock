@@ -6920,12 +6920,12 @@ gatsby-plugin-antd@^2.0.2:
     antd "^4.0.0"
     babel-plugin-import "^1.13.0"
 
-gatsby-plugin-catch-links@^2.1.12:
-  version "2.2.3"
-  resolved "https://registry.npmjs.org/gatsby-plugin-catch-links/-/gatsby-plugin-catch-links-2.2.3.tgz#f6fe2eada9ca0a03688c895cec585084656f8870"
-  integrity sha512-EHacyfSRF6wgxxJhpNgr1P+0IAEZ/GghWu3rw7XsLEfXJGYqHAJEOR8+lDsMP9TxMMjGRfomYO+3cwqswxMkiQ==
+gatsby-plugin-catch-links@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/gatsby-plugin-catch-links/-/gatsby-plugin-catch-links-2.3.0.tgz#75cdee9c62c6948b0d509a83c6876cea3a54c53b"
+  integrity sha512-Neoa6ijOG0+EeMH1SudOX9s8qKimguOmtxPgbr9WvbXEbY1zjz4Pi3iE3Np1sLodXTiHdjlPuHewv3NUnaFflg==
   dependencies:
-    "@babel/runtime" "^7.8.7"
+    "@babel/runtime" "^7.9.2"
     escape-string-regexp "^1.0.5"
 
 gatsby-plugin-cname@^1.0.0:
