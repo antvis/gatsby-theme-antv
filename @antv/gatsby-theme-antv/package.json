@@ -17,7 +17,7 @@
     "url": "https://github.com/antvis/gatsby-theme-antv/issues"
   },
   "dependencies": {
-    "@ant-design/icons": "^4.0.2",
+    "@ant-design/icons": "^4.1.0",
     "@babel/plugin-transform-modules-umd": "^7.2.0",
     "@babel/preset-env": "^7.6.3",
     "@babel/preset-react": "^7.6.3",
