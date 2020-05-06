@@ -6115,10 +6115,10 @@ eslint-plugin-import@^2.18.2, eslint-plugin-import@^2.20.1:
     read-pkg-up "^2.0.0"
     resolve "^1.12.0"
 
-eslint-plugin-jest@^23.0.3:
-  version "23.8.2"
-  resolved "https://registry.npmjs.org/eslint-plugin-jest/-/eslint-plugin-jest-23.8.2.tgz#6f28b41c67ef635f803ebd9e168f6b73858eb8d4"
-  integrity sha512-xwbnvOsotSV27MtAe7s8uGWOori0nUsrXh2f1EnpmXua8sDfY6VZhHAhHg2sqK7HBNycRQExF074XSZ7DvfoFg==
+eslint-plugin-jest@^23.9.0:
+  version "23.9.0"
+  resolved "https://registry.npmjs.org/eslint-plugin-jest/-/eslint-plugin-jest-23.9.0.tgz#7f4932eceb7ca487d171898fb9d55c05e6b36701"
+  integrity sha512-8mt5xJQIFh33W5nE7vCikkDTE4saTo08V91KjU6yI5sLQ9e8Jkp1OXkWJoIHLheFqY5OXIZdAjZmNYHSJ3IpzQ==
   dependencies:
     "@typescript-eslint/experimental-utils" "^2.5.0"
 
@@ -7510,10 +7510,10 @@ gatsby-telemetry@^1.2.5:
     stack-utils "1.0.2"
     uuid "3.4.0"
 
-gatsby-transformer-remark@2.8.6:
-  version "2.8.6"
-  resolved "https://registry.npmjs.org/gatsby-transformer-remark/-/gatsby-transformer-remark-2.8.6.tgz#aeb276bf0f8590b3eb096db496af515751d51c58"
-  integrity sha512-yy9m8lTGsEGwCjkdZydHvrUXfjnbnmEdqRCcHczpBHv2Pxd0nkEoHdfQw5awYTngiAY7Y3BS94wInXAaH7QqXA==
+gatsby-transformer-remark@^2.8.7:
+  version "2.8.7"
+  resolved "https://registry.npmjs.org/gatsby-transformer-remark/-/gatsby-transformer-remark-2.8.7.tgz#2b81d8a9672f91673ba890896459a0515cae5925"
+  integrity sha512-AaBJyQipTWFt28cmZEcrTctGBw86gbCidhyamTXpOfPQago3nX2NjmSfdEhUr5HAZwflfy/GIQhGTzo5BZ556w==
   dependencies:
     "@babel/runtime" "^7.9.6"
     bluebird "^3.7.2"
