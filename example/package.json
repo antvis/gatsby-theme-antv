@@ -17,7 +17,7 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
-    "@antv/g2": "^3.5.9",
+    "@antv/g2": "^4.0.7",
     "@antv/gatsby-theme-antv": "*",
     "@types/react": "^16.9.2",
     "@types/react-dom": "^16.9.0",
