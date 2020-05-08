@@ -19,7 +19,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.1.0",
     "@babel/plugin-transform-modules-umd": "^7.2.0",
-    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
     "@babel/standalone": "^7.6.4",
