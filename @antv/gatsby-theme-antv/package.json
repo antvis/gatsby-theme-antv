@@ -58,7 +58,7 @@
     "gatsby-plugin-meta-redirect": "^1.1.1",
     "gatsby-plugin-nprogress": "^2.1.12",
     "gatsby-plugin-offline": "^3.0.22",
-    "gatsby-plugin-page-creator": "^2.1.25",
+    "gatsby-plugin-page-creator": "^2.3.1",
     "gatsby-plugin-react-helmet": "^3.3.1",
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-remove-serviceworker": "^1.0.0",
