@@ -102,7 +102,7 @@
     "react-test-renderer": "^16.9.0",
     "react-use": "^14.2.0",
     "rehype-react": "^5.0.0",
-    "release-it": "^13.0.0",
+    "release-it": "^13.5.8",
     "shallowequal": "^1.1.0",
     "slash": "^3.0.0",
     "slick-carousel": "^1.8.1",
