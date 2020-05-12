@@ -97,7 +97,7 @@
     "react-github-button": "^0.1.11",
     "react-helmet": "^6.0.0",
     "react-i18next": "^11.4.0",
-    "react-slick": "^0.25.2",
+    "react-slick": "^0.26.1",
     "react-split-pane": "^0.1.87",
     "react-test-renderer": "^16.9.0",
     "react-use": "^14.2.0",
