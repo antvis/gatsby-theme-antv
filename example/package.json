@@ -20,7 +20,7 @@
     "@antv/g2": "^4.0.7",
     "@antv/gatsby-theme-antv": "*",
     "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.7",
+    "@types/react-dom": "^16.9.8",
     "gatsby": "^2.15.34",
     "ptz-i18n": "^1.0.0",
     "react": "^16.10.2",
