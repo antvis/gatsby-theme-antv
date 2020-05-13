@@ -7210,12 +7210,12 @@ gatsby-plugin-remove-serviceworker@^1.0.0:
   resolved "https://registry.npmjs.org/gatsby-plugin-remove-serviceworker/-/gatsby-plugin-remove-serviceworker-1.0.0.tgz#9fb433bc8bd766e14e1d3711c4ac6f051e1dff7c"
   integrity sha1-n7QzvIvXZuFOHTcRxKxvBR4d/3w=
 
-gatsby-plugin-remove-trailing-slashes@^2.1.9:
-  version "2.2.3"
-  resolved "https://registry.npmjs.org/gatsby-plugin-remove-trailing-slashes/-/gatsby-plugin-remove-trailing-slashes-2.2.3.tgz#1fe048ed4e20fa3f35a893672799d31a99a8f304"
-  integrity sha512-3m1JT4Hk4vLVcHElE3Oj2k38QC+Nh1e+dsNRAdNov9hgjNSmP6/xhXqDCbi7fpAu0vOwoP5HFe2XAbCYtf74rw==
+gatsby-plugin-remove-trailing-slashes@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.npmjs.org/gatsby-plugin-remove-trailing-slashes/-/gatsby-plugin-remove-trailing-slashes-2.3.2.tgz#5a072cf2b5aed6ad94256e961cd18e2c3011f48a"
+  integrity sha512-JAv8mOuPhZUeeKBFU66wtc4LALQU7gJv3TGcEgE3FUFqGYR6Z7sWQr69EM8yrjjA94lEvRf9aqIIj1XNziiFxA==
   dependencies:
-    "@babel/runtime" "^7.8.7"
+    "@babel/runtime" "^7.9.6"
 
 gatsby-plugin-sitemap@^2.2.21:
   version "2.3.5"
