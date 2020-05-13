@@ -7157,12 +7157,12 @@ gatsby-plugin-meta-redirect@^1.1.1:
   dependencies:
     fs-extra "^7.0.0"
 
-gatsby-plugin-nprogress@^2.1.12:
-  version "2.2.3"
-  resolved "https://registry.npmjs.org/gatsby-plugin-nprogress/-/gatsby-plugin-nprogress-2.2.3.tgz#089929453bd9ad197abde4234a8e34f09eec8e7b"
-  integrity sha512-jv561kIkl/8Hcq2YFUhY891cgyXSFX8NxI24R53sDEKo4qlFU/TPWKa1pxtzRkiBUvFlTZCYM0pJ746w8rXBew==
+gatsby-plugin-nprogress@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.npmjs.org/gatsby-plugin-nprogress/-/gatsby-plugin-nprogress-2.3.1.tgz#36fe27e5cca3dda9a1555e2cb75070157f8cebf4"
+  integrity sha512-K9msO/oK0AMQ8pM/++FNey8QwZL+tlwB03cdhxNXumMHwiqqHF28DT5MB6XWgql7SBFMYwvZUA7e8wH+jhKKVg==
   dependencies:
-    "@babel/runtime" "^7.8.7"
+    "@babel/runtime" "^7.9.6"
     nprogress "^0.2.0"
 
 gatsby-plugin-offline@^3.0.22:
