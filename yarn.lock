@@ -13234,7 +13234,15 @@ rc-dialog@~7.6.0:
     rc-animate "2.x"
     rc-util "^4.16.1"
 
-rc-drawer@^3.0.2, rc-drawer@~3.1.1:
+rc-drawer@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/rc-drawer/-/rc-drawer-3.2.0.tgz#6d9bba2fb1647942840dad61f36b9c88b753f565"
+  integrity sha512-ekt5K2pHIQihByupUooJ7kVmpmAyHrGy2T9h+AlPwhIL9xemK+RVRq3RbOv1V03BqNPCDx4sWV5sWiAhGMUctw==
+  dependencies:
+    classnames "^2.2.6"
+    rc-util "^4.16.1"
+
+rc-drawer@~3.1.1:
   version "3.1.3"
   resolved "https://registry.npmjs.org/rc-drawer/-/rc-drawer-3.1.3.tgz#cbcb04d4c07f0b66f2ece11d847f4a1bd80ea0b7"
   integrity sha512-2z+RdxmzXyZde/1OhVMfDR1e/GBswFeWSZ7FS3Fdd0qhgVdpV1wSzILzzxRaT481ItB5hOV+e8pZT07vdJE8kg==
