@@ -70,7 +70,7 @@
     "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-prismjs": "^3.5.1",
     "gatsby-remark-reading-time": "^1.0.1",
-    "gatsby-source-filesystem": "^2.3.1",
+    "gatsby-source-filesystem": "^2.3.3",
     "gatsby-source-github": "^0.0.2",
     "gatsby-transformer-remark": "^2.8.7",
     "git-url-parse": "^11.1.2",
