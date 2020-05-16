@@ -38,7 +38,7 @@
     "@types/react-slick": "^0.23.4",
     "@types/rehype-react": "^4.0.0",
     "@types/shallowequal": "^1.1.1",
-    "antd": "^4.0.0",
+    "antd": "^4.2.2",
     "babel-preset-gatsby": "^0.4.1",
     "classnames": "^2.2.6",
     "codemirror": "^5.49.2",
