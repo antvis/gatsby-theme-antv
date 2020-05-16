@@ -72,7 +72,7 @@
     "gatsby-remark-reading-time": "^1.0.1",
     "gatsby-source-filesystem": "^2.3.1",
     "gatsby-source-github": "^0.0.2",
-    "gatsby-transformer-remark": "^2.8.7",
+    "gatsby-transformer-remark": "^2.8.8",
     "git-url-parse": "^11.1.2",
     "i18next": "^19.4.4",
     "indent-string": "^4.0.0",
