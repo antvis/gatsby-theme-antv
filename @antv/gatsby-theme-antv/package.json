@@ -63,7 +63,7 @@
     "gatsby-plugin-react-svg": "^3.0.0",
     "gatsby-plugin-remove-serviceworker": "^1.0.0",
     "gatsby-plugin-remove-trailing-slashes": "^2.3.2",
-    "gatsby-plugin-sitemap": "^2.2.21",
+    "gatsby-plugin-sitemap": "^2.4.2",
     "gatsby-plugin-typescript": "^2.4.2",
     "gatsby-redirect-from": "^0.2.1",
     "gatsby-remark-autolink-headers": "^2.3.2",
