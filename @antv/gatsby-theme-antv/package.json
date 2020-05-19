@@ -84,7 +84,7 @@
     "mkdirp": "^1.0.3",
     "normalize.css": "^8.0.1",
     "parse-github-url": "^1.0.2",
-    "prettier": "^2.0.1",
+    "prettier": "^2.0.5",
     "pretty-quick": "^2.0.0",
     "prism-themes": "^1.2.0",
     "prismjs": "^1.17.1",

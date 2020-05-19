@@ -16,7 +16,7 @@
   "devDependencies": {
     "gh-pages": "^2.1.1",
     "husky": "^4.0.0",
-    "prettier": "^1.18.2",
+    "prettier": "^2.0.5",
     "pretty-quick": "^2.0.0"
   },
   "scripts": {
