@@ -3,6 +3,7 @@ import { Link } from 'gatsby';
 import classNames from 'classnames';
 import shallowequal from 'shallowequal';
 import { useTranslation } from 'react-i18next';
+import ExternalLinkIcon from './ExternalLinkIcon';
 import styles from './Header.module.less';
 
 const getDocument = (navs: Nav[], slug = '') =>
@@ -36,7 +37,9 @@ const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
   return (
     <>
       {navs.map((nav: Nav) => {
-        const href = `/${i18n.language}/${nav.slug}`;
+        const href = nav.slug.startsWith('http')
+          ? nav.slug
+          : `/${i18n.language}/${nav.slug}`;
         const title = capitalize(
           getDocument(navs, nav.slug).title[i18n.language],
         );
@@ -50,9 +53,10 @@ const NavMenuItems: React.FC<NavMenuItemsProps> = ({ navs = [], path }) => {
         });
         return (
           <li key={title} className={className}>
-            {nav.target === '_blank' ? (
+            {nav.target === '_blank' || href.startsWith('http') ? (
               <a href={href} target="_blank" rel="noopener noreferrer">
                 {title}
+                <ExternalLinkIcon />
               </a>
             ) : (
               <Link to={href}>{title}</Link>

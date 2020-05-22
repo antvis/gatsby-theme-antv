@@ -10,11 +10,11 @@ import GitUrlParse from 'git-url-parse';
 import Search, { SearchProps } from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
+import ExternalLinkIcon from './ExternalLinkIcon';
 import { getChinaMirrorHost } from '../utils';
 import { useLogoLink } from '../hooks';
 import AntvLogo from '../images/antv.svg';
 import TranslationIcon from '../images/translation.svg';
-import ExternalLink from '../images/external-link.svg';
 import styles from './Header.module.less';
 
 const { Option } = Select;
@@ -273,9 +273,7 @@ const Header: React.FC<HeaderProps> = ({
               }}
             >
               {t('国内镜像')}
-              <i className={styles.export}>
-                <ExternalLink />
-              </i>
+              <ExternalLinkIcon />
             </a>
           </li>
         </Popover>
