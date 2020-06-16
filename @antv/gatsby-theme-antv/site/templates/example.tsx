@@ -19,6 +19,7 @@ import PlayGrounds from '../components/PlayGrounds';
 import NavigatorBanner from '../components/NavigatorBanner';
 import { capitalize } from '../utils';
 import { usePrevAndNext } from '../hooks';
+import { getGithubSourceUrl } from './document';
 import styles from './markdown.module.less';
 
 const MenuIcon = createFromIconfontCN({
@@ -74,7 +75,7 @@ const getMenuItemLocaleKey = (slug = '') => {
   const slugPieces = slug.split('/');
   const menuItemLocaleKey = slugPieces
     .slice(slugPieces.indexOf('examples') + 1)
-    .filter(key => key)
+    .filter((key) => key)
     .join('/');
   return menuItemLocaleKey;
 };
@@ -91,8 +92,8 @@ const getExampleOrder = ({
   };
 }): number => {
   const key = getMenuItemLocaleKey(groupedEdgeKey);
-  if (examples.find(item => item.slug === key)) {
-    return (examples.findIndex(item => item.slug === key) || 0) + 100;
+  if (examples.find((item) => item.slug === key)) {
+    return (examples.findIndex((item) => item.slug === key) || 0) + 100;
   }
   if (!groupedEdges[groupedEdgeKey] && !groupedEdges[groupedEdgeKey].length) {
     return 0;
@@ -157,19 +158,13 @@ export default function Template({
     }: any) => {
       // API.md and deisgn.md
       if (slugString.endsWith('/API') || slugString.endsWith('/design')) {
-        return slugString
-          .split('/')
-          .slice(0, -2)
-          .join('/');
+        return slugString.split('/').slice(0, -2).join('/');
       }
       // index.md
-      return slugString
-        .split('/')
-        .slice(0, -1)
-        .join('/');
+      return slugString.split('/').slice(0, -1).join('/');
     },
   );
-  const defaultOpenKeys = Object.keys(groupedEdges).filter(key =>
+  const defaultOpenKeys = Object.keys(groupedEdges).filter((key) =>
     slug.startsWith(key),
   );
   const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys);
@@ -191,11 +186,11 @@ export default function Template({
       selectedKeys={[slug]}
       style={{ height: '100%' }}
       openKeys={openKeys}
-      onOpenChange={currentOpenKeys => setOpenKeys(currentOpenKeys)}
+      onOpenChange={(currentOpenKeys) => setOpenKeys(currentOpenKeys)}
       forceSubMenuRender
     >
       {Object.keys(groupedEdges)
-        .filter(key => key.startsWith(`/${i18n.language}/`))
+        .filter((key) => key.startsWith(`/${i18n.language}/`))
         .sort((a: string, b: string) => {
           const aOrder = getExampleOrder({
             groupedEdgeKey: a,
@@ -209,7 +204,7 @@ export default function Template({
           });
           return aOrder - bOrder;
         })
-        .map(slugString => {
+        .map((slugString) => {
           const slugPieces = slugString.split('/');
           if (slugPieces.length <= 3) {
             return renderMenuItems(groupedEdges[slugString]);
@@ -259,14 +254,14 @@ export default function Template({
         )
       }
       wrapperClassName={styles.menuDrawer}
-      onChange={open => setDrawOpen(!!open)}
+      onChange={(open) => setDrawOpen(!!open)}
       width={280}
     >
       {menu}
     </Drawer>
   );
 
-  const allDemosInCategory = groupBy(allDemos || [], demo => {
+  const allDemosInCategory = groupBy(allDemos || [], (demo) => {
     if (!demo.postFrontmatter || !demo.postFrontmatter[i18n.language]) {
       return 'OTHER';
     }
@@ -314,7 +309,7 @@ export default function Template({
                 .sort((a, b) => {
                   return (a.order || -1) - (b.order || -1);
                 })
-                .map(demo => {
+                .map((demo) => {
                   let cardTitle;
                   if (typeof demo.title === 'string') {
                     cardTitle = demo.title;
@@ -364,7 +359,11 @@ export default function Template({
         {frontmatter.title}
         <Tooltip title={t('在 GitHub 上编辑')}>
           <a
-            href={`${githubUrl}/edit/master/examples/${relativePath}`}
+            href={getGithubSourceUrl({
+              githubUrl,
+              relativePath,
+              prefix: 'examples',
+            })}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.editOnGtiHubButton}
