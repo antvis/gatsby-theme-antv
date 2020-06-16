@@ -6,7 +6,7 @@
   "homepage": "https://test.antv.vision",
   "repository": {
     "type": "git",
-    "url": "https://github.com/antvis/antvis.github.io"
+    "url": "https://github.com/antvis/gatsby-theme-antv/tree/master/example"
   },
   "bugs": {
     "url": "https://github.com/antvis/antvis.github.io/issues"

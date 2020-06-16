@@ -33,7 +33,7 @@ const getMenuItemLocaleKey = (slug = '') => {
   const slugPieces = slug.split('/');
   const menuItemLocaleKey = slugPieces
     .slice(slugPieces.indexOf('docs') + 1)
-    .filter(key => key)
+    .filter((key) => key)
     .join('/');
   return menuItemLocaleKey;
 };
@@ -42,7 +42,7 @@ const getDocument = (docs: any[], slug = '', level: number) => {
   if (slug.split('/').length !== level + 2) {
     return;
   }
-  return docs.find(doc => doc.slug === slug);
+  return docs.find((doc) => doc.slug === slug);
 };
 
 // https://github.com/antvis/gatsby-theme-antv/issues/114
@@ -131,6 +131,25 @@ const renderMenu = (menuData: MenuData[]) =>
     return null;
   });
 
+export const getGithubSourceUrl = ({
+  githubUrl,
+  relativePath,
+  prefix,
+}: {
+  githubUrl: string;
+  relativePath: string;
+  prefix: string;
+}) => {
+  // https://github.com/antvis/x6/tree/master/packages/x6-sites
+  if (githubUrl.includes('/tree/master/')) {
+    return `${githubUrl.replace(
+      '/tree/master/',
+      '/edit/master/',
+    )}/${prefix}/${relativePath}`;
+  }
+  return `${githubUrl}/edit/master/${prefix}/${relativePath}`;
+};
+
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
   location,
@@ -169,22 +188,18 @@ export default function Template({
       node: {
         fields: { slug: slugString },
       },
-    }: any) =>
-      slugString
-        .split('/')
-        .slice(0, -1)
-        .join('/'),
+    }: any) => slugString.split('/').slice(0, -1).join('/'),
   );
 
   const filterGroupedEdges = {} as any;
   Object.keys(groupedEdges)
-    .filter(key => shouldBeShown(key, pathWithoutPrefix, i18n.language))
+    .filter((key) => shouldBeShown(key, pathWithoutPrefix, i18n.language))
     .forEach((key: string) => {
       filterGroupedEdges[key] = groupedEdges[key];
     });
 
   const [openKeys, setOpenKeys] = useState<string[]>(
-    Object.keys(filterGroupedEdges).filter(key => slug.startsWith(key)),
+    Object.keys(filterGroupedEdges).filter((key) => slug.startsWith(key)),
   );
 
   const menuData = getMenuData({
@@ -199,7 +214,7 @@ export default function Template({
       selectedKeys={[slug]}
       style={{ height: '100%' }}
       openKeys={openKeys}
-      onOpenChange={currentOpenKeys => setOpenKeys(currentOpenKeys)}
+      onOpenChange={(currentOpenKeys) => setOpenKeys(currentOpenKeys)}
       inlineIndent={16}
       forceSubMenuRender
     >
@@ -223,7 +238,7 @@ export default function Template({
         )
       }
       wrapperClassName={styles.menuDrawer}
-      onChange={open => setDrawOpen(!!open)}
+      onChange={(open) => setDrawOpen(!!open)}
       width={280}
     >
       {menu}
@@ -261,7 +276,11 @@ export default function Template({
               {frontmatter.title}
               <Tooltip title={t('在 GitHub 上编辑')}>
                 <a
-                  href={`${githubUrl}/edit/master/docs/${relativePath}`}
+                  href={getGithubSourceUrl({
+                    githubUrl,
+                    relativePath,
+                    prefix: 'docs',
+                  })}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.editOnGtiHubButton}
