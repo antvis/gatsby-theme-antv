@@ -1,9 +1,9 @@
 {
   "include": ["@antv/gatsby-theme-antv", "example"],
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2019",
     "module": "commonjs",
-    "lib": ["dom", "es2017"],
+    "lib": ["dom", "es2019"],
     "jsx": "react",
     "strict": true,
     "esModuleInterop": true,

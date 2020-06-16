@@ -23,6 +23,8 @@ declare module 'docsearch.js';
 
 declare module 'video-react';
 
+declare module 'rehype-react';
+
 interface Document {
   exitFullscreen: () => void;
   mozCancelFullScreen: () => void;
