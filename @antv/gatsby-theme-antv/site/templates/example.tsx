@@ -331,7 +331,7 @@ export default function Template({
                       title={cardTitle}
                     >
                       <Link
-                        to={`${i18n.language}/examples/${demoSlug}`}
+                        to={`/${i18n.language}/examples/${demoSlug}`}
                         className={styles.galleryCardLink}
                       >
                         <img
