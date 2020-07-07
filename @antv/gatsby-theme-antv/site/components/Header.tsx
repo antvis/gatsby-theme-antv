@@ -267,7 +267,7 @@ const Header: React.FC<HeaderProps> = ({
           <li style={{ display: logoLink.includes('gitee') ? 'none' : '' }}>
             <a
               href={chinaMirrorUrl}
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 redirectToChinaMirror(githubUrl);
               }}
@@ -336,7 +336,7 @@ const Header: React.FC<HeaderProps> = ({
                     return;
                   }
                   if (onLanguageChange) {
-                    onLanguageChange(key);
+                    onLanguageChange(key.toString());
                     return;
                   }
                   if (path.endsWith(`/${lang}`)) {

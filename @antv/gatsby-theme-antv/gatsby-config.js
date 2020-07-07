@@ -127,14 +127,16 @@ module.exports = ({
       {
         resolve: 'gatsby-plugin-less',
         options: {
-          javascriptEnabled: true,
-          modifyVars: {
-            'primary-color': '#873bf4',
-            'text-color': '#0D1A26',
-            'heading-color': '#0D1A26',
-            'menu-item-color': '#314659',
-            'font-family': `Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif`,
-            ...theme,
+          lessOptions: {
+            javascriptEnabled: true,
+            modifyVars: {
+              'primary-color': '#873bf4',
+              'text-color': '#0D1A26',
+              'heading-color': '#0D1A26',
+              'menu-item-color': '#314659',
+              'font-family': `Avenir, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif`,
+              ...theme,
+            },
           },
         },
       },
