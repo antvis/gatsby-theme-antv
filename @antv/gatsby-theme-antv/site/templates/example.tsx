@@ -186,7 +186,9 @@ export default function Template({
       selectedKeys={[slug]}
       style={{ height: '100%' }}
       openKeys={openKeys}
-      onOpenChange={(currentOpenKeys) => setOpenKeys(currentOpenKeys)}
+      onOpenChange={(currentOpenKeys) =>
+        setOpenKeys(currentOpenKeys as string[])
+      }
       forceSubMenuRender
     >
       {Object.keys(groupedEdges)
