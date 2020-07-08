@@ -378,7 +378,11 @@ const Header: React.FC<HeaderProps> = ({
       )}
       {showGithubCorner && (
         <li className={styles.githubCorner}>
-          <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+          <a
+            href={GitUrlParse(githubUrl).toString('https')}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <GithubOutlined />
           </a>
         </li>
