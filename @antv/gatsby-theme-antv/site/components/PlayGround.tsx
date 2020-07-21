@@ -1,6 +1,8 @@
 /* eslint no-underscore-dangle: 0 */
 import React, { useRef, useEffect, useState } from 'react';
 import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
+import MonacoEditor from 'react-monaco-editor';
+import { useStaticQuery, graphql } from 'gatsby';
 import { Editor } from 'codemirror';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
@@ -13,7 +15,7 @@ import {
 } from 'react-i18next';
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
-import Toolbar from './Toolbar';
+import Toolbar, { EDITOR_TABS } from './Toolbar';
 import styles from './PlayGround.module.less';
 
 export interface PlayGroundProps {
@@ -35,6 +37,11 @@ export interface PlayGroundProps {
     };
     htmlCodeTemplate?: string;
   };
+}
+
+enum EDITOR_TYPE {
+  CODEMIRROR = 'codemirror',
+  MONACO = 'monaco',
 }
 
 const execute = debounce(
@@ -68,12 +75,28 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   location,
   title = '',
 }) => {
+  const { site } = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            playground {
+              editorType,
+              extraLib
+            }
+          }
+        }
+      }
+    `,
+  );
+  const { editorType = 'codemirror', extraLib = '' } = site.siteMetadata.playground;
   const { t } = useTranslation();
   const playgroundNode = useRef<HTMLDivElement>(null);
   const cmInstance = useRef<Editor>();
   const [error, setError] = useState<Error | null>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
   const [currentSourceCode, updateCurrentSourceCode] = useState(source);
+  const [currentSourceData, updateCurrentSourceData] = useState(null);
 
   if (typeof window !== 'undefined') {
     // @ts-ignore
@@ -120,18 +143,70 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     };
   }, []);
 
-  // 统一增加对 insert-css 的使用注释
-  const replacedSource = source.replace(
-    /^insertCss\(/gm,
-    `// 我们用 insert-css 演示引入自定义样式
-// 推荐将样式添加到自己的样式文件中
-// 若拷贝官方代码，别忘了 npm install insert-css
-insertCss(`,
-  );
+  const [editorTabs, updateEditroTabs] = useState<EDITOR_TABS[]>([]);
+  const [currentEditorTab, updateCurrentEditorTab] = useState(EDITOR_TABS.JAVASCRIPT);
+  useEffect(() => {
+    const dataFileMatch = currentSourceCode.match(/fetch\('(.*)'\)/);
+    if (
+      dataFileMatch &&
+      dataFileMatch.length > 0 &&
+      !dataFileMatch[1].startsWith('http')
+    ) {
+      fetch(dataFileMatch[1])
+        .then(response => response.json())
+        .then(data => {
+          updateEditroTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
+          updateCurrentSourceData(data);
+        })
+    }
+  }, []);
 
-  const editor = (
+  const onCodeChange = (value: string) => {
+    if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
+      updateCurrentSourceCode(value);
+      try {
+        const { code } = transform(value, {
+          filename: relativePath,
+          presets: ['react', 'typescript', 'es2015', 'stage-3'],
+          plugins: ['transform-modules-umd'],
+        });
+        updateCompiledCode(code);
+      } catch (e) {
+        console.error(e); // eslint-disable-line no-console
+        setError(e);
+        return;
+      }
+      setError(null);
+    }
+  };
+
+  const replaceInsertCss = (str: string) => {
+    // 统一增加对 insert-css 的使用注释
+    return str.replace(
+      /^insertCss\(/gm,
+      `// 我们用 insert-css 演示引入自定义样式
+  // 推荐将样式添加到自己的样式文件中
+  // 若拷贝官方代码，别忘了 npm install insert-css
+  insertCss(`,
+    );
+  };
+
+  const [editorValue, updateEditorValue] = useState('');
+  useEffect(() => {
+    if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
+      updateEditorValue(
+        replaceInsertCss(
+          editorType === EDITOR_TYPE.CODEMIRROR ? source : currentSourceCode
+        )
+      );
+    } else if (currentEditorTab === EDITOR_TABS.DATA) {
+      updateEditorValue(JSON.stringify(currentSourceData, null, 2));
+    }
+  }, [currentEditorTab, currentSourceCode]);
+
+  const editor = editorType === EDITOR_TYPE.CODEMIRROR ? (
     <CodeMirrorEditor
-      value={replacedSource}
+      value={editorValue}
       options={{
         mode: 'jsx',
         theme: 'mdn-like',
@@ -147,29 +222,27 @@ insertCss(`,
         matchTags: {
           bothTags: true,
         },
+        readOnly: currentEditorTab === EDITOR_TABS.DATA,
       }}
       cursor={{
         line: -1,
         ch: -1,
       }}
-      onChange={(_: any, __: any, value: string) => {
-        updateCurrentSourceCode(value);
-        try {
-          const { code } = transform(value, {
-            filename: relativePath,
-            presets: ['react', 'typescript', 'es2015', 'stage-3'],
-            plugins: ['transform-modules-umd'],
-          });
-          updateCompiledCode(code);
-        } catch (e) {
-          console.error(e); // eslint-disable-line no-console
-          setError(e);
-          return;
-        }
-        setError(null);
-      }}
+      onChange={(_: any, __: any, value: string) => onCodeChange(value)}
       editorDidMount={instance => {
         cmInstance.current = instance;
+      }}
+    />
+  ) : (
+    <MonacoEditor
+      language={currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'}
+      value={editorValue}
+      options={{
+        readOnly: currentEditorTab === EDITOR_TABS.DATA,
+      }}
+      onChange={value => onCodeChange(value)}
+      editorWillMount={monaco => {
+        monaco.languages.typescript.javascriptDefaults.addExtraLib(extraLib, '');
       }}
     />
   );
@@ -215,6 +288,9 @@ insertCss(`,
             isFullScreen={isFullScreen}
             onToggleFullscreen={toggleFullscreen}
             onExecuteCode={executeCode}
+            editorTabs={editorTabs}
+            currentEditorTab={currentEditorTab}
+            onEditorTabChange={updateCurrentEditorTab}
           />
           <div className={styles.codemirror}>{editor}</div>
         </div>

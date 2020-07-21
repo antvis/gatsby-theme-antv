@@ -39,8 +39,16 @@ interface ToolbarProps {
     htmlCodeTemplate?: string;
   };
   isFullScreen: boolean;
+  editorTabs: EDITOR_TABS[];
+  currentEditorTab: EDITOR_TABS;
+  onEditorTabChange: (tab: EDITOR_TABS) => void;
   onToggleFullscreen: () => void;
   onExecuteCode: () => void;
+}
+
+export enum EDITOR_TABS {
+  JAVASCRIPT = 'JavaScript',
+  DATA = 'Data',
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
@@ -50,6 +58,9 @@ const Toolbar: React.FC<ToolbarProps> = ({
   location,
   title = '',
   isFullScreen,
+  editorTabs,
+  currentEditorTab,
+  onEditorTabChange,
   onToggleFullscreen,
   onExecuteCode,
 }) => {
@@ -180,6 +191,17 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
   return (
     <div className={styles.toolbar}>
+      <div className={styles.editortabs}>
+        {editorTabs.map((tab, index) => (
+          <span
+            key={index}
+            className={tab === currentEditorTab ? styles.current : ''}
+            onClick={() => onEditorTabChange(tab)}
+          >
+            {tab}
+          </span>
+        ))}
+      </div>
       {riddleVisible ? (
         <form
           action="//riddle.alibaba-inc.com/riddles/define"

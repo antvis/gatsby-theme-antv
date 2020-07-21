@@ -16,6 +16,7 @@ const { transform } = require('@babel/standalone');
 
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
+const MonacoWebpackPlugin = require(`monaco-editor-webpack-plugin`);
 
 function getLocaleResources() {
   let locale = {};
@@ -343,7 +344,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
   });
 };
 
-exports.onCreateWebpackConfig = ({ getConfig, stage }, { codeSplit }) => {
+exports.onCreateWebpackConfig = ({ getConfig, stage, actions }, { codeSplit }) => {
   const config = getConfig();
   if (stage.startsWith('develop') && config.resolve) {
     config.resolve.alias = {
@@ -359,6 +360,12 @@ exports.onCreateWebpackConfig = ({ getConfig, stage }, { codeSplit }) => {
       }),
     );
   }
+
+  actions.setWebpackConfig({
+    plugins: [
+      new MonacoWebpackPlugin()
+    ]
+  });
 };
 
 exports.createSchemaCustomization = ({ actions }) => {

@@ -1,4 +1,8 @@
+/* eslint-disable no-useless-concat */
+const fs = require('fs');
 const { version, repository, homepage } = require('./package.json');
+
+const extraLibDeclare = fs.readFileSync('./src/index.d.ts', 'utf-8');
 
 module.exports = {
   plugins: [
@@ -91,6 +95,8 @@ module.exports = {
       dependencies: {
         '@antv/l7': 'beta',
       },
+      editorType: 'monaco',
+      extraLib: extraLibDeclare,
       htmlCodeTemplate: `<!DOCTYPE html>
 <html>
   <head>
