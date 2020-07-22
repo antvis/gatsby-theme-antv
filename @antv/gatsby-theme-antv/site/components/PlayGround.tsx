@@ -39,11 +39,6 @@ export interface PlayGroundProps {
   };
 }
 
-enum EDITOR_TYPE {
-  CODEMIRROR = 'codemirror',
-  MONACO = 'monaco',
-}
-
 const execute = debounce(
   (
     code: string,
@@ -81,7 +76,6 @@ const PlayGround: React.FC<PlayGroundProps> = ({
         site {
           siteMetadata {
             playground {
-              editorType,
               extraLib
             }
           }
@@ -89,10 +83,9 @@ const PlayGround: React.FC<PlayGroundProps> = ({
       }
     `,
   );
-  const { editorType = 'codemirror', extraLib = '' } = site.siteMetadata.playground;
+  const { extraLib = '' } = site.siteMetadata.playground;
   const { t } = useTranslation();
   const playgroundNode = useRef<HTMLDivElement>(null);
-  const cmInstance = useRef<Editor>();
   const [error, setError] = useState<Error | null>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
   const [currentSourceCode, updateCurrentSourceCode] = useState(source);
@@ -184,61 +177,34 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     // 统一增加对 insert-css 的使用注释
     return str.replace(
       /^insertCss\(/gm,
-      `// 我们用 insert-css 演示引入自定义样式
-  // 推荐将样式添加到自己的样式文件中
-  // 若拷贝官方代码，别忘了 npm install insert-css
-  insertCss(`,
+    `// 我们用 insert-css 演示引入自定义样式
+// 推荐将样式添加到自己的样式文件中
+// 若拷贝官方代码，别忘了 npm install insert-css
+insertCss(`,
     );
   };
 
   const [editorValue, updateEditorValue] = useState('');
   useEffect(() => {
     if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
-      updateEditorValue(
-        replaceInsertCss(
-          editorType === EDITOR_TYPE.CODEMIRROR ? source : currentSourceCode
-        )
-      );
+      updateEditorValue(replaceInsertCss(currentSourceCode));
     } else if (currentEditorTab === EDITOR_TABS.DATA) {
       updateEditorValue(JSON.stringify(currentSourceData, null, 2));
     }
   }, [currentEditorTab, currentSourceCode]);
 
-  const editor = editorType === EDITOR_TYPE.CODEMIRROR ? (
-    <CodeMirrorEditor
-      value={editorValue}
-      options={{
-        mode: 'jsx',
-        theme: 'mdn-like',
-        tabSize: 2,
-        // @ts-ignore
-        styleActiveLine: true, // 当前行背景高亮
-        matchBrackets: true, // 括号匹配
-        autoCloseBrackets: true,
-        lineNumbers: true,
-        autofocus: false,
-        foldGutter: true,
-        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-        matchTags: {
-          bothTags: true,
-        },
-        readOnly: currentEditorTab === EDITOR_TABS.DATA,
-      }}
-      cursor={{
-        line: -1,
-        ch: -1,
-      }}
-      onChange={(_: any, __: any, value: string) => onCodeChange(value)}
-      editorDidMount={instance => {
-        cmInstance.current = instance;
-      }}
-    />
-  ) : (
+  const editor = (
     <MonacoEditor
+      height="calc(100% - 32px)"
       language={currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'}
       value={editorValue}
       options={{
         readOnly: currentEditorTab === EDITOR_TABS.DATA,
+        automaticLayout: true,
+        minimap: {
+          enabled: false
+        },
+        scrollBeyondLastLine: false
       }}
       onChange={value => onCodeChange(value)}
       editorWillMount={monaco => {
@@ -252,12 +218,18 @@ const PlayGround: React.FC<PlayGroundProps> = ({
 
   const isWide = useMedia('(min-width: 767.99px)', true);
 
+  const dispatchResizeEvent = () => {
+    const e = new Event('resize');
+    window.dispatchEvent(e);
+  };
+
   return (
     <div className={styles.playground} ref={fullscreenNode}>
       <SplitPane
         split={isWide ? 'vertical' : 'horizontal'}
         defaultSize="62%"
         minSize={100}
+        onDragFinished={dispatchResizeEvent}
       >
         <div
           className={classNames(

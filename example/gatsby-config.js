@@ -95,7 +95,6 @@ module.exports = {
       dependencies: {
         '@antv/l7': 'beta',
       },
-      editorType: 'monaco',
       extraLib: extraLibDeclare,
       htmlCodeTemplate: `<!DOCTYPE html>
 <html>

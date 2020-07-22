@@ -9,16 +9,19 @@ declare module '@antv/g2'{
      * @param isUpdate 是否触发更新流程。
      */
     render(isUpdate?: boolean): void;
+
     /**
      * This method will be removed at G2 V4.1
      */
     source(data): void;
+
     /**
      * 创建 Interval 几何标记。
      * @param [cfg] 传入 Interval 构造函数的配置。
      * @returns interval 返回 Interval 实例。
      */
-    interval(cfg: any): Interval;
+    interval(cfg: any): any;
+
     /**
      * 配置 position 通道映射规则。
      *
@@ -36,6 +39,7 @@ declare module '@antv/g2'{
      * @returns
      */
     position(cfg: string | string[]): any;
+    
     /**
      * @example
      * ```typescript
