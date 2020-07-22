@@ -101,7 +101,7 @@
     "react-helmet": "^6.0.0",
     "react-i18next": "^11.4.0",
     "react-monaco-editor": "^0.39.1",
-    "react-slick": "^0.26.1",
+    "react-slick": "^0.27.0",
     "react-split-pane": "^0.1.87",
     "react-test-renderer": "^16.9.0",
     "react-use": "^15.0.0",
