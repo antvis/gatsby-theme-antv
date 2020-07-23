@@ -7,13 +7,13 @@ import {
   FullscreenExitOutlined,
   FullscreenOutlined,
 } from '@ant-design/icons';
-import PageLoading from './PageLoading';
 import { Typography, Tooltip, Modal, Button } from 'antd';
 import path from 'path';
 import { getParameters } from 'codesandbox/lib/api/define';
 import stackblitzSdk from '@stackblitz/sdk';
 import { useTranslation } from 'react-i18next';
 import indentString from 'indent-string';
+import PageLoading from './PageLoading';
 import { ping } from '../utils';
 import styles from './Toolbar.module.less';
 
