@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import {
   CodeSandboxOutlined,
   Html5Outlined,
@@ -7,9 +7,9 @@ import {
   FullscreenExitOutlined,
   FullscreenOutlined,
 } from '@ant-design/icons';
+import PageLoading from './PageLoading';
 import { Typography, Tooltip, Modal, Button } from 'antd';
 import path from 'path';
-import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { getParameters } from 'codesandbox/lib/api/define';
 import stackblitzSdk from '@stackblitz/sdk';
 import { useTranslation } from 'react-i18next';
@@ -18,6 +18,7 @@ import { ping } from '../utils';
 import styles from './Toolbar.module.less';
 
 const { Paragraph } = Typography;
+const MonacoEditor = lazy(() => import('react-monaco-editor'));
 
 interface ToolbarProps {
   sourceCode: string;
@@ -267,24 +268,21 @@ const Toolbar: React.FC<ToolbarProps> = ({
             }
           >
             <div className={styles.editor}>
-              <CodeMirrorEditor
-                value={getHtmlCodeTemplate()}
-                options={{
-                  mode: 'htmlembedded',
-                  readOnly: true,
-                  theme: 'mdn-like',
-                  lineNumbers: true,
-                  tabSize: 2,
-                  // @ts-ignore
-                  styleActiveLine: true, // 当前行背景高亮
-                  matchBrackets: true, // 括号匹配
-                  autoCloseBrackets: true,
-                  autofocus: false,
-                  matchTags: {
-                    bothTags: true,
-                  },
-                }}
-              />
+              <Suspense fallback={<PageLoading />}>
+                <MonacoEditor
+                  height="600px"
+                  language="html"
+                  value={getHtmlCodeTemplate()}
+                  options={{
+                    readOnly: true,
+                    automaticLayout: true,
+                    minimap: {
+                      enabled: false
+                    },
+                    scrollBeyondLastLine: false
+                  }}
+                />
+              </Suspense>
             </div>
           </Modal>
         </>

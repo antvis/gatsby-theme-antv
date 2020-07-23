@@ -1,9 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
-import React, { useRef, useEffect, useState } from 'react';
-import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
-import MonacoEditor from 'react-monaco-editor';
+import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { Editor } from 'codemirror';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { Result } from 'antd';
@@ -16,7 +13,10 @@ import {
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
+import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
+
+const MonacoEditor = lazy(() => import('react-monaco-editor'));
 
 export interface PlayGroundProps {
   source: string;
@@ -150,7 +150,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
         .then(data => {
           updateEditroTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
           updateCurrentSourceData(data);
-        })
+        });
     }
   }, []);
 
@@ -264,7 +264,11 @@ insertCss(`,
             currentEditorTab={currentEditorTab}
             onEditorTabChange={updateCurrentEditorTab}
           />
-          <div className={styles.codemirror}>{editor}</div>
+          <div className={styles.monaco}>
+            <Suspense fallback={<PageLoading />}>
+              {editor}
+            </Suspense>
+          </div>
         </div>
       </SplitPane>
     </div>
