@@ -1,10 +1,33 @@
 /* eslint @typescript-eslint/camelcase: 0 */
 const fs = require('fs');
 const path = require('path');
+const { Extractor, ExtractorConfig } = require('@microsoft/api-extractor');
 
 const { name } = JSON.parse(
   fs.readFileSync(path.resolve(`package.json`), `utf8`),
 );
+
+const getExtraLib = () => {
+  try {
+    const extractorConfig = ExtractorConfig.loadFileAndPrepare(path.resolve('./api-extractor.json'));
+    const extractorResult = Extractor.invoke(extractorConfig, {
+      localBuild: true,
+      showVerboseMessages: true,
+    });
+    if (extractorResult.succeeded) {
+      const typeFilePath = extractorResult.extractorConfig.untrimmedFilePath;
+      if (typeFilePath) {
+        return `declare module '${name}'{
+          ${fs.readFileSync(typeFilePath, `utf8`)}
+        }`
+      }
+    }
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(`API Extractor Error: ${e.message}`);
+  }
+  return '';
+};
 
 module.exports = ({
   pagesPath = './site/pages',
@@ -24,6 +47,9 @@ module.exports = ({
       navs: [],
       docs: [],
       examples: [],
+      playground: {
+        extraLib: getExtraLib(),
+      }
     },
     plugins: [
       `gatsby-plugin-react-helmet`,
