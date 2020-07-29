@@ -1,4 +1,4 @@
-import G2 from '@antv/g2';
+import { Chart } from '@antv/g2';
 import insertCss from 'insert-css';
 
 insertCss(`
@@ -13,7 +13,7 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-const chart = new G2.Chart({
+const chart = new Chart({
   container: document.getElementById('container'),
   forceFit: true,
   height: 500,

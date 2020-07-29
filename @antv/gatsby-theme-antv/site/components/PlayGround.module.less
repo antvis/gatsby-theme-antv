@@ -27,42 +27,9 @@
     overflow: hidden;
     height: 100%;
 
-    .codemirror {
+    .monaco {
       overflow: hidden;
       height: 100%;
-
-      :global(.react-codemirror2) {
-        height: 100%;
-        overflow: hidden;
-        box-sizing: content-box;
-        font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo,
-          Courier, monospace;
-
-        * {
-          box-sizing: content-box;
-        }
-      }
-
-      :global(.CodeMirror-scroll) {
-        padding-bottom: 32px;
-        margin-right: -32px;
-      }
-
-      :global(.CodeMirror) {
-        background-image: none;
-        font-family: Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
-          monospace;
-        line-height: 1.6;
-        font-size: 13px;
-        padding: 8px 16px 8px 4px;
-        height: calc(100% - 50px);
-      }
-
-      :global(.CodeMirror-gutters) {
-        background-color: #fff;
-        border-color: transparent;
-        border: 0;
-      }
     }
   }
 

@@ -1,7 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
-import React, { useRef, useEffect, useState } from 'react';
-import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
-import { Editor } from 'codemirror';
+import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
+import { useStaticQuery, graphql } from 'gatsby';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { Result } from 'antd';
@@ -13,8 +12,11 @@ import {
 } from 'react-i18next';
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
-import Toolbar from './Toolbar';
+import Toolbar, { EDITOR_TABS } from './Toolbar';
+import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
+
+const MonacoEditor = lazy(() => import('react-monaco-editor'));
 
 export interface PlayGroundProps {
   source: string;
@@ -68,12 +70,26 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   location,
   title = '',
 }) => {
+  const { site } = useStaticQuery(
+    graphql`
+      query {
+        site {
+          siteMetadata {
+            playground {
+              extraLib
+            }
+          }
+        }
+      }
+    `,
+  );
+  const { extraLib = '' } = site.siteMetadata.playground;
   const { t } = useTranslation();
   const playgroundNode = useRef<HTMLDivElement>(null);
-  const cmInstance = useRef<Editor>();
   const [error, setError] = useState<Error | null>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
   const [currentSourceCode, updateCurrentSourceCode] = useState(source);
+  const [currentSourceData, updateCurrentSourceData] = useState(null);
 
   if (typeof window !== 'undefined') {
     // @ts-ignore
@@ -120,56 +136,79 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     };
   }, []);
 
-  // 统一增加对 insert-css 的使用注释
-  const replacedSource = source.replace(
-    /^insertCss\(/gm,
+  const [editorTabs, updateEditroTabs] = useState<EDITOR_TABS[]>([]);
+  const [currentEditorTab, updateCurrentEditorTab] = useState(EDITOR_TABS.JAVASCRIPT);
+  useEffect(() => {
+    const dataFileMatch = currentSourceCode.match(/fetch\('(.*)'\)/);
+    if (
+      dataFileMatch &&
+      dataFileMatch.length > 0 &&
+      !dataFileMatch[1].startsWith('http')
+    ) {
+      fetch(dataFileMatch[1])
+        .then(response => response.json())
+        .then(data => {
+          updateEditroTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
+          updateCurrentSourceData(data);
+        });
+    }
+  }, []);
+
+  const onCodeChange = (value: string) => {
+    if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
+      updateCurrentSourceCode(value);
+      try {
+        const { code } = transform(value, {
+          filename: relativePath,
+          presets: ['react', 'typescript', 'es2015', 'stage-3'],
+          plugins: ['transform-modules-umd'],
+        });
+        updateCompiledCode(code);
+      } catch (e) {
+        console.error(e); // eslint-disable-line no-console
+        setError(e);
+        return;
+      }
+      setError(null);
+    }
+  };
+
+  const replaceInsertCss = (str: string) => {
+    // 统一增加对 insert-css 的使用注释
+    return str.replace(
+      /^insertCss\(/gm,
     `// 我们用 insert-css 演示引入自定义样式
 // 推荐将样式添加到自己的样式文件中
 // 若拷贝官方代码，别忘了 npm install insert-css
 insertCss(`,
-  );
+    );
+  };
+
+  const [editorValue, updateEditorValue] = useState('');
+  useEffect(() => {
+    if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
+      updateEditorValue(replaceInsertCss(currentSourceCode));
+    } else if (currentEditorTab === EDITOR_TABS.DATA) {
+      updateEditorValue(JSON.stringify(currentSourceData, null, 2));
+    }
+  }, [currentEditorTab, currentSourceCode]);
 
   const editor = (
-    <CodeMirrorEditor
-      value={replacedSource}
+    <MonacoEditor
+      height="calc(100% - 32px)"
+      language={currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'}
+      value={editorValue}
       options={{
-        mode: 'jsx',
-        theme: 'mdn-like',
-        tabSize: 2,
-        // @ts-ignore
-        styleActiveLine: true, // 当前行背景高亮
-        matchBrackets: true, // 括号匹配
-        autoCloseBrackets: true,
-        lineNumbers: true,
-        autofocus: false,
-        foldGutter: true,
-        gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-        matchTags: {
-          bothTags: true,
+        readOnly: currentEditorTab === EDITOR_TABS.DATA,
+        automaticLayout: true,
+        minimap: {
+          enabled: false
         },
+        scrollBeyondLastLine: false
       }}
-      cursor={{
-        line: -1,
-        ch: -1,
-      }}
-      onChange={(_: any, __: any, value: string) => {
-        updateCurrentSourceCode(value);
-        try {
-          const { code } = transform(value, {
-            filename: relativePath,
-            presets: ['react', 'typescript', 'es2015', 'stage-3'],
-            plugins: ['transform-modules-umd'],
-          });
-          updateCompiledCode(code);
-        } catch (e) {
-          console.error(e); // eslint-disable-line no-console
-          setError(e);
-          return;
-        }
-        setError(null);
-      }}
-      editorDidMount={instance => {
-        cmInstance.current = instance;
+      onChange={value => onCodeChange(value)}
+      editorWillMount={monaco => {
+        monaco.languages.typescript.javascriptDefaults.addExtraLib(extraLib, '');
       }}
     />
   );
@@ -179,12 +218,18 @@ insertCss(`,
 
   const isWide = useMedia('(min-width: 767.99px)', true);
 
+  const dispatchResizeEvent = () => {
+    const e = new Event('resize');
+    window.dispatchEvent(e);
+  };
+
   return (
     <div className={styles.playground} ref={fullscreenNode}>
       <SplitPane
         split={isWide ? 'vertical' : 'horizontal'}
         defaultSize="62%"
         minSize={100}
+        onDragFinished={dispatchResizeEvent}
       >
         <div
           className={classNames(
@@ -215,8 +260,15 @@ insertCss(`,
             isFullScreen={isFullScreen}
             onToggleFullscreen={toggleFullscreen}
             onExecuteCode={executeCode}
+            editorTabs={editorTabs}
+            currentEditorTab={currentEditorTab}
+            onEditorTabChange={updateCurrentEditorTab}
           />
-          <div className={styles.codemirror}>{editor}</div>
+          <div className={styles.monaco}>
+            <Suspense fallback={<PageLoading />}>
+              {editor}
+            </Suspense>
+          </div>
         </div>
       </SplitPane>
     </div>

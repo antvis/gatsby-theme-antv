@@ -2,3 +2,5 @@
 @antv/gatsby-theme-antv/lib
 example/examples
 node_modules
+.cache
+public

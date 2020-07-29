@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import {
   CodeSandboxOutlined,
   Html5Outlined,
@@ -9,15 +9,16 @@ import {
 } from '@ant-design/icons';
 import { Typography, Tooltip, Modal, Button } from 'antd';
 import path from 'path';
-import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import { getParameters } from 'codesandbox/lib/api/define';
 import stackblitzSdk from '@stackblitz/sdk';
 import { useTranslation } from 'react-i18next';
 import indentString from 'indent-string';
+import PageLoading from './PageLoading';
 import { ping } from '../utils';
 import styles from './Toolbar.module.less';
 
 const { Paragraph } = Typography;
+const MonacoEditor = lazy(() => import('react-monaco-editor'));
 
 interface ToolbarProps {
   sourceCode: string;
@@ -39,8 +40,16 @@ interface ToolbarProps {
     htmlCodeTemplate?: string;
   };
   isFullScreen: boolean;
+  editorTabs: EDITOR_TABS[];
+  currentEditorTab: EDITOR_TABS;
+  onEditorTabChange: (tab: EDITOR_TABS) => void;
   onToggleFullscreen: () => void;
   onExecuteCode: () => void;
+}
+
+export enum EDITOR_TABS {
+  JAVASCRIPT = 'JavaScript',
+  DATA = 'Data',
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({
@@ -50,6 +59,9 @@ const Toolbar: React.FC<ToolbarProps> = ({
   location,
   title = '',
   isFullScreen,
+  editorTabs,
+  currentEditorTab,
+  onEditorTabChange,
   onToggleFullscreen,
   onExecuteCode,
 }) => {
@@ -180,6 +192,17 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
   return (
     <div className={styles.toolbar}>
+      <div className={styles.editortabs}>
+        {editorTabs.map((tab, index) => (
+          <span
+            key={index}
+            className={tab === currentEditorTab ? styles.current : ''}
+            onClick={() => onEditorTabChange(tab)}
+          >
+            {tab}
+          </span>
+        ))}
+      </div>
       {riddleVisible ? (
         <form
           action="//riddle.alibaba-inc.com/riddles/define"
@@ -245,24 +268,21 @@ const Toolbar: React.FC<ToolbarProps> = ({
             }
           >
             <div className={styles.editor}>
-              <CodeMirrorEditor
-                value={getHtmlCodeTemplate()}
-                options={{
-                  mode: 'htmlembedded',
-                  readOnly: true,
-                  theme: 'mdn-like',
-                  lineNumbers: true,
-                  tabSize: 2,
-                  // @ts-ignore
-                  styleActiveLine: true, // 当前行背景高亮
-                  matchBrackets: true, // 括号匹配
-                  autoCloseBrackets: true,
-                  autofocus: false,
-                  matchTags: {
-                    bothTags: true,
-                  },
-                }}
-              />
+              <Suspense fallback={<PageLoading />}>
+                <MonacoEditor
+                  height="600px"
+                  language="html"
+                  value={getHtmlCodeTemplate()}
+                  options={{
+                    readOnly: true,
+                    automaticLayout: true,
+                    minimap: {
+                      enabled: false
+                    },
+                    scrollBeyondLastLine: false
+                  }}
+                />
+              </Suspense>
             </div>
           </Modal>
         </>

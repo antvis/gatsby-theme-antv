@@ -1,4 +1,4 @@
-import G2 from '@antv/g2';
+import { Chart } from '@antv/g2';
 
 const data = [
   { genre: 'Sports', sold: 275 },
@@ -8,7 +8,7 @@ const data = [
   { genre: 'Other', sold: 150 },
 ];
 
-const chart = new G2.Chart({
+const chart = new Chart({
   container: document.getElementById('container'),
   width: 500,
   height: 500,
