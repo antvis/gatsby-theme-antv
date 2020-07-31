@@ -77,6 +77,11 @@ export const getProducts = ({
           url: `https://${hosts.g2}/${language}/docs/manual`,
         },
         {
+          icon: <ReadOutlined />,
+          title: t('API 文档'),
+          url: `https://${hosts.g2}/${language}/docs/api`,
+        },
+        {
           icon: <HistoryOutlined />,
           title: t('更新日志'),
           url: `https://github.com/antvis/g2/blob/master/CHANGELOG.md`,
