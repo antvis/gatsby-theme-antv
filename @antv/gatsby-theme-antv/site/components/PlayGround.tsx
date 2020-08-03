@@ -142,8 +142,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     const dataFileMatch = currentSourceCode.match(/fetch\('(.*)'\)/);
     if (
       dataFileMatch &&
-      dataFileMatch.length > 0 &&
-      !dataFileMatch[1].startsWith('http')
+      dataFileMatch.length > 0
     ) {
       fetch(dataFileMatch[1])
         .then(response => response.json())
