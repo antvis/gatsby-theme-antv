@@ -47,7 +47,9 @@ const getDocument = (docs: any[], slug = '', level: number) => {
 
 // https://github.com/antvis/gatsby-theme-antv/issues/114
 const parseTableOfContents = (tableOfContents: string) => {
-  return tableOfContents.replace(/\/#/g, '#');
+  // fix anchor link failure in chrome
+  return tableOfContents;
+  // return tableOfContents.replace(/\/#/g, '#');
 };
 
 interface MenuData {
