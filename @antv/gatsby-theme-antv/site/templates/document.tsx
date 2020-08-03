@@ -226,25 +226,29 @@ export default function Template({
 
   const isWide = useMedia('(min-width: 767.99px)', true);
   const [drawOpen, setDrawOpen] = useState(false);
-  const menuSider = isWide ? (
-    <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
-      {menu}
-    </AntLayout.Sider>
-  ) : (
-    <Drawer
-      handler={
-        drawOpen ? (
-          <MenuFoldOutlined className={styles.menuSwitch} />
-        ) : (
-          <MenuUnfoldOutlined className={styles.menuSwitch} />
-        )
-      }
-      wrapperClassName={styles.menuDrawer}
-      onChange={(open) => setDrawOpen(!!open)}
-      width={280}
-    >
-      {menu}
-    </Drawer>
+  const menuSider = (
+    <Affix offsetTop={8}>
+      {isWide ? (
+        <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
+          {menu}
+        </AntLayout.Sider>
+      ) : (
+        <Drawer
+          handler={
+            drawOpen ? (
+              <MenuFoldOutlined className={styles.menuSwitch} />
+            ) : (
+              <MenuUnfoldOutlined className={styles.menuSwitch} />
+            )
+          }
+          wrapperClassName={styles.menuDrawer}
+          onChange={(open) => setDrawOpen(!!open)}
+          width={280}
+        >
+          {menu}
+        </Drawer>
+      )}
+    </Affix>
   );
 
   const renderAst = new RehypeReact({
