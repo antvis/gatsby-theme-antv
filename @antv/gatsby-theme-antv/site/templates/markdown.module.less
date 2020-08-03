@@ -181,6 +181,7 @@
 
   .content {
     .contentReset;
+
     > div {
       .contentReset;
     }
@@ -209,6 +210,15 @@
 
 .sider {
   width: 280px !important;
+  height: inherit;
+}
+
+.affix {
+  height: inherit;
+
+  & > div {
+    height: 100%;
+  }
 }
 
 .menuIcon {
