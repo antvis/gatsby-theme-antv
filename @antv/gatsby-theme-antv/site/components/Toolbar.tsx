@@ -88,7 +88,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
   // 使用 playground.dependencies 定义的版本号
   const dependencies = playground.dependencies || {};
-  Object.keys(dependencies).forEach(name => {
+  Object.keys(dependencies).forEach((name) => {
     deps[name] = dependencies[name];
   });
 
@@ -183,7 +183,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
   const [riddleVisible, updateRiddleVisible] = useState(false);
   useEffect(() => {
-    ping(status => {
+    ping((status) => {
       updateRiddleVisible(status === 'responded');
     });
   }, []);
@@ -247,7 +247,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
           </button>
         </form>
       </Tooltip>
-      <Paragraph copyable={{ text: sourceCode }} />
+      <Paragraph copyable={{ text: sourceCode }} style={{ marginLeft: 6 }} />
       {playground.htmlCodeTemplate && (
         <>
           <Tooltip title={t('HTML 代码')}>
@@ -277,9 +277,9 @@ const Toolbar: React.FC<ToolbarProps> = ({
                     readOnly: true,
                     automaticLayout: true,
                     minimap: {
-                      enabled: false
+                      enabled: false,
                     },
-                    scrollBeyondLastLine: false
+                    scrollBeyondLastLine: false,
                   }}
                 />
               </Suspense>
