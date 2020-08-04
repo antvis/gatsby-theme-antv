@@ -71,5 +71,5 @@ yarn-error.log
 .tmp
 @antv/gatsby-theme-antv/lib
 
-
+dist
 package-lock.json
