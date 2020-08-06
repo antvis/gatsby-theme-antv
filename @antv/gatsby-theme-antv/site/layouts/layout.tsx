@@ -201,7 +201,9 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         {...logoProps}
       />
       <main className={styles.main}>{children}</main>
-      <Footer githubUrl={githubUrl} rootDomain="https://antv.vision" />
+      {isHomePage && (
+        <Footer githubUrl={githubUrl} rootDomain="https://antv.vision" />
+      )}
     </>
   );
 };

@@ -15,6 +15,7 @@ import Swatch from '../components/Swatch';
 import Article from '../components/Article';
 import ReadingTime from '../components/ReadingTime';
 import NavigatorBanner from '../components/NavigatorBanner';
+import Footer from '../components/Footer';
 import SEO from '../components/Seo';
 import { usePrevAndNext } from '../hooks';
 import { capitalize } from '../utils';
@@ -212,7 +213,7 @@ export default function Template({
     <Menu
       mode="inline"
       selectedKeys={[slug]}
-      style={{ height: '100%' }}
+      className={styles.menu}
       openKeys={openKeys}
       onOpenChange={(currentOpenKeys) =>
         setOpenKeys(currentOpenKeys as string[])
@@ -227,9 +228,11 @@ export default function Template({
   const isWide = useMedia('(min-width: 767.99px)', true);
   const [drawOpen, setDrawOpen] = useState(false);
   const menuSider = isWide ? (
-    <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
-      {menu}
-    </AntLayout.Sider>
+    <Affix offsetTop={0}>
+      <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
+        {menu}
+      </AntLayout.Sider>
+    </Affix>
   ) : (
     <Drawer
       handler={
@@ -263,44 +266,47 @@ export default function Template({
         className={styles.layout}
       >
         {menuSider}
-        <Article className={styles.markdown}>
-          <Affix offsetTop={8}>
-            <div
-              className={styles.toc}
-              /* eslint-disable-next-line react/no-danger */
-              dangerouslySetInnerHTML={{
-                __html: parseTableOfContents(tableOfContents),
-              }}
-            />
-          </Affix>
-          <div className={styles.main}>
-            <h1>
-              {frontmatter.title}
-              <Tooltip title={t('在 GitHub 上编辑')}>
-                <a
-                  href={getGithubSourceUrl({
-                    githubUrl,
-                    relativePath,
-                    prefix: 'docs',
-                  })}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.editOnGtiHubButton}
-                >
-                  <EditOutlined />
-                </a>
-              </Tooltip>
-            </h1>
-            <div className={styles.meta}>
-              <ReadingTime readingTime={readingTime} />
+        <AntLayout style={{ background: '#fff' }}>
+          <Article className={styles.markdown}>
+            <Affix offsetTop={8}>
+              <div
+                className={styles.toc}
+                /* eslint-disable-next-line react/no-danger */
+                dangerouslySetInnerHTML={{
+                  __html: parseTableOfContents(tableOfContents),
+                }}
+              />
+            </Affix>
+            <div className={styles.main}>
+              <h1>
+                {frontmatter.title}
+                <Tooltip title={t('在 GitHub 上编辑')}>
+                  <a
+                    href={getGithubSourceUrl({
+                      githubUrl,
+                      relativePath,
+                      prefix: 'docs',
+                    })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.editOnGtiHubButton}
+                  >
+                    <EditOutlined />
+                  </a>
+                </Tooltip>
+              </h1>
+              <div className={styles.meta}>
+                <ReadingTime readingTime={readingTime} />
+              </div>
+              <div className={styles.content}>{renderAst(htmlAst)}</div>
+              <div>
+                <NavigatorBanner type="prev" post={prev} />
+                <NavigatorBanner type="next" post={next} />
+              </div>
             </div>
-            <div className={styles.content}>{renderAst(htmlAst)}</div>
-            <div>
-              <NavigatorBanner type="prev" post={prev} />
-              <NavigatorBanner type="next" post={next} />
-            </div>
-          </div>
-        </Article>
+          </Article>
+          <Footer githubUrl={githubUrl} rootDomain="https://antv.vision" />
+        </AntLayout>
       </AntLayout>
     </>
   );

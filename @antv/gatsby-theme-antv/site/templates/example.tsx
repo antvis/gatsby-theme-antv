@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { graphql, Link } from 'gatsby';
-import { Layout as AntLayout, Menu, Tooltip, Anchor } from 'antd';
+import { Layout as AntLayout, Menu, Tooltip, Anchor, Affix } from 'antd';
 import {
   createFromIconfontCN,
   EditOutlined,
@@ -17,6 +17,7 @@ import SEO from '../components/Seo';
 import Tabs from '../components/Tabs';
 import PlayGrounds from '../components/PlayGrounds';
 import NavigatorBanner from '../components/NavigatorBanner';
+import Footer from '../components/Footer';
 import { capitalize } from '../utils';
 import { usePrevAndNext } from '../hooks';
 import { getGithubSourceUrl } from './document';
@@ -184,7 +185,7 @@ export default function Template({
     <Menu
       mode="inline"
       selectedKeys={[slug]}
-      style={{ height: '100%' }}
+      className={styles.menu}
       openKeys={openKeys}
       onOpenChange={(currentOpenKeys) =>
         setOpenKeys(currentOpenKeys as string[])
@@ -243,9 +244,11 @@ export default function Template({
   const isWide = useMedia('(min-width: 767.99px)', true);
   const [drawOpen, setDrawOpen] = useState(false);
   const menuSider = isWide ? (
-    <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
-      {menu}
-    </AntLayout.Sider>
+    <Affix offsetTop={0}>
+      <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
+        {menu}
+      </AntLayout.Sider>
+    </Affix>
   ) : (
     <Drawer
       handler={
@@ -425,17 +428,20 @@ export default function Template({
         className={styles.layout}
       >
         {menuSider}
-        <Article className={styles.markdown}>
-          <div className={styles.main} style={{ width: '100%' }}>
-            {pathWithoutTrailingSlashes.endsWith('/examples/gallery')
-              ? galleryPageContent
-              : exmaplePageContent}
-            <div>
-              <NavigatorBanner type="prev" post={prev} />
-              <NavigatorBanner type="next" post={next} />
+        <AntLayout style={{ background: '#fff' }}>
+          <Article className={styles.markdown}>
+            <div className={styles.main} style={{ width: '100%' }}>
+              {pathWithoutTrailingSlashes.endsWith('/examples/gallery')
+                ? galleryPageContent
+                : exmaplePageContent}
+              <div>
+                <NavigatorBanner type="prev" post={prev} />
+                <NavigatorBanner type="next" post={next} />
+              </div>
             </div>
-          </div>
-        </Article>
+          </Article>
+          <Footer githubUrl={githubUrl} rootDomain="https://antv.vision" />
+        </AntLayout>
       </AntLayout>
     </>
   );
