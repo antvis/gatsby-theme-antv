@@ -27,6 +27,7 @@ interface LayoutProps {
   children: React.ReactElement<any>;
   location: Location;
   pageContext: any;
+  footerProps: object;
 }
 
 function parseNulltoUndefined<T>(value: T) {
@@ -36,7 +37,7 @@ function parseNulltoUndefined<T>(value: T) {
   return value;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, location }) => {
+const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
   // https://github.com/gatsbyjs/gatsby/issues/13867#issuecomment-489481343
   if (location.pathname.includes('offline-plugin-app-shell-fallback')) {
     return <PageLoading />;
@@ -201,7 +202,11 @@ const Layout: React.FC<LayoutProps> = ({ children, location }) => {
         {...logoProps}
       />
       <main className={styles.main}>{children}</main>
-      <Footer githubUrl={githubUrl} rootDomain="https://antv.vision" />
+      <Footer
+        githubUrl={githubUrl}
+        rootDomain="https://antv.vision"
+        footerProps={footerProps}
+      />
     </>
   );
 };
