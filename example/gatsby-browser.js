@@ -28,3 +28,21 @@ exports.shouldUpdateScroll = ({ routerProps, prevRouterProps }) => {
   }
   return true;
 };
+
+/*
+ * Custom Layout Footer
+ * https://github.com/react-component/footer#api
+ * 
+
+const React = require('react');
+
+exports.wrapPageElement = ({ element, props }) => {
+  return React.cloneElement(element, {
+    ...props,
+    ...element.props,
+    footerProps: {
+      bottom: 'xxx',
+    },
+  });
+};
+*/

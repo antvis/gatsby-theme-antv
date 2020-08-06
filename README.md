@@ -290,6 +290,22 @@ or
 yarn workspace @antv/gatsby-theme-antv add shallowequal
 ```
 
+## How to customise layout footer?
+
+```js
+// gatsby-browser.js
+exports.wrapPageElement = ({ element, props }) => {
+  return React.cloneElement(element, {
+    ...props,
+    ...element.props,
+    // https://github.com/react-component/footer#api
+    footerProps: {
+      bottom: 'xxx',
+    },
+  });
+};
+```
+
 ## Related libraries
 
 - [Gatsby](https://www.gatsbyjs.org/docs/)

@@ -17,6 +17,7 @@ interface FooterProps extends RcFooterProps {
   rootDomain?: string;
   language?: string;
   githubUrl?: string;
+  footerProps?: object;
 }
 
 const Footer: React.FC<FooterProps> = ({
@@ -25,6 +26,7 @@ const Footer: React.FC<FooterProps> = ({
   theme = 'dark',
   language,
   rootDomain = '',
+  footerProps,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = language || i18n.language;
@@ -120,8 +122,8 @@ const Footer: React.FC<FooterProps> = ({
   };
 
   const defaultColumns = products
-    .filter(product => product.category !== 'ecology')
-    .map(product => ({
+    .filter((product) => product.category !== 'ecology')
+    .map((product) => ({
       title: (
         <span>
           {product.title}
@@ -178,6 +180,7 @@ const Footer: React.FC<FooterProps> = ({
           </div>
         )
       }
+      {...footerProps}
     />
   );
 };
