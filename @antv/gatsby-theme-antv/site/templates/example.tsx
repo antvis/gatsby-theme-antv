@@ -386,33 +386,29 @@ export default function Template({
         }}
         examplesCount={(exampleSections.examples || []).length}
       />
-      {exampleSections.examples && (
-        <div style={{ display: activeTab === 'examples' ? 'block' : 'none' }}>
-          <PlayGrounds
-            examples={exampleSections.examples}
-            location={location}
-            playground={playground || {}}
-          />
-        </div>
-      )}
-      {exampleSections.API && (
+      {exampleSections.examples && activeTab === 'examples' ? (
+        <PlayGrounds
+          examples={exampleSections.examples}
+          location={location}
+          playground={playground || {}}
+        />
+      ) : null}
+      {exampleSections.API && activeTab === 'API' ? (
         <div
-          style={{ display: activeTab === 'API' ? 'block' : 'none' }}
           /* eslint-disable-next-line react/no-danger */
           dangerouslySetInnerHTML={{
             __html: exampleSections.API.node.html,
           }}
         />
-      )}
-      {exampleSections.design && (
+      ) : null}
+      {exampleSections.design && activeTab === 'design' ? (
         <div
-          style={{ display: activeTab === 'design' ? 'block' : 'none' }}
           /* eslint-disable-next-line react/no-danger */
           dangerouslySetInnerHTML={{
             __html: exampleSections.design.node.html,
           }}
         />
-      )}
+      ) : null}
     </>
   );
 
