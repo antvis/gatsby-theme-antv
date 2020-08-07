@@ -377,6 +377,7 @@ export default function Template({
       <div>{renderAst(htmlAst)}</div>
       <Tabs
         slug={exampleRootSlug}
+        title={frontmatter.title}
         active={activeTab}
         showTabs={{
           examples:
