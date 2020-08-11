@@ -15,11 +15,21 @@ const Tabs: React.FC<{
   slug: string;
   showTabs: ShowTabsProps;
   examplesCount?: number;
-}> = ({ active, slug, showTabs = {} as ShowTabsProps, examplesCount }) => {
+  title?: string;
+}> = ({
+  active,
+  slug,
+  showTabs = {} as ShowTabsProps,
+  examplesCount,
+  title,
+}) => {
   const { t } = useTranslation();
   if (showTabs.API === false && showTabs.design === false) {
     return <h3 className={styles.title}>{t('演示')}</h3>;
   }
+  const hiddenTitleForDocsearch = (
+    <span className={styles.hidden}>{title} - </span>
+  );
   return (
     <ul className={styles.tabs}>
       <li
@@ -30,6 +40,7 @@ const Tabs: React.FC<{
       >
         <Link to={slug}>
           <h2>
+            {hiddenTitleForDocsearch}
             {t('代码演示')}
             {examplesCount && examplesCount > 1 ? (
               <sup className={styles.count}>({examplesCount})</sup>
@@ -44,7 +55,10 @@ const Tabs: React.FC<{
         })}
       >
         <Link to={`${slug}/API`}>
-          <h2>API</h2>
+          <h2>
+            {hiddenTitleForDocsearch}
+            API
+          </h2>
         </Link>
       </li>
       <li
@@ -54,7 +68,10 @@ const Tabs: React.FC<{
         })}
       >
         <Link to={`${slug}/design`}>
-          <h2>{t('设计指引')}</h2>
+          <h2>
+            {hiddenTitleForDocsearch}
+            {t('设计指引')}
+          </h2>
         </Link>
       </li>
     </ul>
