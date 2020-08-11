@@ -35,6 +35,8 @@
 - ✨ https://f2.antv.vision
 - ✨ https://l7.antv.vision
 - ✨ https://graphin.antv.vision
+- ✨ https://g.antv.vision/
+- ✨ https://gwebgpu.antv.vision
 
 ## Usage
 
