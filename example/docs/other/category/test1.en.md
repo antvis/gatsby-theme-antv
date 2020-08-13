@@ -7,8 +7,8 @@ order: 0
 
 ### Chart container
 
-`markdown:container.en.md`
+`markdown:common/container.en.md`
 
 ### Data Mapping
 
-`markdown:data-mapping.en.md`
+`markdown:common/data-mapping.en.md`
