@@ -2,7 +2,7 @@
 
 #### data 📌
 
-**Required**, _array object_
+<description>**Required** _array object_</description>
 
 Function description: Set chart data source
 
@@ -12,7 +12,7 @@ The data source is a collection of objects, for example: `[{ type:'a', value: 20
 
 #### meta
 
-**Optional**, _object_
+<description>**Optional** _object_</description>
 
 Function description: Configure chart data meta information globally, with field as a unit for configuration. The configuration on meta will affect the text information of all components at the same time.
 

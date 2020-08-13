@@ -67,6 +67,7 @@
     "gatsby-plugin-typescript": "^2.4.2",
     "gatsby-redirect-from": "^0.2.1",
     "gatsby-remark-autolink-headers": "^2.3.2",
+    "gatsby-remark-embed-markdown": "^0.0.4",
     "gatsby-remark-external-links": "^0.0.4",
     "gatsby-remark-prismjs": "^3.5.1",
     "gatsby-remark-reading-time": "^1.0.1",
