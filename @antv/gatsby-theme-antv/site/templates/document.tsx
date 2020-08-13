@@ -16,6 +16,7 @@ import Article from '../components/Article';
 import ReadingTime from '../components/ReadingTime';
 import NavigatorBanner from '../components/NavigatorBanner';
 import SEO from '../components/Seo';
+import CustomTag from '../components/CustomTag';
 import { usePrevAndNext } from '../hooks';
 import { capitalize } from '../utils';
 import styles from './markdown.module.less';
@@ -250,6 +251,7 @@ export default function Template({
     createElement: React.createElement,
     components: {
       swatch: Swatch,
+      tag: CustomTag,
     },
   }).Compiler;
 
