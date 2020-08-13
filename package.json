@@ -44,5 +44,9 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "dependencies": {
+    "flag": "^4.4.0",
+    "gatsby-remark-embed-markdown": "^0.0.4"
   }
 }

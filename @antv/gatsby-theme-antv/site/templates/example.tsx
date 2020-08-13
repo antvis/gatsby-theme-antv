@@ -17,6 +17,7 @@ import SEO from '../components/Seo';
 import Tabs from '../components/Tabs';
 import PlayGrounds from '../components/PlayGrounds';
 import NavigatorBanner from '../components/NavigatorBanner';
+import CustomTag from '../components/CustomTag';
 import { capitalize } from '../utils';
 import { usePrevAndNext } from '../hooks';
 import { getGithubSourceUrl } from './document';
@@ -148,6 +149,9 @@ export default function Template({
   const { t, i18n } = useTranslation();
   const renderAst = new RehypeReact({
     createElement: React.createElement,
+    components: {
+      tag: CustomTag,
+    },
   }).Compiler;
   const groupedEdges = groupBy(
     edgesInExamples,
