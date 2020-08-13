@@ -2,7 +2,7 @@
 
 #### width
 
-<description>**optional** _number_</description>
+<description>**Optional** _number_</description>
 
 Function description: Set chart width.
 
@@ -18,7 +18,7 @@ Default configuration: `400`
 
 #### forceFit
 
-**Optional**, _boolean_
+<description>**Optional** _number_</description>
 
 Function description: Whether the chart adapts to the width and height of the container. When `forceFit` is set to true, the settings of `width` and `height` will be invalid.
 

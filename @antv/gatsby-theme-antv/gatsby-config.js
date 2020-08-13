@@ -122,7 +122,7 @@ module.exports = ({
             {
               resolve: `gatsby-remark-embed-markdown`,
               options: {
-                directory: path.resolve('./docs/common/'),
+                directory: path.resolve('./docs/'),
               },
             },
             {
