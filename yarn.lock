@@ -7589,6 +7589,11 @@ gatsby-plugin-meta-redirect@^1.1.1:
   dependencies:
     fs-extra "^7.0.0"
 
+gatsby-plugin-no-sourcemaps@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npmjs.org/gatsby-plugin-no-sourcemaps/-/gatsby-plugin-no-sourcemaps-2.2.0.tgz#3803380c9d9c412e70168c47c9fb85926cc29a48"
+  integrity sha512-0mSstYfw7p2fHh5zHa1mWxfAEqHHNHOwV9n8iHy+yoJb6n7+cLyfXRsQbbpEEhMLn8+N/in2WKdKdapm+65dZw==
+
 gatsby-plugin-nprogress@^2.3.1:
   version "2.3.10"
   resolved "https://registry.npmjs.org/gatsby-plugin-nprogress/-/gatsby-plugin-nprogress-2.3.10.tgz#58d8134550d4940b8ffa87445e1dd6a8dca67e56"
