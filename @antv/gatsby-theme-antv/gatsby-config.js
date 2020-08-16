@@ -9,7 +9,9 @@ const { name } = JSON.parse(
 
 const getExtraLib = () => {
   try {
-    const extractorConfig = ExtractorConfig.loadFileAndPrepare(path.resolve('./api-extractor.json'));
+    const extractorConfig = ExtractorConfig.loadFileAndPrepare(
+      path.resolve('./api-extractor.json'),
+    );
     const extractorResult = Extractor.invoke(extractorConfig, {
       localBuild: true,
       showVerboseMessages: true,
@@ -19,7 +21,7 @@ const getExtraLib = () => {
       if (typeFilePath) {
         return `declare module '${name}'{
           ${fs.readFileSync(typeFilePath, `utf8`)}
-        }`
+        }`;
       }
     }
   } catch (e) {
@@ -49,10 +51,13 @@ module.exports = ({
       examples: [],
       playground: {
         extraLib: getExtraLib(),
-      }
+      },
     },
     plugins: [
       `gatsby-plugin-react-helmet`,
+      {
+        resolve: `gatsby-plugin-no-sourcemaps`,
+      },
       {
         resolve: `gatsby-source-filesystem`,
         options: {
