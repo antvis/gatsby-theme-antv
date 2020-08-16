@@ -201,12 +201,22 @@ insertCss(`,
         readOnly: currentEditorTab === EDITOR_TABS.DATA,
         automaticLayout: true,
         minimap: {
-          enabled: false
+          enabled: false,
         },
-        scrollBeyondLastLine: false
+        scrollBeyondLastLine: false,
+        fixedOverflowWidgets: true,
       }}
       onChange={value => onCodeChange(value)}
       editorWillMount={monaco => {
+        monaco.editor.defineTheme('customTheme', {
+          base: 'vs',
+          inherit: true,
+          rules: [],
+          colors: {
+            'editor.inactiveSelectionBackground': '#ffffff',
+          },
+        });
+        monaco.editor.setTheme('customTheme');
         monaco.languages.typescript.javascriptDefaults.addExtraLib(extraLib, '');
       }}
     />
