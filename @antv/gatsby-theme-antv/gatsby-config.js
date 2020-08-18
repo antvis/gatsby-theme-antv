@@ -26,7 +26,7 @@ const getExtraLib = () => {
     }
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error(`API Extractor Error: ${e.message}`);
+    console.warn(`api-extractor warn: ${e.message}`);
   }
   return '';
 };
