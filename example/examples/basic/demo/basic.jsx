@@ -16,6 +16,7 @@ const data = [
 const chart = new Chart({
   container: document.getElementById('container'),
   forceFit: true,
+  width: 500,
   height: 500,
 });
 

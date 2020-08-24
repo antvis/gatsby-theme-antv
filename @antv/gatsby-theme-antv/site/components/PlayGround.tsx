@@ -83,12 +83,22 @@ const PlayGround: React.FC<PlayGroundProps> = ({
       }
     `,
   );
+  const replaceInsertCss = (str: string) => {
+    // 统一增加对 insert-css 的使用注释
+    return str.replace(
+      /^insertCss\(/gm,
+    `// 我们用 insert-css 演示引入自定义样式
+// 推荐将样式添加到自己的样式文件中
+// 若拷贝官方代码，别忘了 npm install insert-css
+insertCss(`,
+    );
+  };
   const { extraLib = '' } = site.siteMetadata.playground;
   const { t } = useTranslation();
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
-  const [currentSourceCode, updateCurrentSourceCode] = useState(source);
+  const [currentSourceCode, updateCurrentSourceCode] = useState(replaceInsertCss(source));
   const [currentSourceData, updateCurrentSourceData] = useState(null);
 
   if (typeof window !== 'undefined') {
@@ -172,21 +182,10 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     }
   };
 
-  const replaceInsertCss = (str: string) => {
-    // 统一增加对 insert-css 的使用注释
-    return str.replace(
-      /^insertCss\(/gm,
-    `// 我们用 insert-css 演示引入自定义样式
-// 推荐将样式添加到自己的样式文件中
-// 若拷贝官方代码，别忘了 npm install insert-css
-insertCss(`,
-    );
-  };
-
   const [editorValue, updateEditorValue] = useState('');
   useEffect(() => {
     if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
-      updateEditorValue(replaceInsertCss(currentSourceCode));
+      updateEditorValue(currentSourceCode);
     } else if (currentEditorTab === EDITOR_TABS.DATA) {
       updateEditorValue(JSON.stringify(currentSourceData, null, 2));
     }
