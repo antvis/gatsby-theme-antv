@@ -1,4 +1,7 @@
 window.g2 = require('./src/index.ts').default;
+window.react = require('react');
+window.reactDom = require('react-dom');
+window.antd = require('antd');
 
 // gatsby-browser.js
 exports.shouldUpdateScroll = ({ routerProps, prevRouterProps }) => {
