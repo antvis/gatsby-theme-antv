@@ -100,7 +100,7 @@
     "react-github-button": "^0.1.11",
     "react-helmet": "^6.0.0",
     "react-i18next": "^11.4.0",
-    "react-monaco-editor": "^0.39.1",
+    "react-monaco-editor": "^0.40.0",
     "react-slick": "^0.27.0",
     "react-split-pane": "^0.1.87",
     "react-test-renderer": "^16.9.0",
@@ -110,7 +110,7 @@
     "shallowequal": "^1.1.0",
     "slash": "^3.0.0",
     "slick-carousel": "^1.8.1",
-    "typescript": "^3.9.2",
+    "typescript": "^4.0.2",
     "video-react": "^0.14.1"
   },
   "license": "MIT",
