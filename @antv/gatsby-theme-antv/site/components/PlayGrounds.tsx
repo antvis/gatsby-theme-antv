@@ -1,36 +1,43 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import classNames from 'classnames';
-import { Tooltip, Skeleton } from 'antd';
+import { Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
-import PlayGround, { PlayGroundProps } from './PlayGround';
 import styles from './PlayGrounds.module.less';
 
-interface PlayGroundsProps {
-  examples: PlayGroundProps[];
-  location: Location;
+export interface PlayGroundItemProps {
+  source: string;
+  examples: PlayGroundItemProps[];
+  babeledSource: string;
+  absolutePath?: string;
+  relativePath?: string;
+  screenshot?: string;
+  recommended?: boolean;
+  filename: string;
+  title?: string;
+  location?: Location;
   playground?: {
     container?: string;
     playgroundDidMount?: string;
     playgroundWillUnmount?: string;
+    dependencies?: {
+      [key: string]: string;
+    };
     htmlCodeTemplate?: string;
   };
 }
 
+interface PlayGroundsProps {
+  examples: PlayGroundItemProps[];
+  currentExample: PlayGroundItemProps;
+  updateCurrentExample: Function;
+}
+
 const PlayGrounds: React.FC<PlayGroundsProps> = ({
   examples = [],
-  location,
-  playground,
+  currentExample,
+  updateCurrentExample,
 }) => {
   const { i18n } = useTranslation();
-  const [currentExample, updateCurrentExample] = useState<PlayGroundProps>();
-
-  useEffect(() => {
-    const defaultExample =
-      examples.find(
-        item => `#${item.filename.split('.')[0]}` === location.hash,
-      ) || examples[0];
-    updateCurrentExample(defaultExample);
-  }, []);
 
   // 滚动到当前节点
   useEffect(() => {
@@ -47,17 +54,15 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
     }
   }, [currentExample]);
 
-  const [hasHorizontalScrollbar, updateHasHorizontalScrollbar] = useState(
-    false,
-  );
-  const [scrollPostion, updateScrollPostion] = useState('left');
+  const [hasVerticalScrollbar, updateVerticalScrollbar] = useState(false);
+  const [scrollPostion, updateScrollPostion] = useState('');
   const playgroundScrollDiv = useRef<HTMLDivElement>(null);
 
   const calcScrollPostion = (node: HTMLElement) => {
-    if (node.scrollLeft < 2) {
-      updateScrollPostion('left');
-    } else if (node.scrollLeft + node.clientWidth >= node.scrollWidth - 2) {
-      updateScrollPostion('right');
+    if (node.scrollTop < 2) {
+      updateScrollPostion('top');
+    } else if (node.scrollLeft + node.clientHeight >= node.scrollHeight - 2) {
+      updateScrollPostion('down');
     } else {
       updateScrollPostion('middle');
     }
@@ -73,7 +78,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
   const onResize = useCallback(() => {
     if (playgroundScrollDiv && playgroundScrollDiv.current) {
       const div = playgroundScrollDiv!.current!;
-      updateHasHorizontalScrollbar(div.scrollWidth > div.clientWidth);
+      updateVerticalScrollbar(div.scrollHeight > div.clientHeight);
       calcScrollPostion(div);
     }
   }, [playgroundScrollDiv]);
@@ -90,74 +95,58 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
   }, []);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={classNames(styles.shadowWrapper, {
+        [styles.topInnerShadow]:
+          (scrollPostion === 'top' || scrollPostion === 'middle') &&
+          hasVerticalScrollbar,
+        [styles.bottomInnerShadow]:
+          (scrollPostion === 'bottom' || scrollPostion === 'middle') &&
+          hasVerticalScrollbar,
+      })}
+    >
       <div
-        className={classNames(styles.shadowWrapper, {
-          [styles.leftInnerShadow]:
-            (scrollPostion === 'right' || scrollPostion === 'middle') &&
-            hasHorizontalScrollbar,
-          [styles.rightInnerShadow]:
-            (scrollPostion === 'left' || scrollPostion === 'middle') &&
-            hasHorizontalScrollbar,
-        })}
+        className={styles.cards}
+        ref={playgroundScrollDiv}
+        onScroll={onScroll}
       >
-        <div
-          className={styles.cards}
-          ref={playgroundScrollDiv}
-          onScroll={onScroll}
-        >
-          {examples.map(example => {
-            const title =
-              typeof example.title === 'object'
-                ? example.title[i18n.language]
-                : example.title;
-            return (
-              <Tooltip title={title || ''} key={example.relativePath}>
-                <a
-                  href={`#${example.filename.split('.')[0]}`}
-                  onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
-                    e.preventDefault();
-                    window.history.pushState(
-                      {},
-                      '',
-                      `#${example.filename.split('.')[0]}`,
-                    );
-                    updateCurrentExample(example);
-                  }}
-                  id={`example-${example.filename.split('.')[0]}`}
-                  className={classNames(styles.card, {
-                    [styles.current]:
-                      currentExample &&
-                      example.relativePath === currentExample.relativePath,
-                  })}
-                >
-                  <img
-                    src={
-                      example.screenshot ||
-                      'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
-                    }
-                    alt={title || example.relativePath}
-                  />
-                </a>
-              </Tooltip>
-            );
-          })}
-        </div>
+        {examples.map((example) => {
+          const title =
+            typeof example.title === 'object'
+              ? example.title[i18n.language]
+              : example.title;
+          return (
+            <Tooltip title={title || ''} key={example.relativePath}>
+              <a
+                href={`#${example.filename.split('.')[0]}`}
+                onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
+                  e.preventDefault();
+                  window.history.pushState(
+                    {},
+                    '',
+                    `#${example.filename.split('.')[0]}`,
+                  );
+                  updateCurrentExample(example);
+                }}
+                id={`example-${example.filename.split('.')[0]}`}
+                className={classNames(styles.card, {
+                  [styles.current]:
+                    currentExample &&
+                    example.relativePath === currentExample.relativePath,
+                })}
+              >
+                <img
+                  src={
+                    example.screenshot ||
+                    'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
+                  }
+                  alt={title || example.relativePath}
+                />
+              </a>
+            </Tooltip>
+          );
+        })}
       </div>
-      {playground && currentExample ? (
-        <PlayGround
-          key={currentExample.relativePath}
-          relativePath={currentExample.relativePath}
-          source={currentExample.source}
-          babeledSource={currentExample.babeledSource}
-          filename={currentExample.filename}
-          playground={playground}
-          location={location}
-          title={currentExample.title}
-        />
-      ) : (
-        <Skeleton paragraph={{ rows: 8 }} />
-      )}
     </div>
   );
 };

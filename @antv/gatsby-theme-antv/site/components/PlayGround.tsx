@@ -1,9 +1,8 @@
 /* eslint no-underscore-dangle: 0 */
 import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { useMedia } from 'react-use';
 import classNames from 'classnames';
-import { Result } from 'antd';
+import { Skeleton, Result, Col, Row } from 'antd';
 import debounce from 'lodash/debounce';
 import {
   useTranslation,
@@ -13,31 +12,22 @@ import {
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
+import PlayGrounds, { PlayGroundItemProps } from './PlayGrounds';
 import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
 
-const MonacoEditor = lazy(() => import('react-monaco-editor'));
-
-export interface PlayGroundProps {
-  source: string;
-  babeledSource: string;
-  absolutePath?: string;
-  relativePath?: string;
-  screenshot?: string;
-  recommended?: boolean;
-  filename: string;
-  title?: string;
-  location?: Location;
+interface PlayGroundProps {
+  examples: PlayGroundItemProps[];
+  location: Location;
   playground?: {
     container?: string;
     playgroundDidMount?: string;
     playgroundWillUnmount?: string;
-    dependencies?: {
-      [key: string]: string;
-    };
     htmlCodeTemplate?: string;
   };
 }
+
+const MonacoEditor = lazy(() => import('react-monaco-editor'));
 
 const execute = debounce(
   (
@@ -63,12 +53,9 @@ const execute = debounce(
 );
 
 const PlayGround: React.FC<PlayGroundProps> = ({
-  source,
-  babeledSource,
-  relativePath = '',
-  playground = {},
+  examples = [],
   location,
-  title = '',
+  playground,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -87,7 +74,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     // 统一增加对 insert-css 的使用注释
     return str.replace(
       /^insertCss\(/gm,
-    `// 我们用 insert-css 演示引入自定义样式
+      `// 我们用 insert-css 演示引入自定义样式
 // 推荐将样式添加到自己的样式文件中
 // 若拷贝官方代码，别忘了 npm install insert-css
 insertCss(`,
@@ -95,10 +82,18 @@ insertCss(`,
   };
   const { extraLib = '' } = site.siteMetadata.playground;
   const { t } = useTranslation();
+  const [currentExample, updateCurrentExample] = useState<
+    PlayGroundItemProps
+  >();
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
-  const [compiledCode, updateCompiledCode] = useState(babeledSource);
-  const [currentSourceCode, updateCurrentSourceCode] = useState(replaceInsertCss(source));
+
+  const [compiledCode, updateCompiledCode] = useState<string>('');
+  const [relativePath, updateRelativePath] = useState<string | undefined>('');
+  const [fileExtension, updateFileExtension] = useState<string | undefined>('');
+  const [title, updateTitle] = useState<string | undefined>('');
+
+  const [currentSourceCode, updateCurrentSourceCode] = useState<string>('');
   const [currentSourceData, updateCurrentSourceData] = useState(null);
 
   if (typeof window !== 'undefined') {
@@ -122,11 +117,37 @@ insertCss(`,
     }
   };
 
+  const updateCurrentExampleParams = (current: PlayGroundItemProps) => {
+    if (!current?.relativePath) return;
+    updateRelativePath(current?.relativePath);
+    updateFileExtension(
+      current?.relativePath.split('.')[
+        current.relativePath.split('.').length - 1
+      ] || 'js',
+    );
+    updateTitle(current?.title);
+    updateCompiledCode(current.babeledSource);
+    updateCurrentSourceCode(replaceInsertCss(current.source));
+  };
+
+  useEffect(() => {
+    const defaultExample =
+      examples.find(
+        (item) => `#${item.filename.split('.')[0]}` === location.hash,
+      ) || examples[0];
+    updateCurrentExample(defaultExample);
+  }, []);
+
+  useEffect(() => {
+    if (!currentExample) return;
+    updateCurrentExampleParams(currentExample);
+  }, [currentExample]);
+
   const executeCode = () => {
     if (!compiledCode || !playgroundNode || !playgroundNode.current) {
       return;
     }
-    execute(compiledCode, playgroundNode.current, playground.container);
+    execute(compiledCode, playgroundNode.current, playground?.container);
   };
 
   useEffect(() => {
@@ -134,29 +155,28 @@ insertCss(`,
   }, [compiledCode, error]);
 
   useEffect(() => {
-    if (playground.playgroundDidMount) {
+    if (playground?.playgroundDidMount) {
       // eslint-disable-next-line no-new-func
-      new Function(playground.playgroundDidMount)();
+      new Function(playground?.playgroundDidMount)();
     }
     return () => {
-      if (playground.playgroundWillUnmount) {
+      if (playground?.playgroundWillUnmount) {
         // eslint-disable-next-line no-new-func
-        new Function(playground.playgroundWillUnmount)();
+        new Function(playground?.playgroundWillUnmount)();
       }
     };
   }, []);
 
   const [editorTabs, updateEditroTabs] = useState<EDITOR_TABS[]>([]);
-  const [currentEditorTab, updateCurrentEditorTab] = useState(EDITOR_TABS.JAVASCRIPT);
+  const [currentEditorTab, updateCurrentEditorTab] = useState(
+    EDITOR_TABS.JAVASCRIPT,
+  );
   useEffect(() => {
     const dataFileMatch = currentSourceCode.match(/fetch\('(.*)'\)/);
-    if (
-      dataFileMatch &&
-      dataFileMatch.length > 0
-    ) {
+    if (dataFileMatch && dataFileMatch.length > 0) {
       fetch(dataFileMatch[1])
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           updateEditroTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
           updateCurrentSourceData(data);
         });
@@ -194,7 +214,9 @@ insertCss(`,
   const editor = (
     <MonacoEditor
       height="calc(100% - 32px)"
-      language={currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'}
+      language={
+        currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'
+      }
       value={editorValue}
       options={{
         readOnly: currentEditorTab === EDITOR_TABS.DATA,
@@ -205,8 +227,8 @@ insertCss(`,
         scrollBeyondLastLine: false,
         fixedOverflowWidgets: true,
       }}
-      onChange={value => onCodeChange(value)}
-      editorWillMount={monaco => {
+      onChange={(value) => onCodeChange(value)}
+      editorWillMount={(monaco) => {
         monaco.editor.defineTheme('customTheme', {
           base: 'vs',
           inherit: true,
@@ -216,15 +238,13 @@ insertCss(`,
           },
         });
         monaco.editor.setTheme('customTheme');
-        monaco.languages.typescript.javascriptDefaults.addExtraLib(extraLib, '');
+        monaco.languages.typescript.javascriptDefaults.addExtraLib(
+          extraLib,
+          '',
+        );
       }}
     />
   );
-
-  const fileExtension =
-    relativePath.split('.')[relativePath.split('.').length - 1] || 'js';
-
-  const isWide = useMedia('(min-width: 767.99px)', true);
 
   const dispatchResizeEvent = () => {
     const e = new Event('resize');
@@ -232,53 +252,78 @@ insertCss(`,
   };
 
   return (
-    <div className={styles.playground} ref={fullscreenNode}>
-      <SplitPane
-        split={isWide ? 'vertical' : 'horizontal'}
-        defaultSize="62%"
-        minSize={100}
-        onDragFinished={dispatchResizeEvent}
-      >
-        <div
-          className={classNames(
-            styles.preview,
-            `playground-${relativePath.split('/').join('-')}`,
-          )}
-        >
-          {error ? (
-            <Result
-              status="error"
-              title={t('演示代码报错，请检查')}
-              subTitle={<pre>{error && error.message}</pre>}
-            />
-          ) : (
-            <div
-              ref={playgroundNode}
-              className={styles.exampleContainerWrapper}
-            />
-          )}
+    <div className={styles.container}>
+      {playground && currentExample ? (
+        <div className={styles.playground} ref={fullscreenNode}>
+          <SplitPane
+            split={isFullScreen ? 'vertical' : 'horizontal'}
+            defaultSize="50%"
+            minSize={100}
+            onDragFinished={dispatchResizeEvent}
+          >
+            <Row>
+              <Col span="4">
+                {examples.length > 1 && !isFullScreen && (
+                  <PlayGrounds
+                    examples={examples}
+                    currentExample={currentExample}
+                    updateCurrentExample={updateCurrentExample}
+                  />
+                )}
+              </Col>
+              <Col span="20">
+                {relativePath && (
+                  <div className="playgroundCard">
+                    <div
+                      className={classNames(
+                        styles.preview,
+                        `playground-${relativePath.split('/').join('-')}`,
+                      )}
+                    >
+                      {error ? (
+                        <Result
+                          status="error"
+                          title={t('演示代码报错，请检查')}
+                          subTitle={<pre>{error && error.message}</pre>}
+                        />
+                      ) : (
+                        <div
+                          ref={playgroundNode}
+                          className={styles.exampleContainerWrapper}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
+              </Col>
+            </Row>
+
+            <div className={styles.editor}>
+              {title && fileExtension && (
+                <Toolbar
+                  fileExtension={fileExtension}
+                  sourceCode={currentSourceCode}
+                  playground={playground}
+                  location={location}
+                  title={title}
+                  isFullScreen={isFullScreen}
+                  onToggleFullscreen={toggleFullscreen}
+                  onExecuteCode={executeCode}
+                  editorTabs={editorTabs}
+                  currentEditorTab={currentEditorTab}
+                  onEditorTabChange={updateCurrentEditorTab}
+                />
+              )}
+
+              <div className={styles.monaco}>
+                <Suspense fallback={<PageLoading />}>{editor}</Suspense>
+              </div>
+            </div>
+          </SplitPane>
         </div>
-        <div className={styles.editor}>
-          <Toolbar
-            fileExtension={fileExtension}
-            sourceCode={currentSourceCode}
-            playground={playground}
-            location={location}
-            title={title}
-            isFullScreen={isFullScreen}
-            onToggleFullscreen={toggleFullscreen}
-            onExecuteCode={executeCode}
-            editorTabs={editorTabs}
-            currentEditorTab={currentEditorTab}
-            onEditorTabChange={updateCurrentEditorTab}
-          />
-          <div className={styles.monaco}>
-            <Suspense fallback={<PageLoading />}>
-              {editor}
-            </Suspense>
-          </div>
-        </div>
-      </SplitPane>
+      ) : (
+        <Skeleton paragraph={{ rows: 8 }} />
+      )}
     </div>
   );
 };

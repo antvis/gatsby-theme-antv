@@ -1,16 +1,12 @@
 @import '~antd/es/style/themes/default.less';
-@editor-height: 580px;
-
+@editor-height: 95vh;
 .playground {
   margin: 0;
   padding: 0;
-  border: 1px solid @border-color-split;
-  border-radius: 4px;
   background: #fff;
   height: @editor-height;
   overflow: hidden;
   position: relative;
-
   .preview,
   .editor {
     height: 100%;
@@ -22,7 +18,6 @@
     height: 100%;
     width: 100%;
   }
-
   .editor {
     overflow: hidden;
     height: 100%;
@@ -36,9 +31,20 @@
   // 非常关键
   // 参考：https://codesandbox.io/s/mow7x4zyqx
   :global {
-    .Pane1,
-    .Pane2 {
+    .Pane1 {
+      margin: 6px 12px 6px 12px;
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1),
+        0px 0px 14px rgba(238, 238, 238, 0.5);
+      border-radius: 4px;
       overflow: auto;
+    }
+    .Pane2 {
+      margin: 6px 12px 6px 12px;
+      box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1),
+        0px 0px 14px rgba(238, 238, 238, 0.5);
+      border: 0.5px solid #e4e4e4;
+      box-sizing: border-box;
+      border-radius: 10px;
     }
 
     .Resizer.vertical {

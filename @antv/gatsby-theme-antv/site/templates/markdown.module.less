@@ -1,5 +1,10 @@
 @import '~antd/es/style/themes/default.less';
 
+.exampleLayout {
+  height: 93vh !important;
+  overflow: auto !important;
+}
+
 .markdown {
   font-size: 14px;
   line-height: 2;
@@ -142,7 +147,7 @@
 }
 
 .layout {
-  margin: 24px 0 32px 0;
+  margin: 0 0 32px 0;
 }
 
 .editOnGtiHubButton {
@@ -330,6 +335,85 @@
       }
     }
   }
+}
+
+.rootCollapse {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: none !important;
+  .rootItem {
+    border-bottom: none !important;
+    border-top: 1px solid #d9d9d94f;
+    :global {
+      .ant-collapse-content {
+        border: none;
+        .ant-collapse-content-box {
+          padding: 0px 16px;
+          .ant-collapse {
+            background-color: #fff !important;
+            .ant-collapse-item {
+              border-bottom: 1px solid #d9d9d96e;
+            }
+            &:last-child {
+              .ant-collapse-item {
+                border-bottom: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.docContent {
+  overflow: auto;
+  height: 91vh !important;
+}
+
+.designContent {
+  padding: 8px 26px;
+}
+
+:global {
+  .Pane1 .Pane2 {
+    overflow: auto;
+  }
+
+  .ant-collapse-extra {
+    margin-left: 20px;
+    display: inline-block;
+    float: none !important;
+  }
+}
+
+.default {
+  margin-left: 12px;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: rgba(0, 0, 0, 0.85);
+  opacity: 0.35;
+}
+.require {
+  font-style: italic;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: rgba(0, 0, 0, 0.85);
+  opacity: 0.35;
+}
+.type {
+  margin-left: 12px;
+  font-family: PingFangSC;
+  font-size: 10px;
+  line-height: 12px;
+  color: #000000;
+  opacity: 0.45;
+  display: inline-block;
+  background-color: #ccc;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 @media only screen and (max-width: 1199.99px) {
