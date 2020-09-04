@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="screenshot" src="https://user-images.githubusercontent.com/507615/79978554-b00f1b00-84d2-11ea-8b18-8d0b2828aefb.png">
+<img width="1295" alt="图片" src="https://user-images.githubusercontent.com/507615/69481549-49b39d00-0e4d-11ea-87fd-1e7741f4bdf1.png">
 
 # Gatsby Theme for AntV ⚛
 
@@ -22,7 +22,6 @@
 - 📝 Markdown-based documentation and menus
 - 🎬 Examples with live playground
 - 🏗 Unified Theme and Layout
-- 📱 Mobile friendly
 - 🆙 Easy customized header nav
 - 🧩 Built-in home page components
 
@@ -35,8 +34,6 @@
 - ✨ https://f2.antv.vision
 - ✨ https://l7.antv.vision
 - ✨ https://graphin.antv.vision
-- ✨ https://g.antv.vision/
-- ✨ https://gwebgpu.antv.vision
 
 ## Usage
 
@@ -98,12 +95,14 @@ module.exports = {
       playgroundDidMount: 'console.log("playgroundDidMount");',
       playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
     },
-    versions: {
-      '1.x': 'https://1x.ant.design',
-      '2.x': 'https://2x.ant.design',
-      '3.x': 'https://ant.design',
-      '4.x': 'https://next.ant.design',
-    },
+    versions: [
+      {
+        '1.x': 'https://1x.ant.design',
+        '2.x': 'https://2x.ant.design',
+        '3.x': 'https://ant.design',
+        '4.x': 'https://next.ant.design',
+      },
+    ],
     redirects: [
       {
         from: /\/old-url/,
@@ -214,7 +213,7 @@ const Layout = () => {
         showSearch={false}
         showGithubCorner={false}
         showLanguageSwitcher={false}
-        onLanguageChange={language => {
+        onLanguageChange={(language) => {
           console.log(language);
         }}
         defaultLanguage="zh"
@@ -266,6 +265,29 @@ Visit https://localhost:8000 to preview.
 
 ## Publish to npm
 
+⚠️ If it is your first time for GitHub release, please read the following steps, otherwise, you can skip directly to the third step.
+
+1. Generate a [personal access token](https://github.com/settings/tokens):
+   (release-it only needs "repo" access; no "admin" or other scopes).
+
+![generate token](https://gw.alipayobjects.com/zos/antfincdn/or185CJhTK/20200814154850.jpg)
+
+Click the button 'Generate token', then your token would be generated. Copy this token as soon as you get it since you won’t be able to see it again after refreshing the web page!
+
+2. Make sure the token is available as an environment variable.
+
+Example:
+
+```bash
+export GITHUB_TOKEN="YOUR TOKEN"
+```
+
+In macOS or Linux, this can be added to e.g. ~/.profile or ~/.zshrc, so it's available everytime the shell is used.
+
+More details for the GitHub releases preperation: [GitHub Releases](https://github.com/release-it/release-it/blob/master/docs/github-releases.md)
+
+3. Run the following commands in your terminal.
+
 ```bash
 cd @antv/gatsby-theme-antv
 npm run release
@@ -289,23 +311,7 @@ yarn add shallowequal
 or
 
 ```bash
-yarn workspace @antv/gatsby-theme-antv add shallowequal
-```
-
-## How to customise layout footer?
-
-```js
-// gatsby-browser.js
-exports.wrapPageElement = ({ element, props }) => {
-  return React.cloneElement(element, {
-    ...props,
-    ...element.props,
-    // https://github.com/react-component/footer#api
-    footerProps: {
-      bottom: 'xxx',
-    },
-  });
-};
+yarn workspace @antv/gatsby-theme-antv shallowequal
 ```
 
 ## Related libraries
