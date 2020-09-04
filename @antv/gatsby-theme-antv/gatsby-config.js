@@ -123,7 +123,7 @@ module.exports = ({
         options: {
           plugins: [
             {
-              resolve: `gatsby-remark-embed-markdown`,
+              resolve: `${__dirname}/plugins/gatsby-remark-embed-markdown`,
               options: {
                 directory: path.resolve('./docs/'),
               },
@@ -224,6 +224,12 @@ module.exports = ({
         options: {
           // Setting a color is optional.
           color: theme['primary-color'],
+        },
+      },
+      {
+        resolve: `${__dirname}/plugins/gatsby-source-api`,
+        options: {
+          path: path.resolve('./docs/'),
         },
       },
     ],
