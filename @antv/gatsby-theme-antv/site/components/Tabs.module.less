@@ -4,6 +4,7 @@ ul.tabs {
   list-style: none;
   height: 48px;
   background: #f8f9fc;
+  position: relative;
 
   > li {
     padding: 0 !important;
@@ -82,5 +83,24 @@ ul.tabs {
 
   .hidden {
     display: none;
+  }
+}
+
+.tabExtra {
+  .collapseAll {
+    position: absolute;
+    height: 17px;
+    cursor: pointer;
+    right: 45px;
+    top: 20px;
+    font-size: 12px;
+    line-height: 14px;
+    color: rgb(104, 122, 139);
+    &:hover {
+      color: rgba(0, 0, 0, 0.961);
+    }
+    svg {
+      margin-right: 8px;
+    }
   }
 }

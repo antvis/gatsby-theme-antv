@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { Link } from 'gatsby';
 import { useTranslation } from 'react-i18next';
+import Icon from '@ant-design/icons';
+import CollaspeAllSvg from '../images/collapse-all.svg';
 import styles from './Tabs.module.less';
 
 interface ShowTabsProps {
@@ -16,7 +18,16 @@ const Tabs: React.FC<{
   showTabs: ShowTabsProps;
   examplesCount?: number;
   title?: string;
-}> = ({ active, slug, showTabs = {} as ShowTabsProps, title }) => {
+  updateR0ActiveKeys: Function;
+  updateR2ActiveKeys: Function;
+}> = ({
+  active,
+  slug,
+  showTabs = {} as ShowTabsProps,
+  title,
+  updateR0ActiveKeys,
+  updateR2ActiveKeys,
+}) => {
   const { t } = useTranslation();
   if (showTabs.API === false && showTabs.design === false) {
     return <p className={styles.title}>{t('演示')}</p>;
@@ -24,35 +35,48 @@ const Tabs: React.FC<{
   const hiddenTitleForDocsearch = (
     <span className={styles.hidden}>{title} - </span>
   );
+
+  const collaspseALL = () => {
+    updateR0ActiveKeys([]);
+    updateR2ActiveKeys([]);
+  };
   return (
-    <ul className={styles.tabs}>
-      <li
-        className={classNames({
-          [styles.active]: active === 'API',
-          [styles.hidden]: showTabs.API === false,
-        })}
-      >
-        <Link to={`${slug}/API`}>
-          <div>
-            {hiddenTitleForDocsearch}
-            API
-          </div>
-        </Link>
-      </li>
-      <li
-        className={classNames({
-          [styles.active]: active === 'design',
-          [styles.hidden]: showTabs.design === false,
-        })}
-      >
-        <Link to={`${slug}/design`}>
-          <div>
-            {hiddenTitleForDocsearch}
-            {t('设计指引')}
-          </div>
-        </Link>
-      </li>
-    </ul>
+    <>
+      <ul className={styles.tabs}>
+        <li
+          className={classNames({
+            [styles.active]: active === 'API',
+            [styles.hidden]: showTabs.API === false,
+          })}
+        >
+          <Link to={`${slug}/API`}>
+            <div>
+              {hiddenTitleForDocsearch}
+              API
+            </div>
+          </Link>
+        </li>
+        <li
+          className={classNames({
+            [styles.active]: active === 'design',
+            [styles.hidden]: showTabs.design === false,
+          })}
+        >
+          <Link to={`${slug}/design`}>
+            <div>
+              {hiddenTitleForDocsearch}
+              {t('设计指引')}
+            </div>
+          </Link>
+        </li>
+      </ul>
+      <div className={styles.tabExtra}>
+        <div className={styles.collapseAll} onClick={collaspseALL}>
+          <Icon component={CollaspeAllSvg} />
+          收起所有
+        </div>
+      </div>
+    </>
   );
 };
 
