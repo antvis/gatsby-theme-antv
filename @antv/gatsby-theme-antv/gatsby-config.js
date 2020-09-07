@@ -229,7 +229,8 @@ module.exports = ({
       {
         resolve: `${__dirname}/plugins/gatsby-source-api`,
         options: {
-          path: path.resolve('./docs/'),
+          examplesPath: path.resolve('./examples/'),
+          docsPath: path.resolve('./docs/'),
         },
       },
     ],
