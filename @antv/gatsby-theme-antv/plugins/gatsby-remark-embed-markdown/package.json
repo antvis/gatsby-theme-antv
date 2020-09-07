@@ -1,0 +1,11 @@
+{
+  "name": "gatsby-remark-embed-markdown",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "normalize-path": "^3.0.0",
+    "unified": "^6.2.0",
+    "remark-parse": "^6.0.3"
+  }
+}
