@@ -223,7 +223,11 @@ export default function Template({
   const isWide = useMedia('(min-width: 767.99px)', true);
   const [drawOpen, setDrawOpen] = useState(false);
   const menuSider = (
-    <Affix offsetTop={8} className={styles.affix}>
+    <Affix
+      offsetTop={0}
+      className={styles.affix}
+      style={{ height: isWide ? '100vh' : 'inherit' }}
+    >
       {isWide ? (
         <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
           {menu}
