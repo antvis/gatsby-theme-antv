@@ -116,44 +116,72 @@ function ast2json(ast) {
   return result;
 }
 
+const readDirectory = (entry, callback) => {
+  const dirInfo = fs.readdirSync(entry);
+  dirInfo.forEach((item) => {
+    const location = path.join(entry, item);
+    const stat = fs.statSync(location);
+    if (stat.isDirectory()) {
+      readDirectory(location, callback);
+    } else {
+      callback(location);
+    }
+  });
+};
+
+const getSlug = (location) => {
+  const index = location.indexOf('/examples/');
+  if (index !== -1) {
+    const str = location.slice(index);
+    const arr = str.split('.');
+    if (arr.length === 3) {
+      return `/${arr[1]}${arr[0]}`;
+    }
+  }
+  return location;
+};
+
 exports.sourceNodes = (
   { actions, createNodeId, createContentDigest },
   options,
 ) => {
   const { createNode } = actions;
   const result = {};
-  const apiPath = path.resolve(options.path, 'api');
-  if (!apiPath || !fs.existsSync(apiPath)) {
+  const { examplesPath, docsPath } = options;
+
+  if (
+    !examplesPath ||
+    !fs.existsSync(examplesPath) ||
+    !docsPath ||
+    !fs.existsSync(docsPath)
+  ) {
     return;
   }
 
-  fs.readdir(apiPath, (err, files) => {
-    if (err) {
-      return;
-    }
-    files.forEach((file) => {
-      const content = fs.readFileSync(path.resolve(apiPath, file));
+  readDirectory(examplesPath, (location) => {
+    if (/\/API\.\w{2}\.md/.test(location)) {
+      const content = fs.readFileSync(path.resolve(location));
       let mdAst = unified().use(parse).parse(content);
       mdAst = parseEmbedMarkdown(
         {
           markdownAST: mdAst,
         },
         {
-          directory: options.path,
+          directory: docsPath,
         },
       );
-      result[file] = ast2json(mdAst);
-    });
-
-    const nodeMeta = {
-      id: createNodeId('apiStructure'),
-      internal: {
-        type: `ApiStructure`,
-        mediaType: `application/json`,
-        content: JSON.stringify(result),
-        contentDigest: createContentDigest(result),
-      },
-    };
-    createNode(nodeMeta);
+      result[getSlug(location)] = ast2json(mdAst);
+    }
   });
+
+  const nodeMeta = {
+    id: createNodeId('apiStructure'),
+    internal: {
+      type: `ApiStructure`,
+      mediaType: `application/json`,
+      content: JSON.stringify(result),
+      contentDigest: createContentDigest(result),
+    },
+  };
+  createNode(nodeMeta);
 };
