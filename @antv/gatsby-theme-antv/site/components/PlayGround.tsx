@@ -2,8 +2,9 @@
 import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import classNames from 'classnames';
-import { Skeleton, Result, Col, Row } from 'antd';
+import { Skeleton, Result, Layout } from 'antd';
 import debounce from 'lodash/debounce';
+import { MenuUnfoldOutlined } from '@ant-design/icons';
 import {
   useTranslation,
   withTranslation,
@@ -12,9 +13,12 @@ import {
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
+
 import PlayGrounds, { PlayGroundItemProps } from './PlayGrounds';
 import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
+
+const { Content, Sider } = Layout;
 
 interface PlayGroundProps {
   examples: PlayGroundItemProps[];
@@ -87,7 +91,7 @@ insertCss(`,
   >();
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
-
+  const [collapsed, updateCollapsed] = useState<boolean>(false);
   const [compiledCode, updateCompiledCode] = useState<string>('');
   const [relativePath, updateRelativePath] = useState<string | undefined>('');
   const [fileExtension, updateFileExtension] = useState<string | undefined>('');
@@ -251,6 +255,10 @@ insertCss(`,
     window.dispatchEvent(e);
   };
 
+  const toggle = () => {
+    updateCollapsed(!collapsed);
+  };
+
   return (
     <div className={styles.container}>
       {playground && currentExample ? (
@@ -261,42 +269,53 @@ insertCss(`,
             minSize={100}
             onDragFinished={dispatchResizeEvent}
           >
-            <Row>
-              <Col span="4">
-                {examples.length > 1 && !isFullScreen && (
+            <Layout className={styles.playgroundCard}>
+              <Sider
+                collapsedWidth={0}
+                width={120}
+                trigger={null}
+                collapsible
+                collapsed={collapsed}
+                className={styles.menuSider}
+                theme="light"
+              >
+                {!isFullScreen && (
                   <PlayGrounds
                     examples={examples}
                     currentExample={currentExample}
                     updateCurrentExample={updateCurrentExample}
                   />
                 )}
-              </Col>
-              <Col span="20">
+              </Sider>
+              <MenuUnfoldOutlined
+                className={styles.trigger}
+                type={collapsed ? 'menu-unfold' : 'menu-fold'}
+                onClick={toggle}
+              />
+              <Content className={styles.chartContainer}>
                 {relativePath && (
-                  <div className="playgroundCard">
-                    <div
-                      className={classNames(
-                        styles.preview,
-                        `playground-${relativePath.split('/').join('-')}`,
-                      )}
-                    >
-                      {error ? (
-                        <Result
-                          status="error"
-                          title={t('演示代码报错，请检查')}
-                          subTitle={<pre>{error && error.message}</pre>}
-                        />
-                      ) : (
-                        <div
-                          ref={playgroundNode}
-                          className={styles.exampleContainerWrapper}
-                        />
-                      )}
-                    </div>
+                  <div
+                    className={classNames(
+                      styles.preview,
+                      `playground-${relativePath.split('/').join('-')}`,
+                    )}
+                  >
+                    {error ? (
+                      <Result
+                        status="error"
+                        title={t('演示代码报错，请检查')}
+                        subTitle={<pre>{error && error.message}</pre>}
+                      />
+                    ) : (
+                      <div
+                        ref={playgroundNode}
+                        className={styles.exampleContainerWrapper}
+                      />
+                    )}
                   </div>
                 )}
-              </Col>
-            </Row>
+              </Content>
+            </Layout>
 
             <div className={styles.editor}>
               {title && fileExtension && (
