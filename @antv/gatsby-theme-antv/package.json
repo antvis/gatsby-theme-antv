@@ -90,7 +90,7 @@
     "normalize.css": "^8.0.1",
     "parse-github-url": "^1.0.2",
     "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.0",
+    "pretty-quick": "^3.0.0",
     "prism-themes": "^1.2.0",
     "prismjs": "^1.17.1",
     "ptz-i18n": "^1.0.0",
