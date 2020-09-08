@@ -125,8 +125,12 @@ export default function Template({
     allDemos?: any[];
   };
 }) {
-  const { allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
+  const { allMarkdownRemark, site, apiStructure } = data; // data.markdownRemark holds our post data
   const { edges = [] } = allMarkdownRemark;
+  const { internal } = apiStructure;
+  const { content } = internal;
+  const [r0ActiveKeys, updateR0ActiveKeys] = useState<string[]>(['r0-0']);
+  const [r2ActiveKeys, updateR2ActiveKeys] = useState<string[]>(['r2-0']);
   const edgesInExamples = edges;
   const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
   const { node: markdownRemark } =
@@ -148,6 +152,7 @@ export default function Template({
   if (!markdownRemark) {
     return null;
   }
+
   const {
     frontmatter,
     htmlAst,
@@ -373,112 +378,6 @@ export default function Template({
     </div>
   );
 
-  // TODO mock数据替换
-  const collapseData = [
-    {
-      title: '图表容器',
-      content: htmlAst,
-      options: {},
-      children: [
-        {
-          title: 'data',
-          options: {
-            require: 'required',
-            type: 'object',
-            default: 'default：{}',
-          },
-          content: htmlAst,
-          children: [],
-        },
-        {
-          title: 'data',
-          options: {
-            require: 'required',
-            type: 'object',
-            default: 'default：{}',
-          },
-          content: htmlAst,
-          children: [],
-        },
-        {
-          title: 'data',
-          options: {
-            require: 'required',
-            type: 'object',
-            default: 'default：{}',
-          },
-          content: htmlAst,
-          children: [],
-        },
-        {
-          title: 'data',
-          options: {
-            require: 'required',
-            type: 'object',
-            default: 'default：{}',
-          },
-          content: htmlAst,
-          children: [],
-        },
-      ],
-    },
-    {
-      title: '事件',
-      children: [
-        {
-          title: 'render()',
-          options: {
-            require: 'required',
-            type: 'object',
-            default: 'default：{}',
-          },
-          content: htmlAst,
-          children: [],
-        },
-        {
-          title: '数据点事件',
-          options: {
-            require: 'required',
-            type: 'object',
-            default: 'default：{}',
-          },
-          content: htmlAst,
-          children: [],
-        },
-      ],
-    },
-    {
-      title: '图表方法',
-      children: [
-        {
-          title: 'render()',
-          options: {
-            require: 'required',
-            type: 'object',
-            default: 'default：{}',
-          },
-          content: htmlAst,
-          children: [],
-        },
-      ],
-    },
-    {
-      title: '图表方法',
-      children: [
-        {
-          title: 'render()',
-          options: {
-            require: 'required',
-            type: 'object',
-            default: 'default：{}',
-          },
-          content: htmlAst,
-          children: [],
-        },
-      ],
-    },
-  ];
-
   const genExtra = (options: {
     require?: string;
     type?: string;
@@ -495,35 +394,53 @@ export default function Template({
     </>
   );
 
-  const collapse = (
-    <Collapse
-      expandIcon={({ isActive }) => (
-        <CollapseIcon rotate={isActive ? 90 : 0} type="caret-right" />
-      )}
-      className={styles.rootCollapse}
-      defaultActiveKey="r0-0"
-    >
-      {collapseData.map((node: any, key) => (
-        <Panel
-          key={`r0-${key}`}
-          header={node.title}
-          className={styles.rootItem}
-        >
-          {node.children.map((child: any, i: number) => (
-            <Collapse bordered={false} defaultActiveKey="r2-0" key={`r1-${i}`}>
-              <Panel
-                header={child.title}
-                key={`r2-${i}`}
-                extra={genExtra(child.options)}
+  const r0HandleChange = (activeKey: any) => {
+    updateR0ActiveKeys(activeKey);
+  };
+
+  const r2HandleChange = (activeKey: any) => {
+    updateR2ActiveKeys(activeKey);
+  };
+
+  const renderCollapse = () => {
+    const filePath = exampleSections?.API?.node?.fields?.slug;
+    const collapseData = JSON.parse(content)[filePath][0].children;
+    return (
+      <Collapse
+        expandIcon={({ isActive }) => (
+          <CollapseIcon rotate={isActive ? 90 : 0} type="caret-right" />
+        )}
+        className={styles.rootCollapse}
+        activeKey={r0ActiveKeys}
+        onChange={r0HandleChange}
+      >
+        {collapseData.map((node: any, key: any) => (
+          <Panel
+            key={`r0-${key}`}
+            header={node.title}
+            className={styles.rootItem}
+          >
+            {node.children.map((child: any, i: number) => (
+              <Collapse
+                bordered={false}
+                activeKey={r2ActiveKeys}
+                onChange={r2HandleChange}
+                key={`r1-${i}`}
               >
-                {renderAst(child.content)}
-              </Panel>
-            </Collapse>
-          ))}
-        </Panel>
-      ))}
-    </Collapse>
-  );
+                <Panel
+                  header={child.title}
+                  key={`r2-${i}`}
+                  extra={genExtra(child.options)}
+                >
+                  {renderAst(child.content)}
+                </Panel>
+              </Collapse>
+            ))}
+          </Panel>
+        ))}
+      </Collapse>
+    );
+  };
 
   const dispatchResizeEvent = () => {
     const e = new Event('resize');
@@ -547,21 +464,22 @@ export default function Template({
             />
           </>
         )}
+
         <div>
           <Tabs
             slug={exampleRootSlug}
             title={frontmatter.title}
             active={activeTab}
+            updateR0ActiveKeys={updateR0ActiveKeys}
+            updateR2ActiveKeys={updateR2ActiveKeys}
             showTabs={{
               API: !!exampleSections.API,
               design: !!exampleSections.design,
             }}
           />
           <div className={styles.docContent}>
-            {exampleSections.API &&
-            activeTab === 'API' &&
-            collapseData.length > 0
-              ? collapse
+            {exampleSections.API && activeTab === 'API'
+              ? renderCollapse()
               : null}
             {exampleSections.design && activeTab === 'design' ? (
               <div className={styles.designContent}>
@@ -653,6 +571,13 @@ export const pageQuery = graphql`
       }
       pathPrefix
     }
+
+    apiStructure {
+      internal {
+        content
+      }
+    }
+
     allMarkdownRemark(
       filter: { fields: { slug: { regex: "//examples//" } } }
       sort: { order: ASC, fields: [frontmatter___order] }
