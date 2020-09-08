@@ -4,9 +4,6 @@
 .footer {
   font-family: Avenir, @font-family;
 
-  // 保证 footer 不被遮挡
-  z-index: 99;
-
   :global(.rc-footer-container),
   :global(.rc-footer-bottom-container) {
     .container1440;
@@ -36,5 +33,21 @@
     .bottom {
       display: block;
     }
+  }
+}
+
+.asideMenu {
+  margin-left: 0px;
+}
+
+@media only screen and (min-width: 767.99px) {
+  .asideMenu {
+    margin-left: 240px;
+  }
+}
+
+@media only screen and (min-width: 991.99px) {
+  .asideMenu {
+    margin-left: 280px;
   }
 }
