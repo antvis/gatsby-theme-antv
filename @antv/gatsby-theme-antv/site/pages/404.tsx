@@ -23,7 +23,4 @@ const NotFoundPage = () => (
   </>
 );
 
-// 标记 404 页面不显示 footer
-NotFoundPage.noFooter = true;
-
 export default NotFoundPage;
