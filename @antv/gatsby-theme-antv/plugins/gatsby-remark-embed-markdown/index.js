@@ -20,7 +20,7 @@ module.exports = (_ref, _temp) => {
 
   const traverseAst = (ast, pathList) => {
     const nodes = ast.children;
-    for (let i = nodes.length; i > 0; i -= 1) {
+    for (let i = nodes.length - 1; i >= 0; i -= 1) {
       const node = nodes[i];
       if (node && Array.isArray(node.children)) {
         const c = node.children[0];
