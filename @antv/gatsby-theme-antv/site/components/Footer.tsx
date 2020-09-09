@@ -137,12 +137,13 @@ const Footer: React.FC<FooterProps> = ({
       items: product.links,
     }));
 
-  // 通过 location 判断是否加载 example or document template
+  // 有 menu 的模版 footer 表现不同，通过 location 判断加载的模版
   const pathPrefix = withPrefix('/').replace(/\/$/, '');
   const path = location.pathname.replace(pathPrefix, '');
-  const isGallery =
+  const isExamplePage =
     path.startsWith(`/zh/examples`) || path.startsWith(`/en/examples`);
-  const isDocs = path.startsWith(`/zh/docs`) || path.startsWith(`/en/docs`);
+  const isDocsPage = path.startsWith(`/zh/docs`) || path.startsWith(`/en/docs`);
+  const is404Page = (location as any).key === 'initial';
 
   return (
     <RCFooter
@@ -150,7 +151,7 @@ const Footer: React.FC<FooterProps> = ({
       theme={theme}
       columns={columns || [...defaultColumns, more]}
       className={classnames(styles.footer, {
-        [styles.asideMenu]: isGallery || isDocs,
+        [styles.withMenu]: !is404Page && (isExamplePage || isDocsPage),
       })}
       bottom={
         bottom || (
