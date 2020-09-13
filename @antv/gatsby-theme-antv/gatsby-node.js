@@ -50,17 +50,102 @@ function getPostOrder(post, siteMetadata, type) {
   const categories = siteMetadata[type] || [];
   if (type === 'examples') {
     const categoryOrder =
-      categories.findIndex(item => item.slug === slug.split('/')[3]) + 1;
+      categories.findIndex((item) => item.slug === slug.split('/')[3]) + 1;
     result = (order || 0) + categoryOrder * 100;
     return result;
   }
   let categoryOrder = 0;
-  categories.forEach(item => {
+  categories.forEach((item) => {
     if (slug.includes(item.slug)) {
       categoryOrder += item.order * (0.1 ** item.slug.split('/').length - 2);
     }
   });
   result = (order || 0) + categoryOrder;
+  return result;
+}
+
+function getApiStructure(htmlAst) {
+  const nodes = htmlAst.children;
+  const result = [];
+  let temp = [];
+  let item = null;
+  let depth = 0;
+  let firstDepth = 0;
+
+  const getHeading = (node) => {
+    if (/h\d/.test(node.tagName)) {
+      return {
+        depth: +node.tagName.slice(1),
+        name: node.children[1].value,
+      };
+    }
+    return null;
+  };
+
+  const getDescription = (node) => {
+    const childs = node.children;
+    if (Array.isArray(childs) && childs[0]) {
+      const first = childs[0];
+      if (first.tagName === 'description') {
+        const res = {};
+        first.children.forEach((c) => {
+          if (c.tagName === 'strong') {
+            res.require = c.children[0].value;
+          } else if (c.type === 'em') {
+            const type = c.children[0].value;
+            if (type !== 'default:') {
+              res.type = type;
+            }
+          } else if (c.type === 'code') {
+            res.default = c.value;
+          }
+        });
+        return res;
+      }
+    }
+    return null;
+  };
+
+  const recordResult = (node, level) => {
+    let c = level;
+    let r = result;
+    while (c > firstDepth) {
+      r = r[r.length - 1].children;
+      c -= 1;
+    }
+    r.push(node);
+  };
+
+  for (let i = 0, len = nodes.length; i < len; i += 1) {
+    const heading = getHeading(nodes[i]);
+    if (heading) {
+      item = {
+        title: heading.name,
+        options: {},
+        children: [],
+      };
+      depth = heading.depth;
+      firstDepth = firstDepth || depth;
+      temp = [];
+    } else {
+      temp.push(nodes[i]);
+      const description = getDescription(nodes[i]);
+      if (item && description) {
+        item.options = description;
+      }
+    }
+    const isBoundary = i === len - 1 || getHeading(nodes[i + 1]);
+    if (item && isBoundary) {
+      item.content =
+        temp.length > 0
+          ? {
+              type: 'root',
+              children: temp,
+            }
+          : null;
+      recordResult(item, depth);
+    }
+  }
   return result;
 }
 
@@ -75,7 +160,7 @@ exports.onPreBootstrap = ({ store, reporter }) => {
     path.join(program.directory, 'site', 'images'),
   ];
 
-  dirs.forEach(dir => {
+  dirs.forEach((dir) => {
     if (!fs.existsSync(dir)) {
       reporter.log(`creating the ${dir} directory`);
       mkdirp.sync(dir);
@@ -152,6 +237,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
               order
             }
             html
+            htmlAst
           }
         }
       }
@@ -191,10 +277,10 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
     allFile,
   } = result.data;
 
-  const posts = allMarkdownRemark.edges.filter(item => !!item);
+  const posts = allMarkdownRemark.edges.filter((item) => !!item);
   const allDemos = allFile.nodes
-    .filter(node => /demo\/(.*)\.[t|j]sx?$/.test(node.relativePath))
-    .map(item => {
+    .filter((node) => /demo\/(.*)\.[t|j]sx?$/.test(node.relativePath))
+    .map((item) => {
       let meta;
       try {
         meta = JSON.parse(
@@ -225,8 +311,8 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
       slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`);
     if (isGalleryPage) {
       // 找到所有的演示
-      context.allDemos = allDemos.map(demo => {
-        const postsOfDemo = posts.filter(post => {
+      context.allDemos = allDemos.map((demo) => {
+        const postsOfDemo = posts.filter((post) => {
           // 标记演示所属的文章用于分类
           const postSlug = post.node.fields.slug;
           if (
@@ -244,7 +330,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         });
 
         const postFrontmatter = {};
-        postsOfDemo.forEach(post => {
+        postsOfDemo.forEach((post) => {
           if (post.node.fields.slug.startsWith(`/zh/examples`)) {
             postFrontmatter.zh = {
               ...post.node.frontmatter,
@@ -266,22 +352,25 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
       } else if (/\/examples\/.*\/design$/.test(slug)) {
         exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
       }
-      const design = posts.find(post => {
+      const design = posts.find((post) => {
         const { slug: postSlug } = post.node.fields;
         return postSlug === `${exampleRootSlug}/design`;
       });
-      const API = posts.find(post => {
+      const API = posts.find((post) => {
         const { slug: postSlug } = post.node.fields;
         return postSlug === `${exampleRootSlug}/API`;
       });
+      if (API && API.node && API.node.htmlAst) {
+        API.structure = getApiStructure(API.node.htmlAst);
+      }
       const examples = allDemos
-        .filter(item =>
+        .filter((item) =>
           `${exampleRootSlug}/demo`.endsWith(
             slash(path.join('examples', path.dirname(item.relativePath))),
           ),
         )
         .sort((a, b) => a.order - b.order)
-        .map(item => {
+        .map((item) => {
           const source = fs.readFileSync(item.absolutePath, 'utf8');
           const { code } = transform(source, {
             filename: item.absolutePath,
@@ -305,8 +394,8 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
     // 修复修改 example 代码不及时生效的问题
     const { pages } = store.getState();
     const oldPage = Array.from(pages)
-      .map(item => item[1])
-      .find(p => p.path === slug);
+      .map((item) => item[1])
+      .find((p) => p.path === slug);
     if (oldPage && !isEqual(oldPage.context, context)) {
       deletePage(oldPage);
     }
@@ -344,7 +433,10 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
   });
 };
 
-exports.onCreateWebpackConfig = ({ getConfig, stage, actions }, { codeSplit }) => {
+exports.onCreateWebpackConfig = (
+  { getConfig, stage, actions },
+  { codeSplit },
+) => {
   const config = getConfig();
   if (stage.startsWith('develop') && config.resolve) {
     config.resolve.alias = {
@@ -362,9 +454,7 @@ exports.onCreateWebpackConfig = ({ getConfig, stage, actions }, { codeSplit }) =
   }
 
   actions.setWebpackConfig({
-    plugins: [
-      new MonacoWebpackPlugin()
-    ]
+    plugins: [new MonacoWebpackPlugin()],
   });
 };
 

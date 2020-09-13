@@ -6,7 +6,7 @@
 
 #### width
 
-<description>**可选** _number_</description>
+<description>**可选** _number_ _default:_ `false`</description>
 
 功能描述：设置图表宽度。
 
