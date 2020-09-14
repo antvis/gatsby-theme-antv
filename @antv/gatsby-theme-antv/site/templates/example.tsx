@@ -125,10 +125,8 @@ export default function Template({
     allDemos?: any[];
   };
 }) {
-  const { allMarkdownRemark, site, apiStructure } = data; // data.markdownRemark holds our post data
+  const { allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
   const { edges = [] } = allMarkdownRemark;
-  const { internal } = apiStructure;
-  const { content } = internal;
   const [collapseData, updateCollapseData] = useState<string[]>([]);
   const [r0ActiveKeys, updateR0ActiveKeys] = useState<string[]>(['r0-0']);
   const [r2ActiveKeys, updateR2ActiveKeys] = useState<string[]>(['r2-0']);
@@ -406,9 +404,7 @@ export default function Template({
 
   useEffect(() => {
     if (!exampleSections?.API) return;
-    const path = exampleSections?.API?.node?.fields?.slug;
-    const collapse = JSON.parse(content)[path][0].children;
-    updateCollapseData(collapse);
+    updateCollapseData(exampleSections?.API.structure[0].children);
   }, [exampleSections]);
 
   // useEffect(() => {
@@ -594,13 +590,6 @@ export const pageQuery = graphql`
       }
       pathPrefix
     }
-
-    apiStructure {
-      internal {
-        content
-      }
-    }
-
     allMarkdownRemark(
       filter: { fields: { slug: { regex: "//examples//" } } }
       sort: { order: ASC, fields: [frontmatter___order] }

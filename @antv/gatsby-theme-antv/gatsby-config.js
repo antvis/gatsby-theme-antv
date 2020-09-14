@@ -226,13 +226,6 @@ module.exports = ({
           color: theme['primary-color'],
         },
       },
-      {
-        resolve: `${__dirname}/plugins/gatsby-source-api`,
-        options: {
-          examplesPath: path.resolve('./examples/'),
-          docsPath: path.resolve('./docs/'),
-        },
-      },
     ],
   };
 
