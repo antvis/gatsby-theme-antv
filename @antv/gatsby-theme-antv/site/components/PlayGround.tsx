@@ -270,23 +270,23 @@ insertCss(`,
             onDragFinished={dispatchResizeEvent}
           >
             <Layout className={styles.playgroundCard}>
-              <Sider
-                collapsedWidth={0}
-                width={120}
-                trigger={null}
-                collapsible
-                collapsed={collapsed}
-                className={styles.menuSider}
-                theme="light"
-              >
-                {!isFullScreen && (
+              {!isFullScreen && (
+                <Sider
+                  collapsedWidth={0}
+                  width={120}
+                  trigger={null}
+                  collapsible
+                  collapsed={collapsed}
+                  className={styles.menuSider}
+                  theme="light"
+                >
                   <PlayGrounds
                     examples={examples}
                     currentExample={currentExample}
                     updateCurrentExample={updateCurrentExample}
                   />
-                )}
-              </Sider>
+                </Sider>
+              )}
               <MenuUnfoldOutlined
                 className={styles.trigger}
                 type={collapsed ? 'menu-unfold' : 'menu-fold'}

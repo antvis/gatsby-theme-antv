@@ -87,14 +87,34 @@ ul.tabs {
 }
 
 .tabExtra {
+  position: absolute;
+  right: 20px;
+  top: 12px;
+  display: inline-flex;
+  .tabSearch {
+    margin-right: 16px;
+    .autoComplete {
+      width: 150px;
+      :global(.ant-select-selection-search-input) {
+        height: 24px;
+        border-radius: 50px;
+        background-color: #f0f2f4;
+        border: 1px solid #f1f2f4;
+      }
+      :global(.ant-input-sm) {
+        background-color: #f0f2f4;
+        font-size: 12px;
+      }
+      :global(.ant-input-prefix) {
+        color: #969696;
+        font-size: 12px;
+      }
+    }
+  }
   .collapseAll {
-    position: absolute;
     height: 17px;
     cursor: pointer;
-    right: 45px;
-    top: 20px;
     font-size: 12px;
-    line-height: 14px;
     color: rgb(104, 122, 139);
     &:hover {
       color: rgba(0, 0, 0, 0.961);

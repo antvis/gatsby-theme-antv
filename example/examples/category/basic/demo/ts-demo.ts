@@ -1,18 +1,14 @@
 import { Chart } from '@antv/g2';
 
 fetch('../data/fireworks-sales.json')
-  .then(response => response.json())
-  .then(data => {
+  .then((response) => response.json())
+  .then((data) => {
     const chart = new Chart({
       container: document.getElementById('container') as HTMLDivElement,
-      width: 500,
-      height: 500,
+      autoFit: true,
     });
 
     chart.source(data);
-    chart
-      .interval()
-      .position('scales*Date')
-      .color('scales');
+    chart.interval().position('scales*Date').color('scales');
     chart.render();
   });

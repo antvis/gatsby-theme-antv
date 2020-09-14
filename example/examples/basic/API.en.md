@@ -1,7 +1,3 @@
----
-title: API
----
-
 ## Configuration properties
 
 ### Chart container

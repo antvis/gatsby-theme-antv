@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { graphql, Link } from 'gatsby';
 import {
   Layout as AntLayout,
@@ -129,8 +129,10 @@ export default function Template({
   const { edges = [] } = allMarkdownRemark;
   const { internal } = apiStructure;
   const { content } = internal;
+  const [collapseData, updateCollapseData] = useState<string[]>([]);
   const [r0ActiveKeys, updateR0ActiveKeys] = useState<string[]>(['r0-0']);
   const [r2ActiveKeys, updateR2ActiveKeys] = useState<string[]>(['r2-0']);
+  const [searchQuery, updateSearchQuery] = useState<string>('');
   const edgesInExamples = edges;
   const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
   const { node: markdownRemark } =
@@ -402,9 +404,26 @@ export default function Template({
     updateR2ActiveKeys(activeKey);
   };
 
+  useEffect(() => {
+    if (!exampleSections?.API) return;
+    const path = exampleSections?.API?.node?.fields?.slug;
+    const collapse = JSON.parse(content)[path][0].children;
+    updateCollapseData(collapse);
+  }, [exampleSections]);
+
+  // useEffect(() => {
+  //   if (!searchQuery) return;
+  //   // const searchContent = JSON.stringify(collapseData);
+  //   const searchContent = 'test sdsd';
+  //   searchContent.replace(
+  //     new RegExp(searchQuery, 'ig'),
+  //     `<span className={styles.highlight}>${searchQuery}</span>`,
+  //   );
+  //   // updateCollapseData(JSON.parse(searchContent));
+  //   // console.log(searchContent);
+  // }, [searchQuery]);
+
   const renderCollapse = () => {
-    const filePath = exampleSections?.API?.node?.fields?.slug;
-    const collapseData = JSON.parse(content)[filePath][0].children;
     return (
       <Collapse
         expandIcon={({ isActive }) => (
@@ -465,20 +484,24 @@ export default function Template({
           </>
         )}
 
-        <div>
+        <div className={styles.docPane}>
           <Tabs
             slug={exampleRootSlug}
             title={frontmatter.title}
             active={activeTab}
             updateR0ActiveKeys={updateR0ActiveKeys}
             updateR2ActiveKeys={updateR2ActiveKeys}
+            updateSearchQuery={updateSearchQuery}
             showTabs={{
               API: !!exampleSections.API,
               design: !!exampleSections.design,
             }}
+            content={collapseData}
           />
           <div className={styles.docContent}>
-            {exampleSections.API && activeTab === 'API'
+            {exampleSections.API &&
+            activeTab === 'API' &&
+            collapseData.length > 0
               ? renderCollapse()
               : null}
             {exampleSections.design && activeTab === 'design' ? (
