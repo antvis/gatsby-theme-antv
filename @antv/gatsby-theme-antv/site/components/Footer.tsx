@@ -1,4 +1,5 @@
 import React from 'react';
+import { withPrefix } from 'gatsby';
 import { default as RCFooter, FooterProps as RcFooterProps } from 'rc-footer';
 import { useTranslation } from 'react-i18next';
 import {
@@ -6,6 +7,7 @@ import {
   WeiboOutlined,
   ZhihuOutlined,
 } from '@ant-design/icons';
+import classnames from 'classnames';
 import { getProducts } from './getProducts';
 import { useChinaMirrorHost } from '../hooks';
 import styles from './Footer.module.less';
@@ -18,6 +20,7 @@ interface FooterProps extends RcFooterProps {
   language?: string;
   githubUrl?: string;
   footerProps?: object;
+  location: Location;
 }
 
 const Footer: React.FC<FooterProps> = ({
@@ -27,6 +30,7 @@ const Footer: React.FC<FooterProps> = ({
   language,
   rootDomain = '',
   footerProps,
+  location,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = language || i18n.language;
@@ -133,12 +137,22 @@ const Footer: React.FC<FooterProps> = ({
       items: product.links,
     }));
 
+  // 有 menu 的模版 footer 表现不同，通过 location 判断加载的模版
+  const pathPrefix = withPrefix('/').replace(/\/$/, '');
+  const path = location.pathname.replace(pathPrefix, '');
+  const isExamplePage =
+    path.startsWith(`/zh/examples`) || path.startsWith(`/en/examples`);
+  const isDocsPage = path.startsWith(`/zh/docs`) || path.startsWith(`/en/docs`);
+  const is404Page = (location as any).key === 'initial';
+
   return (
     <RCFooter
       maxColumnsPerRow={4}
       theme={theme}
       columns={columns || [...defaultColumns, more]}
-      className={styles.footer}
+      className={classnames(styles.footer, {
+        [styles.withMenu]: !is404Page && (isExamplePage || isDocsPage),
+      })}
       bottom={
         bottom || (
           <div className={styles.bottom}>

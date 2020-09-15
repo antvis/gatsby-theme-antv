@@ -99,6 +99,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
       versions,
     },
   } = site;
+
   let resources = {};
   try {
     resources = JSON.parse(locales.internal.content);
@@ -206,6 +207,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         githubUrl={githubUrl}
         rootDomain="https://antv.vision"
         footerProps={footerProps}
+        location={location}
       />
     </>
   );

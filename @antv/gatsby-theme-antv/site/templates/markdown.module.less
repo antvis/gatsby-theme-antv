@@ -5,6 +5,9 @@
   overflow: auto !important;
 }
 
+// 参考 yuque 右侧 tabOfContent 宽度
+@toc-width: 204px;
+
 .markdown {
   font-size: 14px;
   line-height: 2;
@@ -160,7 +163,7 @@
 }
 
 .main {
-  width: calc(100% - 160px);
+  width: calc(100% - @toc-width);
   padding-left: 48px;
   padding-right: 24px;
   overflow: hidden;
@@ -193,11 +196,12 @@
   }
 }
 
+// reference yuque UI
 .toc {
-  width: 160px;
+  width: @toc-width;
   border-left: 2px solid #eee;
   float: right;
-  font-size: 13px;
+  font-size: 12px;
   background: #fff;
   max-height: calc(100vh - 8px);
   overflow: auto;
@@ -206,6 +210,11 @@
     list-style: none !important;
     padding: 0 !important;
     margin-left: 1em !important;
+
+    // 超出部分省略号显示
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 
     a {
       color: @text-color;
@@ -216,11 +225,22 @@
 .sider {
   width: 280px !important;
   height: inherit;
+
+  // menu 滚动
+  :global {
+    .ant-layout-sider-children {
+      overflow-x: hidden;
+      overflow-y: auto;
+      border-right: 1px solid #f0f0f0;
+    }
+
+    .ant-menu-inline {
+      border-right: none;
+    }
+  }
 }
 
 .affix {
-  height: inherit;
-
   & > div {
     height: 100%;
   }
@@ -272,7 +292,7 @@
   }
 
   .anchor {
-    width: 160px;
+    width: @toc-width;
     padding-left: 24px;
 
     :global {

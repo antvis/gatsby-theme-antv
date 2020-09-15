@@ -27,7 +27,7 @@
     "gh-pages": "^2.1.1",
     "husky": "^4.0.0",
     "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.0"
+    "pretty-quick": "^3.0.0"
   },
   "scripts": {
     "start": "yarn workspace example develop",
@@ -44,9 +44,5 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
-  },
-  "dependencies": {
-    "flag": "^4.4.0",
-    "gatsby-remark-embed-markdown": "^0.0.4"
   }
 }

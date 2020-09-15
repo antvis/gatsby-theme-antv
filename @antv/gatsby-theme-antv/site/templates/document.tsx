@@ -46,6 +46,11 @@ const getDocument = (docs: any[], slug = '', level: number) => {
   return docs.find((doc) => doc.slug === slug);
 };
 
+// https://github.com/antvis/gatsby-theme-antv/issues/114
+const parseTableOfContents = (tableOfContents: string) => {
+  return tableOfContents.replace(/\/#/g, '#');
+};
+
 interface MenuData {
   type: 'SubMenu' | 'Item';
   title: string;
@@ -223,7 +228,11 @@ export default function Template({
   const isWide = useMedia('(min-width: 767.99px)', true);
   const [drawOpen, setDrawOpen] = useState(false);
   const menuSider = (
-    <Affix offsetTop={8} className={styles.affix}>
+    <Affix
+      offsetTop={0}
+      className={styles.affix}
+      style={{ height: isWide ? '100vh' : 'inherit' }}
+    >
       {isWide ? (
         <AntLayout.Sider width="auto" theme="light" className={styles.sider}>
           {menu}
@@ -270,7 +279,7 @@ export default function Template({
               className={styles.toc}
               /* eslint-disable-next-line react/no-danger */
               dangerouslySetInnerHTML={{
-                __html: tableOfContents,
+                __html: parseTableOfContents(tableOfContents),
               }}
             />
           </Affix>
