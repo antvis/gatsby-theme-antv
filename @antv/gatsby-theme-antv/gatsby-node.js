@@ -364,6 +364,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         });
         return { ...demo, postFrontmatter };
       });
+      context.description = node.html;
     } else if (isExamplePage) {
       let exampleRootSlug = slug;
       if (/\/examples\/.*\/API$/.test(slug)) {

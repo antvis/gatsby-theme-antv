@@ -18,8 +18,8 @@ const APIDoc = ({
   frontmatter,
   exampleSections,
   renderAst,
-  htmlAst,
   codeQuery,
+  description,
 }: {
   slug: string;
   pathWithoutTrailingSlashes: string;
@@ -28,7 +28,7 @@ const APIDoc = ({
   frontmatter: { title: string };
   exampleSections: any;
   renderAst: Function;
-  htmlAst: any;
+  description: string;
   codeQuery: any;
 }) => {
   // console.log('exampleSections: ', exampleSections);
@@ -64,7 +64,6 @@ const APIDoc = ({
         element.show = true;
       }
     });
-    console.log('initData: ', initData);
     updateCollapseData(initData);
   }, [exampleSections]);
 
@@ -181,7 +180,12 @@ const APIDoc = ({
                 </a>
               </Tooltip>
             </h1>
-            <div>{renderAst(htmlAst)}</div>
+            <div
+              /* eslint-disable-next-line react/no-danger */
+              dangerouslySetInnerHTML={{
+                __html: description,
+              }}
+            />
             <div
               /* eslint-disable-next-line react/no-danger */
               dangerouslySetInnerHTML={{
