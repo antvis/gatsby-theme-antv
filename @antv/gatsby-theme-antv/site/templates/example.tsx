@@ -112,6 +112,7 @@ export default function Template({
   pageContext: {
     exampleSections: any;
     allDemos?: any[];
+    description: string;
   };
 }) {
   const { allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
@@ -139,7 +140,6 @@ export default function Template({
   }
   const {
     frontmatter,
-    htmlAst,
     fields: { slug },
     parent: { relativePath },
   } = markdownRemark;
@@ -147,12 +147,6 @@ export default function Template({
     siteMetadata: { examples = [], githubUrl, playground },
   } = site;
   const { t, i18n } = useTranslation();
-  const renderAst = new RehypeReact({
-    createElement: React.createElement,
-    components: {
-      tag: CustomTag,
-    },
-  }).Compiler;
   const groupedEdges = groupBy(
     edgesInExamples,
     ({
@@ -181,7 +175,7 @@ export default function Template({
     activeTab = 'design';
     exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
   }
-  const { exampleSections = {}, allDemos = [] } = pageContext;
+  const { exampleSections = {}, allDemos = [], description = '' } = pageContext;
   const [prev, next] = usePrevAndNext();
 
   const menu = (
@@ -312,7 +306,12 @@ export default function Template({
       </div>
       <div className={styles.galleryContent}>
         <h1>{frontmatter.title}</h1>
-        <div>{renderAst(htmlAst)}</div>
+        <div
+          /* eslint-disable-next-line react/no-danger */
+          dangerouslySetInnerHTML={{
+            __html: description,
+          }}
+        />
         {Categories.map((category: string, i) => (
           <div key={i}>
             {category !== 'OTHER' && (
@@ -386,7 +385,12 @@ export default function Template({
           </a>
         </Tooltip>
       </h1>
-      <div>{renderAst(htmlAst)}</div>
+      <div
+        /* eslint-disable-next-line react/no-danger */
+        dangerouslySetInnerHTML={{
+          __html: description,
+        }}
+      />
       <Tabs
         slug={exampleRootSlug}
         title={frontmatter.title}
@@ -481,7 +485,6 @@ export const pageQuery = graphql`
     ) {
       edges {
         node {
-          htmlAst
           fields {
             slug
           }
