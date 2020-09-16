@@ -23,6 +23,7 @@ const Tabs: React.FC<{
   title?: string;
   updateR0ActiveKeys: Function;
   updateR2ActiveKeys: Function;
+  updateSearchResult: Function;
   updateSearchQuery: Function;
   content?: string[];
 }> = ({
@@ -32,6 +33,7 @@ const Tabs: React.FC<{
   title,
   updateR0ActiveKeys,
   updateR2ActiveKeys,
+  updateSearchResult,
   updateSearchQuery,
   content,
 }) => {
@@ -105,7 +107,6 @@ const Tabs: React.FC<{
 
   const handleSearch = (value: string) => {
     updateOptions(value ? searchResult() : []);
-    updateSearchQuery(value);
   };
 
   const collaspseALL = () => {
@@ -116,7 +117,6 @@ const Tabs: React.FC<{
   const onSelect = (value: string) => {
     collaspseALL();
     showSearchResult(list[value]);
-    updateSearchQuery(value);
   };
 
   const getSearchResult = (
@@ -130,7 +130,6 @@ const Tabs: React.FC<{
       const key = parent ? `${parent}:${level}-${index}` : `${level}-${index}`;
       const ast = JSON.stringify(node);
       const reg = new RegExp(query, 'gi');
-
       if (reg.test(ast)) {
         result.push(key);
       }
@@ -141,15 +140,24 @@ const Tabs: React.FC<{
     return result;
   };
 
-  const onPressEnter = (e: { target: { value: any } }) => {
+  const onPressEnter = (e: any) => {
     if (!content) return;
     const { value } = e.target;
-    const keys: string[] = [];
-    getSearchResult(content, value, keys, 'r0');
-    if (keys) {
-      collaspseALL();
-      showSearchResult(keys);
+    const pattern = new RegExp(
+      "[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]",
+    );
+    let query = '';
+    for (let i = 0; i < value.length; i += 1) {
+      query += value.substr(i, 1).replace(pattern, '');
     }
+    const keys: string[] = [];
+    if (query) {
+      updateSearchQuery(query);
+      getSearchResult(content, query, keys, 'r0');
+    }
+
+    collaspseALL();
+    showSearchResult(keys);
   };
 
   return (

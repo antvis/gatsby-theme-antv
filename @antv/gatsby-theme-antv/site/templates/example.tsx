@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Mark from 'mark.js';
 import { graphql, Link } from 'gatsby';
 import {
   Layout as AntLayout,
@@ -128,9 +129,10 @@ export default function Template({
   const { allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
   const { edges = [] } = allMarkdownRemark;
   const [collapseData, updateCollapseData] = useState<string[]>([]);
+  const [searchResult, updateSearchResult] = useState<string[]>([]);
+  const [searchQuery, updateSearchQuery] = useState<string>('');
   const [r0ActiveKeys, updateR0ActiveKeys] = useState<string[]>(['r0-0']);
   const [r2ActiveKeys, updateR2ActiveKeys] = useState<string[]>(['r2-0']);
-  const [searchQuery, updateSearchQuery] = useState<string>('');
   const edgesInExamples = edges;
   const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
   const { node: markdownRemark } =
@@ -408,56 +410,64 @@ export default function Template({
 
   useEffect(() => {
     if (!exampleSections?.API) return;
-    updateCollapseData(exampleSections?.API.structure[0].children);
-  }, [exampleSections]);
 
-  // useEffect(() => {
-  //   if (!searchQuery) return;
-  //   // const searchContent = JSON.stringify(collapseData);
-  //   const searchContent = 'test sdsd';
-  //   searchContent.replace(
-  //     new RegExp(searchQuery, 'ig'),
-  //     `<span className={styles.highlight}>${searchQuery}</span>`,
-  //   );
-  //   // updateCollapseData(JSON.parse(searchContent));
-  //   // console.log(searchContent);
-  // }, [searchQuery]);
+    if (searchResult.length > 0) {
+      updateCollapseData(searchResult);
+    } else {
+      updateCollapseData(exampleSections?.API.structure[0].children);
+    }
+  }, [exampleSections, searchResult]);
+
+  useEffect(() => {
+    if (!collapseData) return;
+    if (!searchQuery) {
+      // updateCollapseData(exampleSections?.API.structure[0].children);
+      console.log('none');
+    } else {
+      const context = document.querySelector('#apiStructure');
+      const instance = new Mark(context);
+      const reg = new RegExp(searchQuery, 'gi');
+      instance.markRegExp(reg);
+    }
+  }, [collapseData, searchQuery]);
 
   const renderCollapse = () => {
     return (
-      <Collapse
-        expandIcon={({ isActive }) => (
-          <CollapseIcon rotate={isActive ? 90 : 0} type="caret-right" />
-        )}
-        className={styles.rootCollapse}
-        activeKey={r0ActiveKeys}
-        onChange={r0HandleChange}
-      >
-        {collapseData.map((node: any, key: any) => (
-          <Panel
-            key={`r0-${key}`}
-            header={node.title}
-            className={styles.rootItem}
-          >
-            {node.children.map((child: any, i: number) => (
-              <Collapse
-                bordered={false}
-                activeKey={r2ActiveKeys}
-                onChange={r2HandleChange}
-                key={`r1-${i}`}
-              >
-                <Panel
-                  header={child.title}
-                  key={`r2-${i}`}
-                  extra={genExtra(child.options)}
+      <div id="apiStructure">
+        <Collapse
+          expandIcon={({ isActive }) => (
+            <CollapseIcon rotate={isActive ? 90 : 0} type="caret-right" />
+          )}
+          className={styles.rootCollapse}
+          activeKey={r0ActiveKeys}
+          onChange={r0HandleChange}
+        >
+          {collapseData.map((node: any, key: any) => (
+            <Panel
+              key={`r0-${key}`}
+              header={node.title}
+              className={styles.rootItem}
+            >
+              {node.children.map((child: any, i: number) => (
+                <Collapse
+                  bordered={false}
+                  activeKey={r2ActiveKeys}
+                  onChange={r2HandleChange}
+                  key={`r1-${i}`}
                 >
-                  {renderAst(child.content)}
-                </Panel>
-              </Collapse>
-            ))}
-          </Panel>
-        ))}
-      </Collapse>
+                  <Panel
+                    header={child.title}
+                    key={`r2-${i}`}
+                    extra={genExtra(child.options)}
+                  >
+                    {renderAst(child.content)}
+                  </Panel>
+                </Collapse>
+              ))}
+            </Panel>
+          ))}
+        </Collapse>
+      </div>
     );
   };
 
@@ -467,7 +477,7 @@ export default function Template({
   };
 
   const exmaplePageContent = (
-    <>
+    <div className={styles.exampleContent}>
       <SplitPane
         split={isWide ? 'vertical' : 'horizontal'}
         defaultSize="60%"
@@ -491,6 +501,7 @@ export default function Template({
             active={activeTab}
             updateR0ActiveKeys={updateR0ActiveKeys}
             updateR2ActiveKeys={updateR2ActiveKeys}
+            updateSearchResult={updateSearchResult}
             updateSearchQuery={updateSearchQuery}
             showTabs={{
               API: !!exampleSections.API,
@@ -535,7 +546,7 @@ export default function Template({
           </div>
         </div>
       </SplitPane>
-    </>
+    </div>
   );
 
   return (

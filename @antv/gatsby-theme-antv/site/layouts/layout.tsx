@@ -203,12 +203,17 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         {...logoProps}
       />
       <main className={styles.main}>{children}</main>
-      <Footer
-        githubUrl={githubUrl}
-        rootDomain="https://antv.vision"
-        footerProps={footerProps}
-        location={location}
-      />
+      {!(
+        location.pathname.includes('/examples/') &&
+        !location.pathname.endsWith('/gallery')
+      ) && (
+        <Footer
+          githubUrl={githubUrl}
+          rootDomain="https://antv.vision"
+          footerProps={footerProps}
+          location={location}
+        />
+      )}
     </>
   );
 };

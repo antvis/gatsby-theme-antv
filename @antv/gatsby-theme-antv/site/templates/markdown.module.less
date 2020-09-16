@@ -150,7 +150,7 @@
 }
 
 .layout {
-  margin: 0 0 32px 0;
+  margin: 24px 0 32px;
 }
 
 .editOnGtiHubButton {
@@ -366,6 +366,7 @@
     :global {
       .ant-collapse-content {
         border: none;
+        padding-bottom: 8px;
         .ant-collapse-content-box {
           padding: 0px 16px;
           .ant-collapse {
@@ -384,24 +385,31 @@
     }
   }
 }
-.highlight {
-  background-color: #873cf45e;
-  padding: 0 3px;
-  border-radius: 3px;
+
+.apiStructure {
+  padding: 0;
 }
 
 .docContent {
   overflow-y: auto;
-  height: 91vh !important;
+  height: calc(100vh - 118px);
 }
 
 .designContent {
   padding: 8px 26px;
 }
 
+.exampleContent {
+  margin-top: -24px;
+}
 :global {
+  mark {
+    background-color: #873cf45e;
+    padding: 0 3px;
+    border-radius: 3px;
+  }
   .SplitPane {
-    overflow: auto !important;
+    overflow: auto;
   }
   .Pane1 .Pane2 {
     overflow: auto;
