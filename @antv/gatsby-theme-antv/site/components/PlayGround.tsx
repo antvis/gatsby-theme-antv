@@ -37,30 +37,9 @@ export interface PlayGroundProps {
     };
     htmlCodeTemplate?: string;
   };
+  height?: number;
+  replaceId?: string;
 }
-
-const execute = debounce(
-  (
-    code: string,
-    node: HTMLDivElement,
-    exampleContainer: string | undefined,
-  ) => {
-    const script = document.createElement('script');
-    script.innerHTML = `
-      try {
-        ${code}
-      } catch(e) {
-        if (window.__reportErrorInPlayGround) {
-          window.__reportErrorInPlayGround(e);
-        }
-      }
-    `;
-    // eslint-disable-next-line no-param-reassign
-    node.innerHTML = exampleContainer || '<div id="container" />';
-    node!.appendChild(script);
-  },
-  300,
-);
 
 const PlayGround: React.FC<PlayGroundProps> = ({
   source,
@@ -69,6 +48,8 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   playground = {},
   location,
   title = '',
+  height,
+  replaceId = 'container',
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -87,7 +68,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
     // 统一增加对 insert-css 的使用注释
     return str.replace(
       /^insertCss\(/gm,
-    `// 我们用 insert-css 演示引入自定义样式
+      `// 我们用 insert-css 演示引入自定义样式
 // 推荐将样式添加到自己的样式文件中
 // 若拷贝官方代码，别忘了 npm install insert-css
 insertCss(`,
@@ -98,7 +79,9 @@ insertCss(`,
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
-  const [currentSourceCode, updateCurrentSourceCode] = useState(replaceInsertCss(source));
+  const [currentSourceCode, updateCurrentSourceCode] = useState(
+    replaceInsertCss(source),
+  );
   const [currentSourceData, updateCurrentSourceData] = useState(null);
 
   if (typeof window !== 'undefined') {
@@ -121,6 +104,31 @@ insertCss(`,
       }
     }
   };
+
+  const execute = debounce(
+    (
+      code: string,
+      node: HTMLDivElement,
+      exampleContainer: string | undefined,
+    ) => {
+      const script = document.createElement('script');
+      // replace container id in case of multi demos in document
+      const newCode = code.replace(/'container'|"container"/, `'${replaceId}'`);
+      script.innerHTML = `
+        try {
+          ${newCode}
+        } catch(e) {
+          if (window.__reportErrorInPlayGround) {
+            window.__reportErrorInPlayGround(e);
+          }
+        }
+      `;
+      // eslint-disable-next-line no-param-reassign
+      node.innerHTML = exampleContainer || `<div id=${replaceId} />`;
+      node!.appendChild(script);
+    },
+    300,
+  );
 
   const executeCode = () => {
     if (!compiledCode || !playgroundNode || !playgroundNode.current) {
@@ -147,16 +155,15 @@ insertCss(`,
   }, []);
 
   const [editorTabs, updateEditroTabs] = useState<EDITOR_TABS[]>([]);
-  const [currentEditorTab, updateCurrentEditorTab] = useState(EDITOR_TABS.JAVASCRIPT);
+  const [currentEditorTab, updateCurrentEditorTab] = useState(
+    EDITOR_TABS.JAVASCRIPT,
+  );
   useEffect(() => {
     const dataFileMatch = currentSourceCode.match(/fetch\('(.*)'\)/);
-    if (
-      dataFileMatch &&
-      dataFileMatch.length > 0
-    ) {
+    if (dataFileMatch && dataFileMatch.length > 0) {
       fetch(dataFileMatch[1])
-        .then(response => response.json())
-        .then(data => {
+        .then((response) => response.json())
+        .then((data) => {
           updateEditroTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
           updateCurrentSourceData(data);
         });
@@ -193,8 +200,10 @@ insertCss(`,
 
   const editor = (
     <MonacoEditor
-      height="calc(100% - 32px)"
-      language={currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'}
+      height={height || 'calc(100% - 32px)'}
+      language={
+        currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'
+      }
       value={editorValue}
       options={{
         readOnly: currentEditorTab === EDITOR_TABS.DATA,
@@ -205,8 +214,8 @@ insertCss(`,
         scrollBeyondLastLine: false,
         fixedOverflowWidgets: true,
       }}
-      onChange={value => onCodeChange(value)}
-      editorWillMount={monaco => {
+      onChange={(value) => onCodeChange(value)}
+      editorWillMount={(monaco) => {
         monaco.editor.defineTheme('customTheme', {
           base: 'vs',
           inherit: true,
@@ -216,7 +225,10 @@ insertCss(`,
           },
         });
         monaco.editor.setTheme('customTheme');
-        monaco.languages.typescript.javascriptDefaults.addExtraLib(extraLib, '');
+        monaco.languages.typescript.javascriptDefaults.addExtraLib(
+          extraLib,
+          '',
+        );
       }}
     />
   );
@@ -232,7 +244,11 @@ insertCss(`,
   };
 
   return (
-    <div className={styles.playground} ref={fullscreenNode}>
+    <div
+      className={styles.playground}
+      ref={fullscreenNode}
+      style={height ? { height } : {}}
+    >
       <SplitPane
         split={isWide ? 'vertical' : 'horizontal'}
         defaultSize="62%"
@@ -273,9 +289,7 @@ insertCss(`,
             onEditorTabChange={updateCurrentEditorTab}
           />
           <div className={styles.monaco}>
-            <Suspense fallback={<PageLoading />}>
-              {editor}
-            </Suspense>
+            <Suspense fallback={<PageLoading />}>{editor}</Suspense>
           </div>
         </div>
       </SplitPane>
