@@ -317,7 +317,7 @@ exports.wrapPageElement = ({ element, props }) => {
 `markdown:docs/common/data-mapping.zh.md`
 ```
 
-_docs/common/data-mapping.zh.md_ is the path relative to the current project. It also supports multiple levels of nested.
+_docs/common/data-mapping.zh.md_ is the path relative to the current project. It supports multiple levels of nested.
 
 ## Related libraries
 
