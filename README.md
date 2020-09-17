@@ -215,7 +215,7 @@ const Layout = () => {
         showSearch={false}
         showGithubCorner={false}
         showLanguageSwitcher={false}
-        onLanguageChange={language => {
+        onLanguageChange={(language) => {
           console.log(language);
         }}
         defaultLanguage="zh"
@@ -293,7 +293,9 @@ or
 yarn workspace @antv/gatsby-theme-antv add shallowequal
 ```
 
-## How to customise layout footer?
+## Q&A
+
+### How to customise layout footer?
 
 ```js
 // gatsby-browser.js
@@ -308,6 +310,14 @@ exports.wrapPageElement = ({ element, props }) => {
   });
 };
 ```
+
+### How to embed other markdown document in a markdown document
+
+```
+`markdown:docs/common/data-mapping.zh.md`
+```
+
+_docs/common/data-mapping.zh.md_ is the path relative to the current project. It also supports multiple levels of nested.
 
 ## Related libraries
 
