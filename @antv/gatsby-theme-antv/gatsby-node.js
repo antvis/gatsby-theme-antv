@@ -553,11 +553,12 @@ exports.sourceNodes = ({ actions }) => {
       docs: [SiteSiteMetadataDocs]
       examples: [SiteSiteMetadataExamples]
       redirects: [SiteSiteMetadataRedirects]
-      showSearch: Boolean
+      showChartResize: Boolean
       showChinaMirror: Boolean
       showGithubCorner: Boolean
       showLanguageSwitcher: Boolean
       showAntVProductsCard: Boolean
+      showSearch: Boolean
       playground: PlayGround
       docsearchOptions: DocsearchOptions
       versions: Json

@@ -66,6 +66,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
       query {
         site {
           siteMetadata {
+            showChartResize
             playground {
               extraLib
             }
@@ -85,6 +86,7 @@ insertCss(`,
     );
   };
   const { extraLib = '' } = site.siteMetadata.playground;
+  const { showChartResize } = site.siteMetadata;
   const { t } = useTranslation();
   const [currentExample, updateCurrentExample] = useState<
     PlayGroundItemProps
@@ -309,9 +311,12 @@ insertCss(`,
                       />
                     ) : (
                       <>
-                        <div className={styles.chartViewBar}>
-                          <ChartViewBar updateView={updateView} view={view} />
-                        </div>
+                        {showChartResize && (
+                          <div className={styles.chartViewBar}>
+                            <ChartViewBar updateView={updateView} view={view} />
+                          </div>
+                        )}
+
                         <div ref={playgroundNode} className={styles[view]} />
                       </>
                     )}

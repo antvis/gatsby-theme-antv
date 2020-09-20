@@ -12,6 +12,7 @@ module.exports = {
     description: 'Ant Visualization solution home page',
     siteUrl: homepage,
     githubUrl: repository.url,
+    showChartResize: true,
     navs: [
       {
         slug: 'docs/specification/getting-started',

@@ -12,16 +12,16 @@ interface Prop {
   view: string;
 }
 
-const ChartViewBar: React.FC<Prop> = (props) => {
+const ChartViewBar: React.FC<Prop> = ({ updateView, view }) => {
   const onChange = (e: any) => {
-    props.updateView(e.target.value);
+    updateView(e.target.value);
     const resize = new Event('resize');
     window.dispatchEvent(resize);
   };
   return (
     <Radio.Group
       className={styles.btnBar}
-      value={props.view}
+      value={view}
       buttonStyle="solid"
       onChange={onChange}
     >

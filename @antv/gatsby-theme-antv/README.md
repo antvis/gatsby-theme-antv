@@ -90,6 +90,7 @@ module.exports = {
     showLanguageSwitcher: true, // 用于定义是否展示语言切换
     showAntVProductsCard: true, // 是否展示 AntV 系列产品的卡片链接
     showGithubCorner: true, // 是否展示角落的 GitHub 图标
+    showChartResize: true, // 是否在demo页展示图表视图切换
     playground: {
       container: '<canvas id="container" />', // 定义演示的渲染节点，默认 <div id="container" />
       playgroundDidMount: 'console.log("playgroundDidMount");',
@@ -213,7 +214,8 @@ const Layout = () => {
         showSearch={false}
         showGithubCorner={false}
         showLanguageSwitcher={false}
-        onLanguageChange={language => {
+        showChartResize={false}
+        onLanguageChange={(language) => {
           console.log(language);
         }}
         defaultLanguage="zh"
