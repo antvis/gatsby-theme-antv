@@ -143,6 +143,7 @@
     "@testing-library/jest-dom": "^5.7.0",
     "@testing-library/react": "^11.0.2",
     "@types/jest": "^26.0.3",
+    "@types/mark.js": "^8.11.5",
     "babel-jest": "^26.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.0.1",

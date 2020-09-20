@@ -1,10 +1,5 @@
 @import '~antd/es/style/themes/default.less';
 
-.exampleLayout {
-  height: 93vh !important;
-  overflow: auto !important;
-}
-
 // 参考 yuque 右侧 tabOfContent 宽度
 @toc-width: 204px;
 
@@ -151,15 +146,6 @@
 
 .layout {
   margin: 24px 0 32px;
-}
-
-.editOnGtiHubButton {
-  margin-left: 0.5em;
-  font-size: 16px;
-  color: #999;
-  vertical-align: middle;
-  position: relative;
-  top: -2px;
 }
 
 .main {
@@ -357,57 +343,14 @@
   }
 }
 
-.rootCollapse {
-  background: rgba(0, 0, 0, 0.04) !important;
-  border: none !important;
-  .rootItem {
-    border-bottom: none !important;
-    border-top: 1px solid #d9d9d94f;
-    :global {
-      .ant-collapse-content {
-        border: none;
-        padding-bottom: 8px;
-        .ant-collapse-content-box {
-          padding: 0px 16px;
-          .ant-collapse {
-            background-color: #fff !important;
-            .ant-collapse-item {
-              border-bottom: 1px solid #d9d9d96e;
-            }
-            &:last-child {
-              .ant-collapse-item {
-                border-bottom: none;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
 .apiStructure {
   padding: 0;
-}
-
-.docContent {
-  overflow-y: auto;
-  height: calc(100vh - 118px);
-}
-
-.designContent {
-  padding: 8px 26px;
 }
 
 .exampleContent {
   margin-top: -24px;
 }
 :global {
-  mark {
-    background-color: #873cf45e;
-    padding: 0 3px;
-    border-radius: 3px;
-  }
   .SplitPane {
     overflow: auto;
   }
@@ -420,36 +363,6 @@
     display: inline-block;
     float: none !important;
   }
-}
-
-.default {
-  margin-left: 12px;
-  font-style: italic;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14px;
-  color: rgba(0, 0, 0, 0.85);
-  opacity: 0.35;
-}
-.require {
-  font-style: italic;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 14px;
-  color: rgba(0, 0, 0, 0.85);
-  opacity: 0.35;
-}
-.type {
-  margin-left: 12px;
-  font-family: PingFangSC;
-  font-size: 10px;
-  line-height: 12px;
-  color: #000000;
-  opacity: 0.45;
-  display: inline-block;
-  background-color: #ccc;
-  padding: 4px;
-  border-radius: 4px;
 }
 
 @media only screen and (max-width: 1199.99px) {

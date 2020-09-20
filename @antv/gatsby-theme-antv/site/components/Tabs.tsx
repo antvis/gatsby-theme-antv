@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { Link } from 'gatsby';
-import { Input, AutoComplete } from 'antd';
+import { Input, AutoComplete, Empty } from 'antd';
 import { SelectProps } from 'antd/es/select';
 import { useTranslation } from 'react-i18next';
-// import visit from 'unist-util-visit';
 import Icon, { SearchOutlined } from '@ant-design/icons';
 import CollaspeAllSvg from '../images/collapse-all.svg';
 import styles from './Tabs.module.less';
@@ -23,8 +22,8 @@ const Tabs: React.FC<{
   title?: string;
   updateR0ActiveKeys: Function;
   updateR2ActiveKeys: Function;
-  updateSearchResult: Function;
   updateSearchQuery: Function;
+  updateCollapseData: Function;
   content?: string[];
 }> = ({
   active,
@@ -33,12 +32,15 @@ const Tabs: React.FC<{
   title,
   updateR0ActiveKeys,
   updateR2ActiveKeys,
-  updateSearchResult,
   updateSearchQuery,
+  updateCollapseData,
   content,
 }) => {
   const [options, updateOptions] = useState<SelectProps<object>['options']>([]);
+  const [input, updateInput] = useState<string>('');
+  const [isEmpty, updateIsEmpty] = useState<React.ReactNode>(null);
   const [list, updateList] = useState<Record<string, any>>({});
+
   const getOptionList = (
     nodes: string[],
     result: Record<string, any>,
@@ -62,20 +64,29 @@ const Tabs: React.FC<{
     return result;
   };
 
-  useEffect(() => {
-    if (content) updateList(getOptionList(content, list, 'r0'));
-  }, [content]);
-
   const showSearchResult = (keys: string[]) => {
     const r0: string[] = [];
     const r2: string[] = [];
+    const showIndex: string[] = [];
     keys.forEach((key: string) => {
       const temp = key.split(':');
-      if (temp[0]) r0.push(temp[0]);
+      if (temp[0]) {
+        r0.push(temp[0]);
+        showIndex.push(temp[0].split('-')[1]);
+      }
       if (temp[1]) r2.push(temp[1]);
     });
-    if (r0) updateR0ActiveKeys(r0);
-    if (r2) updateR2ActiveKeys(r2);
+    if (r0.length > 0) updateR0ActiveKeys(r0);
+    if (r2.length > 0) updateR2ActiveKeys(r2);
+    if (showIndex.length > 0 && content) {
+      content.forEach((node: any, index: number) => {
+        const element = node;
+        if (element.title && showIndex.indexOf(index.toString()) === -1) {
+          element.show = false;
+        }
+      });
+      updateCollapseData(content);
+    }
   };
 
   const searchResult = () => {
@@ -91,6 +102,7 @@ const Tabs: React.FC<{
             }}
           >
             {item[0]}
+            <span className={styles.resultNum}>{item[1].length}</span>
           </div>
         ),
       };
@@ -105,7 +117,10 @@ const Tabs: React.FC<{
     <span className={styles.hidden}>{title} - </span>
   );
 
+  const empty = <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+
   const handleSearch = (value: string) => {
+    updateInput(value);
     updateOptions(value ? searchResult() : []);
   };
 
@@ -117,6 +132,7 @@ const Tabs: React.FC<{
   const onSelect = (value: string) => {
     collaspseALL();
     showSearchResult(list[value]);
+    updateSearchQuery(value);
   };
 
   const getSearchResult = (
@@ -133,7 +149,6 @@ const Tabs: React.FC<{
       if (reg.test(ast)) {
         result.push(key);
       }
-
       if (node.children)
         getSearchResult(node.children, query, result, 'r2', key);
     });
@@ -155,10 +170,32 @@ const Tabs: React.FC<{
       updateSearchQuery(query);
       getSearchResult(content, query, keys, 'r0');
     }
-
-    collaspseALL();
-    showSearchResult(keys);
+    if (keys.length > 0) {
+      collaspseALL();
+      showSearchResult(keys);
+    } else {
+      updateIsEmpty(empty);
+    }
   };
+
+  useEffect(() => {
+    if (content) updateList(getOptionList(content, list, 'r0'));
+  }, [content]);
+
+  useEffect(() => {
+    if (!content) return;
+    if (!input) {
+      updateIsEmpty(null);
+      updateSearchQuery('');
+      content.forEach((node: any) => {
+        const element = node;
+        element.show = true;
+      });
+      updateCollapseData(content);
+      updateR0ActiveKeys(['r0-0']);
+      updateR2ActiveKeys(['r2-0']);
+    }
+  }, [input]);
 
   return (
     <>
@@ -195,13 +232,14 @@ const Tabs: React.FC<{
           <div className={styles.tabSearch}>
             <AutoComplete
               className={styles.autoComplete}
-              dropdownMatchSelectWidth={150}
+              dropdownMatchSelectWidth
               options={options}
               onSelect={onSelect}
               allowClear
               filterOption
               backfill
               onSearch={handleSearch}
+              notFoundContent={isEmpty}
             >
               <Input
                 size="small"
