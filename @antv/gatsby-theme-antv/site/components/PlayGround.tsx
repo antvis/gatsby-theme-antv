@@ -13,7 +13,7 @@ import {
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
-
+import ChartViewBar from './ChartViewBar';
 import PlayGrounds, { PlayGroundItemProps } from './PlayGrounds';
 import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
@@ -96,7 +96,7 @@ insertCss(`,
   const [relativePath, updateRelativePath] = useState<string | undefined>('');
   const [fileExtension, updateFileExtension] = useState<string | undefined>('');
   const [title, updateTitle] = useState<string | undefined>('');
-
+  const [view, updateView] = useState<string>('desktop');
   const [currentSourceCode, updateCurrentSourceCode] = useState<string>('');
   const [currentSourceData, updateCurrentSourceData] = useState(null);
 
@@ -144,6 +144,7 @@ insertCss(`,
 
   useEffect(() => {
     if (!currentExample) return;
+    updateView('desktop');
     updateCurrentExampleParams(currentExample);
   }, [currentExample]);
 
@@ -307,10 +308,12 @@ insertCss(`,
                         subTitle={<pre>{error && error.message}</pre>}
                       />
                     ) : (
-                      <div
-                        ref={playgroundNode}
-                        className={styles.exampleContainerWrapper}
-                      />
+                      <>
+                        <div className={styles.chartViewBar}>
+                          <ChartViewBar updateView={updateView} view={view} />
+                        </div>
+                        <div ref={playgroundNode} className={styles[view]} />
+                      </>
                     )}
                   </div>
                 )}

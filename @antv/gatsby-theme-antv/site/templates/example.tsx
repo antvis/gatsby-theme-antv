@@ -20,6 +20,7 @@ import PlayGround from '../components/PlayGround';
 import NavigatorBanner from '../components/NavigatorBanner';
 import APIDoc from '../components/APIDoc';
 import CustomTag from '../components/CustomTag';
+import CustomDesc from '../components/CustomDesc';
 import { capitalize } from '../utils';
 import { usePrevAndNext } from '../hooks';
 
@@ -150,11 +151,12 @@ export default function Template({
   const {
     siteMetadata: { examples = [], githubUrl, playground },
   } = site;
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
   const renderAst = new RehypeReact({
     createElement: React.createElement,
     components: {
       tag: CustomTag,
+      description: CustomDesc,
     },
   }).Compiler;
   const groupedEdges = groupBy(

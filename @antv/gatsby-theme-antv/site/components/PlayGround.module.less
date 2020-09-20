@@ -13,13 +13,13 @@
     font-size: 16px;
     line-height: 64px;
     padding: 0 8px;
-    color: #939393;
+    color: #6c7f90;
     cursor: pointer;
     transition: color 0.3s;
   }
 
   .trigger:hover {
-    color: #1890ff;
+    color: #b58bf9;
   }
 }
 
@@ -40,6 +40,13 @@
     overflow: auto;
     height: 100%;
     width: 100%;
+
+    .chartViewBar {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      z-index: 1;
+    }
   }
   .editor {
     overflow: hidden;
@@ -75,7 +82,7 @@
     }
   }
 
-  .exampleContainerWrapper {
+  .desktop {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -86,6 +93,14 @@
       width: 100%;
       height: 100%;
     }
+  }
+  .tablet {
+    width: 498px;
+    height: 342px;
+  }
+  .mobile {
+    width: 250px;
+    height: 342px;
   }
 }
 
