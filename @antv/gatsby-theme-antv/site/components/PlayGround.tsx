@@ -1,5 +1,7 @@
 /* eslint no-underscore-dangle: 0 */
-import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+// gatsby ssr not support Suspense&lazy https://github.com/gatsbyjs/gatsby/issues/11960 
+import loadable from '@loadable/component';
 import { useStaticQuery, graphql } from 'gatsby';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
@@ -13,10 +15,9 @@ import {
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
-import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
 
-const MonacoEditor = lazy(() => import('react-monaco-editor'));
+const MonacoEditor = loadable(() => import('react-monaco-editor'));
 
 export interface PlayGroundProps {
   source: string;
@@ -288,9 +289,7 @@ insertCss(`,
             currentEditorTab={currentEditorTab}
             onEditorTabChange={updateCurrentEditorTab}
           />
-          <div className={styles.monaco}>
-            <Suspense fallback={<PageLoading />}>{editor}</Suspense>
-          </div>
+          <div className={styles.monaco}>{editor}</div>
         </div>
       </SplitPane>
     </div>
