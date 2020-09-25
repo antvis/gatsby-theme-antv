@@ -1,6 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
 import React, { useRef, useEffect, useState } from 'react';
-// gatsby ssr not support Suspense&lazy https://github.com/gatsbyjs/gatsby/issues/11960 
+// gatsby ssr not support Suspense&lazy https://github.com/gatsbyjs/gatsby/issues/11960
 import loadable from '@loadable/component';
 import { useStaticQuery, graphql } from 'gatsby';
 import { useMedia } from 'react-use';
@@ -214,6 +214,9 @@ insertCss(`,
         },
         scrollBeyondLastLine: false,
         fixedOverflowWidgets: true,
+        lineNumbersMinChars: 4,
+        showFoldingControls: 'always',
+        foldingHighlight: true,
       }}
       onChange={(value) => onCodeChange(value)}
       editorWillMount={(monaco) => {
