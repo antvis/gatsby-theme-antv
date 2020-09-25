@@ -1597,8 +1597,8 @@
 
 "@loadable/component@^5.13.2":
   version "5.13.2"
-  resolved "https://registry.npm.alibaba-inc.com/@loadable/component/download/@loadable/component-5.13.2.tgz#219b679c9e76bb5dd247923a3195ad3ef92cf977"
-  integrity sha1-IZtnnJ52u13SR5I6MZWtPvks+Xc=
+  resolved "https://registry.npmjs.org/@loadable/component/-/component-5.13.2.tgz#219b679c9e76bb5dd247923a3195ad3ef92cf977"
+  integrity sha512-eCtJhCFfUg7dzEBc5O4ZNfG0wftCLVSzpfOw9qPYJ16T/bmvrGRDdY8q/ARM4o90MOFlJzIRepnuXnqxB5ZUyQ==
   dependencies:
     "@babel/runtime" "^7.7.7"
     hoist-non-react-statics "^3.3.1"
@@ -2351,8 +2351,8 @@
 
 "@types/loadable__component@^5.13.0":
   version "5.13.0"
-  resolved "https://registry.npm.alibaba-inc.com/@types/loadable__component/download/@types/loadable__component-5.13.0.tgz#fc99480e58fe808e6f94a55f93901858a2d5407f"
-  integrity sha1-/JlIDlj+gI5vlKVfk5AYWKLVQH8=
+  resolved "https://registry.npmjs.org/@types/loadable__component/-/loadable__component-5.13.0.tgz#fc99480e58fe808e6f94a55f93901858a2d5407f"
+  integrity sha512-t44mJuu2DR2oP6RGXHuznAsK3eQYzwTcX76enlcwu1Uz9634VyTYNDLCl0WwTcAfCoro3142li+KKGqOMTznbw==
   dependencies:
     "@types/react" "*"
 
