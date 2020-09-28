@@ -256,6 +256,52 @@ const Layout = () => {
 };
 ```
 
+### Custom Tag in Markdown
+
+We support three type of custom tags in markdown
+
+- **tag**
+
+```md
+<tag color="green" text="分类图例">分类图例</tag>
+```
+
+See [antd Tag components](https://ant.design/components/tag/) for more usage.
+
+- **swatch**
+
+```md
+<swatch colors="#F4664A,#30BF78,#FAAD14" colorNames="Red,Green,Yellow"></swatch>
+```
+
+swatch props:
+
+| name       | description | isRequired | type     | default  |
+| ---------- | ----------- | ---------- | -------- | -------- |
+| title      | -           | true       | string   | -        |
+| darkmode   | -           | false      | boolean  | -        |
+| colors     | -           | false      | string   | -        |
+| colornames | -           | false      | string   | -        |
+| grid       | -           | false      | 'sudoku' | 'sudoku' |
+
+- **playground**
+
+Insert demos to markdown document as code playground.
+
+将 demo 以代码预览效果插入到 markdown 文档中。
+
+```md
+<playground path='category/basic/demo/ts-demo.ts' rid='container'></playground>
+```
+
+playground props:
+
+| name   | description                                              | isRequired | type   | default     |
+| ------ | -------------------------------------------------------- | ---------- | ------ | ----------- |
+| path   | demo relative path                                       | true       | string | -           |
+| height | height of code playground                                | false      | number | 400         |
+| rid    | specify the container ID when more than one demo in docs | false      | string | 'container' |
+
 ## Develop
 
 ```bash
