@@ -19,6 +19,7 @@ const APIDoc = ({
   exampleSections,
   renderAst,
   htmlAst,
+  codeQuery,
 }: {
   slug: string;
   pathWithoutTrailingSlashes: string;
@@ -28,6 +29,7 @@ const APIDoc = ({
   exampleSections: any;
   renderAst: Function;
   htmlAst: any;
+  codeQuery: any;
 }) => {
   const { t } = useTranslation();
   const [collapseData, updateCollapseData] = useState<string[]>([]);
@@ -150,6 +152,7 @@ const APIDoc = ({
           design: !!exampleSections.design,
         }}
         content={collapseData}
+        codeQuery={codeQuery}
       />
       <div className={styles.docContent}>
         {exampleSections.API && activeTab === 'API' && collapseData.length > 0

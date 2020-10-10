@@ -554,6 +554,7 @@ exports.sourceNodes = ({ actions }) => {
       examples: [SiteSiteMetadataExamples]
       redirects: [SiteSiteMetadataRedirects]
       showChartResize: Boolean
+      showAPIDoc: Boolean
       showChinaMirror: Boolean
       showGithubCorner: Boolean
       showLanguageSwitcher: Boolean

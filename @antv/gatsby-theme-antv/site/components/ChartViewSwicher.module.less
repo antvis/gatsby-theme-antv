@@ -1,12 +1,18 @@
 .btnBar {
-  :global(.ant-radio-button-wrapper-checked) {
+  :global(.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)) {
     width: 30px;
     height: 30px;
-    background-color: #ede7fb;
-    color: #7824ff;
-    border-radius: 4px;
+    color: #873bf4;
+    background: #f1eaff;
+    border: none;
     box-sizing: border-box;
+    &:hover {
+      color: #873bf4;
+      background: #f1eaff;
+      border: none;
+    }
   }
+
   :global(.ant-radio-button-wrapper) {
     border: none;
     font-size: 16px;

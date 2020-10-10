@@ -47,10 +47,10 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
     const id = `example-${currentExample?.filename?.split('.')[0]}`;
     const cardNode = document.getElementById(id);
     if (cardNode) {
-      cardNode.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-      });
+      // cardNode.scrollIntoView({
+      //   behavior: 'smooth',
+      //   block: 'nearest',
+      // });
     }
   }, [currentExample]);
 

@@ -24,6 +24,7 @@ const Tabs: React.FC<{
   updateR2ActiveKeys: Function;
   updateSearchQuery: Function;
   updateCollapseData: Function;
+  codeQuery: string;
   content?: string[];
 }> = ({
   active,
@@ -34,6 +35,7 @@ const Tabs: React.FC<{
   updateR2ActiveKeys,
   updateSearchQuery,
   updateCollapseData,
+  codeQuery,
   content,
 }) => {
   const [options, updateOptions] = useState<SelectProps<object>['options']>([]);
@@ -155,9 +157,8 @@ const Tabs: React.FC<{
     return result;
   };
 
-  const onPressEnter = (e: any) => {
+  const search = (value: string) => {
     if (!content) return;
-    const { value } = e.target;
     const pattern = new RegExp(
       "[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]",
     );
@@ -178,9 +179,21 @@ const Tabs: React.FC<{
     }
   };
 
+  const onPressEnter = (e: any) => {
+    const { value } = e.target;
+    search(value);
+  };
+
   useEffect(() => {
     if (content) updateList(getOptionList(content, list, 'r0'));
   }, [content]);
+
+  useEffect(() => {
+    if (codeQuery) {
+      updateInput(codeQuery);
+      search(codeQuery);
+    }
+  }, [codeQuery]);
 
   useEffect(() => {
     if (!content) return;
@@ -234,6 +247,7 @@ const Tabs: React.FC<{
               className={styles.autoComplete}
               dropdownMatchSelectWidth
               options={options}
+              value={input}
               onSelect={onSelect}
               allowClear
               filterOption

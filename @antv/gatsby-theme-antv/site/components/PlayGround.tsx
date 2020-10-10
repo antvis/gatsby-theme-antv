@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import classNames from 'classnames';
-import { Skeleton, Result, Layout } from 'antd';
+import { Skeleton, Result, Layout, Space } from 'antd';
 import debounce from 'lodash/debounce';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
 import {
@@ -13,7 +13,8 @@ import {
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
-import ChartViewBar from './ChartViewBar';
+import ChartViewSwicher from './ChartViewSwicher';
+import LayoutSwicher from './LayoutSwicher';
 import PlayGrounds, { PlayGroundItemProps } from './PlayGrounds';
 import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
@@ -29,6 +30,9 @@ interface PlayGroundProps {
     playgroundWillUnmount?: string;
     htmlCodeTemplate?: string;
   };
+  layout: string;
+  updateLayout: Function;
+  updateCodeQuery: Function;
 }
 
 const MonacoEditor = lazy(() => import('react-monaco-editor'));
@@ -60,6 +64,9 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   examples = [],
   location,
   playground,
+  layout,
+  updateLayout,
+  updateCodeQuery,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -67,6 +74,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
         site {
           siteMetadata {
             showChartResize
+            showAPIDoc
             playground {
               extraLib
             }
@@ -86,7 +94,7 @@ insertCss(`,
     );
   };
   const { extraLib = '' } = site.siteMetadata.playground;
-  const { showChartResize } = site.siteMetadata;
+  const { showChartResize, showAPIDoc } = site.siteMetadata;
   const { t } = useTranslation();
   const [currentExample, updateCurrentExample] = useState<
     PlayGroundItemProps
@@ -109,19 +117,6 @@ insertCss(`,
       setError(e);
     };
   }
-
-  const fullscreenNode = useRef<HTMLDivElement>(null);
-  const [isFullScreen, updateIsFullScreen] = useState(false);
-  const toggleFullscreen = () => {
-    updateIsFullScreen(!isFullScreen);
-    if (fullscreenNode.current) {
-      if (!isFullScreen && !document.fullscreenElement) {
-        fullscreenNode.current.requestFullscreen();
-      } else if (document.exitFullscreen) {
-        document.exitFullscreen();
-      }
-    }
-  };
 
   const updateCurrentExampleParams = (current: PlayGroundItemProps) => {
     if (!current?.relativePath) return;
@@ -218,7 +213,7 @@ insertCss(`,
     }
   }, [currentEditorTab, currentSourceCode]);
 
-  const editor = (
+  const codeEditor = (
     <MonacoEditor
       height="calc(100% - 32px)"
       language={
@@ -235,7 +230,7 @@ insertCss(`,
         fixedOverflowWidgets: true,
       }}
       onChange={(value) => onCodeChange(value)}
-      editorWillMount={(monaco) => {
+      editorWillMount={(monaco: any) => {
         monaco.editor.defineTheme('customTheme', {
           base: 'vs',
           inherit: true,
@@ -245,10 +240,34 @@ insertCss(`,
           },
         });
         monaco.editor.setTheme('customTheme');
+
         monaco.languages.typescript.javascriptDefaults.addExtraLib(
           extraLib,
           '',
         );
+      }}
+      editorDidMount={(editor, monaco) => {
+        editor.addAction({
+          // An unique identifier of the contributed action.
+          id: 'my-unique-id',
+
+          // A label of the action that will be presented to the user.
+          label: 'search in document',
+
+          contextMenuGroupId: 'navigation',
+
+          // An optional array of keybindings for the action.
+          keybindings: [
+            // eslint-disable-next-line no-bitwise
+            monaco.KeyMod.CtrlCmd | monaco.KeyCode.F10,
+          ],
+
+          contextMenuOrder: 0,
+          run: (ed: any) => {
+            const val = ed.getModel().getValueInRange(ed.getSelection());
+            updateCodeQuery(val);
+          },
+        });
       }}
     />
   );
@@ -262,34 +281,39 @@ insertCss(`,
     updateCollapsed(!collapsed);
   };
 
+  useEffect(() => {
+    if (layout !== 'view0') {
+      updateCollapsed(true);
+      updateView('desktop');
+    } else if (layout === 'view0') updateCollapsed(false);
+  }, [layout]);
+
   return (
     <div className={styles.container}>
       {playground && currentExample ? (
-        <div className={styles.playground} ref={fullscreenNode}>
+        <div className={styles.playground}>
           <SplitPane
-            split={isFullScreen ? 'vertical' : 'horizontal'}
-            defaultSize="50%"
-            minSize={100}
+            split={layout !== 'view0' ? 'vertical' : 'horizontal'}
+            size="50%"
             onDragFinished={dispatchResizeEvent}
           >
             <Layout className={styles.playgroundCard}>
-              {!isFullScreen && (
-                <Sider
-                  collapsedWidth={0}
-                  width={120}
-                  trigger={null}
-                  collapsible
-                  collapsed={collapsed}
-                  className={styles.menuSider}
-                  theme="light"
-                >
-                  <PlayGrounds
-                    examples={examples}
-                    currentExample={currentExample}
-                    updateCurrentExample={updateCurrentExample}
-                  />
-                </Sider>
-              )}
+              <Sider
+                collapsedWidth={0}
+                width={120}
+                trigger={null}
+                collapsible
+                collapsed={collapsed}
+                className={styles.menuSider}
+                theme="light"
+              >
+                <PlayGrounds
+                  examples={examples}
+                  currentExample={currentExample}
+                  updateCurrentExample={updateCurrentExample}
+                />
+              </Sider>
+
               <MenuUnfoldOutlined
                 className={styles.trigger}
                 type={collapsed ? 'menu-unfold' : 'menu-fold'}
@@ -311,11 +335,23 @@ insertCss(`,
                       />
                     ) : (
                       <>
-                        {showChartResize && (
-                          <div className={styles.chartViewBar}>
-                            <ChartViewBar updateView={updateView} view={view} />
-                          </div>
-                        )}
+                        <div className={styles.extra}>
+                          <Space>
+                            {showChartResize && layout === 'view0' && (
+                              <>
+                                <ChartViewSwicher
+                                  updateView={updateView}
+                                  view={view}
+                                />
+                                <div className={styles.divide} />
+                              </>
+                            )}
+
+                            {showAPIDoc && (
+                              <LayoutSwicher updateLayout={updateLayout} />
+                            )}
+                          </Space>
+                        </div>
 
                         <div ref={playgroundNode} className={styles[view]} />
                       </>
@@ -333,8 +369,6 @@ insertCss(`,
                   playground={playground}
                   location={location}
                   title={title}
-                  isFullScreen={isFullScreen}
-                  onToggleFullscreen={toggleFullscreen}
                   onExecuteCode={executeCode}
                   editorTabs={editorTabs}
                   currentEditorTab={currentEditorTab}
@@ -343,7 +377,7 @@ insertCss(`,
               )}
 
               <div className={styles.monaco}>
-                <Suspense fallback={<PageLoading />}>{editor}</Suspense>
+                <Suspense fallback={<PageLoading />}>{codeEditor}</Suspense>
               </div>
             </div>
           </SplitPane>

@@ -2318,6 +2318,13 @@
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
 
+"@types/jquery@*":
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.2.tgz#e17c1756ecf7bbb431766c6761674a5d1de16579"
+  integrity sha512-+MFOdKF5Zr41t3y2wfzJvK1PrUK0KtPLAFwYownp/0nCoMIANDDu5aFSpWfb8S0ZajCSNeaBnMrBGxksXK5yeg==
+  dependencies:
+    "@types/sizzle" "*"
+
 "@types/js-cookie@2.2.6":
   version "2.2.6"
   resolved "https://registry.npmjs.org/@types/js-cookie/-/js-cookie-2.2.6.tgz#f1a1cb35aff47bc5cfb05cb0c441ca91e914c26f"
@@ -2358,6 +2365,13 @@
   version "4.14.161"
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.161.tgz#a21ca0777dabc6e4f44f3d07f37b765f54188b18"
   integrity sha512-EP6O3Jkr7bXvZZSZYlsgt5DIjiGr0dXP1/jVEwVLTFgg0d+3lWVQkRavYVQszV7dYUwvg0B8R0MBDpcmXg7XIA==
+
+"@types/mark.js@^8.11.5":
+  version "8.11.5"
+  resolved "https://registry.yarnpkg.com/@types/mark.js/-/mark.js-8.11.5.tgz#7b1b10d900aad7a7d2dbc9b480c8002dbfde30ad"
+  integrity sha512-6p0CNjeHSLFk9Hhh0YARKs7rdtYL8ugsmN03ThKO5EsHl0h/xwxgK8v9eew2yx5yd0YDCzhYRYZt5ON7F7rX+A==
+  dependencies:
+    "@types/jquery" "*"
 
 "@types/mdast@^3.0.0", "@types/mdast@^3.0.3":
   version "3.0.3"
@@ -2508,6 +2522,11 @@
   version "1.1.1"
   resolved "https://registry.npmjs.org/@types/shallowequal/-/shallowequal-1.1.1.tgz#aad262bb3f2b1257d94c71d545268d592575c9b1"
   integrity sha512-Lhni3aX80zbpdxRuWhnuYPm8j8UQaa571lHP/xI4W+7BAFhSIhRReXnqjEgT/XzPoXZTJkCqstFMJ8CZTK6IlQ==
+
+"@types/sizzle@*":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.2.tgz#a811b8c18e2babab7d542b3365887ae2e4d9de47"
+  integrity sha512-7EJYyKTL7tFR8+gDbB6Wwz/arpGa0Mywk1TJbNzKzHtzbwVmY4HR9WqS5VV7dsBUKQmPNr192jHr/VpBluj/hg==
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
