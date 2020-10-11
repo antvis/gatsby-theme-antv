@@ -303,12 +303,31 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         ...demoInfo,
       };
     });
+
+  const allExamples = allDemos.map((item) => {
+    const source = fs.readFileSync(item.absolutePath, 'utf8');
+    const { code } = transform(source, {
+      filename: item.absolutePath,
+      presets: ['react', 'typescript', 'es2015', 'stage-3'],
+      plugins: ['transform-modules-umd'],
+      babelrc: false,
+    });
+    return {
+      ...item,
+      source,
+      babeledSource: code,
+    };
+  });
+
   posts.forEach(({ node }) => {
     const { slug } = node.fields;
     const context = {};
     const isGalleryPage = slug.endsWith('/examples/gallery');
     const isExamplePage =
       slug.startsWith(`/zh/examples`) || slug.startsWith(`/en/examples`);
+    const isDocsPage =
+      slug.startsWith(`/zh/docs`) || slug.startsWith(`/en/docs`);
+
     if (isGalleryPage) {
       // 找到所有的演示
       context.allDemos = allDemos.map((demo) => {
@@ -363,32 +382,28 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
       if (API && API.node && API.node.htmlAst) {
         API.structure = getApiStructure(API.node.htmlAst);
       }
-      const examples = allDemos
+      const examples = allExamples
         .filter((item) =>
           `${exampleRootSlug}/demo`.endsWith(
             slash(path.join('examples', path.dirname(item.relativePath))),
           ),
         )
-        .sort((a, b) => a.order - b.order)
-        .map((item) => {
-          const source = fs.readFileSync(item.absolutePath, 'utf8');
-          const { code } = transform(source, {
-            filename: item.absolutePath,
-            presets: ['react', 'typescript', 'es2015', 'stage-3'],
-            plugins: ['transform-modules-umd'],
-            babelrc: false,
-          });
-          return {
-            ...item,
-            source,
-            babeledSource: code,
-          };
-        });
+        .sort((a, b) => a.order - b.order);
       context.exampleSections = {
         examples,
         design,
         API,
       };
+      const descriptionPosts = posts.find((post) => {
+        const { slug: postSlug } = post.node.fields;
+        return postSlug === exampleRootSlug;
+      });
+      if (descriptionPosts) {
+        context.description = descriptionPosts.node.html;
+      }
+    } else if (isDocsPage) {
+      // 将 examples 传递给 document template
+      context.examples = allExamples;
     }
 
     // 修复修改 example 代码不及时生效的问题

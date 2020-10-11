@@ -17,6 +17,7 @@ import ReadingTime from '../components/ReadingTime';
 import NavigatorBanner from '../components/NavigatorBanner';
 import SEO from '../components/Seo';
 import CustomTag from '../components/CustomTag';
+import MdPlayground from '../components/MdPlayground';
 import { usePrevAndNext } from '../hooks';
 import { capitalize } from '../utils';
 import styles from './markdown.module.less';
@@ -154,12 +155,17 @@ export const getGithubSourceUrl = ({
 export default function Template({
   data, // this prop will be injected by the GraphQL query below.
   location,
+  pageContext,
 }: {
   data: any;
   location: Location;
+  pageContext: {
+    examples: any;
+  };
 }) {
   const [prev, next] = usePrevAndNext();
   const { markdownRemark, allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
+  const { examples = [] } = pageContext;
   if (!markdownRemark) {
     return null;
   }
@@ -256,11 +262,14 @@ export default function Template({
     </Affix>
   );
 
+  const Playground = (props: any) => MdPlayground({ examples, ...props });
+
   const renderAst = new RehypeReact({
     createElement: React.createElement,
     components: {
       swatch: Swatch,
       tag: CustomTag,
+      playground: Playground,
     },
   }).Compiler;
 

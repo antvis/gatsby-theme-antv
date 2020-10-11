@@ -1,22 +1,31 @@
 import { Chart } from '@antv/g2';
 
 const data = [
-  { genre: 'Sports', sold: 275 },
-  { genre: 'Strategy', sold: 1150 },
-  { genre: 'Action', sold: 120 },
-  { genre: 'Shooter', sold: 350 },
-  { genre: 'Other', sold: 150 },
+  { year: '1951 年', sales: 38 },
+  { year: '1952 年', sales: 52 },
+  { year: '1956 年', sales: 61 },
+  { year: '1957 年', sales: 145 },
+  { year: '1958 年', sales: 48 },
+  { year: '1959 年', sales: 38 },
+  { year: '1960 年', sales: 38 },
+  { year: '1962 年', sales: 38 },
 ];
-
 const chart = new Chart({
-  container: document.getElementById('container'),
-  width: 500,
+  container: 'container',
+  autoFit: true,
   height: 500,
 });
 
-chart.source(data);
-chart
-  .interval()
-  .position('genre*sold')
-  .color('genre');
+chart.data(data);
+chart.scale('sales', {
+  nice: true,
+});
+
+chart.tooltip({
+  showMarkers: false,
+});
+chart.interaction('active-region');
+
+chart.interval().position('year*sales');
+
 chart.render();
