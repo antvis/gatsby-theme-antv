@@ -4,7 +4,9 @@ module.exports = {
   plugins: [
     {
       resolve: '@antv/gatsby-theme-antv',
-      options: {},
+      options: {
+        GATrackingId: `UA-148148901-11`,
+      },
     },
   ],
   siteMetadata: {
@@ -108,6 +110,5 @@ module.exports = {
 </html>`,
     },
     redirects: [],
-    GATrackingId: `UA-148148901-11`,
   },
 };
