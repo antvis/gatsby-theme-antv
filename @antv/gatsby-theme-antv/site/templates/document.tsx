@@ -141,7 +141,7 @@ export const getGithubSourceUrl = ({
   githubUrl: string;
   relativePath: string;
   prefix: string;
-}) => {
+}): string => {
   // https://github.com/antvis/x6/tree/master/packages/x6-sites
   if (githubUrl.includes('/tree/master/')) {
     return `${githubUrl.replace(
@@ -162,7 +162,7 @@ export default function Template({
   pageContext: {
     examples: any;
   };
-}) {
+}): React.ReactNode {
   const [prev, next] = usePrevAndNext();
   const { markdownRemark, allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
   const { examples = [] } = pageContext;

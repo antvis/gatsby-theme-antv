@@ -1,4 +1,3 @@
-/* eslint @typescript-eslint/camelcase: 0 */
 const fs = require('fs');
 const path = require('path');
 const { Extractor, ExtractorConfig } = require('@microsoft/api-extractor');

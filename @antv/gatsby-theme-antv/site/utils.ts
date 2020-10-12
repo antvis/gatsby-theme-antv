@@ -1,6 +1,6 @@
 type Status = 'responded' | 'error' | 'timeout';
 
-export const ping = (callback: (status: Status) => void) => {
+export const ping = (callback: (status: Status) => void): NodeJS.Timeout => {
   const url =
     'https://private-a' +
     'lipay' +
@@ -22,14 +22,14 @@ export const ping = (callback: (status: Status) => void) => {
   return setTimeout(() => finish('timeout'), 1500);
 };
 
-export const capitalize = (s: string) => {
+export const capitalize = (s: string): string => {
   if (typeof s !== 'string') {
     return '';
   }
   return s.charAt(0).toUpperCase() + s.slice(1);
 };
 
-export const getChinaMirrorHost = (host?: string) => {
+export const getChinaMirrorHost = (host?: string): string => {
   const hostString = typeof host === 'undefined' ? window.location.host : host;
   // antv.vision => antv.gitee.io
   if (hostString === 'antv.vision') {

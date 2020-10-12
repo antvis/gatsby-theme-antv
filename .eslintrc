@@ -20,9 +20,16 @@
     "consistent-return": 0,
     "import/no-extraneous-dependencies": 0,
     "import/prefer-default-export": 0,
-    "import/extensions": [2, "always", { "ts": "never", "tsx": "never", "js": "never", "jsx": "never" }],
+    "import/extensions": [
+      2,
+      "always",
+      { "ts": "never", "tsx": "never", "js": "never", "jsx": "never" }
+    ],
     "import/no-named-default": 0,
-    "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js", ".jsx"] }],
+    "react/jsx-filename-extension": [
+      1,
+      { "extensions": [".ts", ".tsx", ".js", ".jsx"] }
+    ],
     "react/prop-types": 0,
     "react/state-in-constructor": 0,
     "react/jsx-props-no-spreading": 0,
@@ -34,6 +41,10 @@
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-non-null-assertion": 0
+    "@typescript-eslint/no-non-null-assertion": 0,
+    "no-use-before-define": 0,
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "no-shadow": 0,
+    "@typescript-eslint/no-shadow": ["error"]
   }
 }
