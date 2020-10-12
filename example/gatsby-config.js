@@ -108,5 +108,6 @@ module.exports = {
 </html>`,
     },
     redirects: [],
+    GATrackingId: `UA-148148901-11`,
   },
 };
