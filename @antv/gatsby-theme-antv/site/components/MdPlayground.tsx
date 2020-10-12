@@ -22,11 +22,7 @@ const MonacoEditor = loadable(() => import('react-monaco-editor'));
 export interface PlayGroundProps {
   source: string;
   babeledSource: string;
-  absolutePath?: string;
   relativePath?: string;
-  screenshot?: string;
-  recommended?: boolean;
-  filename: string;
   title?: string;
   location?: Location;
   playground?: {
@@ -289,6 +285,8 @@ insertCss(`,
             editorTabs={editorTabs}
             currentEditorTab={currentEditorTab}
             onEditorTabChange={updateCurrentEditorTab}
+            isFullScreen={false}
+            onToggleFullscreen={toggleFullscreen}
           />
           <div className={styles.monaco}>{editor}</div>
         </div>
@@ -318,7 +316,6 @@ const MdPlayGround: React.FC<MdPlaygroundProps> = ({
       source={example.source}
       babeledSource={example.babeledSource}
       playground={example.playground}
-      filename="basic.jsx"
       height={height}
       replaceId={rid}
     />

@@ -373,6 +373,7 @@ insertCss(`,
                   editorTabs={editorTabs}
                   currentEditorTab={currentEditorTab}
                   onEditorTabChange={updateCurrentEditorTab}
+                  onToggleFullscreen={null}
                 />
               )}
 

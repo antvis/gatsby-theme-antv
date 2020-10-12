@@ -4,6 +4,8 @@ import {
   Html5Outlined,
   PlayCircleOutlined,
   ThunderboltOutlined,
+  FullscreenExitOutlined,
+  FullscreenOutlined,
 } from '@ant-design/icons';
 import { Typography, Tooltip, Modal, Button } from 'antd';
 import path from 'path';
@@ -37,9 +39,11 @@ interface ToolbarProps {
     };
     htmlCodeTemplate?: string;
   };
+  isFullScreen?: boolean;
   editorTabs: EDITOR_TABS[];
   currentEditorTab: EDITOR_TABS;
   onEditorTabChange: (tab: EDITOR_TABS) => void;
+  onToggleFullscreen?: null | (() => void);
   onExecuteCode: () => void;
 }
 
@@ -54,9 +58,11 @@ const Toolbar: React.FC<ToolbarProps> = ({
   playground = {},
   location,
   title = '',
+  isFullScreen = false,
   editorTabs,
   currentEditorTab,
   onEditorTabChange,
+  onToggleFullscreen = null,
   onExecuteCode,
 }) => {
   const { t, i18n } = useTranslation();
@@ -281,6 +287,21 @@ const Toolbar: React.FC<ToolbarProps> = ({
           </Modal>
         </>
       )}
+      {onToggleFullscreen ? (
+        <Tooltip title={isFullScreen ? t('离开全屏') : t('进入全屏')}>
+          {isFullScreen ? (
+            <FullscreenExitOutlined
+              onClick={onToggleFullscreen}
+              style={{ marginLeft: 12 }}
+            />
+          ) : (
+            <FullscreenOutlined
+              onClick={onToggleFullscreen}
+              style={{ marginLeft: 12 }}
+            />
+          )}
+        </Tooltip>
+      ) : null}
       <Tooltip title={t('执行代码')}>
         <PlayCircleOutlined
           onClick={onExecuteCode}
