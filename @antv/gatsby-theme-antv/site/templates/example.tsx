@@ -391,6 +391,10 @@ export default function Template({
       // demo页面禁止滚动
       body.style.overflow = 'hidden';
     }
+
+    return () => {
+      document.getElementsByTagName('body')[0].style.overflow = 'auto';
+    };
   }, [pathWithoutTrailingSlashes]);
 
   const exmaplePageContent = (
