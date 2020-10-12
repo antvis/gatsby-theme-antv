@@ -6,12 +6,12 @@ import SEO from '../components/Seo';
 
 const NotFoundPage = () => {
   useEffect(() => {
-    if (location.pathname.startsWith('/404')) {
+    if (window.location.pathname.startsWith('/404')) {
       return;
     }
-    const { gtag = () => {} } = window as any;
-    gtag('event', 'report_404', {
-      value: location.href,
+    const { gtag } = window as any;
+    gtag?.('event', 'report_404', {
+      value: window.location.href,
     });
   }, []);
   return (
