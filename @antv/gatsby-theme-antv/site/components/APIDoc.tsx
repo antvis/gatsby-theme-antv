@@ -63,7 +63,6 @@ const APIDoc = ({
         element.show = true;
       }
     });
-
     updateCollapseData(initData);
   }, [exampleSections]);
 
@@ -114,6 +113,7 @@ const APIDoc = ({
               header={node.title}
               className={node.show ? styles.rootItem : styles.hidden}
             >
+              {renderAst(node.content)}
               {node.children.map((child: any, i: number) => (
                 <Collapse
                   bordered={false}

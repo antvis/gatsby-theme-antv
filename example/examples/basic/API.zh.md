@@ -9,8 +9,8 @@ redirect_from:
 
 ### 图表容器
 
-`markdown:common/container.zh.md`
+`markdown:docs/common/container.zh.md`
 
 ### 数据映射
 
-`markdown:common/data-mapping.zh.md`
+`markdown:docs/common/data-mapping.zh.md`

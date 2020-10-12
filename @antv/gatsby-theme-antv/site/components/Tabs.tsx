@@ -160,7 +160,7 @@ const Tabs: React.FC<{
   const search = (value: string) => {
     if (!content) return;
     const pattern = new RegExp(
-      "[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？]",
+      "[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]",
     );
     let query = '';
     for (let i = 0; i < value.length; i += 1) {
@@ -175,6 +175,7 @@ const Tabs: React.FC<{
       collaspseALL();
       showSearchResult(keys);
     } else {
+      collaspseALL();
       updateIsEmpty(empty);
     }
   };
@@ -184,30 +185,33 @@ const Tabs: React.FC<{
     search(value);
   };
 
+  const clearSearch = () => {
+    if (!content) return;
+    updateIsEmpty(null);
+    updateSearchQuery('');
+    content.forEach((node: any) => {
+      const element = node;
+      element.show = true;
+    });
+    updateCollapseData(content);
+    updateR0ActiveKeys(['r0-0']);
+    updateR2ActiveKeys(['r2-0']);
+  };
+
   useEffect(() => {
     if (content) updateList(getOptionList(content, list, 'r0'));
   }, [content]);
 
   useEffect(() => {
     if (codeQuery) {
+      clearSearch();
       updateInput(codeQuery);
       search(codeQuery);
     }
   }, [codeQuery]);
 
   useEffect(() => {
-    if (!content) return;
-    if (!input) {
-      updateIsEmpty(null);
-      updateSearchQuery('');
-      content.forEach((node: any) => {
-        const element = node;
-        element.show = true;
-      });
-      updateCollapseData(content);
-      updateR0ActiveKeys(['r0-0']);
-      updateR2ActiveKeys(['r2-0']);
-    }
+    if (!input) clearSearch();
   }, [input]);
 
   return (
