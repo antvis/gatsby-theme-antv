@@ -12,14 +12,14 @@ export class Chart {
   /**
    * This method will be removed at G2 V4.1
    */
-  source(data): void;
+  source(data: unknown): void;
 
   /**
    * 创建 Interval 几何标记。
    * @param [cfg] 传入 Interval 构造函数的配置。
    * @returns interval 返回 Interval 实例。
    */
-  interval(cfg: any): any;
+  interval(cfg: unknown): any;
 
   /**
    * 配置 position 通道映射规则。
@@ -38,7 +38,7 @@ export class Chart {
    * @returns
    */
   position(cfg: string | string[]): any;
-  
+
   /**
    * @example
    * ```typescript

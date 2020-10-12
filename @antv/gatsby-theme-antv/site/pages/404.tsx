@@ -4,7 +4,7 @@ import { Result, Button } from 'antd';
 import { Link } from 'gatsby';
 import SEO from '../components/Seo';
 
-const NotFoundPage = () => {
+const NotFoundPage: React.FC = () => {
   useEffect(() => {
     if (window.location.pathname.startsWith('/404')) {
       return;

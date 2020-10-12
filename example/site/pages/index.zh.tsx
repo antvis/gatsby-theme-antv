@@ -7,7 +7,7 @@ import Features from '@antv/gatsby-theme-antv/site/components/Features';
 import Cases from '@antv/gatsby-theme-antv/site/components/Cases';
 import BannerSVG from '@antv/gatsby-theme-antv/site/components/BannerSVG';
 
-const IndexPage = () => {
+const IndexPage: React.FC = () => {
   const { t, i18n } = useTranslation();
 
   const features = [

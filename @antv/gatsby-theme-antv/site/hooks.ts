@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { NavigatorBannerProps } from './components/NavigatorBanner';
 
-export const useChinaMirrorHost = () => {
+export const useChinaMirrorHost = (): [boolean] => {
   const [isChinaMirrorHost, setIsChinaMirrorHost] = useState(false);
   useEffect(() => {
     if (
@@ -14,7 +14,7 @@ export const useChinaMirrorHost = () => {
   return [isChinaMirrorHost];
 };
 
-export const usePrevAndNext = () => {
+export const usePrevAndNext = (): NavigatorBannerProps['post'][] => {
   const [prevAndNext, setPrevAndNext] = useState<
     NavigatorBannerProps['post'][]
   >([]);
@@ -24,7 +24,7 @@ export const usePrevAndNext = () => {
       'aside .ant-menu-item-selected a',
     );
     const currentIndex = Array.from(menuNodes).findIndex(
-      node => node === currentMenuNode,
+      (node) => node === currentMenuNode,
     );
     const prevNode =
       currentIndex - 1 >= 0 ? menuNodes[currentIndex - 1] : undefined;
@@ -49,7 +49,15 @@ export const usePrevAndNext = () => {
   return prevAndNext;
 };
 
-export const useLogoLink = ({ link = '', siteUrl = '', lang = '' }) => {
+export const useLogoLink = ({
+  link = '',
+  siteUrl = '',
+  lang = '',
+}: {
+  link?: string;
+  siteUrl?: string;
+  lang?: string;
+}): [string] => {
   let defaultLogoLink;
   if (link) {
     defaultLogoLink = link;

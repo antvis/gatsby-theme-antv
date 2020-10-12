@@ -64,7 +64,7 @@ interface HeaderProps {
   versions?: { [key: string]: string };
 }
 
-export const redirectToChinaMirror = (githubUrl: string) => {
+export const redirectToChinaMirror = (githubUrl: string): void => {
   const chinaMirrorHost = getChinaMirrorHost();
   if (chinaMirrorHost !== window.location.host) {
     window.location.href = window.location.href.replace(
