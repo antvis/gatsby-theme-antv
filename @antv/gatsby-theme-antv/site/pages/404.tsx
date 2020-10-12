@@ -9,9 +9,11 @@ const NotFoundPage: React.FC = () => {
     if (window.location.pathname.startsWith('/404')) {
       return;
     }
-    const { gtag } = window as any;
-    gtag?.('event', 'report_404', {
-      value: window.location.href,
+    const { ga } = window;
+    ga?.('send', 'event', {
+      eventCategory: '404',
+      eventAction: 'report',
+      eventLabel: window.location.href,
     });
   }, []);
   return (
