@@ -20,6 +20,11 @@ import styles from './Toolbar.module.less';
 const { Paragraph } = Typography;
 const MonacoEditor = lazy(() => import('react-monaco-editor'));
 
+export enum EDITOR_TABS {
+  JAVASCRIPT = 'JavaScript',
+  DATA = 'Data',
+}
+
 interface ToolbarProps {
   sourceCode: string;
   fileExtension: string;
@@ -45,11 +50,6 @@ interface ToolbarProps {
   onEditorTabChange: (tab: EDITOR_TABS) => void;
   onToggleFullscreen?: null | (() => void);
   onExecuteCode: () => void;
-}
-
-export enum EDITOR_TABS {
-  JAVASCRIPT = 'JavaScript',
-  DATA = 'Data',
 }
 
 const Toolbar: React.FC<ToolbarProps> = ({

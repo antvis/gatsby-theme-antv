@@ -111,8 +111,7 @@ insertCss(`,
   const [currentSourceData, updateCurrentSourceData] = useState(null);
 
   if (typeof window !== 'undefined') {
-    // @ts-ignore
-    window.__reportErrorInPlayGround = (e: Error) => {
+    (window as any).__reportErrorInPlayGround = (e: Error) => {
       console.error(e); // eslint-disable-line no-console
       setError(e);
     };

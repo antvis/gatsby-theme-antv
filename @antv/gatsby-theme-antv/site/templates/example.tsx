@@ -118,7 +118,7 @@ export default function Template({
     exampleSections: any;
     allDemos?: any[];
   };
-}) {
+}): React.ReactNode {
   const { allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
   const { showAPIDoc } = site.siteMetadata;
   const { edges = [] } = allMarkdownRemark;

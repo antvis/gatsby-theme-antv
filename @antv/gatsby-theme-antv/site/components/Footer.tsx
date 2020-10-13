@@ -19,7 +19,6 @@ interface FooterProps extends RcFooterProps {
   rootDomain?: string;
   language?: string;
   githubUrl?: string;
-  footerProps?: object;
   location: Location;
 }
 
@@ -29,8 +28,8 @@ const Footer: React.FC<FooterProps> = ({
   theme = 'dark',
   language,
   rootDomain = '',
-  footerProps,
   location,
+  ...resetProps
 }) => {
   const { t, i18n } = useTranslation();
   const lang = language || i18n.language;
@@ -194,7 +193,7 @@ const Footer: React.FC<FooterProps> = ({
           </div>
         )
       }
-      {...footerProps}
+      {...resetProps}
     />
   );
 };

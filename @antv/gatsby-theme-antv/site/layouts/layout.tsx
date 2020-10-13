@@ -4,6 +4,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { getCurrentLangKey } from 'ptz-i18n';
 import { Helmet } from 'react-helmet';
+import { FooterProps } from 'rc-footer';
 import Seo from '../components/Seo';
 import Header from '../components/Header';
 import PageLoading from '../components/PageLoading';
@@ -27,7 +28,7 @@ interface LayoutProps {
   children: React.ReactElement<any>;
   location: Location;
   pageContext: any;
-  footerProps: object;
+  footerProps: FooterProps;
 }
 
 function parseNulltoUndefined<T>(value: T) {
@@ -203,6 +204,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         {...logoProps}
       />
       <main className={styles.main}>{children}</main>
+
       {!(
         location.pathname.includes('/examples/') &&
         !location.pathname.endsWith('/gallery')
@@ -210,8 +212,8 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         <Footer
           githubUrl={githubUrl}
           rootDomain="https://antv.vision"
-          footerProps={footerProps}
           location={location}
+          {...footerProps}
         />
       )}
     </>
