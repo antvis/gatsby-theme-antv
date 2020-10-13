@@ -372,7 +372,12 @@ const Header: React.FC<HeaderProps> = ({
             }
             className={styles.translation}
           >
-            <TranslationIcon />
+            <a
+              className="ant-dropdown-link"
+              onClick={(e) => e.preventDefault()}
+            >
+              <TranslationIcon className={styles.translation} />
+            </a>
           </Dropdown>
         </li>
       )}

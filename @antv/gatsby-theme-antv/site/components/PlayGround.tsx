@@ -184,7 +184,7 @@ insertCss(`,
           updateCurrentSourceData(data);
         });
     }
-  }, []);
+  }, [currentSourceCode]);
 
   const onCodeChange = (value: string) => {
     if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
