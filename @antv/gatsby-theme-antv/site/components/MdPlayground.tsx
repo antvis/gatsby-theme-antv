@@ -151,7 +151,7 @@ insertCss(`,
     };
   }, []);
 
-  const [editorTabs, updateEditroTabs] = useState<EDITOR_TABS[]>([]);
+  const [editorTabs, updateEditorTabs] = useState<EDITOR_TABS[]>([]);
   const [currentEditorTab, updateCurrentEditorTab] = useState(
     EDITOR_TABS.JAVASCRIPT,
   );
@@ -161,7 +161,7 @@ insertCss(`,
       fetch(dataFileMatch[1])
         .then((response) => response.json())
         .then((data) => {
-          updateEditroTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
+          updateEditorTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
           updateCurrentSourceData(data);
         });
     }
