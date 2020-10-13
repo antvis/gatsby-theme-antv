@@ -175,11 +175,12 @@ insertCss(`,
   );
   useEffect(() => {
     const dataFileMatch = currentSourceCode.match(/fetch\('(.*)'\)/);
+
     if (dataFileMatch && dataFileMatch.length > 0) {
+      updateEditroTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
       fetch(dataFileMatch[1])
         .then((response) => response.json())
         .then((data) => {
-          updateEditroTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
           updateCurrentSourceData(data);
         });
     }
