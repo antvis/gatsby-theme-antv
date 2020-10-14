@@ -196,7 +196,6 @@ insertCss(`,
 
   const editor = (
     <MonacoEditor
-      height={height || 'calc(100% - 32px)'}
       language={
         currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'
       }
@@ -287,7 +286,13 @@ insertCss(`,
             isFullScreen={false}
             onToggleFullscreen={toggleFullscreen}
           />
-          <div className={styles.monaco}>{editor}</div>
+          <div
+            className={styles.monaco}
+            // toolbar height = 36px
+            style={{ height: 'calc(100% - 36px)' }}
+          >
+            {editor}
+          </div>
         </div>
       </SplitPane>
     </div>
