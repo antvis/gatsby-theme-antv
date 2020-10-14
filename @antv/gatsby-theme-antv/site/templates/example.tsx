@@ -347,9 +347,11 @@ export default function Template({
                       key={demo.relativePath}
                       title={cardTitle}
                     >
-                      <Link
-                        to={`/${i18n.language}/examples/${demoSlug}`}
+                      <a
                         className={styles.galleryCardLink}
+                        rel="noreferrer"
+                        target="_blank"
+                        href={`/${i18n.language}/examples/${demoSlug}`}
                       >
                         <img
                           src={
@@ -359,7 +361,7 @@ export default function Template({
                           alt={cardTitle}
                         />
                         <h4>{cardTitle}</h4>
-                      </Link>
+                      </a>
                     </li>
                   );
                 })}
