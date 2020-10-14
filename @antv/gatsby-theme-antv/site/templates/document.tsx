@@ -262,8 +262,9 @@ export default function Template({
     </Affix>
   );
 
-  // @ts-ignore
-  const Playground = (props: any) => MdPlayground({ examples, ...props });
+  const Playground = (props: any) => (
+    <MdPlayground examples={examples} {...props} />
+  );
 
   const renderAst = new RehypeReact({
     createElement: React.createElement,
