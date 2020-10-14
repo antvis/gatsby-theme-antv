@@ -31,6 +31,7 @@ const APIDoc = ({
   htmlAst: any;
   codeQuery: any;
 }) => {
+  // console.log('exampleSections: ', exampleSections);
   const { t } = useTranslation();
   const [collapseData, updateCollapseData] = useState<string[]>([]);
   const [searchQuery, updateSearchQuery] = useState<string>('');
@@ -56,13 +57,14 @@ const APIDoc = ({
 
   useEffect(() => {
     if (!exampleSections?.API) return;
-    const initData = exampleSections?.API.structure[0].children;
+    const initData = exampleSections?.API.structure;
     initData.forEach((node: { title: string; show: boolean }) => {
       const element = node;
       if (element.title) {
         element.show = true;
       }
     });
+    console.log('initData: ', initData);
     updateCollapseData(initData);
   }, [exampleSections]);
 
@@ -113,23 +115,25 @@ const APIDoc = ({
               header={node.title}
               className={node.show ? styles.rootItem : styles.hidden}
             >
-              {renderAst(node.content)}
-              {node.children.map((child: any, i: number) => (
-                <Collapse
-                  bordered={false}
-                  activeKey={r2ActiveKeys}
-                  onChange={r2HandleChange}
-                  key={`r1-${i}`}
-                >
-                  <Panel
-                    header={child.title}
-                    key={`r2-${i}`}
-                    extra={genExtra(child.options)}
-                  >
-                    {renderAst(child.content)}
-                  </Panel>
-                </Collapse>
-              ))}
+              {node.content ? renderAst(node.content) : null}
+              {Array.isArray(node.children)
+                ? node.children.map((child: any, i: number) => (
+                    <Collapse
+                      bordered={false}
+                      activeKey={r2ActiveKeys}
+                      onChange={r2HandleChange}
+                      key={`r1-${i}`}
+                    >
+                      <Panel
+                        header={child.title}
+                        key={`r2-${i}`}
+                        extra={genExtra(child.options)}
+                      >
+                        {child.content ? renderAst(child.content) : null}
+                      </Panel>
+                    </Collapse>
+                  ))
+                : null}
             </Panel>
           ))}
         </Collapse>

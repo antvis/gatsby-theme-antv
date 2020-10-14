@@ -1,5 +1,5 @@
 ---
-title: 演示二
+title: G2Plot API + demo
 order: 1
 icon: line
 ---
