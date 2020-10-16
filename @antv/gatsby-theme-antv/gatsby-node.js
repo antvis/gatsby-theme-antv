@@ -64,91 +64,6 @@ function getPostOrder(post, siteMetadata, type) {
   return result;
 }
 
-function getApiStructure(htmlAst) {
-  const nodes = htmlAst.children;
-  const result = [];
-  let temp = [];
-  let item = null;
-  let depth = 0;
-  let firstDepth = 0;
-
-  const getHeading = (node) => {
-    if (/h\d/.test(node.tagName)) {
-      return {
-        depth: +node.tagName.slice(1),
-        name: node.children[1].value,
-      };
-    }
-    return null;
-  };
-
-  const getDescription = (node) => {
-    const childs = node.children;
-    if (Array.isArray(childs) && childs[0]) {
-      const first = childs[0];
-      if (first.tagName === 'description') {
-        const res = {};
-        first.children.forEach((c) => {
-          if (c.tagName === 'strong') {
-            res.require = c.children[0].value;
-          } else if (c.type === 'em') {
-            const type = c.children[0].value;
-            if (type !== 'default:') {
-              res.type = type;
-            }
-          } else if (c.type === 'code') {
-            res.default = c.value;
-          }
-        });
-        return res;
-      }
-    }
-    return null;
-  };
-
-  const recordResult = (node, level) => {
-    let c = level;
-    let r = result;
-    while (c > firstDepth) {
-      r = r[r.length - 1].children;
-      c -= 1;
-    }
-    r.push(node);
-  };
-
-  for (let i = 0, len = nodes.length; i < len; i += 1) {
-    const heading = getHeading(nodes[i]);
-    if (heading) {
-      item = {
-        title: heading.name,
-        options: {},
-        children: [],
-      };
-      depth = heading.depth;
-      firstDepth = firstDepth || depth;
-      temp = [];
-    } else {
-      temp.push(nodes[i]);
-      const description = getDescription(nodes[i]);
-      if (item && description) {
-        item.options = description;
-      }
-    }
-    const isBoundary = i === len - 1 || getHeading(nodes[i + 1]);
-    if (item && isBoundary) {
-      item.content =
-        temp.length > 0
-          ? {
-              type: 'root',
-              children: temp,
-            }
-          : null;
-      recordResult(item, depth);
-    }
-  }
-  return result;
-}
-
 exports.onPreBootstrap = ({ store, reporter }) => {
   const { program } = store.getState();
 
@@ -380,9 +295,6 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         const { slug: postSlug } = post.node.fields;
         return postSlug === `${exampleRootSlug}/API`;
       });
-      if (API && API.node && API.node.htmlAst) {
-        API.structure = getApiStructure(API.node.htmlAst);
-      }
       const examples = allExamples
         .filter((item) =>
           `${exampleRootSlug}/demo`.endsWith(

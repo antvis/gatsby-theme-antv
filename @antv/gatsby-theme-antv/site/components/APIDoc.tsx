@@ -4,29 +4,28 @@ import { Tooltip, Collapse } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import Mark from 'mark.js';
 import { getGithubSourceUrl } from '../templates/document';
-import RehypeReact from 'rehype-react';
 import Tabs from './Tabs';
-import CustomTag from '../components/CustomTag';
-import CustomDesc from '../components/CustomDesc';
 import CollapseIcon from './CollapseIcon';
 import styles from './APIDoc.module.less';
 
 const { Panel } = Collapse;
 
-const APIDoc = ({
-  markdownRemark,
-  githubUrl,
-  relativePath,
-  exampleSections,
-  codeQuery,
-  description,
-}: {
+interface APIDocProps {
   markdownRemark: any;
   githubUrl: string;
   relativePath: string;
   exampleSections: any;
   description: string;
   codeQuery: string;
+}
+
+const APIDoc: React.FC<APIDocProps> = ({
+  markdownRemark,
+  githubUrl,
+  relativePath,
+  exampleSections,
+  codeQuery,
+  description,
 }) => {
   const { t } = useTranslation();
   const [collapseData, updateCollapseData] = useState<string[]>([]);
@@ -38,7 +37,10 @@ const APIDoc = ({
   const [r0ActiveKeys, updateR0ActiveKeys] = useState<string[]>(['r0-0']);
   const [r2ActiveKeys, updateR2ActiveKeys] = useState<string[]>(['r2-0']);
   let activeTab = 'API' as 'API' | 'design';
-  const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
+  const pathWithoutTrailingSlashes = window.location.pathname.replace(
+    /\/$/,
+    '',
+  );
   let exampleRootSlug = slug;
   if (/\/examples\/.*\/API$/.test(pathWithoutTrailingSlashes)) {
     activeTab = 'API';
@@ -48,14 +50,6 @@ const APIDoc = ({
     exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
   }
 
-  const renderAst = new RehypeReact({
-    createElement: React.createElement,
-    components: {
-      tag: CustomTag,
-      description: CustomDesc,
-    },
-  }).Compiler;
-
   const r0HandleChange = (activeKey: any) => {
     updateR0ActiveKeys(activeKey);
   };
@@ -64,9 +58,108 @@ const APIDoc = ({
     updateR2ActiveKeys(activeKey);
   };
 
+  const createApiStructure = (html: string) => {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    let nodes = div.childNodes;
+    if (nodes.length === 1 && nodes[0].nodeName === 'DIV') {
+      // 当md中出现注释，会在最外层包一层div
+      nodes = nodes[0].childNodes;
+    }
+
+    const result: any = [];
+    let htmlList = [];
+    let item = null;
+    let depth = 0;
+    let firstDepth = 0;
+
+    const getHeading = (node: HTMLElement) => {
+      if (/[hH]\d/.test(node.nodeName)) {
+        return {
+          depth: +node.nodeName.slice(1),
+          name: node.innerText,
+        };
+      }
+      return null;
+    };
+
+    const isExpandable = (level: number) => {
+      if (firstDepth === 0) {
+        // 第一个标题肯定能展开
+        return true;
+      }
+      // 最多展开2级
+      return level < firstDepth + 2;
+    };
+
+    const getDescription = (node: HTMLElement) => {
+      const childs = node.childNodes;
+      if (childs.length > 0 && childs[0]) {
+        const first = childs[0];
+        if (first.nodeName === 'DESCRIPTION') {
+          const res: {
+            require?: string;
+            type?: string;
+            default?: string;
+          } = {};
+          first.childNodes.forEach((c) => {
+            const text = (c as HTMLElement).innerText;
+            if (c.nodeName === 'STRONG') {
+              res.require = text;
+            } else if (c.nodeName === 'EM') {
+              if (text !== 'default:') {
+                res.type = text;
+              }
+            } else if (c.nodeName === 'CODE') {
+              res.default = text;
+            }
+          });
+          return res;
+        }
+      }
+      return null;
+    };
+
+    const recordResult = (node: any, level: number) => {
+      if (level === firstDepth) {
+        result.push(node);
+      }
+      if (level === firstDepth + 1 && result.length) {
+        result[result.length - 1].children.push(node);
+      }
+    };
+    for (let i = 0, len = nodes.length; i < len; i += 1) {
+      const heading = getHeading(nodes[i] as HTMLElement);
+      if (heading && isExpandable(heading.depth)) {
+        item = {
+          title: heading.name,
+          options: {},
+          children: [],
+          content: '',
+        };
+        depth = heading.depth;
+        firstDepth = firstDepth || depth;
+        htmlList = [];
+      } else {
+        htmlList.push((nodes[i] as HTMLElement).outerHTML);
+        const des = getDescription(nodes[i] as HTMLElement);
+        if (item && des) {
+          item.options = des;
+        }
+      }
+      const isBoundary =
+        i === len - 1 || getHeading(nodes[i + 1] as HTMLElement);
+      if (item && isBoundary) {
+        item.content = htmlList.length > 0 ? htmlList.join('') : '';
+        recordResult(item, depth);
+      }
+    }
+    return result;
+  };
+
   useEffect(() => {
     if (!exampleSections?.API) return;
-    const initData = exampleSections?.API.structure;
+    const initData = createApiStructure(exampleSections.API.node.html);
     initData.forEach((node: { title: string; show: boolean }) => {
       const element = node;
       if (element.title) {
@@ -123,7 +216,14 @@ const APIDoc = ({
               header={node.title}
               className={node.show ? styles.rootItem : styles.hidden}
             >
-              {node.content ? renderAst(node.content) : null}
+              {node.content ? (
+                <div
+                  /* eslint-disable-next-line react/no-danger */
+                  dangerouslySetInnerHTML={{
+                    __html: node.content,
+                  }}
+                />
+              ) : null}
               {Array.isArray(node.children)
                 ? node.children.map((child: any, i: number) => (
                     <Collapse
@@ -137,7 +237,14 @@ const APIDoc = ({
                         key={`r2-${i}`}
                         extra={genExtra(child.options)}
                       >
-                        {child.content ? renderAst(child.content) : null}
+                        {child.content ? (
+                          <div
+                            /* eslint-disable-next-line react/no-danger */
+                            dangerouslySetInnerHTML={{
+                              __html: child.content,
+                            }}
+                          />
+                        ) : null}
                       </Panel>
                     </Collapse>
                   ))

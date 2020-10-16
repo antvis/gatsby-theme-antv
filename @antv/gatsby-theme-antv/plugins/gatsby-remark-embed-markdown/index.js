@@ -3,21 +3,14 @@ const normalizePath = require('normalize-path');
 const unified = require('unified');
 const parse = require('remark-parse');
 
-// 路由页面引用去掉页面信息
-function handleRoutePage(mdAst) {
-  if (
-    mdAst.type === 'root' &&
-    mdAst.children.length > 0 &&
-    mdAst.children[0].type === 'thematicBreak'
-  ) {
-    const index = mdAst.children
-      .slice(1)
-      .findIndex((i) => i.type === 'thematicBreak');
-    if (index > -1) {
-      mdAst.children.splice(0, index + 2);
-    }
+function removeThematicBreak(code) {
+  const symbol = '---';
+  const firstIndex = code.indexOf(symbol);
+  const secondIndex = code.indexOf(symbol, symbol.length);
+  if (firstIndex === 0 && secondIndex > 0) {
+    return code.slice(secondIndex + symbol.length);
   }
-  return mdAst;
+  return code;
 }
 
 module.exports = (_ref, _temp) => {
@@ -48,9 +41,9 @@ module.exports = (_ref, _temp) => {
             // eslint-disable-next-line no-console
             console.error(`there is circular embedding,path: ${path}`);
           } else if (fs.existsSync(path)) {
-            const code = fs.readFileSync(path, 'utf8');
+            let code = fs.readFileSync(path, 'utf8');
+            code = removeThematicBreak(code);
             let mdAst = unified().use(parse).parse(code);
-            handleRoutePage(mdAst);
             mdAst = traverseAst(mdAst, [...pathList, path]);
             nodes.splice(i, 1, ...mdAst.children);
           }
