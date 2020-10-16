@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import classNames from 'classnames';
 import { Skeleton, Result, Layout, Space } from 'antd';
+import { useMedia } from 'react-use';
 import debounce from 'lodash/debounce';
 import { MenuUnfoldOutlined } from '@ant-design/icons';
 import {
@@ -11,28 +12,23 @@ import {
   WithTranslation,
 } from 'react-i18next';
 import { transform } from '@babel/standalone';
+import { splitPaneMap } from '../layoutConfig';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
 import ChartViewSwicher from './ChartViewSwicher';
 import LayoutSwicher from './LayoutSwicher';
 import PlayGrounds, { PlayGroundItemProps } from './PlayGrounds';
+import APIDoc from '../components/APIDoc';
 import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
 
 const { Content, Sider } = Layout;
 
 interface PlayGroundProps {
-  examples: PlayGroundItemProps[];
+  exampleSections: any;
   location: Location;
-  playground?: {
-    container?: string;
-    playgroundDidMount?: string;
-    playgroundWillUnmount?: string;
-    htmlCodeTemplate?: string;
-  };
-  layout: string;
-  updateLayout: Function;
-  updateCodeQuery: Function;
+  description: string;
+  markdownRemark: any;
 }
 
 const MonacoEditor = lazy(() => import('react-monaco-editor'));
@@ -61,12 +57,10 @@ const execute = debounce(
 );
 
 const PlayGround: React.FC<PlayGroundProps> = ({
-  examples = [],
+  exampleSections,
   location,
-  playground,
-  layout,
-  updateLayout,
-  updateCodeQuery,
+  markdownRemark,
+  description,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -75,14 +69,24 @@ const PlayGround: React.FC<PlayGroundProps> = ({
           siteMetadata {
             showChartResize
             showAPIDoc
+            githubUrl
             playground {
               extraLib
+              container
+              playgroundDidMount
+              playgroundWillUnmount
+              dependencies
+              htmlCodeTemplate
             }
           }
         }
       }
     `,
   );
+
+  const {
+    siteMetadata: { githubUrl, playground },
+  } = site;
   const replaceInsertCss = (str: string) => {
     // 统一增加对 insert-css 的使用注释
     return str.replace(
@@ -95,10 +99,13 @@ insertCss(`,
   };
   const { extraLib = '' } = site.siteMetadata.playground;
   const { showChartResize, showAPIDoc } = site.siteMetadata;
+  const [layout, updateLayout] = useState<string>('viewDefault');
+  const [codeQuery, updateCodeQuery] = useState<string>('');
   const { t } = useTranslation();
   const [currentExample, updateCurrentExample] = useState<
     PlayGroundItemProps
   >();
+  const examples = exampleSections.examples;
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
   const [collapsed, updateCollapsed] = useState<boolean>(false);
@@ -131,12 +138,13 @@ insertCss(`,
   };
 
   useEffect(() => {
+    if (currentExample || !examples) return;
     const defaultExample =
       examples.find(
-        (item) => `#${item.filename.split('.')[0]}` === location.hash,
+        (item: any) => `#${item.filename.split('.')[0]}` === location.hash,
       ) || examples[0];
     updateCurrentExample(defaultExample);
-  }, []);
+  }, [examples]);
 
   useEffect(() => {
     if (!currentExample) return;
@@ -282,111 +290,146 @@ insertCss(`,
   };
 
   useEffect(() => {
-    if (layout !== 'view0') {
+    dispatchResizeEvent();
+    // 图例展开收起
+    if (layout !== 'viewDefault') {
       updateCollapsed(true);
       updateView('desktop');
-    } else if (layout === 'view0') updateCollapsed(false);
+    } else if (layout === 'viewDefault') updateCollapsed(false);
+    if (layout === 'viewThreeRows') {
+      const pane = document.querySelector('.Pane1');
+      if (pane) pane.setAttribute('style', 'top: 64px !important');
+    }
   }, [layout]);
 
+  const isLarge = useMedia('(min-width: 1024px)', true);
+  const isWide = useMedia('(min-width: 767.99px)', true);
+
+  useEffect(() => {
+    if (!isWide) {
+      updateLayout('viewThreeRows');
+      console.log(layout);
+      console.log(splitPaneMap[layout]);
+    }
+    if (isLarge && showAPIDoc) {
+      updateLayout('viewThreeCols');
+    }
+    updateLayout(showAPIDoc ? 'viewDefault' : 'viewTwoRows');
+  }, []);
+
   return (
-    <div className={styles.container}>
+    <SplitPane
+      split={splitPaneMap[layout].outside.split}
+      size={splitPaneMap[layout].outside.size}
+      onDragFinished={dispatchResizeEvent}
+    >
       {playground && currentExample ? (
-        <div className={styles.playground}>
-          <SplitPane
-            split={layout !== 'view0' ? 'vertical' : 'horizontal'}
-            size="50%"
-            onDragFinished={dispatchResizeEvent}
-          >
-            <Layout className={styles.playgroundCard}>
-              <Sider
-                collapsedWidth={0}
-                width={120}
-                trigger={null}
-                collapsible
-                collapsed={collapsed}
-                className={styles.menuSider}
-                theme="light"
-              >
-                <PlayGrounds
-                  examples={examples}
-                  currentExample={currentExample}
-                  updateCurrentExample={updateCurrentExample}
-                />
-              </Sider>
-
-              <MenuUnfoldOutlined
-                className={styles.trigger}
-                type={collapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={toggle}
+        <SplitPane
+          split={splitPaneMap[layout].inside.split}
+          size={splitPaneMap[layout].inside.size}
+          onDragFinished={dispatchResizeEvent}
+          className={styles.playground}
+        >
+          <Layout className={styles.playgroundCard}>
+            <Sider
+              collapsedWidth={0}
+              width={120}
+              trigger={null}
+              collapsible
+              collapsed={collapsed}
+              className={styles.menuSider}
+              theme="light"
+            >
+              <PlayGrounds
+                examples={examples}
+                currentExample={currentExample}
+                updateCurrentExample={updateCurrentExample}
               />
-              <Content className={styles.chartContainer}>
-                {relativePath && (
-                  <div
-                    className={classNames(
-                      styles.preview,
-                      `playground-${relativePath.split('/').join('-')}`,
-                    )}
-                  >
-                    {error ? (
-                      <Result
-                        status="error"
-                        title={t('演示代码报错，请检查')}
-                        subTitle={<pre>{error && error.message}</pre>}
-                      />
-                    ) : (
-                      <>
-                        <div className={styles.extra}>
-                          <Space>
-                            {showChartResize && layout === 'view0' && (
-                              <>
-                                <ChartViewSwicher
-                                  updateView={updateView}
-                                  view={view}
-                                />
-                                <div className={styles.divide} />
-                              </>
-                            )}
+            </Sider>
 
-                            {showAPIDoc && (
-                              <LayoutSwicher updateLayout={updateLayout} />
-                            )}
-                          </Space>
-                        </div>
+            <MenuUnfoldOutlined
+              className={styles.trigger}
+              type={collapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={toggle}
+            />
+            <Content className={styles.chartContainer}>
+              {relativePath && (
+                <div
+                  className={classNames(
+                    styles.preview,
+                    `playground-${relativePath.split('/').join('-')}`,
+                  )}
+                >
+                  <div className={styles.extra}>
+                    <Space>
+                      {showChartResize && layout === 'viewDefault' && (
+                        <>
+                          <ChartViewSwicher
+                            updateView={updateView}
+                            view={view}
+                          />
+                          <div className={styles.divide} />
+                        </>
+                      )}
 
-                        <div ref={playgroundNode} className={styles[view]} />
-                      </>
-                    )}
+                      {showAPIDoc && (
+                        <LayoutSwicher updateLayout={updateLayout} />
+                      )}
+                    </Space>
                   </div>
-                )}
-              </Content>
-            </Layout>
 
-            <div className={styles.editor}>
-              {title && fileExtension && (
-                <Toolbar
-                  fileExtension={fileExtension}
-                  sourceCode={currentSourceCode}
-                  playground={playground}
-                  location={location}
-                  title={title}
-                  onExecuteCode={executeCode}
-                  editorTabs={editorTabs}
-                  currentEditorTab={currentEditorTab}
-                  onEditorTabChange={updateCurrentEditorTab}
-                  onToggleFullscreen={null}
-                />
+                  {error ? (
+                    <Result
+                      status="error"
+                      title={t('演示代码报错，请检查')}
+                      subTitle={<pre>{error && error.message}</pre>}
+                    />
+                  ) : (
+                    <div ref={playgroundNode} className={styles[view]} />
+                  )}
+                </div>
               )}
+            </Content>
+          </Layout>
 
-              <div className={styles.monaco}>
-                <Suspense fallback={<PageLoading />}>{codeEditor}</Suspense>
-              </div>
+          <div className={styles.editor}>
+            {title && fileExtension && (
+              <Toolbar
+                fileExtension={fileExtension}
+                sourceCode={currentSourceCode}
+                playground={playground}
+                location={location}
+                title={title}
+                onExecuteCode={executeCode}
+                editorTabs={editorTabs}
+                currentEditorTab={currentEditorTab}
+                onEditorTabChange={updateCurrentEditorTab}
+                onToggleFullscreen={null}
+              />
+            )}
+
+            <div className={styles.monaco}>
+              <Suspense fallback={<PageLoading />}>{codeEditor}</Suspense>
             </div>
-          </SplitPane>
-        </div>
+          </div>
+        </SplitPane>
       ) : (
         <Skeleton paragraph={{ rows: 8 }} />
       )}
-    </div>
+
+      {relativePath ? (
+        <APIDoc
+          markdownRemark={markdownRemark}
+          githubUrl={githubUrl}
+          relativePath={relativePath}
+          exampleSections={exampleSections}
+          description={description}
+          codeQuery={codeQuery}
+        />
+      ) : (
+        <div />
+      )}
+    </SplitPane>
   );
 };
 

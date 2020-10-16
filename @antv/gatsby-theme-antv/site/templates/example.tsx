@@ -12,15 +12,12 @@ import { groupBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
 import { useMedia } from 'react-use';
-import RehypeReact from 'rehype-react';
+
 import Article from '../components/Article';
 import SEO from '../components/Seo';
 
 import PlayGround from '../components/PlayGround';
 import NavigatorBanner from '../components/NavigatorBanner';
-import APIDoc from '../components/APIDoc';
-import CustomTag from '../components/CustomTag';
-import CustomDesc from '../components/CustomDesc';
 import { capitalize } from '../utils';
 import { usePrevAndNext } from '../hooks';
 
@@ -121,13 +118,9 @@ export default function Template({
   };
 }): React.ReactNode {
   const { allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
-  const { showAPIDoc } = site.siteMetadata;
+
   const { edges = [] } = allMarkdownRemark;
-  const [layout, updateLayout] = useState<string>(
-    showAPIDoc ? 'view0' : 'view2',
-  );
   const edgesInExamples = edges;
-  const [codeQuery, updateCodeQuery] = useState<string>('');
   const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
   const { node: markdownRemark } =
     edgesInExamples.find((edge: any) => {
@@ -155,16 +148,10 @@ export default function Template({
     parent: { relativePath },
   } = markdownRemark;
   const {
-    siteMetadata: { examples = [], githubUrl, playground },
+    siteMetadata: { examples = [] },
   } = site;
   const { i18n } = useTranslation();
-  const renderAst = new RehypeReact({
-    createElement: React.createElement,
-    components: {
-      tag: CustomTag,
-      description: CustomDesc,
-    },
-  }).Compiler;
+
   const groupedEdges = groupBy(
     edgesInExamples,
     ({
@@ -382,15 +369,11 @@ export default function Template({
     window.dispatchEvent(e);
   };
 
-  useEffect(() => {
-    dispatchResizeEvent();
-  }, [layout]);
-
   // 判断当前所在页面
   useEffect(() => {
     if (pathWithoutTrailingSlashes.endsWith('/examples/gallery')) {
       gallery = true;
-      document.getElementsByTagName('body')[0].style.overflow = 'auto';
+      // document.getElementsByTagName('body')[0].style.overflow = 'auto';
     } else {
       gallery = false;
       const body = document.getElementsByTagName('body')[0];
@@ -406,37 +389,14 @@ export default function Template({
 
   const exmaplePageContent = (
     <div className={styles.exampleContent}>
-      <SplitPane
-        split={isWide ? 'vertical' : 'horizontal'}
-        size={layout === 'view2' ? '100vw' : '60vw'}
-        onDragFinished={dispatchResizeEvent}
-      >
-        {exampleSections.examples && exampleSections.examples.length > 0 && (
-          <>
-            <PlayGround
-              examples={exampleSections.examples}
-              location={location}
-              playground={playground || {}}
-              layout={layout}
-              updateLayout={updateLayout}
-              updateCodeQuery={updateCodeQuery}
-            />
-          </>
-        )}
-        {layout !== 'view2' && (
-          <APIDoc
-            slug={slug}
-            pathWithoutTrailingSlashes={pathWithoutTrailingSlashes}
-            relativePath={relativePath}
-            githubUrl={githubUrl}
-            frontmatter={frontmatter}
-            exampleSections={exampleSections}
-            renderAst={renderAst}
-            description={description}
-            codeQuery={codeQuery}
-          />
-        )}
-      </SplitPane>
+      {exampleSections.examples && exampleSections.examples.length > 0 && (
+        <PlayGround
+          exampleSections={exampleSections}
+          location={location}
+          markdownRemark={markdownRemark}
+          description={description}
+        />
+      )}
     </div>
   );
 
@@ -474,9 +434,7 @@ export const pageQuery = graphql`
   query {
     site {
       siteMetadata {
-        showAPIDoc
         title
-        githubUrl
         examples {
           slug
           icon

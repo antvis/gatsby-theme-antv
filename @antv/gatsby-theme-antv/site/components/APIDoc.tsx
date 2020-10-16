@@ -4,40 +4,41 @@ import { Tooltip, Collapse } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import Mark from 'mark.js';
 import { getGithubSourceUrl } from '../templates/document';
+import RehypeReact from 'rehype-react';
 import Tabs from './Tabs';
+import CustomTag from '../components/CustomTag';
+import CustomDesc from '../components/CustomDesc';
 import CollapseIcon from './CollapseIcon';
 import styles from './APIDoc.module.less';
 
 const { Panel } = Collapse;
 
 const APIDoc = ({
-  slug,
-  pathWithoutTrailingSlashes,
-  relativePath,
+  markdownRemark,
   githubUrl,
-  frontmatter,
+  relativePath,
   exampleSections,
-  renderAst,
   codeQuery,
   description,
 }: {
-  slug: string;
-  pathWithoutTrailingSlashes: string;
-  relativePath: string;
+  markdownRemark: any;
   githubUrl: string;
-  frontmatter: { title: string };
+  relativePath: string;
   exampleSections: any;
-  renderAst: Function;
   description: string;
-  codeQuery: any;
+  codeQuery: string;
 }) => {
-  // console.log('exampleSections: ', exampleSections);
   const { t } = useTranslation();
   const [collapseData, updateCollapseData] = useState<string[]>([]);
   const [searchQuery, updateSearchQuery] = useState<string>('');
+  const {
+    frontmatter,
+    fields: { slug },
+  } = markdownRemark;
   const [r0ActiveKeys, updateR0ActiveKeys] = useState<string[]>(['r0-0']);
   const [r2ActiveKeys, updateR2ActiveKeys] = useState<string[]>(['r2-0']);
   let activeTab = 'API' as 'API' | 'design';
+  const pathWithoutTrailingSlashes = location.pathname.replace(/\/$/, '');
   let exampleRootSlug = slug;
   if (/\/examples\/.*\/API$/.test(pathWithoutTrailingSlashes)) {
     activeTab = 'API';
@@ -46,6 +47,14 @@ const APIDoc = ({
     activeTab = 'design';
     exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
   }
+
+  const renderAst = new RehypeReact({
+    createElement: React.createElement,
+    components: {
+      tag: CustomTag,
+      description: CustomDesc,
+    },
+  }).Compiler;
 
   const r0HandleChange = (activeKey: any) => {
     updateR0ActiveKeys(activeKey);
