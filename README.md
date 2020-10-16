@@ -33,6 +33,7 @@
 - ✨ https://g2plot.antv.vision
 - ✨ https://g2.antv.vision
 - ✨ https://g6.antv.vision
+- ✨ https://x6.antv.vision
 - ✨ https://f2.antv.vision
 - ✨ https://l7.antv.vision
 - ✨ https://graphin.antv.vision
