@@ -209,12 +209,12 @@ const APIDoc: React.FC<APIDocProps> = ({
                   }}
                 />
               )}
-              {data?.children?.map((child: CollapseDataProp) => (
+              {data?.children?.map((child: CollapseDataProp, index: number) => (
                 <Collapse
                   bordered={false}
                   activeKey={insideActiveKeys}
                   onChange={insideHandleChange}
-                  key={`collapse-${child.title}`}
+                  key={`collapse-${child.title}-${index}`}
                 >
                   <Panel
                     header={child.title}

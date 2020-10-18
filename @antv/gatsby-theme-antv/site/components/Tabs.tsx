@@ -60,11 +60,11 @@ const Tabs: React.FC<{
     level: string,
     parent?: string,
   ) => {
-    nodes.forEach((node: any, index: number) => {
+    nodes.forEach((node: any) => {
       if (node.title) {
         const key = parent
-          ? `${parent}:${level}-${index}`
-          : `${level}-${index}`;
+          ? `${parent}:${level}-${node.title}`
+          : `${level}-${node.title}`;
         if (!result[node.title]) {
           // eslint-disable-next-line no-param-reassign
           result[node.title] = [key];
@@ -77,7 +77,7 @@ const Tabs: React.FC<{
     return result;
   };
 
-  const showSearchResult = (keys: string[]) => {
+  const showSearchResult = (keys: string[], query?: string) => {
     const outside: string[] = [];
     const inside: string[] = [];
     const showIndex: string[] = [];
@@ -92,9 +92,14 @@ const Tabs: React.FC<{
     if (outside.length > 0) updateOutsideActiveKeys(outside);
     if (inside.length > 0) updateInsideActiveKeys(inside);
     if (showIndex.length > 0 && content) {
-      content.forEach((node: any, index: number) => {
+      const key = query || showIndex[0];
+      content.forEach((node: any) => {
         const element = node;
-        if (element.title && showIndex.indexOf(index.toString()) === -1) {
+        const ast = JSON.stringify(element);
+        const reg = new RegExp(key, 'gi');
+        if (reg.test(ast)) {
+          element.show = true;
+        } else {
           element.show = false;
         }
       });
@@ -102,7 +107,7 @@ const Tabs: React.FC<{
     }
   };
 
-  const searchResult = () => {
+  const searchOptions = () => {
     return Object.entries(list).map((item, index) => {
       return {
         value: item[0],
@@ -134,7 +139,7 @@ const Tabs: React.FC<{
 
   const handleSearch = (value: string) => {
     updateInput(value);
-    updateOptions(value ? searchResult() : []);
+    updateOptions(value ? searchOptions() : []);
   };
 
   const collaspseALL = () => {
@@ -155,8 +160,10 @@ const Tabs: React.FC<{
     level: string,
     parent?: string,
   ) => {
-    nodes.forEach((node: any, index) => {
-      const key = parent ? `${parent}:${level}-${index}` : `${level}-${index}`;
+    nodes.forEach((node: any) => {
+      const key = parent
+        ? `${parent}:${level}-${node.title}`
+        : `${level}-${node.title}`;
       const ast = JSON.stringify(node);
       const reg = new RegExp(query, 'gi');
       if (reg.test(ast)) {
@@ -171,7 +178,7 @@ const Tabs: React.FC<{
   const search = (value: string) => {
     if (!content) return;
     const pattern = new RegExp(
-      "[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？ ]",
+      "[`~!@#$^&*=|{}';',\\[\\]<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、?]",
     );
     let query = '';
     for (let i = 0; i < value.length; i += 1) {
@@ -184,7 +191,7 @@ const Tabs: React.FC<{
     }
     if (keys.length > 0) {
       collaspseALL();
-      showSearchResult(keys);
+      showSearchResult(keys, query);
     } else {
       collaspseALL();
       updateIsEmpty(empty);
@@ -256,13 +263,13 @@ const Tabs: React.FC<{
           <div className={styles.tabSearch}>
             <AutoComplete
               className={styles.autoComplete}
-              dropdownMatchSelectWidth
               options={options}
               value={input}
               onSelect={onSelect}
               allowClear
               filterOption
               backfill
+              dropdownMatchSelectWidth={false}
               onSearch={handleSearch}
               notFoundContent={isEmpty}
             >

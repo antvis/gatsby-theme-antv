@@ -144,7 +144,6 @@ export default function Template({
   const {
     frontmatter,
     fields: { slug },
-    parent: { relativePath },
   } = markdownRemark;
   const {
     siteMetadata: { examples = [] },
@@ -362,11 +361,6 @@ export default function Template({
       </div>
     </div>
   );
-
-  const dispatchResizeEvent = () => {
-    const e = new Event('resize');
-    window.dispatchEvent(e);
-  };
 
   // 判断当前所在页面
   useEffect(() => {

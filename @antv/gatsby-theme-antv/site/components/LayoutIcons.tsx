@@ -104,10 +104,10 @@ const TowRowsSvg = () => (
   </svg>
 );
 
-export const DefaultIcon = () => <Icon component={DefaultSvg} />;
+export const DefaultIcon = (): any => <Icon component={DefaultSvg} />;
 
-export const ThreeRowsIcon = () => <Icon component={ThreeRowsSvg} />;
+export const ThreeRowsIcon = (): any => <Icon component={ThreeRowsSvg} />;
 
-export const ThreeRowsIcon2 = () => <Icon component={ThreeRowsSvg2} />;
+export const ThreeRowsIcon2 = (): any => <Icon component={ThreeRowsSvg2} />;
 
-export const TowRowsIcon = () => <Icon component={TowRowsSvg} />;
+export const TowRowsIcon = (): any => <Icon component={TowRowsSvg} />;
