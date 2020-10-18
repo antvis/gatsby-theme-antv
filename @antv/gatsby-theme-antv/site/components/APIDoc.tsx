@@ -4,7 +4,7 @@ import { Tooltip, Collapse } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import Mark from 'mark.js';
 import { getGithubSourceUrl } from '../templates/document';
-import Tabs from './Tabs';
+import Tabs, { CollapseDataProp } from './Tabs';
 import CollapseIcon from './CollapseIcon';
 import styles from './APIDoc.module.less';
 
@@ -28,34 +28,19 @@ const APIDoc: React.FC<APIDocProps> = ({
   description,
 }) => {
   const { t } = useTranslation();
-  const [collapseData, updateCollapseData] = useState<string[]>([]);
+  const [collapseData, updateCollapseData] = useState<CollapseDataProp[]>([]);
   const [searchQuery, updateSearchQuery] = useState<string>('');
-  const {
-    frontmatter,
-    fields: { slug },
-  } = markdownRemark;
-  const [r0ActiveKeys, updateR0ActiveKeys] = useState<string[]>(['r0-0']);
-  const [r2ActiveKeys, updateR2ActiveKeys] = useState<string[]>(['r2-0']);
-  let activeTab = 'API' as 'API' | 'design';
-  const pathWithoutTrailingSlashes = window.location.pathname.replace(
-    /\/$/,
-    '',
-  );
-  let exampleRootSlug = slug;
-  if (/\/examples\/.*\/API$/.test(pathWithoutTrailingSlashes)) {
-    activeTab = 'API';
-    exampleRootSlug = exampleRootSlug.replace(/\/API$/, '');
-  } else if (/\/examples\/.*\/design$/.test(pathWithoutTrailingSlashes)) {
-    activeTab = 'design';
-    exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
-  }
+  const { frontmatter } = markdownRemark;
+  const [outsideActiveKeys, updateOutsideActiveKeys] = useState<string[]>([]);
+  const [insideActiveKeys, updateInsideActiveKeys] = useState<string[]>([]);
+  const [active, updateActive] = useState<'API' | 'design'>('API');
 
-  const r0HandleChange = (activeKey: any) => {
-    updateR0ActiveKeys(activeKey);
+  const outsideHandleChange = (activeKey: any) => {
+    updateOutsideActiveKeys(activeKey);
   };
 
-  const r2HandleChange = (activeKey: any) => {
-    updateR2ActiveKeys(activeKey);
+  const insideHandleChange = (activeKey: any) => {
+    updateInsideActiveKeys(activeKey);
   };
 
   const createApiStructure = (html: string) => {
@@ -85,7 +70,7 @@ const APIDoc: React.FC<APIDocProps> = ({
 
     const isExpandable = (level: number) => {
       if (firstDepth === 0) {
-        // 第一个标题肯定能展开
+        // 第一个标题能展开
         return true;
       }
       // 最多展开2级
@@ -207,48 +192,46 @@ const APIDoc: React.FC<APIDocProps> = ({
             <CollapseIcon rotate={isActive ? 90 : 0} type="caret-right" />
           )}
           className={styles.rootCollapse}
-          activeKey={r0ActiveKeys}
-          onChange={r0HandleChange}
+          activeKey={outsideActiveKeys}
+          onChange={outsideHandleChange}
         >
-          {collapseData.map((node: any, key: any) => (
+          {collapseData.map((data: CollapseDataProp) => (
             <Panel
-              key={`r0-${key}`}
-              header={node.title}
-              className={node.show ? styles.rootItem : styles.hidden}
+              key={`outside-${data.title}`}
+              header={data.title}
+              className={data.show ? styles.rootItem : styles.hidden}
             >
-              {node.content ? (
+              {data.content && (
                 <div
                   /* eslint-disable-next-line react/no-danger */
                   dangerouslySetInnerHTML={{
-                    __html: node.content,
+                    __html: data.content,
                   }}
                 />
-              ) : null}
-              {Array.isArray(node.children)
-                ? node.children.map((child: any, i: number) => (
-                    <Collapse
-                      bordered={false}
-                      activeKey={r2ActiveKeys}
-                      onChange={r2HandleChange}
-                      key={`r1-${i}`}
-                    >
-                      <Panel
-                        header={child.title}
-                        key={`r2-${i}`}
-                        extra={genExtra(child.options)}
-                      >
-                        {child.content ? (
-                          <div
-                            /* eslint-disable-next-line react/no-danger */
-                            dangerouslySetInnerHTML={{
-                              __html: child.content,
-                            }}
-                          />
-                        ) : null}
-                      </Panel>
-                    </Collapse>
-                  ))
-                : null}
+              )}
+              {data?.children?.map((child: CollapseDataProp) => (
+                <Collapse
+                  bordered={false}
+                  activeKey={insideActiveKeys}
+                  onChange={insideHandleChange}
+                  key={`collapse-${child.title}`}
+                >
+                  <Panel
+                    header={child.title}
+                    key={`inside-${child.title}`}
+                    extra={genExtra(child.options)}
+                  >
+                    {child.content && (
+                      <div
+                        /* eslint-disable-next-line react/no-danger */
+                        dangerouslySetInnerHTML={{
+                          __html: child.content,
+                        }}
+                      />
+                    )}
+                  </Panel>
+                </Collapse>
+              ))}
             </Panel>
           ))}
         </Collapse>
@@ -259,11 +242,11 @@ const APIDoc: React.FC<APIDocProps> = ({
   return (
     <div className={styles.docPane}>
       <Tabs
-        slug={exampleRootSlug}
         title={frontmatter.title}
-        active={activeTab}
-        updateR0ActiveKeys={updateR0ActiveKeys}
-        updateR2ActiveKeys={updateR2ActiveKeys}
+        active={active}
+        updateActive={updateActive}
+        updateOutsideActiveKeys={updateOutsideActiveKeys}
+        updateInsideActiveKeys={updateInsideActiveKeys}
         updateSearchQuery={updateSearchQuery}
         updateCollapseData={updateCollapseData}
         showTabs={{
@@ -274,10 +257,10 @@ const APIDoc: React.FC<APIDocProps> = ({
         codeQuery={codeQuery}
       />
       <div className={styles.docContent}>
-        {exampleSections.API && activeTab === 'API' && collapseData.length > 0
+        {exampleSections.API && active === 'API' && collapseData.length > 0
           ? renderCollapse()
           : null}
-        {exampleSections.design && activeTab === 'design' ? (
+        {exampleSections.design && active === 'design' ? (
           <div className={styles.designContent}>
             <h1 className={styles.demoTtile}>
               {frontmatter.title}

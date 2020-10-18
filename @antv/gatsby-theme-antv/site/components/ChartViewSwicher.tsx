@@ -8,7 +8,7 @@ import {
 import styles from './ChartViewSwicher.module.less';
 
 interface Prop {
-  updateView: Function;
+  updateView: (val: string) => void;
   view: string;
 }
 

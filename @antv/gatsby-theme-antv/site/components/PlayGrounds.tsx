@@ -29,7 +29,7 @@ export interface PlayGroundItemProps {
 interface PlayGroundsProps {
   examples: PlayGroundItemProps[];
   currentExample: PlayGroundItemProps;
-  updateCurrentExample: Function;
+  updateCurrentExample: (val: PlayGroundItemProps) => void;
 }
 
 const PlayGrounds: React.FC<PlayGroundsProps> = ({

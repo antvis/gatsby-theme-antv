@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
-import { Link } from 'gatsby';
 import { Input, AutoComplete, Empty } from 'antd';
 import { SelectProps } from 'antd/es/select';
 import { useTranslation } from 'react-i18next';
 import Icon, { SearchOutlined } from '@ant-design/icons';
 import CollaspeAllSvg from '../images/collapse-all.svg';
 import styles from './Tabs.module.less';
+
+export interface CollapseDataProp {
+  title?: string;
+  show?: boolean;
+  content?: string;
+  children?: CollapseDataProp[];
+  options: {
+    require?: string;
+    type?: string;
+    default?: string;
+  };
+}
 
 interface ShowTabsProps {
   examples?: boolean;
@@ -16,35 +27,35 @@ interface ShowTabsProps {
 
 const Tabs: React.FC<{
   active: 'API' | 'design';
-  slug: string;
   showTabs: ShowTabsProps;
   examplesCount?: number;
   title?: string;
-  updateR0ActiveKeys: Function;
-  updateR2ActiveKeys: Function;
-  updateSearchQuery: Function;
-  updateCollapseData: Function;
+  updateActive: (val: 'API' | 'design') => void;
+  updateOutsideActiveKeys: (val: string[]) => void;
+  updateInsideActiveKeys: (val: string[]) => void;
+  updateSearchQuery: (val: string) => void;
+  updateCollapseData: (val: CollapseDataProp[]) => void;
   codeQuery: string;
-  content?: string[];
+  content?: CollapseDataProp[];
 }> = ({
   active,
-  slug,
   showTabs = {} as ShowTabsProps,
   title,
-  updateR0ActiveKeys,
-  updateR2ActiveKeys,
+  updateActive,
+  updateOutsideActiveKeys,
+  updateInsideActiveKeys,
   updateSearchQuery,
   updateCollapseData,
   codeQuery,
   content,
 }) => {
-  const [options, updateOptions] = useState<SelectProps<object>['options']>([]);
+  const [options, updateOptions] = useState<SelectProps<[]>['options']>([]);
   const [input, updateInput] = useState<string>('');
   const [isEmpty, updateIsEmpty] = useState<React.ReactNode>(null);
   const [list, updateList] = useState<Record<string, any>>({});
 
   const getOptionList = (
-    nodes: string[],
+    nodes: CollapseDataProp[],
     result: Record<string, any>,
     level: string,
     parent?: string,
@@ -60,26 +71,26 @@ const Tabs: React.FC<{
         } else {
           result[node.title].push(key);
         }
-        if (node.children) getOptionList(node.children, result, 'r2', key);
+        if (node.children) getOptionList(node.children, result, 'inside', key);
       }
     });
     return result;
   };
 
   const showSearchResult = (keys: string[]) => {
-    const r0: string[] = [];
-    const r2: string[] = [];
+    const outside: string[] = [];
+    const inside: string[] = [];
     const showIndex: string[] = [];
     keys.forEach((key: string) => {
       const temp = key.split(':');
       if (temp[0]) {
-        r0.push(temp[0]);
+        outside.push(temp[0]);
         showIndex.push(temp[0].split('-')[1]);
       }
-      if (temp[1]) r2.push(temp[1]);
+      if (temp[1]) inside.push(temp[1]);
     });
-    if (r0.length > 0) updateR0ActiveKeys(r0);
-    if (r2.length > 0) updateR2ActiveKeys(r2);
+    if (outside.length > 0) updateOutsideActiveKeys(outside);
+    if (inside.length > 0) updateInsideActiveKeys(inside);
     if (showIndex.length > 0 && content) {
       content.forEach((node: any, index: number) => {
         const element = node;
@@ -127,8 +138,8 @@ const Tabs: React.FC<{
   };
 
   const collaspseALL = () => {
-    updateR0ActiveKeys([]);
-    updateR2ActiveKeys([]);
+    updateOutsideActiveKeys([]);
+    updateInsideActiveKeys([]);
   };
 
   const onSelect = (value: string) => {
@@ -138,7 +149,7 @@ const Tabs: React.FC<{
   };
 
   const getSearchResult = (
-    nodes: string[],
+    nodes: CollapseDataProp[],
     query: string,
     result: string[],
     level: string,
@@ -152,7 +163,7 @@ const Tabs: React.FC<{
         result.push(key);
       }
       if (node.children)
-        getSearchResult(node.children, query, result, 'r2', key);
+        getSearchResult(node.children, query, result, 'inside', key);
     });
     return result;
   };
@@ -169,7 +180,7 @@ const Tabs: React.FC<{
     const keys: string[] = [];
     if (query) {
       updateSearchQuery(query);
-      getSearchResult(content, query, keys, 'r0');
+      getSearchResult(content, query, keys, 'outside');
     }
     if (keys.length > 0) {
       collaspseALL();
@@ -194,12 +205,12 @@ const Tabs: React.FC<{
       element.show = true;
     });
     updateCollapseData(content);
-    updateR0ActiveKeys(['r0-0']);
-    updateR2ActiveKeys(['r2-0']);
+    updateOutsideActiveKeys([]);
+    updateInsideActiveKeys([]);
   };
 
   useEffect(() => {
-    if (content) updateList(getOptionList(content, list, 'r0'));
+    if (content) updateList(getOptionList(content, list, 'outside'));
   }, [content]);
 
   useEffect(() => {
@@ -223,12 +234,10 @@ const Tabs: React.FC<{
             [styles.hidden]: showTabs.API === false,
           })}
         >
-          <Link to={`${slug}/API`}>
-            <div>
-              {hiddenTitleForDocsearch}
-              API
-            </div>
-          </Link>
+          <div onClick={() => updateActive('API')}>
+            {hiddenTitleForDocsearch}
+            API
+          </div>
         </li>
         <li
           className={classNames({
@@ -236,12 +245,10 @@ const Tabs: React.FC<{
             [styles.hidden]: showTabs.design === false,
           })}
         >
-          <Link to={`${slug}/design`}>
-            <div>
-              {hiddenTitleForDocsearch}
-              {t('设计指引')}
-            </div>
-          </Link>
+          <div onClick={() => updateActive('design')}>
+            {hiddenTitleForDocsearch}
+            {t('设计指引')}
+          </div>
         </li>
       </ul>
       {active === 'API' && (

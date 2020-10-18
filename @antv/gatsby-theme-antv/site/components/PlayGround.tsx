@@ -11,14 +11,14 @@ import {
   withTranslation,
   WithTranslation,
 } from 'react-i18next';
+import SplitPane from 'react-split-pane';
 import { transform } from '@babel/standalone';
 import { splitPaneMap } from '../layoutConfig';
-import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
 import ChartViewSwicher from './ChartViewSwicher';
 import LayoutSwicher from './LayoutSwicher';
 import PlayGrounds, { PlayGroundItemProps } from './PlayGrounds';
-import APIDoc from '../components/APIDoc';
+import APIDoc from './APIDoc';
 import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
 
@@ -101,11 +101,11 @@ insertCss(`,
   const { showChartResize, showAPIDoc } = site.siteMetadata;
   const [layout, updateLayout] = useState<string>('viewDefault');
   const [codeQuery, updateCodeQuery] = useState<string>('');
-  const { t } = useTranslation();
+  const { i18n } = useTranslation();
   const [currentExample, updateCurrentExample] = useState<
     PlayGroundItemProps
   >();
-  const examples = exampleSections.examples;
+  const { examples } = exampleSections;
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
   const [collapsed, updateCollapsed] = useState<boolean>(false);
@@ -308,8 +308,6 @@ insertCss(`,
   useEffect(() => {
     if (!isWide) {
       updateLayout('viewThreeRows');
-      console.log(layout);
-      console.log(splitPaneMap[layout]);
     }
     if (isLarge && showAPIDoc) {
       updateLayout('viewThreeCols');
@@ -360,6 +358,11 @@ insertCss(`,
                     `playground-${relativePath.split('/').join('-')}`,
                   )}
                 >
+                  <div className={styles.title}>
+                    {typeof currentExample.title === 'object'
+                      ? currentExample.title[i18n.language]
+                      : currentExample.title}
+                  </div>
                   <div className={styles.extra}>
                     <Space>
                       {showChartResize && layout === 'viewDefault' && (
@@ -381,7 +384,11 @@ insertCss(`,
                   {error ? (
                     <Result
                       status="error"
-                      title={t('演示代码报错，请检查')}
+                      title={
+                        i18n.language === 'zh'
+                          ? '演示代码报错，请检查'
+                          : 'Demo code error, please check'
+                      }
                       subTitle={<pre>{error && error.message}</pre>}
                     />
                   ) : (

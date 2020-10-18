@@ -219,7 +219,7 @@ const Layout = () => {
         showGithubCorner={false}
         showLanguageSwitcher={false}
         showChartResize={false}
-        showAPIDoc={true}
+        showAPIDoc
         onLanguageChange={(language) => {
           console.log(language);
         }}
