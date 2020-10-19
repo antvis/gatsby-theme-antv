@@ -289,31 +289,31 @@ insertCss(`,
     updateCollapsed(!collapsed);
   };
 
+  const isWide = useMedia('(min-width: 767.99px)', true);
+  const isLarge = useMedia('(min-width: 1680px)', true);
+
+  useEffect(() => {
+    if (!isWide) {
+      updateLayout('viewTwoRows');
+    }
+
+    if (isLarge && showAPIDoc) {
+      updateLayout('viewThreeCols');
+    }
+  }, []);
+
   useEffect(() => {
     dispatchResizeEvent();
     // 图例展开收起
     if (layout !== 'viewDefault') {
       updateCollapsed(true);
       updateView('desktop');
-    } else if (layout === 'viewDefault') updateCollapsed(false);
-    if (layout === 'viewThreeRows') {
-      const pane = document.querySelector('.Pane1');
-      if (pane) pane.setAttribute('style', 'top: 64px !important');
+    } else updateCollapsed(false);
+    if (layout === 'viewTwoRows') {
+      const pane = document.getElementsByClassName('ant-layout');
+      if (pane) pane[1].setAttribute('style', 'margin-top: 64px');
     }
   }, [layout]);
-
-  const isLarge = useMedia('(min-width: 1024px)', true);
-  const isWide = useMedia('(min-width: 767.99px)', true);
-
-  useEffect(() => {
-    if (!isWide) {
-      updateLayout('viewThreeRows');
-    }
-    if (isLarge && showAPIDoc) {
-      updateLayout('viewThreeCols');
-    }
-    updateLayout(showAPIDoc ? 'viewDefault' : 'viewTwoRows');
-  }, []);
 
   return (
     <SplitPane
@@ -375,7 +375,7 @@ insertCss(`,
                         </>
                       )}
 
-                      {showAPIDoc && (
+                      {showAPIDoc && layout !== 'viewTwoRows' && (
                         <LayoutSwicher updateLayout={updateLayout} />
                       )}
                     </Space>
@@ -424,7 +424,7 @@ insertCss(`,
         <Skeleton paragraph={{ rows: 8 }} />
       )}
 
-      {relativePath ? (
+      {relativePath && layout !== 'viewTwoRows' ? (
         <APIDoc
           markdownRemark={markdownRemark}
           githubUrl={githubUrl}

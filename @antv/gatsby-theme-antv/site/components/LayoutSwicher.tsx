@@ -1,12 +1,7 @@
 import React from 'react';
 import { Button, Menu, Dropdown } from 'antd';
 import { CaretDownOutlined } from '@ant-design/icons';
-import {
-  DefaultIcon,
-  TowRowsIcon,
-  ThreeRowsIcon,
-  ThreeRowsIcon2,
-} from './LayoutIcons';
+import { DefaultIcon, TowRowsIcon, ThreeRowsIcon } from './LayoutIcons';
 import styles from './LayoutSwicher.module.less';
 
 interface LayoutProps {
@@ -25,19 +20,13 @@ const LayoutSwicher: React.FC<LayoutProps> = ({ updateLayout }) => {
 
       <Menu.Item
         icon={<TowRowsIcon />}
-        onClick={() => updateLayout('viewTwoRows')}
+        onClick={() => updateLayout('viewTwoCols')}
       >
         两栏布局
       </Menu.Item>
       <Menu.Item
         icon={<ThreeRowsIcon />}
         onClick={() => updateLayout('viewThreeCols')}
-      >
-        三栏布局
-      </Menu.Item>
-      <Menu.Item
-        icon={<ThreeRowsIcon2 />}
-        onClick={() => updateLayout('viewThreeRows')}
       >
         三栏布局
       </Menu.Item>
