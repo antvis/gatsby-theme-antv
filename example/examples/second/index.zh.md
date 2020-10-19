@@ -1,5 +1,5 @@
 ---
-title: G2Plot API + demo
+title: G2Plot-API-demo
 order: 1
 icon: line
 ---

@@ -442,3 +442,25 @@
     }
   }
 }
+
+.anchro {
+  :global(.ant-anchor-link) {
+    line-height: 1.9;
+    margin-right: 2px;
+  }
+  :global(.ant-anchor-ink) {
+    display: none;
+  }
+  :global(.ant-anchor-link-active) {
+    background-color: #f9f0ff;
+    border-left: 3px solid #873bf4;
+  }
+  .parent {
+    .title {
+      padding: 12px 0 12px 16px;
+    }
+    :global(.ant-anchor-link) {
+      padding-left: 32px;
+    }
+  }
+}

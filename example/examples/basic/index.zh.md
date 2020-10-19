@@ -1,5 +1,5 @@
 ---
-title: G2 API + demo
+title: G2-API-Demo
 order: 0
 icon: column
 ---
