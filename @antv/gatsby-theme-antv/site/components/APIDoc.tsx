@@ -132,9 +132,13 @@ const APIDoc: React.FC<APIDocProps> = ({
           item.options = des;
         }
       }
-      const isBoundary =
-        i === len - 1 || getHeading(nodes[i + 1] as HTMLElement);
-      if (item && isBoundary) {
+      const isLast = i === len - 1;
+      let isBoundary = false;
+      if (!isLast) {
+        const nextHeading = getHeading(nodes[i + 1] as HTMLElement);
+        isBoundary = !!nextHeading && isExpandable(nextHeading.depth);
+      }
+      if (item && (isLast || isBoundary)) {
         item.content = htmlList.length > 0 ? htmlList.join('') : '';
         recordResult(item, depth);
       }
