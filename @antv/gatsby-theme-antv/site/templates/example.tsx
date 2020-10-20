@@ -172,7 +172,7 @@ export default function Template({
   const [prev, next] = usePrevAndNext();
 
   const menu = (
-    <Anchor className={styles.anchro}>
+    <Anchor className={styles.galleryAnchor}>
       {Object.keys(groupedEdges)
         .filter((key) => key.startsWith(`/${i18n.language}/`))
         .sort((a: string, b: string) => {

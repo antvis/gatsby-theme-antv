@@ -5,7 +5,7 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
 } from '@ant-design/icons';
-import { Layout as AntLayout, Menu, Tooltip, Affix } from 'antd';
+import { Layout as AntLayout, Menu, Tooltip, Affix, Anchor } from 'antd';
 import { groupBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
@@ -21,6 +21,13 @@ import MdPlayground from '../components/MdPlayground';
 import { usePrevAndNext } from '../hooks';
 import { capitalize } from '../utils';
 import styles from './markdown.module.less';
+
+const { Link: AnchorLink } = Anchor;
+
+interface LinkAttr {
+  href: string;
+  title: string;
+}
 
 const shouldBeShown = (slug: string, path: string, lang: string) => {
   if (!slug.startsWith(`/${lang}/`)) {
@@ -47,9 +54,18 @@ const getDocument = (docs: any[], slug = '', level: number) => {
   return docs.find((doc) => doc.slug === slug);
 };
 
-// https://github.com/antvis/gatsby-theme-antv/issues/114
-const parseTableOfContents = (tableOfContents: string) => {
-  return tableOfContents.replace(/\/#/g, '#');
+const getAnchorLinks = (tableOfContents: string) => {
+  const reg = /<li><a href="(.+)">(.+)<\/a><\/li>/g;
+  const result: LinkAttr[] = [];
+  let link = reg.exec(tableOfContents);
+  while (link) {
+    result.push({
+      href: link[1].replace(/\/#/g, '#'),
+      title: link[2],
+    });
+    link = reg.exec(tableOfContents);
+  }
+  return result;
 };
 
 interface MenuData {
@@ -275,6 +291,8 @@ export default function Template({
     },
   }).Compiler;
 
+  const anchorLinks = getAnchorLinks(tableOfContents);
+
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -286,13 +304,17 @@ export default function Template({
         {menuSider}
         <Article className={styles.markdown}>
           <Affix offsetTop={8}>
-            <div
-              className={styles.toc}
-              /* eslint-disable-next-line react/no-danger */
-              dangerouslySetInnerHTML={{
-                __html: parseTableOfContents(tableOfContents),
-              }}
-            />
+            <div className={styles.toc}>
+              <Anchor className={styles.apiAnchor}>
+                {anchorLinks.map((link) => (
+                  <AnchorLink
+                    key={link.href}
+                    href={link.href}
+                    title={link.title}
+                  />
+                ))}
+              </Anchor>
+            </div>
           </Affix>
           <div className={styles.main}>
             <h1>

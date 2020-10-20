@@ -1,7 +1,7 @@
 @import '~antd/es/style/themes/default.less';
 
 // 参考 yuque 右侧 tabOfContent 宽度
-@toc-width: 204px;
+@toc-width: 260px;
 
 .markdown {
   font-size: 14px;
@@ -443,7 +443,7 @@
   }
 }
 
-.anchro {
+.galleryAnchor {
   :global(.ant-anchor-link) {
     line-height: 1.9;
     margin-right: 2px;
@@ -462,5 +462,18 @@
     :global(.ant-anchor-link) {
       padding-left: 32px;
     }
+  }
+}
+.apiAnchor {
+  :global(.ant-anchor-link) {
+    padding: 6px 0 6px 16px;
+  }
+  :global(.ant-anchor-ink-ball) {
+    width: 4px;
+    height: 28px;
+    background-color: #873bf4;
+    border: none;
+    border-radius: 0;
+    transform: translateX(-50%) translateY(-10px);
   }
 }
