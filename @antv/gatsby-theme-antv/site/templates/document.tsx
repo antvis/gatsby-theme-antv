@@ -4,8 +4,16 @@ import {
   EditOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { Layout as AntLayout, Menu, Tooltip, Affix, Anchor } from 'antd';
+import {
+  Layout as AntLayout,
+  Menu,
+  Tooltip,
+  Affix,
+  Anchor,
+  BackTop,
+} from 'antd';
 import { groupBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
@@ -341,6 +349,11 @@ export default function Template({
             <div>
               <NavigatorBanner type="prev" post={prev} />
               <NavigatorBanner type="next" post={next} />
+              <BackTop>
+                <div className={styles.backTop}>
+                  <VerticalAlignTopOutlined />
+                </div>
+              </BackTop>
             </div>
           </div>
         </Article>

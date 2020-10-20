@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
 import { graphql } from 'gatsby';
-import { Layout as AntLayout, Anchor, Affix } from 'antd';
+import { Layout as AntLayout, Anchor, Affix, BackTop } from 'antd';
 import {
   createFromIconfontCN,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  VerticalAlignTopOutlined,
 } from '@ant-design/icons';
 import { groupBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
@@ -386,12 +387,19 @@ export default function Template({
             ) : (
               <div className={styles.exampleLayout}>{exmaplePageContent}</div>
             )}
-            {gallery ? (
-              <div>
-                <NavigatorBanner type="prev" post={prev} />
-                <NavigatorBanner type="next" post={next} />
-              </div>
-            ) : null}
+            {gallery && (
+              <>
+                <div>
+                  <NavigatorBanner type="prev" post={prev} />
+                  <NavigatorBanner type="next" post={next} />
+                </div>
+                <BackTop>
+                  <div className={styles.backTop}>
+                    <VerticalAlignTopOutlined />
+                  </div>
+                </BackTop>
+              </>
+            )}
           </div>
         </Article>
       </AntLayout>
