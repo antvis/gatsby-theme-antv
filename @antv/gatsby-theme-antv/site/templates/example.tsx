@@ -66,15 +66,9 @@ const renderAnchorItems = (edges: any[]) =>
       return (
         <AnchorLink
           key={slug}
-          href={`#category-${title}`}
+          href={`#category-${title.replace(/\s/g, '')}`}
           title={
-            <div
-              onClick={() => {
-                if (!slug.endsWith('/examples/gallery')) {
-                  window.open(slug, '_blank');
-                }
-              }}
-            >
+            <div>
               {icon && (
                 <MenuIcon className={styles.menuIcon} type={`icon-${icon}`} />
               )}
@@ -279,7 +273,9 @@ export default function Template({
   const galleryPageContent = (
     <div className={styles.gallery}>
       <div className={styles.galleryContent}>
-        <h1 id={`category-${frontmatter.title}`}>{frontmatter.title}</h1>
+        <h1 id={`category-${frontmatter.title.replace(/\s/g, '')}`}>
+          {frontmatter.title}
+        </h1>
         <div
           /* eslint-disable-next-line react/no-danger */
           dangerouslySetInnerHTML={{
@@ -289,7 +285,7 @@ export default function Template({
         {Categories.map((category: string, i) => (
           <div key={i}>
             {category !== 'OTHER' && (
-              <h2 id={`category-${category}`}>{category}</h2>
+              <h2 id={`category-${category.replace(/\s/g, '')}`}>{category}</h2>
             )}
             <ul className={styles.galleryList}>
               {allDemosInCategory[category]
