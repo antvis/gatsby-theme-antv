@@ -321,7 +321,7 @@ insertCss(`,
       size={splitPaneMap[layout].outside.size}
       onDragFinished={dispatchResizeEvent}
     >
-      {playground && currentExample ? (
+      {playground && currentExample && layout ? (
         <SplitPane
           split={splitPaneMap[layout].inside.split}
           size={splitPaneMap[layout].inside.size}
@@ -398,7 +398,6 @@ insertCss(`,
               )}
             </Content>
           </Layout>
-
           <div className={styles.editor}>
             {title && fileExtension && (
               <Toolbar
@@ -424,7 +423,7 @@ insertCss(`,
         <Skeleton paragraph={{ rows: 8 }} />
       )}
 
-      {relativePath && layout !== 'viewTwoRows' ? (
+      {relativePath && layout !== 'viewTwoRows' && (
         <APIDoc
           markdownRemark={markdownRemark}
           githubUrl={githubUrl}
@@ -433,8 +432,6 @@ insertCss(`,
           description={description}
           codeQuery={codeQuery}
         />
-      ) : (
-        <div />
       )}
     </SplitPane>
   );
