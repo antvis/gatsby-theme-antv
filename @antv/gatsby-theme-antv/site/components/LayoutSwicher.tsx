@@ -8,25 +8,35 @@ interface LayoutProps {
   updateLayout: (val: string) => void;
 }
 
+let icon = <DefaultIcon />;
 const LayoutSwicher: React.FC<LayoutProps> = ({ updateLayout }) => {
   const menu = (
     <Menu>
       <Menu.Item
         icon={<DefaultIcon />}
-        onClick={() => updateLayout('viewDefault')}
+        onClick={() => {
+          icon = <DefaultIcon />;
+          updateLayout('viewDefault');
+        }}
       >
         经典布局
       </Menu.Item>
 
       <Menu.Item
         icon={<TowRowsIcon />}
-        onClick={() => updateLayout('viewTwoCols')}
+        onClick={() => {
+          icon = <TowRowsIcon />;
+          updateLayout('viewTwoCols');
+        }}
       >
         两栏布局
       </Menu.Item>
       <Menu.Item
         icon={<ThreeRowsIcon />}
-        onClick={() => updateLayout('viewThreeCols')}
+        onClick={() => {
+          icon = <ThreeRowsIcon />;
+          updateLayout('viewThreeCols');
+        }}
       >
         三栏布局
       </Menu.Item>
@@ -36,7 +46,7 @@ const LayoutSwicher: React.FC<LayoutProps> = ({ updateLayout }) => {
   return (
     <Dropdown overlay={menu}>
       <div className={styles.dropGroup}>
-        <Button type="link" className={styles.switch} icon={<DefaultIcon />} />
+        <Button type="link" className={styles.switch} icon={icon} />
         <CaretDownOutlined className={styles.drop} />
       </div>
     </Dropdown>
