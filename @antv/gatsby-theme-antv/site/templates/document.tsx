@@ -349,7 +349,7 @@ export default function Template({
             <div>
               <NavigatorBanner type="prev" post={prev} />
               <NavigatorBanner type="next" post={next} />
-              <BackTop>
+              <BackTop style={{ right: 32 }}>
                 <div className={styles.backTop}>
                   <VerticalAlignTopOutlined />
                 </div>
