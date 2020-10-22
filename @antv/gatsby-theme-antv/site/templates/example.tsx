@@ -39,7 +39,11 @@ const renderAnchorItems = (edges: any[]) =>
           fields: { slug },
         },
       } = edge;
-      if (slug.endsWith('/API') || slug.endsWith('/design')) {
+      if (
+        slug.endsWith('/API') ||
+        slug.endsWith('/design') ||
+        slug.endsWith('/gallery')
+      ) {
         return false;
       }
       return true;
@@ -274,9 +278,6 @@ export default function Template({
   const galleryPageContent = (
     <div className={styles.gallery}>
       <div className={styles.galleryContent}>
-        <h1 id={`category-${frontmatter.title.replace(/\s/g, '')}`}>
-          {frontmatter.title}
-        </h1>
         <div
           /* eslint-disable-next-line react/no-danger */
           dangerouslySetInnerHTML={{
