@@ -363,7 +363,7 @@ insertCss(`,
               onClick={toggle}
             />
             <Content className={styles.chartContainer}>
-              {relativePath && (
+              {relativePath ? (
                 <div
                   className={classNames(
                     styles.preview,
@@ -406,6 +406,8 @@ insertCss(`,
                     <div ref={playgroundNode} className={styles[view]} />
                   )}
                 </div>
+              ) : (
+                <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
               )}
             </Content>
           </Layout>
@@ -431,10 +433,10 @@ insertCss(`,
           </div>
         </SplitPane>
       ) : (
-        <Skeleton paragraph={{ rows: 8 }} />
+        <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
       )}
 
-      {relativePath && layout !== 'viewTwoRows' && (
+      {relativePath && layout === 'viewTwoRows' ? (
         <APIDoc
           markdownRemark={markdownRemark}
           githubUrl={githubUrl}
@@ -444,6 +446,8 @@ insertCss(`,
           codeQuery={codeQuery}
           showAPISearch={showAPISearch}
         />
+      ) : (
+        <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
       )}
     </SplitPane>
   );

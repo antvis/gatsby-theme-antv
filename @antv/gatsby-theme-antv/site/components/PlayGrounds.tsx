@@ -116,7 +116,11 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
               ? example.title[i18n.language]
               : example.title;
           return (
-            <Tooltip title={title || ''} key={example.relativePath}>
+            <Tooltip
+              placement="right"
+              title={title || ''}
+              key={example.relativePath}
+            >
               <a
                 href={`#${example.filename.split('.')[0]}`}
                 onClick={(e: React.MouseEvent<HTMLAnchorElement>) => {
