@@ -448,9 +448,7 @@
 
 .galleryAnchor {
   :global(.ant-anchor-link) {
-    border-left: 3px solid transparent;
     line-height: 1.9;
-    margin-right: 2px;
   }
 
   :global(.ant-anchor-ink) {
@@ -459,7 +457,7 @@
 
   :global(.ant-anchor-link-active) {
     background-color: #f9f0ff;
-    border-left: 3px solid #873bf4;
+    border-right: 2px solid #873bf4;
   }
 
   .parent {
@@ -491,6 +489,10 @@
     border: none;
     border-radius: 0;
     transform: translateX(-50%) translateY(-10px);
+  }
+
+  :global(.ant-anchor-ink::before) {
+    width: 0;
   }
 }
 

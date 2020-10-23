@@ -5,6 +5,8 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   VerticalAlignTopOutlined,
+  CaretDownOutlined,
+  CaretRightOutlined,
 } from '@ant-design/icons';
 import {
   Layout as AntLayout,
@@ -32,10 +34,16 @@ import styles from './markdown.module.less';
 
 const { Link: AnchorLink } = Anchor;
 
+enum LinkStatus {
+  NONE = 'none',
+  EXPAND = 'expand',
+  FLOD = 'flod',
+}
 interface LinkAttr {
   href: string;
   title: string;
   children: any;
+  status: LinkStatus;
 }
 
 const shouldBeShown = (slug: string, path: string, lang: string) => {
@@ -69,7 +77,7 @@ const getAnchorLinks = (tableOfContents: string) => {
   let link = reg.exec(tableOfContents);
   while (link) {
     const [, tag, href, title] = link;
-    const rwaHref = href.replace(/\/#/g, '#');
+    const rwaHref = decodeURIComponent(href.replace(/\/#/g, '#'));
     const linkAttr = {
       href: rwaHref,
       title,
@@ -78,6 +86,7 @@ const getAnchorLinks = (tableOfContents: string) => {
       result.push({
         ...linkAttr,
         children: [],
+        status: LinkStatus.EXPAND,
       });
     } else if (tag === 'li') {
       const len = result.length;
@@ -85,11 +94,13 @@ const getAnchorLinks = (tableOfContents: string) => {
         result[len - 1].children.push({
           ...linkAttr,
           children: null,
+          status: LinkStatus.NONE,
         });
       } else {
         result.push({
           ...linkAttr,
           children: null,
+          status: LinkStatus.NONE,
         });
       }
     }
@@ -321,7 +332,29 @@ export default function Template({
     },
   }).Compiler;
 
-  const anchorLinks = getAnchorLinks(tableOfContents);
+  const [anchorLinks, setAnchorLinks] = useState(() =>
+    getAnchorLinks(tableOfContents),
+  );
+  const changeAnchorLinkStatus = (index: number) => {
+    const link = anchorLinks[index];
+    const { status } = link;
+    if (status === LinkStatus.NONE) {
+      return;
+    }
+    const nextStatus =
+      status === LinkStatus.EXPAND ? LinkStatus.FLOD : LinkStatus.EXPAND;
+    setAnchorLinks(
+      anchorLinks.map((item, i) => {
+        if (i === index) {
+          return {
+            ...anchorLinks[i],
+            status: nextStatus,
+          };
+        }
+        return item;
+      }),
+    );
+  };
 
   return (
     <>
@@ -336,13 +369,30 @@ export default function Template({
           <Affix offsetTop={8}>
             <div className={styles.toc}>
               <Anchor className={styles.apiAnchor}>
-                {anchorLinks.map((link) => (
+                {anchorLinks.map((link: LinkAttr, index: number) => (
                   <AnchorLink
                     key={link.href}
                     href={link.href}
-                    title={link.title}
+                    title={
+                      <div>
+                        {link.status === LinkStatus.EXPAND && (
+                          <CaretDownOutlined
+                            style={{ color: '#8c8c8c' }}
+                            onClick={() => changeAnchorLinkStatus(index)}
+                          />
+                        )}
+                        {link.status === LinkStatus.FLOD && (
+                          <CaretRightOutlined
+                            style={{ color: '#8c8c8c' }}
+                            onClick={() => changeAnchorLinkStatus(index)}
+                          />
+                        )}
+                        {link.title}
+                      </div>
+                    }
                   >
                     {link.children &&
+                      link.status === LinkStatus.EXPAND &&
                       link.children.map((child: LinkAttr) => (
                         <AnchorLink
                           key={child.href}
