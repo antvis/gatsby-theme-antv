@@ -1,15 +1,18 @@
 import React from 'react';
 import { Button, Menu, Dropdown } from 'antd';
 import { CaretDownOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { DefaultIcon, TowRowsIcon, ThreeRowsIcon } from './LayoutIcons';
-import styles from './LayoutSwicher.module.less';
+import styles from './LayoutSwitcher.module.less';
 
 interface LayoutProps {
   updateLayout: (val: string) => void;
 }
 
 let icon = <DefaultIcon />;
-const LayoutSwicher: React.FC<LayoutProps> = ({ updateLayout }) => {
+
+const LayoutSwitcher: React.FC<LayoutProps> = ({ updateLayout }) => {
+  const { t } = useTranslation();
   const menu = (
     <Menu>
       <Menu.Item
@@ -19,7 +22,7 @@ const LayoutSwicher: React.FC<LayoutProps> = ({ updateLayout }) => {
           updateLayout('viewDefault');
         }}
       >
-        经典布局
+        {t('经典布局')}
       </Menu.Item>
 
       <Menu.Item
@@ -29,7 +32,7 @@ const LayoutSwicher: React.FC<LayoutProps> = ({ updateLayout }) => {
           updateLayout('viewTwoCols');
         }}
       >
-        两栏布局
+        {t('两栏布局')}
       </Menu.Item>
       <Menu.Item
         icon={<ThreeRowsIcon />}
@@ -38,7 +41,7 @@ const LayoutSwicher: React.FC<LayoutProps> = ({ updateLayout }) => {
           updateLayout('viewThreeCols');
         }}
       >
-        三栏布局
+        {t('三栏布局')}
       </Menu.Item>
     </Menu>
   );
@@ -52,4 +55,4 @@ const LayoutSwicher: React.FC<LayoutProps> = ({ updateLayout }) => {
     </Dropdown>
   );
 };
-export default LayoutSwicher;
+export default LayoutSwitcher;

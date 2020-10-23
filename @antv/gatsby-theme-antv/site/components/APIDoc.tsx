@@ -17,6 +17,7 @@ interface APIDocProps {
   exampleSections: any;
   description: string;
   codeQuery: string;
+  showAPISearch: boolean;
 }
 
 const APIDoc: React.FC<APIDocProps> = ({
@@ -26,6 +27,7 @@ const APIDoc: React.FC<APIDocProps> = ({
   exampleSections,
   codeQuery,
   description,
+  showAPISearch,
 }) => {
   const { t } = useTranslation();
   const [collapseData, updateCollapseData] = useState<CollapseDataProp[]>([]);
@@ -259,6 +261,7 @@ const APIDoc: React.FC<APIDocProps> = ({
         }}
         content={collapseData}
         codeQuery={codeQuery}
+        showAPISearch={showAPISearch}
       />
       <div className={styles.docContent}>
         {exampleSections.API && active === 'API' && collapseData.length > 0

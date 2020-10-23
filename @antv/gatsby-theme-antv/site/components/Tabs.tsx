@@ -37,6 +37,7 @@ const Tabs: React.FC<{
   updateCollapseData: (val: CollapseDataProp[]) => void;
   codeQuery: string;
   content?: CollapseDataProp[];
+  showAPISearch: boolean;
 }> = ({
   active,
   showTabs = {} as ShowTabsProps,
@@ -48,6 +49,7 @@ const Tabs: React.FC<{
   updateCollapseData,
   codeQuery,
   content,
+  showAPISearch,
 }) => {
   const [options, updateOptions] = useState<SelectProps<[]>['options']>([]);
   const [input, updateInput] = useState<string>('');
@@ -258,7 +260,7 @@ const Tabs: React.FC<{
           </div>
         </li>
       </ul>
-      {active === 'API' && (
+      {active === 'API' && showAPISearch && (
         <div className={styles.tabExtra}>
           <div className={styles.tabSearch}>
             <AutoComplete

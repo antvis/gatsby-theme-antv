@@ -15,8 +15,8 @@ import SplitPane from 'react-split-pane';
 import { transform } from '@babel/standalone';
 import { splitPaneMap } from '../layoutConfig';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
-import ChartViewSwicher from './ChartViewSwicher';
-import LayoutSwicher from './LayoutSwicher';
+import ChartViewSwitcher from './ChartViewSwitcher';
+import LayoutSwitcher from './LayoutSwitcher';
 import PlayGrounds, { PlayGroundItemProps } from './PlayGrounds';
 import APIDoc from './APIDoc';
 import PageLoading from './PageLoading';
@@ -109,6 +109,7 @@ insertCss(`,
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
   const [collapsed, updateCollapsed] = useState<boolean>(false);
+  const [showAPISearch, updateShowAPIsearch] = useState<boolean>(true);
   const [compiledCode, updateCompiledCode] = useState<string>('');
   const [relativePath, updateRelativePath] = useState<string | undefined>('');
   const [fileExtension, updateFileExtension] = useState<string | undefined>('');
@@ -315,11 +316,22 @@ insertCss(`,
     }
   }, [layout]);
 
+  // 根据pane框度判断是否需要展示API文档搜索框
+  const calcShowSearch = (size: number) => {
+    const clientw = document.body.clientWidth;
+    if (size / clientw > 0.668) {
+      updateShowAPIsearch(false);
+    } else {
+      updateShowAPIsearch(true);
+    }
+  };
+
   return (
     <SplitPane
       split={splitPaneMap[layout].outside.split}
       size={splitPaneMap[layout].outside.size}
       onDragFinished={dispatchResizeEvent}
+      onChange={(size) => calcShowSearch(size)}
     >
       {playground && currentExample && layout ? (
         <SplitPane
@@ -367,16 +379,15 @@ insertCss(`,
                     <Space>
                       {showChartResize && layout === 'viewDefault' && (
                         <>
-                          <ChartViewSwicher
+                          <ChartViewSwitcher
                             updateView={updateView}
                             view={view}
                           />
                           <div className={styles.divide} />
                         </>
                       )}
-
                       {showAPIDoc && layout !== 'viewTwoRows' && (
-                        <LayoutSwicher updateLayout={updateLayout} />
+                        <LayoutSwitcher updateLayout={updateLayout} />
                       )}
                     </Space>
                   </div>
@@ -431,6 +442,7 @@ insertCss(`,
           exampleSections={exampleSections}
           description={description}
           codeQuery={codeQuery}
+          showAPISearch={showAPISearch}
         />
       )}
     </SplitPane>

@@ -1,11 +1,12 @@
 @import '~antd/es/style/themes/default.less';
 ul.tabs {
-  padding: 14px 27px;
+  padding: 8px 16px;
   list-style: none;
-  height: 48px;
+  height: 42px;
   background: #f8f9fc;
   position: relative;
   overflow: hidden;
+  font-size: 16px;
 
   > li {
     padding: 0 !important;
@@ -17,6 +18,7 @@ ul.tabs {
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
+    height: 23px;
 
     a {
       color: #697b8c;
@@ -58,7 +60,9 @@ ul.tabs {
         fade(@primary-color, 50%) 100%
       );
     }
-
+    &.active {
+      color: @primary-color;
+    }
     &.active a {
       color: @text-color;
       font-weight: 500;
@@ -103,12 +107,12 @@ ul.tabs {
 
 .tabExtra {
   position: absolute;
-  left: 312px;
+  right: 16px;
   top: 0px;
   display: inline-flex;
   overflow: hidden;
   width: 270px;
-  padding: 10px 4px;
+  padding: 8px 4px;
 
   .tabSearch {
     margin-right: 16px;
