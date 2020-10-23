@@ -35,6 +35,7 @@ const { Link: AnchorLink } = Anchor;
 interface LinkAttr {
   href: string;
   title: string;
+  children: any;
 }
 
 const shouldBeShown = (slug: string, path: string, lang: string) => {
@@ -63,14 +64,35 @@ const getDocument = (docs: any[], slug = '', level: number) => {
 };
 
 const getAnchorLinks = (tableOfContents: string) => {
-  const reg = /<li><a href="(.+)">(.+)<\/a><\/li>/g;
+  const reg = /<(li|p)><a href="(.+)">(.+)<\/a><\/(li|p)>/g;
   const result: LinkAttr[] = [];
   let link = reg.exec(tableOfContents);
   while (link) {
-    result.push({
-      href: link[1].replace(/\/#/g, '#'),
-      title: link[2],
-    });
+    const [, tag, href, title] = link;
+    const rwaHref = href.replace(/\/#/g, '#');
+    const linkAttr = {
+      href: rwaHref,
+      title,
+    };
+    if (tag === 'p') {
+      result.push({
+        ...linkAttr,
+        children: [],
+      });
+    } else if (tag === 'li') {
+      const len = result.length;
+      if (len && result[len - 1].children) {
+        result[len - 1].children.push({
+          ...linkAttr,
+          children: null,
+        });
+      } else {
+        result.push({
+          ...linkAttr,
+          children: null,
+        });
+      }
+    }
     link = reg.exec(tableOfContents);
   }
   return result;
@@ -319,7 +341,16 @@ export default function Template({
                     key={link.href}
                     href={link.href}
                     title={link.title}
-                  />
+                  >
+                    {link.children &&
+                      link.children.map((child: LinkAttr) => (
+                        <AnchorLink
+                          key={child.href}
+                          href={child.href}
+                          title={child.title}
+                        />
+                      ))}
+                  </AnchorLink>
                 ))}
               </Anchor>
             </div>
