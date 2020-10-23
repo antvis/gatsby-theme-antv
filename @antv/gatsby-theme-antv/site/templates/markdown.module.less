@@ -60,12 +60,36 @@
   }
 
   p,
+  li,
+  table,
+  ul li {
+    color: rgba(0, 0, 0, 0.68);
+  }
+
+  p,
   pre {
     margin: 1em 0;
   }
 
   pre > code[class*='language-'] {
     line-height: 1.8;
+  }
+
+  pre[class*='language-'] {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  code[class*='language-'] {
+    background: none;
+  }
+
+  code.language-sign,
+  pre.language-sign {
+    background: #e6f7ff;
+  }
+
+  pre.language-sign {
+    border: 1px solid #91d5ff;
   }
 
   ul,
@@ -121,9 +145,20 @@
 
   table th,
   table td {
-    padding: 12px 16px;
+    padding: 6px 12px;
     text-align: left;
     border: 1px solid @border-color-split;
+  }
+
+  table img {
+    max-height: 100px;
+  }
+
+  table td:first-child {
+    width: 20%;
+    font-weight: 500;
+    background: #fcfcfc;
+    color: rgba(0, 0, 0, 0.85);
   }
 
   blockquote {
@@ -277,6 +312,7 @@
   flex-direction: row-reverse;
 
   .galleryContent {
+    margin-top: -2.4em;
     flex: 1;
   }
 
