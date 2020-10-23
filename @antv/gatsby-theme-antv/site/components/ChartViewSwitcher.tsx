@@ -5,14 +5,14 @@ import {
   TabletOutlined,
   MobileOutlined,
 } from '@ant-design/icons';
-import styles from './ChartViewSwicher.module.less';
+import styles from './ChartViewSwitcher.module.less';
 
 interface Prop {
   updateView: (val: string) => void;
   view: string;
 }
 
-const ChartViewSwicher: React.FC<Prop> = ({ updateView, view }) => {
+const ChartViewSwitcher: React.FC<Prop> = ({ updateView, view }) => {
   const onChange = (e: any) => {
     updateView(e.target.value);
     const resize = new Event('resize');
@@ -37,4 +37,4 @@ const ChartViewSwicher: React.FC<Prop> = ({ updateView, view }) => {
     </Radio.Group>
   );
 };
-export default ChartViewSwicher;
+export default ChartViewSwitcher;

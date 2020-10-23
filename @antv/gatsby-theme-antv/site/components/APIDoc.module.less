@@ -6,6 +6,7 @@
   color: rgba(0, 0, 0, 0.85);
   opacity: 0.35;
 }
+
 .default {
   margin-left: 12px;
   font-style: italic;
@@ -29,32 +30,52 @@
 .rootCollapse {
   background: rgba(0, 0, 0, 0.04) !important;
   border: none !important;
+
   .hidden {
     display: none;
   }
+
   .rootItem {
     display: block;
     border-bottom: none !important;
     border-top: 1px solid #d9d9d94f;
+
     :global {
+      .ant-collapse-header {
+        padding-left: 32px;
+        .ant-collapse-arrow {
+          font-size: 9px;
+          color: #8b99a7;
+        }
+      }
+
       .ant-collapse-content {
         border: none;
         padding-bottom: 8px;
+
         .ant-collapse-content-box {
           padding: 0px 16px;
+
           .ant-collapse {
             background-color: #fff;
+
             .ant-collapse-item {
               border-bottom: 1px solid #d9d9d96e;
             }
+
             &:last-child {
               .ant-collapse-item {
                 border-bottom: none;
               }
             }
           }
+
+          ul {
+            margin-left: 24px;
+          }
         }
       }
+
       mark {
         background-color: #d6bffbb3;
         padding: 0 3px;
@@ -96,12 +117,14 @@ tag {
   border: 1px solid #d9d9d9;
   border-radius: 2px;
   cursor: default;
+
   &[color='green'] {
     color: #52c41a;
     background: #f6ffed;
     border-color: #b7eb8f;
   }
 }
+
 description {
   display: none;
 }
