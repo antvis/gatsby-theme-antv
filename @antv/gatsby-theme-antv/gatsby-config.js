@@ -144,6 +144,9 @@ module.exports = ({
             `gatsby-remark-reading-time`,
             `@rstacruz/gatsby-remark-component`,
           ],
+          tableOfContents: {
+            maxDepth: 4,
+          },
         },
       },
       pwa ? `gatsby-plugin-offline` : `gatsby-plugin-remove-serviceworker`,
