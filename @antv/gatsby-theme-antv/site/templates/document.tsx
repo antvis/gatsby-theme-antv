@@ -34,16 +34,16 @@ import styles from './markdown.module.less';
 
 const { Link: AnchorLink } = Anchor;
 
-enum LinkStatus {
+enum AnchorLinkStatus {
   NONE = 'none',
   EXPAND = 'expand',
   FLOD = 'flod',
 }
-interface LinkAttr {
+interface AnchorLinkAttr {
   href: string;
   title: string;
   children: any;
-  status: LinkStatus;
+  status: AnchorLinkStatus;
 }
 
 const shouldBeShown = (slug: string, path: string, lang: string) => {
@@ -72,41 +72,43 @@ const getDocument = (docs: any[], slug = '', level: number) => {
 };
 
 const getAnchorLinks = (tableOfContents: string) => {
-  const reg = /<(li|p)><a href="(.+)">(.+)<\/a><\/(li|p)>/g;
-  const result: LinkAttr[] = [];
-  let link = reg.exec(tableOfContents);
-  while (link) {
-    const [, tag, href, title] = link;
-    const rwaHref = decodeURIComponent(href.replace(/\/#/g, '#'));
-    const linkAttr = {
-      href: rwaHref,
-      title,
-    };
-    if (tag === 'p') {
-      result.push({
-        ...linkAttr,
-        children: [],
-        status: LinkStatus.EXPAND,
-      });
-    } else if (tag === 'li') {
-      const len = result.length;
-      if (len && result[len - 1].children) {
-        result[len - 1].children.push({
-          ...linkAttr,
-          children: null,
-          status: LinkStatus.NONE,
+  const temp = document.createElement('div');
+  temp.innerHTML = tableOfContents;
+  const nodes = temp.childNodes;
+
+  const parseUl = (node: HTMLElement) => {
+    if (!node) {
+      return [];
+    }
+    const items = node.childNodes;
+    const result = [];
+
+    for (let i = 0, len = items.length; i < len; i += 1) {
+      const item = items[i] as HTMLElement;
+      if (item.tagName === 'LI') {
+        const link: any = {};
+        const childs = item.childNodes as NodeListOf<HTMLElement>;
+        childs.forEach((child: HTMLElement) => {
+          if (child.tagName === 'A') {
+            link.href = (child as HTMLAnchorElement).hash;
+            link.title = child.innerText;
+          } else if (child.tagName === 'P') {
+            link.href = (child.childNodes[0] as HTMLAnchorElement).hash;
+            link.title = (child.childNodes[0] as HTMLElement).innerText;
+          } else if (child.tagName === 'UL') {
+            link.children = parseUl(child);
+          }
         });
-      } else {
-        result.push({
-          ...linkAttr,
-          children: null,
-          status: LinkStatus.NONE,
-        });
+        link.status = link.children
+          ? AnchorLinkStatus.EXPAND
+          : AnchorLinkStatus.NONE;
+        result.push(link);
       }
     }
-    link = reg.exec(tableOfContents);
-  }
-  return result;
+
+    return result;
+  };
+  return parseUl(nodes[0] as HTMLElement);
 };
 
 interface MenuData {
@@ -335,26 +337,40 @@ export default function Template({
   const [anchorLinks, setAnchorLinks] = useState(() =>
     getAnchorLinks(tableOfContents),
   );
-  const changeAnchorLinkStatus = (index: number) => {
-    const link = anchorLinks[index];
+
+  const changeAnchorLinkStatus = (link: AnchorLinkAttr) => {
+    const tLink = link;
     const { status } = link;
-    if (status === LinkStatus.NONE) {
-      return;
-    }
     const nextStatus =
-      status === LinkStatus.EXPAND ? LinkStatus.FLOD : LinkStatus.EXPAND;
-    setAnchorLinks(
-      anchorLinks.map((item, i) => {
-        if (i === index) {
-          return {
-            ...anchorLinks[i],
-            status: nextStatus,
-          };
-        }
-        return item;
-      }),
-    );
+      status === AnchorLinkStatus.EXPAND
+        ? AnchorLinkStatus.FLOD
+        : AnchorLinkStatus.EXPAND;
+    tLink.status = nextStatus;
+    setAnchorLinks([...anchorLinks]);
   };
+
+  const renderAnchorLinks = (links: AnchorLinkAttr[]) =>
+    links.map((link: AnchorLinkAttr) => (
+      <React.Fragment key={link.href}>
+        {link.status === AnchorLinkStatus.EXPAND && (
+          <CaretDownOutlined
+            style={{ color: '#8c8c8c' }}
+            onClick={() => changeAnchorLinkStatus(link)}
+          />
+        )}
+        {link.status === AnchorLinkStatus.FLOD && (
+          <CaretRightOutlined
+            style={{ color: '#8c8c8c' }}
+            onClick={() => changeAnchorLinkStatus(link)}
+          />
+        )}
+        <AnchorLink href={link.href} title={link.title}>
+          {link.children &&
+            link.status === AnchorLinkStatus.EXPAND &&
+            renderAnchorLinks(link.children)}
+        </AnchorLink>
+      </React.Fragment>
+    ));
 
   return (
     <>
@@ -369,39 +385,7 @@ export default function Template({
           <Affix offsetTop={8}>
             <div className={styles.toc}>
               <Anchor className={styles.apiAnchor}>
-                {anchorLinks.map((link: LinkAttr, index: number) => (
-                  <AnchorLink
-                    key={link.href}
-                    href={link.href}
-                    title={
-                      <div>
-                        {link.status === LinkStatus.EXPAND && (
-                          <CaretDownOutlined
-                            style={{ color: '#8c8c8c' }}
-                            onClick={() => changeAnchorLinkStatus(index)}
-                          />
-                        )}
-                        {link.status === LinkStatus.FLOD && (
-                          <CaretRightOutlined
-                            style={{ color: '#8c8c8c' }}
-                            onClick={() => changeAnchorLinkStatus(index)}
-                          />
-                        )}
-                        {link.title}
-                      </div>
-                    }
-                  >
-                    {link.children &&
-                      link.status === LinkStatus.EXPAND &&
-                      link.children.map((child: LinkAttr) => (
-                        <AnchorLink
-                          key={child.href}
-                          href={child.href}
-                          title={child.title}
-                        />
-                      ))}
-                  </AnchorLink>
-                ))}
+                {renderAnchorLinks(anchorLinks)}
               </Anchor>
             </div>
           </Affix>
