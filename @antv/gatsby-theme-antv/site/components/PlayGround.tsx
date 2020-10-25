@@ -2,10 +2,19 @@
 import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import classNames from 'classnames';
-import { Skeleton, Result, Layout, Space } from 'antd';
+import {
+  Skeleton,
+  Result,
+  Layout,
+  Space,
+  PageHeader,
+  Divider,
+  Menu,
+  Dropdown,
+} from 'antd';
 import { useMedia } from 'react-use';
 import debounce from 'lodash/debounce';
-import { MenuUnfoldOutlined } from '@ant-design/icons';
+import { MenuFoldOutlined, DownOutlined } from '@ant-design/icons';
 import {
   useTranslation,
   withTranslation,
@@ -29,6 +38,7 @@ interface PlayGroundProps {
   location: Location;
   description: string;
   markdownRemark: any;
+  categories: any;
 }
 
 const MonacoEditor = lazy(() => import('react-monaco-editor'));
@@ -61,6 +71,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   location,
   markdownRemark,
   description,
+  categories,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -162,7 +173,7 @@ insertCss(`,
 
   useEffect(() => {
     executeCode();
-  }, [compiledCode, error]);
+  }, [compiledCode, error, view]);
 
   useEffect(() => {
     if (playground?.playgroundDidMount) {
@@ -291,32 +302,31 @@ insertCss(`,
   };
 
   const isWide = useMedia('(min-width: 767.99px)', true);
-  const isLarge = useMedia('(min-width: 1680px)', true);
+  const localLayout = localStorage.getItem('layout');
 
   useEffect(() => {
     if (!isWide) {
       updateLayout('viewTwoRows');
+      updateCollapsed(true);
+    } else if (localLayout) {
+      updateLayout(localLayout);
     }
-
-    if (isLarge && showAPIDoc) {
-      updateLayout('viewThreeCols');
-    }
-  }, []);
+    console.log(categories);
+  }, [isWide]);
 
   useEffect(() => {
     dispatchResizeEvent();
-    // 图例展开收起
-    if (layout !== 'viewDefault') {
-      updateCollapsed(true);
-      updateView('desktop');
-    } else updateCollapsed(false);
+    if (isWide) localStorage.setItem('layout', layout);
+    const pane = document.getElementsByClassName('ant-layout');
+    if (!pane[1]) return;
     if (layout === 'viewTwoRows') {
-      const pane = document.getElementsByClassName('ant-layout');
-      if (pane) pane[1].setAttribute('style', 'margin-top: 64px');
+      pane[1].setAttribute('style', 'margin-top: 64px');
+    } else {
+      pane[1].setAttribute('style', 'margin-top: 0');
     }
   }, [layout]);
 
-  // 根据pane框度判断是否需要展示API文档搜索框
+  // 根据pane框度及当前视图判断是否需要展示API文档搜索框
   const calcShowSearch = (size: number) => {
     const clientw = document.body.clientWidth;
     if (size / clientw > 0.668) {
@@ -325,6 +335,22 @@ insertCss(`,
       updateShowAPIsearch(true);
     }
   };
+
+  // const menu = (
+  //   <Menu>
+  //     {categories.map((category: string, i: number) => (
+  //       <Menu.Item key={i}>
+  //         <a
+  //           target="_blank"
+  //           rel="noopener noreferrer"
+  //           href={`/${i18n.language}/examples?`}
+  //         >
+  //           {category !== 'OTHER' && { category }}
+  //         </a>
+  //       </Menu.Item>
+  //     ))}
+  //   </Menu>
+  // );
 
   return (
     <SplitPane
@@ -357,10 +383,11 @@ insertCss(`,
               />
             </Sider>
 
-            <MenuUnfoldOutlined
+            <MenuFoldOutlined
               className={styles.trigger}
               type={collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={toggle}
+              rotate={collapsed ? 180 : 0}
             />
             <Content className={styles.chartContainer}>
               {relativePath ? (
@@ -370,27 +397,32 @@ insertCss(`,
                     `playground-${relativePath.split('/').join('-')}`,
                   )}
                 >
-                  <div className={styles.title}>
-                    {typeof currentExample.title === 'object'
-                      ? currentExample.title[i18n.language]
-                      : currentExample.title}
-                  </div>
-                  <div className={styles.extra}>
-                    <Space>
-                      {showChartResize && layout === 'viewDefault' && (
-                        <>
+                  <PageHeader
+                    ghost={false}
+                    title={
+                      typeof currentExample.title === 'object'
+                        ? currentExample.title[i18n.language]
+                        : currentExample.title
+                    }
+                    // subTitle={
+                    //   <Dropdown overlay={menu}>
+                    //     <DownOutlined />
+                    //   </Dropdown>
+                    // }
+                    extra={
+                      <Space split={<Divider type="vertical" />}>
+                        {showChartResize && layout === 'viewDefault' && (
                           <ChartViewSwitcher
                             updateView={updateView}
                             view={view}
                           />
-                          <div className={styles.divide} />
-                        </>
-                      )}
-                      {showAPIDoc && layout !== 'viewTwoRows' && (
-                        <LayoutSwitcher updateLayout={updateLayout} />
-                      )}
-                    </Space>
-                  </div>
+                        )}
+                        {showAPIDoc && layout !== 'viewTwoRows' && (
+                          <LayoutSwitcher updateLayout={updateLayout} />
+                        )}
+                      </Space>
+                    }
+                  />
 
                   {error ? (
                     <Result
@@ -411,6 +443,7 @@ insertCss(`,
               )}
             </Content>
           </Layout>
+
           <div className={styles.editor}>
             {title && fileExtension && (
               <Toolbar
@@ -426,17 +459,21 @@ insertCss(`,
                 onToggleFullscreen={null}
               />
             )}
-
-            <div className={styles.monaco}>
-              <Suspense fallback={<PageLoading />}>{codeEditor}</Suspense>
-            </div>
+            {!editorValue ? (
+              <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
+            ) : (
+              <div className={styles.monaco}>
+                <Suspense fallback={<PageLoading />}>{codeEditor}</Suspense>
+              </div>
+            )}
           </div>
         </SplitPane>
       ) : (
-        <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
+        <></>
       )}
 
-      {relativePath && layout === 'viewTwoRows' ? (
+      {relativePath &&
+      (layout === 'viewDefault' || layout === 'viewThreeCols') ? (
         <APIDoc
           markdownRemark={markdownRemark}
           githubUrl={githubUrl}
@@ -447,7 +484,7 @@ insertCss(`,
           showAPISearch={showAPISearch}
         />
       ) : (
-        <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
+        <></>
       )}
     </SplitPane>
   );

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import { Layout as AntLayout, Anchor, Affix, BackTop } from 'antd';
 import {
   createFromIconfontCN,
@@ -314,11 +314,11 @@ export default function Template({
                       key={demo.relativePath}
                       title={cardTitle}
                     >
-                      <a
+                      <Link
                         className={styles.galleryCardLink}
                         rel="noreferrer"
                         target="_blank"
-                        href={`/${i18n.language}/examples/${demoSlug}`}
+                        to={`/${i18n.language}/examples/${demoSlug}`}
                       >
                         <img
                           src={
@@ -328,7 +328,7 @@ export default function Template({
                           alt={cardTitle}
                         />
                         <h4>{cardTitle}</h4>
-                      </a>
+                      </Link>
                     </li>
                   );
                 })}
@@ -336,6 +336,20 @@ export default function Template({
           </div>
         ))}
       </div>
+    </div>
+  );
+
+  const exmaplePageContent = (
+    <div className={styles.exampleContent}>
+      {exampleSections.examples && exampleSections.examples.length > 0 && (
+        <PlayGround
+          categories={Categories}
+          exampleSections={exampleSections}
+          location={location}
+          markdownRemark={markdownRemark}
+          description={description}
+        />
+      )}
     </div>
   );
 
@@ -356,20 +370,6 @@ export default function Template({
       document.getElementsByTagName('body')[0].style.overflow = 'auto';
     };
   }, [pathWithoutTrailingSlashes]);
-
-  const exmaplePageContent = (
-    <div className={styles.exampleContent}>
-      {exampleSections.examples && exampleSections.examples.length > 0 && (
-        <PlayGround
-          exampleSections={exampleSections}
-          location={location}
-          markdownRemark={markdownRemark}
-          description={description}
-        />
-      )}
-    </div>
-  );
-
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />

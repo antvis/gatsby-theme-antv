@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tooltip, Collapse } from 'antd';
+import { Tooltip, Collapse, Skeleton } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import Mark from 'mark.js';
 import { getGithubSourceUrl } from '../templates/document';
@@ -201,9 +201,9 @@ const APIDoc: React.FC<APIDocProps> = ({
           activeKey={outsideActiveKeys}
           onChange={outsideHandleChange}
         >
-          {collapseData.map((data: CollapseDataProp) => (
+          {collapseData.map((data: CollapseDataProp, i: number) => (
             <Panel
-              key={`outside-${data.title}`}
+              key={`outside-${data.title}-${i}`}
               header={data.title}
               className={data.show ? styles.rootItem : styles.hidden}
             >
@@ -224,7 +224,7 @@ const APIDoc: React.FC<APIDocProps> = ({
                 >
                   <Panel
                     header={child.title}
-                    key={`inside-${child.title}`}
+                    key={`inside-${child.title}-${i}`}
                     extra={genExtra(child.options)}
                   >
                     {child.content && (
@@ -263,44 +263,48 @@ const APIDoc: React.FC<APIDocProps> = ({
         codeQuery={codeQuery}
         showAPISearch={showAPISearch}
       />
-      <div className={styles.docContent}>
-        {exampleSections.API && active === 'API' && collapseData.length > 0
-          ? renderCollapse()
-          : null}
-        {exampleSections.design && active === 'design' ? (
-          <div className={styles.designContent}>
-            <h1 className={styles.demoTtile}>
-              {frontmatter.title}
-              <Tooltip title={t('在 GitHub 上编辑')}>
-                <a
-                  href={getGithubSourceUrl({
-                    githubUrl,
-                    relativePath,
-                    prefix: 'examples',
-                  })}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.editOnGtiHubButton}
-                >
-                  <EditOutlined />
-                </a>
-              </Tooltip>
-            </h1>
-            <div
-              /* eslint-disable-next-line react/no-danger */
-              dangerouslySetInnerHTML={{
-                __html: description,
-              }}
-            />
-            <div
-              /* eslint-disable-next-line react/no-danger */
-              dangerouslySetInnerHTML={{
-                __html: exampleSections.design.node.html,
-              }}
-            />
-          </div>
-        ) : null}
-      </div>
+      {!exampleSections ? (
+        <Skeleton className={styles.skeleton} paragraph={{ rows: 16 }} />
+      ) : (
+        <div className={styles.docContent}>
+          {exampleSections.API && active === 'API' && collapseData.length > 0
+            ? renderCollapse()
+            : null}
+          {exampleSections.design && active === 'design' ? (
+            <div className={styles.designContent}>
+              <h1 className={styles.demoTtile}>
+                {frontmatter.title}
+                <Tooltip title={t('在 GitHub 上编辑')}>
+                  <a
+                    href={getGithubSourceUrl({
+                      githubUrl,
+                      relativePath,
+                      prefix: 'examples',
+                    })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.editOnGtiHubButton}
+                  >
+                    <EditOutlined />
+                  </a>
+                </Tooltip>
+              </h1>
+              <div
+                /* eslint-disable-next-line react/no-danger */
+                dangerouslySetInnerHTML={{
+                  __html: description,
+                }}
+              />
+              <div
+                /* eslint-disable-next-line react/no-danger */
+                dangerouslySetInnerHTML={{
+                  __html: exampleSections.design.node.html,
+                }}
+              />
+            </div>
+          ) : null}
+        </div>
+      )}
     </div>
   );
 };

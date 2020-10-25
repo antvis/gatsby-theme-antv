@@ -62,11 +62,11 @@ const Tabs: React.FC<{
     level: string,
     parent?: string,
   ) => {
-    nodes.forEach((node: any) => {
+    nodes.forEach((node: any, index: number) => {
       if (node.title) {
         const key = parent
           ? `${parent}:${level}-${node.title}`
-          : `${level}-${node.title}`;
+          : `${level}-${node.title}-${index}`;
         if (!result[node.title]) {
           // eslint-disable-next-line no-param-reassign
           result[node.title] = [key];
@@ -162,10 +162,10 @@ const Tabs: React.FC<{
     level: string,
     parent?: string,
   ) => {
-    nodes.forEach((node: any) => {
+    nodes.forEach((node: any, i: number) => {
       const key = parent
         ? `${parent}:${level}-${node.title}`
-        : `${level}-${node.title}`;
+        : `${level}-${node.title}-${i}`;
       const ast = JSON.stringify(node);
       const reg = new RegExp(query, 'gi');
       if (reg.test(ast)) {
@@ -235,7 +235,7 @@ const Tabs: React.FC<{
   }, [input]);
 
   return (
-    <>
+    <div className={styles.tabsBar}>
       <ul className={styles.tabs}>
         <li
           className={classNames({
@@ -290,7 +290,7 @@ const Tabs: React.FC<{
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

@@ -1,92 +1,140 @@
 @import '~antd/es/style/themes/default.less';
-ul.tabs {
-  padding: 8px 16px;
-  list-style: none;
-  height: 42px;
-  background: #f8f9fc;
-  position: relative;
-  overflow: hidden;
-  font-size: 16px;
+.tabsBar {
+  display: inline-flex;
+  background-color: #f8f9fc;
+  width: 100%;
+  ul.tabs {
+    padding: 8px 16px;
+    list-style: none;
+    height: 42px;
+    overflow: hidden;
+    font-size: 16px;
 
-  > li {
-    padding: 0 !important;
-    margin-right: 16px;
-    margin-left: 0 !important;
-    list-style: none !important;
-    display: inline-block;
-    line-height: 1;
-    cursor: pointer;
-    transition: all 0.3s;
-    position: relative;
-    height: 23px;
-
-    a {
-      color: #697b8c;
+    > li {
+      padding: 0 !important;
+      margin-right: 16px;
+      margin-left: 0 !important;
+      list-style: none !important;
+      display: inline-block;
+      line-height: 1;
+      cursor: pointer;
+      transition: all 0.3s;
       position: relative;
-      z-index: 1;
+      height: 23px;
 
-      > h2 {
-        margin: 0;
-        font-size: 24px;
-        line-height: 1;
-        transition: all 0.3s;
+      a {
+        color: #697b8c;
         position: relative;
         z-index: 1;
+
+        > h2 {
+          margin: 0;
+          font-size: 24px;
+          line-height: 1;
+          transition: all 0.3s;
+          position: relative;
+          z-index: 1;
+        }
+      }
+
+      &:hover a {
+        color: #274057;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        height: 0;
+        bottom: -3px;
+        background-image: transparent;
+        transition: all 0.3s;
+        max-width: 0;
+        height: 2px;
+        background-color: @primary-color;
+      }
+      &.active {
+        color: @primary-color;
+        margin-right: 24px;
+      }
+      &.active a {
+        color: @text-color;
+        font-weight: 500;
+      }
+
+      &.active:after {
+        max-width: calc(100% + 4px);
+      }
+
+      &.hidden {
+        display: none;
+      }
+
+      .count {
+        font-size: 13px;
+        opacity: 0.4;
+        margin-left: 4px;
+        position: absolute;
+        top: 0;
+        right: -16px;
       }
     }
 
-    &:hover a {
-      color: #274057;
-    }
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    &:after {
-      content: '';
-      position: absolute;
-      left: -2px;
-      right: -2px;
-      height: 0;
-      bottom: -3px;
-      background-image: transparent;
-      transition: all 0.3s;
-      max-width: 0;
-      height: 2px;
-      background-color: @primary-color;
-    }
-    &.active {
-      color: @primary-color;
-      margin-right: 24px;
-    }
-    &.active a {
-      color: @text-color;
-      font-weight: 500;
-    }
-
-    &.active:after {
-      max-width: calc(100% + 4px);
-    }
-
-    &.hidden {
+    .hidden {
       display: none;
     }
+  }
 
-    .count {
-      font-size: 13px;
-      opacity: 0.4;
-      margin-left: 4px;
-      position: absolute;
-      top: 0;
-      right: -16px;
+  .tabExtra {
+    position: fixed;
+    right: 0;
+    top: 64px;
+    display: inline-flex;
+    overflow: hidden;
+    width: 270px;
+    padding: 8px 4px;
+
+    .tabSearch {
+      margin-right: 16px;
+
+      .autoComplete {
+        width: 150px;
+        :global(.ant-select-selection-search-input) {
+          height: 24px;
+          border-radius: 50px;
+          background-color: #f0f2f4;
+          border: 1px solid #f1f2f4;
+        }
+        :global(.ant-input-sm) {
+          background-color: #f0f2f4;
+          font-size: 12px;
+        }
+        :global(.ant-input-prefix) {
+          color: #969696;
+          font-size: 12px;
+        }
+      }
+    }
+    .collapseAll {
+      height: 17px;
+      cursor: pointer;
+      font-size: 12px;
+      color: rgb(104, 122, 139);
+      &:hover {
+        color: rgba(0, 0, 0, 0.961);
+      }
+      svg {
+        margin-right: 8px;
+      }
     }
   }
-
-  .hidden {
-    display: none;
-  }
 }
+
 .resultNum {
   background-color: #873cf45e;
   border-radius: 50px;
@@ -102,46 +150,11 @@ ul.tabs {
   text-align: center;
 }
 
-.tabExtra {
-  position: absolute;
-  right: 0px;
-  top: 0px;
-  display: inline-flex;
-  overflow: hidden;
-  width: 270px;
-  padding: 8px 4px;
-
-  .tabSearch {
-    margin-right: 16px;
-
-    .autoComplete {
-      width: 150px;
-      :global(.ant-select-selection-search-input) {
-        height: 24px;
-        border-radius: 50px;
-        background-color: #f0f2f4;
-        border: 1px solid #f1f2f4;
-      }
-      :global(.ant-input-sm) {
-        background-color: #f0f2f4;
-        font-size: 12px;
-      }
-      :global(.ant-input-prefix) {
-        color: #969696;
-        font-size: 12px;
-      }
-    }
-  }
-  .collapseAll {
-    height: 17px;
-    cursor: pointer;
-    font-size: 12px;
-    color: rgb(104, 122, 139);
-    &:hover {
-      color: rgba(0, 0, 0, 0.961);
-    }
-    svg {
-      margin-right: 8px;
-    }
+@media only screen and (max-width: 1069px) {
+  .tabExtra {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    position: fixed;
   }
 }

@@ -13,7 +13,7 @@
   .trigger {
     font-size: 16px;
     line-height: 64px;
-    padding: 0 8px;
+    padding: 6px 8px;
     color: #6c7f90;
     cursor: pointer;
     transition: color 0.3s;
@@ -21,7 +21,7 @@
   }
 
   .trigger:hover {
-    color: #b58bf9;
+    color: @primary-color;
   }
 }
 
@@ -55,26 +55,11 @@
       font-weight: 500;
       line-height: 23px;
     }
-
-    .extra {
-      position: absolute;
-      right: 20px;
-      top: 10px;
-      z-index: 1;
-      background-color: #fff;
-
-      .divide {
-        opacity: 0.25;
-        border-right: 1px solid #979797;
-        margin: 0 4px;
-        width: 1px;
-        height: 16px;
-      }
-    }
   }
   .editor {
     overflow: hidden;
     height: 100%;
+    background-color: #fff;
 
     .monaco {
       overflow: hidden;
@@ -91,10 +76,10 @@
     .Resizer.vertical {
       width: 11.5px !important;
     }
-  }
-
-  .skeleton {
-    margin: 16px;
+    .ant-page-header {
+      margin-top: -8px;
+      padding: 0px;
+    }
   }
 
   // 不同视图下的尺寸
@@ -110,28 +95,37 @@
       height: calc(100% - 40px);
     }
   }
+
   .tablet {
     width: 436px;
     height: 328px;
     margin: auto;
-    padding: 16px;
+
+    margin-top: 8px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1),
       0px 0px 14px rgba(238, 238, 238, 0.5);
     border-radius: 4px;
+    > * {
+      height: 328px;
+      padding: 16px;
+    }
   }
   .mobile {
     width: 220px;
     height: 328px;
     margin: auto;
-    padding: 16px;
+
+    margin-top: 8px;
     box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1),
       0px 0px 14px rgba(238, 238, 238, 0.5);
     border-radius: 4px;
+    > * {
+      height: 328px;
+      padding: 16px;
+    }
   }
 }
 
-@media (max-width: 768px) {
-  .playground {
-    height: 720px;
-  }
+.skeleton {
+  padding: 16px;
 }
