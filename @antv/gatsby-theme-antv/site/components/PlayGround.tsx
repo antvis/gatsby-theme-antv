@@ -436,7 +436,7 @@ insertCss(`,
         <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
       )}
 
-      {relativePath && layout === 'viewTwoRows' ? (
+      {relativePath && layout !== 'viewTwoRows' ? (
         <APIDoc
           markdownRemark={markdownRemark}
           githubUrl={githubUrl}

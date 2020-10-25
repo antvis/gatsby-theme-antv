@@ -72,6 +72,11 @@ const getDocument = (docs: any[], slug = '', level: number) => {
 };
 
 const getAnchorLinks = (tableOfContents: string) => {
+  // https://github.com/gatsbyjs/gatsby/issues/19487
+  // Deploying to netlify : error "document" is not available during server side rendering
+  if (typeof window === 'undefined' || !window.document) {
+    return [];
+  }
   const temp = document.createElement('div');
   temp.innerHTML = tableOfContents;
   const nodes = temp.childNodes;
