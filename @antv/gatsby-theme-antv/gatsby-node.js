@@ -243,7 +243,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
     const isDocsPage =
       slug.startsWith(`/zh/docs`) || slug.startsWith(`/en/docs`);
 
-    if (isGalleryPage) {
+    if (isGalleryPage || isExamplePage) {
       // 找到所有的演示
       context.allDemos = allDemos.map((demo) => {
         const postsOfDemo = posts.filter((post) => {
@@ -279,6 +279,9 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         });
         return { ...demo, postFrontmatter };
       });
+    }
+
+    if (isGalleryPage) {
       context.description = node.html;
     } else if (isExamplePage) {
       let exampleRootSlug = slug;

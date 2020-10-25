@@ -13,7 +13,7 @@
   .trigger {
     font-size: 16px;
     line-height: 64px;
-    padding: 6px 8px;
+    padding: 18px 8px;
     color: #6c7f90;
     cursor: pointer;
     transition: color 0.3s;
@@ -30,6 +30,17 @@
 }
 :global(.ant-layout-has-sider) {
   height: 100%;
+}
+:global(.ant-breadcrumb + .ant-page-header-heading) {
+  margin-top: -8px;
+}
+
+.breadDrop {
+  display: inherit;
+  cursor: pointer;
+  &:hover {
+    color: @primary-color;
+  }
 }
 
 .playground {

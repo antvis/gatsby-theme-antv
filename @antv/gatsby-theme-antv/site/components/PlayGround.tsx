@@ -1,6 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
 import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 import classNames from 'classnames';
 import {
   Skeleton,
@@ -14,6 +14,7 @@ import {
 } from 'antd';
 import { useMedia } from 'react-use';
 import debounce from 'lodash/debounce';
+import { filter } from 'lodash-es';
 import { MenuFoldOutlined, DownOutlined } from '@ant-design/icons';
 import {
   useTranslation,
@@ -32,13 +33,15 @@ import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
 
 const { Content, Sider } = Layout;
+const { SubMenu } = Menu;
 
 interface PlayGroundProps {
   exampleSections: any;
   location: Location;
   description: string;
   markdownRemark: any;
-  categories: any;
+  categories: string[];
+  allDemos: any;
 }
 
 const MonacoEditor = lazy(() => import('react-monaco-editor'));
@@ -71,6 +74,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   location,
   markdownRemark,
   description,
+  allDemos,
   categories,
 }) => {
   const { site } = useStaticQuery(
@@ -122,6 +126,7 @@ insertCss(`,
   const [collapsed, updateCollapsed] = useState<boolean>(false);
   const [showAPISearch, updateShowAPIsearch] = useState<boolean>(true);
   const [compiledCode, updateCompiledCode] = useState<string>('');
+  const [currentCategory, updateCurrentCategory] = useState<string>('');
   const [relativePath, updateRelativePath] = useState<string | undefined>('');
   const [fileExtension, updateFileExtension] = useState<string | undefined>('');
   const [title, updateTitle] = useState<string | undefined>('');
@@ -159,10 +164,18 @@ insertCss(`,
   }, [examples]);
 
   useEffect(() => {
-    if (!currentExample) return;
+    if (!currentExample || !allDemos) return;
+
     updateView('desktop');
     updateCurrentExampleParams(currentExample);
-  }, [currentExample]);
+    filter(allDemos, (item: any, key: string) => {
+      const cur = item.find(
+        (val: any) => val?.relativePath === currentExample.relativePath,
+      );
+      if (cur) updateCurrentCategory(key);
+      return item;
+    });
+  }, [currentExample, allDemos]);
 
   const executeCode = () => {
     if (!compiledCode || !playgroundNode || !playgroundNode.current) {
@@ -311,7 +324,6 @@ insertCss(`,
     } else if (localLayout) {
       updateLayout(localLayout);
     }
-    console.log(categories);
   }, [isWide]);
 
   useEffect(() => {
@@ -324,7 +336,7 @@ insertCss(`,
     } else {
       pane[1].setAttribute('style', 'margin-top: 0');
     }
-  }, [layout]);
+  }, [layout, collapsed]);
 
   // 根据pane框度及当前视图判断是否需要展示API文档搜索框
   const calcShowSearch = (size: number) => {
@@ -336,21 +348,61 @@ insertCss(`,
     }
   };
 
-  // const menu = (
-  //   <Menu>
-  //     {categories.map((category: string, i: number) => (
-  //       <Menu.Item key={i}>
-  //         <a
-  //           target="_blank"
-  //           rel="noopener noreferrer"
-  //           href={`/${i18n.language}/examples?`}
-  //         >
-  //           {category !== 'OTHER' && { category }}
-  //         </a>
-  //       </Menu.Item>
-  //     ))}
-  //   </Menu>
-  // );
+  const menu = (
+    <Menu>
+      {categories.map((category: string, i: number) => (
+        <SubMenu key={`${category}${i}`} title={category}>
+          {allDemos[category].map((item: any, key: number) => {
+            const demoSlug = item.relativePath.replace(
+              /\/demo\/(.*)\..*/,
+              (_: string, filename: string) => {
+                return `#${filename}`;
+              },
+            );
+            return (
+              <Menu.Item key={`${item?.title}${key}`}>
+                <Link to={`/${i18n.language}/examples/${demoSlug}`}>
+                  {typeof item.title === 'object'
+                    ? item.title[i18n.language]
+                    : item.title || item?.filename}
+                </Link>
+              </Menu.Item>
+            );
+          })}
+        </SubMenu>
+      ))}
+    </Menu>
+  );
+
+  const routes = [
+    {
+      path: `/${i18n.language}/examples`,
+      breadcrumbName: i18n.language === 'zh' ? '图表演示' : 'Gallery',
+    },
+    {
+      path: '/category',
+      breadcrumbName: 'Second-level Menu',
+      children: [],
+    },
+  ];
+
+  function itemRender(route: any) {
+    if (route.children) {
+      return (
+        <Dropdown overlay={menu} className={styles.breadDrop}>
+          <div>
+            {currentCategory} <DownOutlined />
+          </div>
+        </Dropdown>
+      );
+    }
+
+    return (
+      <Link key={route.path} to={route.path}>
+        {route.breadcrumbName}
+      </Link>
+    );
+  }
 
   return (
     <SplitPane
@@ -399,16 +451,12 @@ insertCss(`,
                 >
                   <PageHeader
                     ghost={false}
+                    breadcrumb={{ routes, itemRender }}
                     title={
                       typeof currentExample.title === 'object'
                         ? currentExample.title[i18n.language]
                         : currentExample.title
                     }
-                    // subTitle={
-                    //   <Dropdown overlay={menu}>
-                    //     <DownOutlined />
-                    //   </Dropdown>
-                    // }
                     extra={
                       <Space split={<Divider type="vertical" />}>
                         {showChartResize && layout === 'viewDefault' && (

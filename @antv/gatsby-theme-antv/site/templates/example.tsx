@@ -173,7 +173,30 @@ export default function Template({
   );
 
   const { exampleSections = {}, allDemos = [], description = '' } = pageContext;
+
   const [prev, next] = usePrevAndNext();
+
+  const allDemosInCategory = groupBy(allDemos || [], (demo) => {
+    if (!demo.postFrontmatter || !demo.postFrontmatter[i18n.language]) {
+      return 'OTHER';
+    }
+    return demo.postFrontmatter[i18n.language].title;
+  });
+
+  const Categories = Object.keys(allDemosInCategory).sort(
+    (a: string, b: string) => {
+      if (a === 'OTHER') {
+        return -1;
+      }
+      if (b === 'OTHER') {
+        return 1;
+      }
+      return (
+        allDemosInCategory[a][0].postFrontmatter[i18n.language].order -
+        allDemosInCategory[b][0].postFrontmatter[i18n.language].order
+      );
+    },
+  );
 
   const menu = (
     <Anchor className={styles.galleryAnchor}>
@@ -252,27 +275,6 @@ export default function Template({
       )}
     </Affix>
   );
-  const allDemosInCategory = groupBy(allDemos || [], (demo) => {
-    if (!demo.postFrontmatter || !demo.postFrontmatter[i18n.language]) {
-      return 'OTHER';
-    }
-    return demo.postFrontmatter[i18n.language].title;
-  });
-
-  const Categories = Object.keys(allDemosInCategory).sort(
-    (a: string, b: string) => {
-      if (a === 'OTHER') {
-        return -1;
-      }
-      if (b === 'OTHER') {
-        return 1;
-      }
-      return (
-        allDemosInCategory[a][0].postFrontmatter[i18n.language].order -
-        allDemosInCategory[b][0].postFrontmatter[i18n.language].order
-      );
-    },
-  );
 
   const galleryPageContent = (
     <div className={styles.gallery}>
@@ -316,8 +318,6 @@ export default function Template({
                     >
                       <Link
                         className={styles.galleryCardLink}
-                        rel="noreferrer"
-                        target="_blank"
                         to={`/${i18n.language}/examples/${demoSlug}`}
                       >
                         <img
@@ -343,6 +343,7 @@ export default function Template({
     <div className={styles.exampleContent}>
       {exampleSections.examples && exampleSections.examples.length > 0 && (
         <PlayGround
+          allDemos={allDemosInCategory}
           categories={Categories}
           exampleSections={exampleSections}
           location={location}
