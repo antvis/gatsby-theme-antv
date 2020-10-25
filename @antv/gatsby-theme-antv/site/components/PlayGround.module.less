@@ -1,5 +1,5 @@
 @import '~antd/es/style/themes/default.less';
-@editor-height: calc(100vh - 72px);
+@editor-height: calc(100vh - 64px);
 
 .playgroundCard {
   background-color: #fff;
@@ -47,7 +47,7 @@
   margin: 0;
   padding: 0;
   background: #fff;
-  height: @editor-height;
+  height: @editor-height !important;
   overflow: hidden;
   position: relative;
 
@@ -86,6 +86,7 @@
 
     .Resizer.vertical {
       width: 11.5px !important;
+      height: @editor-height;
     }
     .ant-page-header {
       margin-top: -8px;

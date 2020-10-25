@@ -39,77 +39,9 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
 }) => {
   const { i18n } = useTranslation();
 
-  // 滚动到当前节点
-  useEffect(() => {
-    if (!currentExample || !currentExample?.filename) {
-      return;
-    }
-    const id = `example-${currentExample?.filename?.split('.')[0]}`;
-    const cardNode = document.getElementById(id);
-    if (cardNode) {
-      // cardNode.scrollIntoView({
-      //   behavior: 'smooth',
-      //   block: 'nearest',
-      // });
-    }
-  }, [currentExample]);
-
-  const [hasVerticalScrollbar, updateVerticalScrollbar] = useState(false);
-  const [scrollPostion, updateScrollPostion] = useState('');
-  const playgroundScrollDiv = useRef<HTMLDivElement>(null);
-
-  const calcScrollPostion = (node: HTMLElement) => {
-    if (node.scrollTop < 2) {
-      updateScrollPostion('top');
-    } else if (node.scrollLeft + node.clientHeight >= node.scrollHeight - 2) {
-      updateScrollPostion('down');
-    } else {
-      updateScrollPostion('middle');
-    }
-  };
-
-  const onScroll = (e: any) => {
-    if (!e || !e.target) {
-      return;
-    }
-    calcScrollPostion(e.target);
-  };
-
-  const onResize = useCallback(() => {
-    if (playgroundScrollDiv && playgroundScrollDiv.current) {
-      const div = playgroundScrollDiv!.current!;
-      updateVerticalScrollbar(div.scrollHeight > div.clientHeight);
-      calcScrollPostion(div);
-    }
-  }, [playgroundScrollDiv]);
-
-  useEffect(() => {
-    onResize();
-  }, [examples]);
-
-  useEffect(() => {
-    window.addEventListener('resize', onResize);
-    return () => {
-      window.removeEventListener('resize', onResize);
-    };
-  }, []);
-
   return (
-    <div
-      className={classNames(styles.shadowWrapper, {
-        [styles.topInnerShadow]:
-          (scrollPostion === 'top' || scrollPostion === 'middle') &&
-          hasVerticalScrollbar,
-        [styles.bottomInnerShadow]:
-          (scrollPostion === 'bottom' || scrollPostion === 'middle') &&
-          hasVerticalScrollbar,
-      })}
-    >
-      <div
-        className={styles.cards}
-        ref={playgroundScrollDiv}
-        onScroll={onScroll}
-      >
+    <div className={classNames(styles.shadowWrapper)}>
+      <div className={styles.cards}>
         {examples.map((example) => {
           const title =
             typeof example.title === 'object'

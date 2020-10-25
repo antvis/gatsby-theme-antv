@@ -358,13 +358,8 @@ export default function Template({
   useEffect(() => {
     if (pathWithoutTrailingSlashes.endsWith('/examples/gallery')) {
       gallery = true;
-      // document.getElementsByTagName('body')[0].style.overflow = 'auto';
     } else {
       gallery = false;
-      const body = document.getElementsByTagName('body')[0];
-      body.scrollIntoView();
-      // demo页面禁止滚动
-      body.style.overflow = 'hidden';
     }
 
     return () => {

@@ -315,9 +315,9 @@ insertCss(`,
   };
 
   const isWide = useMedia('(min-width: 767.99px)', true);
-  const localLayout = localStorage.getItem('layout');
 
   useEffect(() => {
+    const localLayout = localStorage.getItem('layout');
     if (!isWide) {
       updateLayout('viewTwoRows');
       updateCollapsed(true);
@@ -337,6 +337,22 @@ insertCss(`,
       pane[1].setAttribute('style', 'margin-top: 0');
     }
   }, [layout, collapsed]);
+
+  // 图例滚动到当前节点
+  useEffect(() => {
+    if (!currentExample || !currentExample?.filename || !layout) {
+      return;
+    }
+    const id = `example-${currentExample?.filename?.split('.')[0]}`;
+    const cardNode = document.getElementById(id);
+
+    if (cardNode) {
+      cardNode.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+      });
+    }
+  }, [currentExample, layout, playground, editorValue]);
 
   // 根据pane框度及当前视图判断是否需要展示API文档搜索框
   const calcShowSearch = (size: number) => {
@@ -429,6 +445,7 @@ insertCss(`,
               theme="light"
             >
               <PlayGrounds
+                layout={layout}
                 examples={examples}
                 currentExample={currentExample}
                 updateCurrentExample={updateCurrentExample}
