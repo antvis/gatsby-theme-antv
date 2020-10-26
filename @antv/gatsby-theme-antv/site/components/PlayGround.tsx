@@ -445,7 +445,6 @@ insertCss(`,
               theme="light"
             >
               <PlayGrounds
-                layout={layout}
                 examples={examples}
                 currentExample={currentExample}
                 updateCurrentExample={updateCurrentExample}
