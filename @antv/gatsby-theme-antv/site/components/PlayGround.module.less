@@ -1,5 +1,6 @@
 @import '~antd/es/style/themes/default.less';
 @editor-height: calc(100vh - 64px);
+@playground-height: calc(100% - 64px);
 
 .playgroundCard {
   background-color: #fff;
@@ -44,7 +45,8 @@
 }
 
 :global(.ant-layout-sider-children) {
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 :global(.ant-layout-has-sider) {
   height: 100%;
@@ -99,7 +101,7 @@
   :global {
     .Pane1,
     .Pane2 {
-      max-height: calc(100vh - 64px);
+      max-height: @editor-height;
     }
 
     .Resizer.vertical {
@@ -109,11 +111,14 @@
     .ant-page-header {
       padding: 0px;
     }
+    .ant-breadcrumb {
+      font-size: 12px;
+    }
   }
 
   // 不同视图下的尺寸
   .desktop {
-    height: calc(100% - 40px);
+    height: @playground-height;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -121,7 +126,7 @@
 
     > * {
       width: 100%;
-      height: calc(100% - 40px);
+      height: @playground-height;
     }
   }
 

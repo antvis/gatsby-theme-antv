@@ -18,9 +18,14 @@
       display: inline-block;
       line-height: 1;
       cursor: pointer;
+      color: #697b8c;
       transition: all 0.3s;
       position: relative;
       height: 23px;
+
+      &:hover {
+        color: @primary-color;
+      }
 
       a {
         color: #697b8c;
@@ -59,7 +64,7 @@
         background-color: @primary-color;
       }
       &.active {
-        color: @primary-color;
+        color: @primary-color !important;
         margin-right: 24px;
       }
       &.active a {
