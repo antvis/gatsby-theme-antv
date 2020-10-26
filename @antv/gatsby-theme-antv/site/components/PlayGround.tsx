@@ -15,7 +15,7 @@ import {
 import { useMedia } from 'react-use';
 import debounce from 'lodash/debounce';
 import { filter } from 'lodash-es';
-import { MenuFoldOutlined, DownOutlined } from '@ant-design/icons';
+import { LeftOutlined, DownOutlined } from '@ant-design/icons';
 import {
   useTranslation,
   withTranslation,
@@ -451,7 +451,7 @@ insertCss(`,
               />
             </Sider>
 
-            <MenuFoldOutlined
+            <LeftOutlined
               className={styles.trigger}
               type={collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={toggle}
