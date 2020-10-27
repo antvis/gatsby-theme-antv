@@ -121,7 +121,7 @@ const Tabs: React.FC<{
               justifyContent: 'space-between',
             }}
           >
-            {item[0]}
+            <span className={styles.result}>{item[0]}</span>
             <span className={styles.resultNum}>{item[1].length}</span>
           </div>
         ),

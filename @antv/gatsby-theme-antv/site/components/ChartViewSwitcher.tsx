@@ -27,21 +27,21 @@ const ChartViewSwitcher: React.FC<Prop> = ({ updateView, view }) => {
       buttonStyle="solid"
       onChange={onChange}
     >
-      <Radio.Button value="desktop">
-        <Tooltip title={t('切换至电脑视图')}>
+      <Tooltip title={t('切换至电脑视图')}>
+        <Radio.Button value="desktop">
           <DesktopOutlined />
-        </Tooltip>
-      </Radio.Button>
-      <Radio.Button value="tablet">
-        <Tooltip title={t('切换至平板视图')}>
+        </Radio.Button>
+      </Tooltip>
+      <Tooltip title={t('切换至平板视图')}>
+        <Radio.Button value="tablet">
           <TabletOutlined />
-        </Tooltip>
-      </Radio.Button>
-      <Radio.Button value="mobile">
-        <Tooltip title={t('切换至移动端视图')}>
+        </Radio.Button>
+      </Tooltip>
+      <Tooltip title={t('切换至移动端视图')}>
+        <Radio.Button value="mobile">
           <MobileOutlined />
-        </Tooltip>
-      </Radio.Button>
+        </Radio.Button>
+      </Tooltip>
     </Radio.Group>
   );
 };
