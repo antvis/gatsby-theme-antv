@@ -295,6 +295,8 @@ Insert demos to markdown document as code playground.
 
 将 demo 以代码预览效果插入到 markdown 文档中。
 
+![](https://gw.alipayobjects.com/mdn/rms_d3dd43/afts/img/A*aXkmTKkZ404AAAAAAAAAAAAAARQnAQ)
+
 ```md
 <playground path='category/basic/demo/ts-demo.ts' rid='container'></playground>
 ```
