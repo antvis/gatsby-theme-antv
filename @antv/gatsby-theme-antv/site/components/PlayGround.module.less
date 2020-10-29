@@ -1,31 +1,106 @@
 @import '~antd/es/style/themes/default.less';
-@editor-height: 580px;
+@editor-height: calc(100vh - 64px);
+@playground-height: calc(100% - 64px);
+
+.playgroundCard {
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+
+  .menuSider {
+    background-color: #f8f9fc;
+    border-right: 1px solid #ececec;
+
+    :global {
+      .ant-layout-sider-children {
+        overflow-y: hidden;
+        overflow-x: hidden;
+
+        &:hover {
+          overflow-y: auto;
+        }
+      }
+    }
+  }
+
+  .trigger {
+    font-size: 12px;
+    position: relative;
+    margin: auto;
+    color: #6c7f90;
+    left: -1px;
+    z-index: 4;
+    width: 22px;
+    cursor: pointer;
+    transition: color 0.3s;
+    border-left: 1px #f2f2f2 solid;
+    height: 66px;
+    background-color: #f8f9fc;
+    border: 1px solid #ececec;
+    box-sizing: border-box;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    border-left: none;
+    text-align: center;
+
+    svg {
+      position: absolute;
+      left: 3px;
+      top: 25px;
+    }
+  }
+
+  .trigger:hover {
+    color: @primary-color;
+  }
+}
+
+:global(.ant-layout-has-sider) {
+  height: 100%;
+}
+
+:global(.ant-breadcrumb + .ant-page-header-heading) {
+  margin-top: -8px;
+}
+
+.breadDrop {
+  display: inherit;
+  cursor: pointer;
+
+  &:hover {
+    color: @primary-color;
+  }
+}
 
 .playground {
   margin: 0;
   padding: 0;
-  border: 1px solid @border-color-split;
-  border-radius: 4px;
   background: #fff;
-  height: @editor-height;
+  height: @editor-height !important;
   overflow: hidden;
   position: relative;
 
-  .preview,
   .editor {
     height: 100%;
   }
 
   .preview {
-    padding: 24px 16px;
+    padding: 16px;
     overflow: auto;
     height: 100%;
     width: 100%;
+
+    .title {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 23px;
+    }
   }
 
   .editor {
     overflow: hidden;
     height: 100%;
+    background-color: #fff;
 
     .monaco {
       overflow: hidden;
@@ -33,21 +108,29 @@
     }
   }
 
-  // 非常关键
-  // 参考：https://codesandbox.io/s/mow7x4zyqx
   :global {
     .Pane1,
     .Pane2 {
-      overflow: auto;
+      max-height: @editor-height;
     }
 
     .Resizer.vertical {
       width: 11.5px !important;
+      height: @editor-height;
+    }
+
+    .ant-page-header {
+      padding: 0px;
+    }
+
+    .ant-breadcrumb {
+      font-size: 12px;
     }
   }
 
-  .exampleContainerWrapper {
-    height: 100%;
+  // 不同视图下的尺寸
+  .desktop {
+    height: @playground-height;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -55,13 +138,43 @@
 
     > * {
       width: 100%;
-      height: 100%;
+      height: @playground-height;
+    }
+  }
+
+  .tablet {
+    width: 436px;
+    height: 328px;
+    margin: auto;
+
+    margin-top: 8px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1),
+      0px 0px 14px rgba(238, 238, 238, 0.5);
+    border-radius: 4px;
+
+    > * {
+      height: 328px;
+      padding: 16px;
+    }
+  }
+
+  .mobile {
+    width: 220px;
+    height: 328px;
+    margin: auto;
+
+    margin-top: 8px;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1),
+      0px 0px 14px rgba(238, 238, 238, 0.5);
+    border-radius: 4px;
+
+    > * {
+      height: 328px;
+      padding: 16px;
     }
   }
 }
 
-@media (max-width: 768px) {
-  .playground {
-    height: 720px;
-  }
+.skeleton {
+  padding: 16px;
 }

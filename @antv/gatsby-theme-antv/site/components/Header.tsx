@@ -5,7 +5,7 @@ import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { CheckOutlined, GithubOutlined, MenuOutlined } from '@ant-design/icons';
-import { Popover, Button, Menu, Select, Dropdown, message } from 'antd';
+import { Popover, Button, Menu, Select, Dropdown, message, Modal } from 'antd';
 import GitUrlParse from 'git-url-parse';
 import Search, { SearchProps } from './Search';
 import Products from './Products';
@@ -202,8 +202,7 @@ const Header: React.FC<HeaderProps> = ({
         lang !== 'zh' ||
         window.location.host.includes('chartcube') ||
         window.location.host.includes('gitee.io') ||
-        localStorage.getItem('china-mirror-no-more-hint') ||
-        !isWide
+        localStorage.getItem('china-mirror-no-more-hint')
       ) {
         return;
       }
@@ -222,7 +221,7 @@ const Header: React.FC<HeaderProps> = ({
       })}
     >
       {navs && navs.length ? <NavMenuItems navs={navs} path={path} /> : null}
-      {showChinaMirror ? (
+      {showChinaMirror && isWide ? (
         <Popover
           title={null}
           content={
@@ -230,7 +229,7 @@ const Header: React.FC<HeaderProps> = ({
               <div>
                 <span role="img" aria-labelledby="中国">
                   🇨🇳
-                </span>{' '}
+                </span>
                 AntV 系列网站部署在 gh-pages
                 上，若访问速度不佳，可以前往国内镜像站点。
               </div>
@@ -278,6 +277,47 @@ const Header: React.FC<HeaderProps> = ({
           </li>
         </Popover>
       ) : null}
+
+      {showChinaMirror && !isWide && !logoLink.includes('gitee') && (
+        <Modal
+          visible={chinaMirrorHintVisible}
+          cancelText="不再提醒"
+          okText="立即前往"
+          onCancel={() => {
+            updateChinaMirrorHintVisible(false);
+          }}
+          onOk={() => redirectToChinaMirror(githubUrl)}
+          cancelButtonProps={{
+            onClick: () => {
+              localStorage.setItem(
+                'china-mirror-no-more-hint',
+                Date.now().toString(),
+              );
+              updateChinaMirrorHintVisible(false);
+            },
+          }}
+        >
+          <div className={styles.modalContent}>
+            <span role="img" aria-labelledby="中国">
+              🇨🇳
+            </span>
+            AntV 系列网站部署在 gh-pages 上，若访问速度不佳，可以前往
+            <a
+              href={chinaMirrorUrl}
+              onClick={(e) => {
+                e.preventDefault();
+                redirectToChinaMirror(githubUrl);
+              }}
+              className={styles.remindHref}
+            >
+              {t('国内镜像')}
+              <ExternalLinkIcon />
+            </a>
+            <span> 站点。</span>
+          </div>
+        </Modal>
+      )}
+
       {showAntVProductsCard ? (
         <li {...productItemProps}>
           <a>
@@ -372,7 +412,12 @@ const Header: React.FC<HeaderProps> = ({
             }
             className={styles.translation}
           >
-            <TranslationIcon />
+            <a
+              className="ant-dropdown-link"
+              onClick={(e) => e.preventDefault()}
+            >
+              <TranslationIcon className={styles.translation} />
+            </a>
           </Dropdown>
         </li>
       )}

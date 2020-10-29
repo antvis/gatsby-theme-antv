@@ -1,0 +1,136 @@
+.require {
+  font-style: italic;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: rgba(0, 0, 0, 0.85);
+  opacity: 0.35;
+}
+
+.default {
+  margin-left: 12px;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 14px;
+  color: #939393;
+}
+
+.type {
+  margin-left: 12px;
+  font-size: 10px;
+  line-height: 12px;
+  color: #939393;
+  display: inline-block;
+  background-color: #e7e7e7;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.rootCollapse {
+  background: rgba(0, 0, 0, 0.04) !important;
+  border: none !important;
+
+  .hidden {
+    display: none;
+  }
+
+  .rootItem {
+    display: block;
+    border-bottom: none !important;
+    border-top: 1px solid #d9d9d94f;
+
+    :global {
+      .ant-collapse-header {
+        padding-left: 32px;
+        .ant-collapse-arrow {
+          font-size: 9px;
+          color: #8b99a7;
+        }
+      }
+
+      .ant-collapse-content {
+        border: none;
+        padding-bottom: 8px;
+
+        .ant-collapse-content-box {
+          padding: 0px 16px;
+
+          .ant-collapse {
+            background-color: #fff;
+
+            .ant-collapse-item {
+              border-bottom: 1px solid #d9d9d96e;
+            }
+
+            &:last-child {
+              .ant-collapse-item {
+                border-bottom: none;
+              }
+            }
+          }
+
+          ul {
+            margin-left: 24px;
+          }
+        }
+      }
+
+      mark {
+        background-color: #d6bffbb3;
+        padding: 0 3px;
+        border-radius: 3px;
+      }
+    }
+  }
+}
+
+.docContent {
+  overflow: auto;
+  height: calc(100vh - 112px);
+  background-color: #fff;
+  description {
+    display: none;
+  }
+}
+
+.designContent {
+  padding: 8px 26px;
+}
+
+.editOnGtiHubButton {
+  margin-left: 0.5em;
+  font-size: 16px;
+  color: #999;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
+
+tag {
+  display: inline-block;
+  box-sizing: border-box;
+  color: #0d1a26;
+  font-size: 14px;
+  margin-right: 8px;
+  padding: 0 7px;
+  font-size: 12px;
+  line-height: 20px;
+  background: #fafafa;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  cursor: default;
+
+  &[color='green'] {
+    color: #52c41a;
+    background: #f6ffed;
+    border-color: #b7eb8f;
+  }
+}
+
+description {
+  display: none;
+}
+.skeleton {
+  padding: 16px;
+}

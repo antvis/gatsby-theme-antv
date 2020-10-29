@@ -1,0 +1,35 @@
+@import '~antd/es/style/themes/default.less';
+
+.btn {
+  :global(.ant-btn-icon-only) {
+    width: 30px;
+    height: 30px;
+    color: #6b7f90;
+  }
+}
+
+.switch {
+  width: 25px;
+}
+.dropGroup {
+  width: 45px;
+  height: 40px;
+  padding: 5px 3px;
+  box-sizing: border-box;
+  border-radius: 3px 2px;
+  color: @primary-color;
+
+  &:hover {
+    background: #f1eaff;
+    transition: all 0.3s;
+  }
+
+  .drop {
+    font-size: 12px;
+  }
+}
+
+:global(.ant-dropdown-menu-item) {
+  color: #6b7f90;
+  font-size: 16px;
+}

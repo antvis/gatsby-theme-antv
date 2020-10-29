@@ -1,5 +1,5 @@
 ---
-title: 图表演示
+title: G2-API-Demo
 order: 0
 icon: column
 ---

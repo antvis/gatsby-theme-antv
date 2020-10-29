@@ -1,10 +1,9 @@
 import React from 'react';
-import { LoadingOutlined } from '@ant-design/icons';
-import styles from './PageLoading.module.less';
+import CodeLoading from './CodeLoading';
 
 const PageLoading: React.FC = () => (
-  <div className={styles.container}>
-    <LoadingOutlined className={styles.loading} />
+  <div style={{ height: '100vh' }}>
+    <CodeLoading />
   </div>
 );
 

@@ -4,8 +4,18 @@ import {
   EditOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  VerticalAlignTopOutlined,
+  CaretDownOutlined,
+  CaretRightOutlined,
 } from '@ant-design/icons';
-import { Layout as AntLayout, Menu, Tooltip, Affix } from 'antd';
+import {
+  Layout as AntLayout,
+  Menu,
+  Tooltip,
+  Affix,
+  Anchor,
+  BackTop,
+} from 'antd';
 import { groupBy } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
@@ -21,6 +31,20 @@ import MdPlayground from '../components/MdPlayground';
 import { usePrevAndNext } from '../hooks';
 import { capitalize } from '../utils';
 import styles from './markdown.module.less';
+
+const { Link: AnchorLink } = Anchor;
+
+enum AnchorLinkStatus {
+  NONE = 'none',
+  EXPAND = 'expand',
+  FLOD = 'flod',
+}
+interface AnchorLinkAttr {
+  href: string;
+  title: string;
+  children: any;
+  status: AnchorLinkStatus;
+}
 
 const shouldBeShown = (slug: string, path: string, lang: string) => {
   if (!slug.startsWith(`/${lang}/`)) {
@@ -47,9 +71,49 @@ const getDocument = (docs: any[], slug = '', level: number) => {
   return docs.find((doc) => doc.slug === slug);
 };
 
-// https://github.com/antvis/gatsby-theme-antv/issues/114
-const parseTableOfContents = (tableOfContents: string) => {
-  return tableOfContents.replace(/\/#/g, '#');
+const getAnchorLinks = (tableOfContents: string) => {
+  // https://github.com/gatsbyjs/gatsby/issues/19487
+  // Deploying to netlify : error "document" is not available during server side rendering
+  if (typeof window === 'undefined' || !window.document) {
+    return [];
+  }
+  const temp = document.createElement('div');
+  temp.innerHTML = tableOfContents;
+  const nodes = temp.childNodes;
+
+  const parseUl = (node: HTMLElement) => {
+    if (!node) {
+      return [];
+    }
+    const items = node.childNodes;
+    const result = [];
+
+    for (let i = 0, len = items.length; i < len; i += 1) {
+      const item = items[i] as HTMLElement;
+      if (item.tagName === 'LI') {
+        const link: any = {};
+        const childs = item.childNodes as NodeListOf<HTMLElement>;
+        childs.forEach((child: HTMLElement) => {
+          if (child.tagName === 'A') {
+            link.href = (child as HTMLAnchorElement).hash;
+            link.title = child.innerText;
+          } else if (child.tagName === 'P') {
+            link.href = (child.childNodes[0] as HTMLAnchorElement).hash;
+            link.title = (child.childNodes[0] as HTMLElement).innerText;
+          } else if (child.tagName === 'UL') {
+            link.children = parseUl(child);
+          }
+        });
+        link.status = link.children
+          ? AnchorLinkStatus.EXPAND
+          : AnchorLinkStatus.NONE;
+        result.push(link);
+      }
+    }
+
+    return result;
+  };
+  return parseUl(nodes[0] as HTMLElement);
 };
 
 interface MenuData {
@@ -262,7 +326,9 @@ export default function Template({
     </Affix>
   );
 
-  const Playground = (props: any) => MdPlayground({ examples, ...props });
+  const Playground = (props: any) => (
+    <MdPlayground examples={examples} {...props} />
+  );
 
   const renderAst = new RehypeReact({
     createElement: React.createElement,
@@ -272,6 +338,44 @@ export default function Template({
       playground: Playground,
     },
   }).Compiler;
+
+  const [anchorLinks, setAnchorLinks] = useState(() =>
+    getAnchorLinks(tableOfContents),
+  );
+
+  const changeAnchorLinkStatus = (link: AnchorLinkAttr) => {
+    const tLink = link;
+    const { status } = link;
+    const nextStatus =
+      status === AnchorLinkStatus.EXPAND
+        ? AnchorLinkStatus.FLOD
+        : AnchorLinkStatus.EXPAND;
+    tLink.status = nextStatus;
+    setAnchorLinks([...anchorLinks]);
+  };
+
+  const renderAnchorLinks = (links: AnchorLinkAttr[]) =>
+    links.map((link: AnchorLinkAttr) => (
+      <React.Fragment key={link.href}>
+        {link.status === AnchorLinkStatus.EXPAND && (
+          <CaretDownOutlined
+            style={{ color: '#8c8c8c' }}
+            onClick={() => changeAnchorLinkStatus(link)}
+          />
+        )}
+        {link.status === AnchorLinkStatus.FLOD && (
+          <CaretRightOutlined
+            style={{ color: '#8c8c8c' }}
+            onClick={() => changeAnchorLinkStatus(link)}
+          />
+        )}
+        <AnchorLink href={link.href} title={link.title}>
+          {link.children &&
+            link.status === AnchorLinkStatus.EXPAND &&
+            renderAnchorLinks(link.children)}
+        </AnchorLink>
+      </React.Fragment>
+    ));
 
   return (
     <>
@@ -284,13 +388,11 @@ export default function Template({
         {menuSider}
         <Article className={styles.markdown}>
           <Affix offsetTop={8}>
-            <div
-              className={styles.toc}
-              /* eslint-disable-next-line react/no-danger */
-              dangerouslySetInnerHTML={{
-                __html: parseTableOfContents(tableOfContents),
-              }}
-            />
+            <div className={styles.toc}>
+              <Anchor className={styles.apiAnchor}>
+                {renderAnchorLinks(anchorLinks)}
+              </Anchor>
+            </div>
           </Affix>
           <div className={styles.main}>
             <h1>
@@ -317,6 +419,11 @@ export default function Template({
             <div>
               <NavigatorBanner type="prev" post={prev} />
               <NavigatorBanner type="next" post={next} />
+              <BackTop style={{ right: 32 }}>
+                <div className={styles.backTop}>
+                  <VerticalAlignTopOutlined />
+                </div>
+              </BackTop>
             </div>
           </div>
         </Article>

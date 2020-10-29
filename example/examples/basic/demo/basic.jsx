@@ -15,14 +15,9 @@ const data = [
 
 const chart = new Chart({
   container: document.getElementById('container'),
-  forceFit: true,
-  width: 500,
-  height: 500,
+  autoFit: true,
 });
 
 chart.source(data);
-chart
-  .interval()
-  .position('genre*sold')
-  .color('genre');
+chart.interval().position('genre*sold').color('genre');
 chart.render();

@@ -35,5 +35,5 @@ module.exports = {
 
 Below is the embedded content
 
-`markdown:sample-markdown-file.md`
+<!-- `markdown:sample-markdown-file.md` -->
 ```

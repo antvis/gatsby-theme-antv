@@ -1,13 +1,47 @@
----
-title: API
----
+## 创建图表实例 - new Chart()
 
-API 信息。
+`markdown:docs/api/antv/chart.zh.md`
 
-- Modern browsers and Internet Explorer 9+ (with [polyfills](https://ant.design/docs/react/getting-started#Compatibility))
-- Server-side Rendering
-- [Electron](http://electron.atom.io/)
+## 数据 - Data
 
-| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Opera | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/electron/electron_48x48.png" alt="Electron" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)</br>Electron |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| IE9, IE10, IE11, Edge                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                           | last 2 versions                                                                                                                                                                                                       |
+`markdown:docs/api/antv/data.zh.md`
+
+## 度量 - Scale
+
+`markdown:docs/api/antv/scale.zh.md`
+
+## 坐标系及其调整 - Coordinate
+
+`markdown:docs/api/antv/coordinate.zh.md`
+
+## 坐标轴 - Axis
+
+`markdown:docs/api/antv/axis.zh.md`
+
+## 几何标记 - Geometry
+
+`markdown:docs/api/antv/geometry.zh.md`
+
+## geometry 相关方法
+
+`markdown:docs/api/antv/geometry-func.zh.md`
+
+## 文本标记 - Label
+
+`markdown:docs/api/antv/label.zh.md`
+
+## 图例 - Legend
+
+`markdown:docs/api/antv/legend.zh.md`
+
+## 提示信息 Tooltip
+
+`markdown:docs/api/antv/tooltip.zh.md`
+
+## 标注 - Annotation
+
+`markdown:docs/api/antv/annotation.zh.md`
+
+## 绘图属性 ShapeAttrs
+
+`markdown:docs/api/antv/shape.zh.md`

@@ -1,7 +1,7 @@
 @import '~antd/es/style/themes/default.less';
 
 // 参考 yuque 右侧 tabOfContent 宽度
-@toc-width: 204px;
+@toc-width: 260px;
 
 .markdown {
   font-size: 14px;
@@ -30,7 +30,7 @@
   h5,
   h6 {
     clear: both;
-    margin: 1.6em 0 0.6em;
+    margin: 1.6em 0 0.3em;
     font-weight: 500;
     font-family: Avenir, @font-family, sans-serif;
   }
@@ -60,12 +60,36 @@
   }
 
   p,
+  li,
+  table,
+  ul li {
+    color: rgba(0, 0, 0, 0.68);
+  }
+
+  p,
   pre {
-    margin: 1em 0;
+    margin: 0.6em 0;
   }
 
   pre > code[class*='language-'] {
     line-height: 1.8;
+  }
+
+  pre[class*='language-'] {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  code[class*='language-'] {
+    background: none;
+  }
+
+  code.language-sign,
+  pre.language-sign {
+    background: #e6f7ff;
+  }
+
+  pre.language-sign {
+    border: 1px solid #91d5ff;
   }
 
   ul,
@@ -75,7 +99,7 @@
   }
 
   ul:not(:global(.ant-skeleton-paragraph)) > li {
-    margin-left: 20px;
+    // margin-left: 20px;
     padding-left: 4px;
     list-style-type: circle;
 
@@ -121,9 +145,20 @@
 
   table th,
   table td {
-    padding: 12px 16px;
+    padding: 6px 12px;
     text-align: left;
     border: 1px solid @border-color-split;
+  }
+
+  table img {
+    max-height: 100px;
+  }
+
+  table td:first-child {
+    width: 20%;
+    font-weight: 500;
+    background: #fcfcfc;
+    color: rgba(0, 0, 0, 0.85);
   }
 
   blockquote {
@@ -145,16 +180,7 @@
 }
 
 .layout {
-  margin: 24px 0 32px 0;
-}
-
-.editOnGtiHubButton {
-  margin-left: 0.5em;
-  font-size: 16px;
-  color: #999;
-  vertical-align: middle;
-  position: relative;
-  top: -2px;
+  margin: 24px 0 32px;
 }
 
 .main {
@@ -198,7 +224,7 @@
   float: right;
   font-size: 12px;
   background: #fff;
-  max-height: calc(100vh - 8px);
+  max-height: 100vh;
   overflow: auto;
 
   ul > li {
@@ -223,9 +249,12 @@
 
   // menu 滚动
   :global {
-    .ant-layout-sider-children {
-      overflow-x: hidden;
+    .ant-layout-sider-children:hover {
       overflow-y: auto;
+    }
+
+    .ant-layout-sider-children {
+      overflow: hidden;
       border-right: 1px solid #f0f0f0;
     }
 
@@ -283,6 +312,7 @@
   flex-direction: row-reverse;
 
   .galleryContent {
+    margin-top: -2.4em;
     flex: 1;
   }
 
@@ -321,19 +351,25 @@
       transition: all 0.3s;
       margin: 12px;
 
-      img {
+      > div {
         border: 1px solid @border-color-split;
         border-radius: 6px;
         overflow: hidden;
-        width: 100%;
         height: calc(100vw / 9 - 20px);
         min-height: 130px;
         max-height: 280px;
         object-fit: cover;
         transition: all 0.3s;
+        display: flex;
+        justify-content: center;
+
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
       }
 
-      &:hover img {
+      &:hover > div {
         transform: translateY(-4px);
         border-color: transparent;
         box-shadow: 0 6px 16px rgba(107, 147, 224, 0.14);
@@ -348,6 +384,41 @@
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+    }
+  }
+}
+
+.apiStructure {
+  padding: 0;
+}
+
+.editOnGtiHubButton {
+  margin-left: 0.5em;
+  font-size: 16px;
+  color: #999;
+  vertical-align: middle;
+  position: relative;
+  top: -2px;
+}
+
+.exampleContent {
+  margin-top: -24px;
+
+  :global {
+    .SplitPane {
+      overflow: auto;
+      left: 0px;
+      height: calc(100vh - 64px) !important;
+    }
+
+    .Pane1 .Pane2 {
+      overflow: auto;
+    }
+
+    .ant-collapse-extra {
+      margin-left: 20px;
+      display: inline-block;
+      float: none !important;
     }
   }
 }
@@ -416,4 +487,84 @@
       width: 100%;
     }
   }
+}
+
+.galleryAnchor {
+  overflow-y: hidden;
+
+  &:hover {
+    overflow-y: auto;
+  }
+
+  :global(.ant-anchor-link) {
+    line-height: 1.9;
+  }
+
+  :global(.ant-anchor-ink) {
+    display: none;
+  }
+
+  :global(.ant-anchor-link-active) {
+    background-color: #f9f0ff;
+    border-right: 2px solid #873bf4;
+  }
+
+  .parent {
+    .title {
+      padding: 12px 0 12px 16px;
+    }
+
+    :global(.ant-anchor-link) {
+      padding-left: 32px;
+    }
+  }
+}
+
+.apiAnchor {
+  overflow: hidden;
+
+  &:hover {
+    overflow-y: auto;
+  }
+
+  :global(.ant-anchor-link) {
+    padding: 6px 0 6px 24px;
+    font-size: 12px;
+  }
+
+  :global(.ant-anchor-ink-ball) {
+    width: 4px;
+    height: 24px;
+    background-color: #873bf4;
+    border: none;
+    border-radius: 0;
+    transform: translateX(-50%) translateY(-8px);
+  }
+
+  :global(.ant-anchor-ink::before) {
+    width: 0;
+  }
+
+  :global(.anticon) {
+    position: absolute;
+    padding-top: 6px;
+    padding-left: 10px;
+    font-size: 12px;
+    color: red;
+  }
+}
+
+.backTop {
+  transition: color 0.3s;
+  color: #868484;
+  background-color: #fff;
+  box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+    0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  transition: color 0.3s;
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 22px;
+  border-radius: 50%;
+  text-align: center;
 }

@@ -14,6 +14,8 @@ module.exports = {
     description: 'Ant Visualization solution home page',
     siteUrl: homepage,
     githubUrl: repository.url,
+    showChartResize: true,
+    showAPIDoc: true,
     navs: [
       {
         slug: 'docs/specification/getting-started',
@@ -23,10 +25,10 @@ module.exports = {
         },
       },
       {
-        slug: 'docs/other',
+        slug: 'docs/api',
         title: {
-          zh: '其他文档',
-          en: 'other',
+          zh: 'API 文档示例',
+          en: 'API docs',
         },
       },
       {
@@ -63,12 +65,20 @@ module.exports = {
         order: 2,
       },
       {
-        slug: 'other/category',
+        slug: 'api/antv',
         title: {
-          zh: '分类二',
-          en: 'category2',
+          zh: '测试 g2',
+          en: 'test g2',
         },
-        order: 4,
+        order: 0,
+      },
+      {
+        slug: 'api/g2plot',
+        title: {
+          zh: 'g2plot',
+          en: 'g2plot',
+        },
+        order: 1,
       },
     ],
     examples: [

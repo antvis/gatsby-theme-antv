@@ -56,7 +56,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
         </div>
       );
     }
-    const children = cases.map(app => {
+    const children = cases.map((app) => {
       const linkDiv = (
         <div
           className={styles.detailWrapper}
@@ -124,7 +124,7 @@ const Cases: React.FC<CasesProps> = ({ cases = [], style = {}, className }) => {
       <Slider
         {...sliderSettings}
         className={styles.slider}
-        ref={c => {
+        ref={(c) => {
           slider = c;
         }}
       >

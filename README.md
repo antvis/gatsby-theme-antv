@@ -1,6 +1,6 @@
 <div align="center">
 
-<img alt="screenshot" src="https://user-images.githubusercontent.com/507615/79978554-b00f1b00-84d2-11ea-8b18-8d0b2828aefb.png">
+<img width="1295" alt="图片" src="https://user-images.githubusercontent.com/507615/69481549-49b39d00-0e4d-11ea-87fd-1e7741f4bdf1.png">
 
 # Gatsby Theme for AntV ⚛
 
@@ -23,7 +23,6 @@
 - 📝 Markdown-based documentation and menus
 - 🎬 Examples with live playground
 - 🏗 Unified Theme and Layout
-- 📱 Mobile friendly
 - 🆙 Easy customized header nav
 - 🧩 Built-in home page components
 
@@ -95,17 +94,21 @@ module.exports = {
     showLanguageSwitcher: true, // 用于定义是否展示语言切换
     showAntVProductsCard: true, // 是否展示 AntV 系列产品的卡片链接
     showGithubCorner: true, // 是否展示角落的 GitHub 图标
+    showChartResize: true // 是否在demo页展示图表视图切换
+    showAPIDoc: true // 是否在demo页展示API文档
     playground: {
       container: '<canvas id="container" />', // 定义演示的渲染节点，默认 <div id="container" />
       playgroundDidMount: 'console.log("playgroundDidMount");',
       playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
     },
-    versions: {
-      '1.x': 'https://1x.ant.design',
-      '2.x': 'https://2x.ant.design',
-      '3.x': 'https://ant.design',
-      '4.x': 'https://next.ant.design',
-    },
+    versions: [
+      {
+        '1.x': 'https://1x.ant.design',
+        '2.x': 'https://2x.ant.design',
+        '3.x': 'https://ant.design',
+        '4.x': 'https://next.ant.design',
+      },
+    ],
     redirects: [
       {
         from: /\/old-url/,
@@ -216,6 +219,8 @@ const Layout = () => {
         showSearch={false}
         showGithubCorner={false}
         showLanguageSwitcher={false}
+        showChartResize={false}
+        showAPIDoc
         onLanguageChange={(language) => {
           console.log(language);
         }}
@@ -291,6 +296,8 @@ Insert demos to markdown document as code playground.
 
 将 demo 以代码预览效果插入到 markdown 文档中。
 
+![](https://gw.alipayobjects.com/mdn/rms_d3dd43/afts/img/A*aXkmTKkZ404AAAAAAAAAAAAAARQnAQ)
+
 ```md
 <playground path='category/basic/demo/ts-demo.ts' rid='container'></playground>
 ```
@@ -313,6 +320,29 @@ yarn start
 Visit https://localhost:8000 to preview.
 
 ## Publish to npm
+
+⚠️ If it is your first time for GitHub release, please read the following steps, otherwise, you can skip directly to the third step.
+
+1. Generate a [personal access token](https://github.com/settings/tokens):
+   (release-it only needs "repo" access; no "admin" or other scopes).
+
+![generate token](https://gw.alipayobjects.com/zos/antfincdn/or185CJhTK/20200814154850.jpg)
+
+Click the button 'Generate token', then your token would be generated. Copy this token as soon as you get it since you won’t be able to see it again after refreshing the web page!
+
+2. Make sure the token is available as an environment variable.
+
+Example:
+
+```bash
+export GITHUB_TOKEN="YOUR TOKEN"
+```
+
+In macOS or Linux, this can be added to e.g. ~/.profile or ~/.zshrc, so it's available everytime the shell is used.
+
+More details for the GitHub releases preperation: [GitHub Releases](https://github.com/release-it/release-it/blob/master/docs/github-releases.md)
+
+3. Run the following commands in your terminal.
 
 ```bash
 cd @antv/gatsby-theme-antv
@@ -360,7 +390,7 @@ exports.wrapPageElement = ({ element, props }) => {
 
 ### How to embed other markdown document in a markdown document
 
-```
+```markdown
 `markdown:docs/common/data-mapping.zh.md`
 ```
 

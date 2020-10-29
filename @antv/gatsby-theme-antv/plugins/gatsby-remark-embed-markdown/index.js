@@ -3,6 +3,16 @@ const normalizePath = require('normalize-path');
 const unified = require('unified');
 const parse = require('remark-parse');
 
+function removeThematicBreak(code) {
+  const symbol = '---';
+  const firstIndex = code.indexOf(symbol);
+  const secondIndex = code.indexOf(symbol, symbol.length);
+  if (firstIndex === 0 && secondIndex > 0) {
+    return code.slice(secondIndex + symbol.length);
+  }
+  return code;
+}
+
 module.exports = (_ref, _temp) => {
   const {
     markdownAST,
@@ -31,7 +41,8 @@ module.exports = (_ref, _temp) => {
             // eslint-disable-next-line no-console
             console.error(`there is circular embedding,path: ${path}`);
           } else if (fs.existsSync(path)) {
-            const code = fs.readFileSync(path, 'utf8');
+            let code = fs.readFileSync(path, 'utf8');
+            code = removeThematicBreak(code);
             let mdAst = unified().use(parse).parse(code);
             mdAst = traverseAst(mdAst, [...pathList, path]);
             nodes.splice(i, 1, ...mdAst.children);

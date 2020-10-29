@@ -1,0 +1,34 @@
+@import '~antd/es/style/themes/default.less';
+
+.btnBar {
+  :global(.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)) {
+    width: 30px;
+    height: 30px;
+    color: @primary-color;
+    background: #f1eaff;
+    border: none;
+    box-sizing: border-box;
+    &:hover {
+      color: @primary-color;
+      background: #f1eaff;
+      border: none;
+    }
+  }
+
+  :global(.ant-radio-button-wrapper) {
+    border: none;
+    font-size: 16px;
+    color: #6c7f90;
+    width: 30px;
+    height: 30px;
+    border-radius: 3px;
+    padding: 1px 7px;
+    &:hover {
+      color: @primary-color;
+      border: none;
+    }
+  }
+  :global(.ant-radio-button-wrapper::before) {
+    display: none;
+  }
+}

@@ -44,11 +44,11 @@ interface ToolbarProps {
     };
     htmlCodeTemplate?: string;
   };
-  isFullScreen: boolean;
+  isFullScreen?: boolean;
   editorTabs: EDITOR_TABS[];
   currentEditorTab: EDITOR_TABS;
   onEditorTabChange: (tab: EDITOR_TABS) => void;
-  onToggleFullscreen: () => void;
+  onToggleFullscreen?: null | (() => void);
   onExecuteCode: () => void;
 }
 
@@ -58,11 +58,11 @@ const Toolbar: React.FC<ToolbarProps> = ({
   playground = {},
   location,
   title = '',
-  isFullScreen,
+  isFullScreen = false,
   editorTabs,
   currentEditorTab,
   onEditorTabChange,
-  onToggleFullscreen,
+  onToggleFullscreen = null,
   onExecuteCode,
 }) => {
   const { t, i18n } = useTranslation();
@@ -287,19 +287,21 @@ const Toolbar: React.FC<ToolbarProps> = ({
           </Modal>
         </>
       )}
-      <Tooltip title={isFullScreen ? t('离开全屏') : t('进入全屏')}>
-        {isFullScreen ? (
-          <FullscreenExitOutlined
-            onClick={onToggleFullscreen}
-            style={{ marginLeft: 12 }}
-          />
-        ) : (
-          <FullscreenOutlined
-            onClick={onToggleFullscreen}
-            style={{ marginLeft: 12 }}
-          />
-        )}
-      </Tooltip>
+      {onToggleFullscreen ? (
+        <Tooltip title={isFullScreen ? t('离开全屏') : t('进入全屏')}>
+          {isFullScreen ? (
+            <FullscreenExitOutlined
+              onClick={onToggleFullscreen}
+              style={{ marginLeft: 12 }}
+            />
+          ) : (
+            <FullscreenOutlined
+              onClick={onToggleFullscreen}
+              style={{ marginLeft: 12 }}
+            />
+          )}
+        </Tooltip>
+      ) : null}
       <Tooltip title={t('执行代码')}>
         <PlayCircleOutlined
           onClick={onExecuteCode}
