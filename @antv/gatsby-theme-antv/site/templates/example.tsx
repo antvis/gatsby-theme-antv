@@ -320,13 +320,15 @@ export default function Template({
                         className={styles.galleryCardLink}
                         to={`/${i18n.language}/examples/${demoSlug}`}
                       >
-                        <img
-                          src={
-                            demo.screenshot ||
-                            'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
-                          }
-                          alt={cardTitle}
-                        />
+                        <div>
+                          <img
+                            src={
+                              demo.screenshot ||
+                              'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
+                            }
+                            alt={cardTitle}
+                          />
+                        </div>
                         <h4>{cardTitle}</h4>
                       </Link>
                     </li>

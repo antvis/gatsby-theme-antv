@@ -351,19 +351,25 @@
       transition: all 0.3s;
       margin: 12px;
 
-      img {
+      > div {
         border: 1px solid @border-color-split;
         border-radius: 6px;
         overflow: hidden;
-        width: 100%;
         height: calc(100vw / 9 - 20px);
         min-height: 130px;
         max-height: 280px;
         object-fit: cover;
         transition: all 0.3s;
+        display: flex;
+        justify-content: center;
+
+        img {
+          max-width: 100%;
+          max-height: 100%;
+        }
       }
 
-      &:hover img {
+      &:hover > div {
         transform: translateY(-4px);
         border-color: transparent;
         box-shadow: 0 6px 16px rgba(107, 147, 224, 0.14);
@@ -484,6 +490,12 @@
 }
 
 .galleryAnchor {
+  overflow-y: hidden;
+
+  &:hover {
+    overflow-y: auto;
+  }
+
   :global(.ant-anchor-link) {
     line-height: 1.9;
   }
