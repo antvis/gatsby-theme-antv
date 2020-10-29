@@ -321,6 +321,8 @@ insertCss(`,
     if (!isWide) {
       updateLayout('viewTwoRows');
       updateCollapsed(true);
+    } else if (!showAPIDoc) {
+      updateLayout('viewTwoCols');
     } else if (localLayout) {
       updateLayout(localLayout);
     }
@@ -467,7 +469,7 @@ insertCss(`,
                 >
                   <PageHeader
                     ghost={false}
-                    breadcrumb={{ routes, itemRender }}
+                    breadcrumb={isWide ? { routes, itemRender } : {}}
                     title={
                       typeof currentExample.title === 'object'
                         ? currentExample.title[i18n.language]
