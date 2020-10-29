@@ -525,7 +525,7 @@ insertCss(`,
                 onToggleFullscreen={null}
               />
             )}
-            {!editorValue ? (
+            {!relativePath ? (
               <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
             ) : (
               <div className={styles.monaco}>
