@@ -368,9 +368,13 @@ insertCss(`,
   };
 
   const menu = (
-    <Menu>
+    <Menu className={styles.dropMenu}>
       {categories.map((category: string, i: number) => (
-        <SubMenu key={`${category}${i}`} title={category}>
+        <SubMenu
+          className={styles.subMenu}
+          key={`${category}${i}`}
+          title={category}
+        >
           {allDemos[category].map((item: any, key: number) => {
             const demoSlug = item.relativePath.replace(
               /\/demo\/(.*)\..*/,
