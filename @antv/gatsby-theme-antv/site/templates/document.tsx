@@ -379,6 +379,19 @@ export default function Template({
       </React.Fragment>
     ));
 
+  const onAnchorLinkChange = (currentActiveLink: string) => {
+    if (currentActiveLink) {
+      const link = document.querySelector(`a[href='${currentActiveLink}']`);
+      if (link) {
+        const anchor = link?.parentNode as Element;
+        anchor.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }
+    }
+  };
+
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -391,7 +404,10 @@ export default function Template({
         <Article className={styles.markdown}>
           <Affix offsetTop={8}>
             <div className={styles.toc}>
-              <Anchor className={styles.apiAnchor}>
+              <Anchor
+                className={styles.apiAnchor}
+                onChange={onAnchorLinkChange}
+              >
                 {renderAnchorLinks(anchorLinks)}
               </Anchor>
             </div>
