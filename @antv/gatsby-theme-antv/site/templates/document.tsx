@@ -95,10 +95,12 @@ const getAnchorLinks = (tableOfContents: string) => {
         const childs = item.childNodes as NodeListOf<HTMLElement>;
         childs.forEach((child: HTMLElement) => {
           if (child.tagName === 'A') {
-            link.href = (child as HTMLAnchorElement).hash;
+            link.href = decodeURIComponent((child as HTMLAnchorElement).hash);
             link.title = child.innerText;
           } else if (child.tagName === 'P') {
-            link.href = (child.childNodes[0] as HTMLAnchorElement).hash;
+            link.href = decodeURIComponent(
+              (child.childNodes[0] as HTMLAnchorElement).hash,
+            );
             link.title = (child.childNodes[0] as HTMLElement).innerText;
           } else if (child.tagName === 'UL') {
             link.children = parseUl(child);
