@@ -385,7 +385,6 @@ export default function Template({
       if (link) {
         const anchor = link?.parentNode as Element;
         anchor.scrollIntoView({
-          behavior: 'smooth',
           block: 'center',
         });
       }
