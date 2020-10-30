@@ -198,8 +198,20 @@ export default function Template({
     },
   );
 
+  const onAnchorLinkChange = (currentActiveLink: string) => {
+    if (currentActiveLink) {
+      const link = document.querySelector(`a[href='${currentActiveLink}']`);
+      if (link) {
+        const anchor = link?.parentNode as Element;
+        anchor.scrollIntoView({
+          block: 'center',
+        });
+      }
+    }
+  };
+
   const menu = (
-    <Anchor className={styles.galleryAnchor}>
+    <Anchor className={styles.galleryAnchor} onChange={onAnchorLinkChange}>
       {Object.keys(groupedEdges)
         .filter((key) => key.startsWith(`/${i18n.language}/`))
         .sort((a: string, b: string) => {

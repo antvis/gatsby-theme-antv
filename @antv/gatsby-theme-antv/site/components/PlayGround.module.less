@@ -55,14 +55,6 @@
   }
 }
 
-:global(.ant-layout-has-sider) {
-  height: 100%;
-}
-
-:global(.ant-breadcrumb + .ant-page-header-heading) {
-  margin-top: -8px;
-}
-
 .breadDrop {
   display: inherit;
   cursor: pointer;
@@ -105,26 +97,6 @@
     .monaco {
       overflow: hidden;
       height: 100%;
-    }
-  }
-
-  :global {
-    .Pane1,
-    .Pane2 {
-      max-height: @editor-height;
-    }
-
-    .Resizer.vertical {
-      width: 11.5px !important;
-      height: @editor-height;
-    }
-
-    .ant-page-header {
-      padding: 0px;
-    }
-
-    .ant-breadcrumb {
-      font-size: 12px;
     }
   }
 
@@ -171,6 +143,56 @@
     > * {
       height: 328px;
       padding: 16px;
+    }
+  }
+
+  :global {
+    .Pane1,
+    .Pane2 {
+      max-height: @editor-height;
+    }
+
+    .Resizer.vertical {
+      width: 11.5px !important;
+      height: @editor-height;
+    }
+
+    .ant-page-header {
+      padding: 0px;
+    }
+
+    .ant-breadcrumb {
+      font-size: 12px;
+    }
+    .ant-breadcrumb + .ant-page-header-heading {
+      margin-top: -8px;
+    }
+    .ant-layout-has-sider {
+      height: 100%;
+    }
+    .ant-page-header-heading-title {
+      font-weight: 500;
+    }
+  }
+}
+
+.dropMenu {
+  :global {
+    .ant-dropdown-menu {
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+  }
+  .subMenu {
+    :global {
+      .ant-dropdown-menu-submenu-title {
+        color: #6b7f90;
+      }
+
+      .ant-dropdown-menu-item > a {
+        font-size: 14px;
+        color: #6b7f90;
+      }
     }
   }
 }

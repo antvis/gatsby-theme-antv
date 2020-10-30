@@ -321,6 +321,8 @@ insertCss(`,
     if (!isWide) {
       updateLayout('viewTwoRows');
       updateCollapsed(true);
+    } else if (!showAPIDoc) {
+      updateLayout('viewTwoCols');
     } else if (localLayout) {
       updateLayout(localLayout);
     }
@@ -365,9 +367,13 @@ insertCss(`,
   };
 
   const menu = (
-    <Menu>
+    <Menu className={styles.dropMenu}>
       {categories.map((category: string, i: number) => (
-        <SubMenu key={`${category}${i}`} title={category}>
+        <SubMenu
+          className={styles.subMenu}
+          key={`${category}${i}`}
+          title={category}
+        >
           {allDemos[category].map((item: any, key: number) => {
             const demoSlug = item.relativePath.replace(
               /\/demo\/(.*)\..*/,
@@ -467,7 +473,7 @@ insertCss(`,
                 >
                   <PageHeader
                     ghost={false}
-                    breadcrumb={{ routes, itemRender }}
+                    breadcrumb={isWide ? { routes, itemRender } : {}}
                     title={
                       typeof currentExample.title === 'object'
                         ? currentExample.title[i18n.language]
@@ -523,7 +529,7 @@ insertCss(`,
                 onToggleFullscreen={null}
               />
             )}
-            {!editorValue ? (
+            {!relativePath ? (
               <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
             ) : (
               <div className={styles.monaco}>
