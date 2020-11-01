@@ -12,6 +12,7 @@ jobs:
           surge_token: ${{ secrets.SURGE_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           build: |
+            yarn policies set-version
             yarn
             yarn build
           dist: example/public
