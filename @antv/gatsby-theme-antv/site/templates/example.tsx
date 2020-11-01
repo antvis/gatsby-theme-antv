@@ -400,6 +400,7 @@ export default function Template({
             {gallery && (
               <>
                 <div>
+                  lkj12j3lk12j3l21kj3;12l3j12;l3j12l;3j213
                   <NavigatorBanner type="prev" post={prev} />
                   <NavigatorBanner type="next" post={next} />
                 </div>
