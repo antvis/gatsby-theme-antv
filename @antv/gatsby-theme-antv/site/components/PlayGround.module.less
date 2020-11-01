@@ -73,7 +73,7 @@
   position: relative;
 
   .preview {
-    padding: 16px 8px 8px 8px;
+    padding: 16px 16px 0px 0px;
     overflow: auto;
     height: 100%;
     width: 100%;
@@ -173,23 +173,25 @@
 }
 
 .dropMenu {
+  max-height: 300px;
+  overflow-y: scroll;
+  div {
+    color: #6b7f90;
+  }
   :global {
-    .ant-dropdown-menu {
+    .ant-dropdown-menu-sub {
       max-height: 300px;
       overflow-y: scroll;
     }
   }
-  .subMenu {
-    :global {
-      .ant-dropdown-menu-submenu-title {
-        color: #6b7f90;
-      }
+}
 
-      .ant-dropdown-menu-item > a {
-        font-size: 14px;
-        color: #6b7f90;
-      }
-    }
+.subMenu {
+  max-height: 300px;
+  overflow-y: scroll;
+  a {
+    color: #6b7f90;
+    font-size: 14px;
   }
 }
 

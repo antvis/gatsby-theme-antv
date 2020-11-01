@@ -371,7 +371,7 @@ insertCss(`,
     <Menu className={styles.dropMenu}>
       {categories.map((category: string, i: number) => (
         <SubMenu
-          className={styles.subMenu}
+          popupClassName={styles.subMenu}
           key={`${category}${i}`}
           title={category}
         >
