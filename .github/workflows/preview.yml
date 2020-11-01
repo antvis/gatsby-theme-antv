@@ -13,5 +13,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           build: |
             yarn
-            yarn build
+            yarn run build
           dist: example/public
