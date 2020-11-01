@@ -14,6 +14,7 @@ jobs:
           node-version: 12.x
       - name: yarn install, test and build
         run: |
+          yarn policies set-version
           yarn
           yarn lint
           yarn test
