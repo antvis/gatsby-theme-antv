@@ -2,11 +2,11 @@ export const splitPaneMap: { [key: string]: any } = {
   viewDefault: {
     outside: {
       split: 'vertical',
-      size: '60%',
+      size: '50%',
     },
     inside: {
       split: 'horizontal',
-      size: '50%',
+      size: '60%',
     },
   },
   viewTwoRows: {
