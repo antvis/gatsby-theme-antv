@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { graphql, Link } from 'gatsby';
-import { Layout as AntLayout, Anchor, Affix, BackTop } from 'antd';
+import { Layout as AntLayout, Anchor, Affix, BackTop, Menu } from 'antd';
 import {
   createFromIconfontCN,
   MenuFoldOutlined,
@@ -22,6 +22,7 @@ import { usePrevAndNext } from '../hooks';
 
 import styles from './markdown.module.less';
 
+const { SubMenu } = Menu;
 const { Link: AnchorLink } = Anchor;
 
 let gallery = false;
@@ -68,18 +69,19 @@ const renderAnchorItems = (edges: any[]) =>
         },
       } = edge;
       return (
-        <AnchorLink
-          key={slug}
-          href={`#category-${title.replace(/\s/g, '')}`}
-          title={
-            <div>
-              {icon && (
-                <MenuIcon className={styles.menuIcon} type={`icon-${icon}`} />
-              )}
-              <span>{title}</span>
-            </div>
-          }
-        />
+        <Menu.Item key={slug}>
+          <AnchorLink
+            href={`#category-${title.replace(/\s/g, '')}`}
+            title={
+              <div>
+                {icon && (
+                  <MenuIcon className={styles.menuIcon} type={`icon-${icon}`} />
+                )}
+                <span>{title}</span>
+              </div>
+            }
+          />
+        </Menu.Item>
       );
     });
 const getMenuItemLocaleKey = (slug = '') => {
@@ -198,7 +200,25 @@ export default function Template({
     },
   );
 
+  const [openKeys, setOpenKeys] = useState<string[]>(() =>
+    Object.keys(groupedEdges),
+  );
+  const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
+
   const onAnchorLinkChange = (currentActiveLink: string) => {
+    let currentSlug = '';
+    edges.forEach((edge: any) => {
+      const {
+        node: {
+          frontmatter: { title },
+          fields: { slug },
+        },
+      } = edge;
+      if (`#category-${title.replace(/\s/g, '')}` === currentActiveLink) {
+        currentSlug = slug;
+      }
+    });
+    setSelectedKeys([currentSlug]);
     if (currentActiveLink) {
       const link = document.querySelector(`a[href='${currentActiveLink}']`);
       if (link) {
@@ -212,48 +232,64 @@ export default function Template({
 
   const menu = (
     <Anchor className={styles.galleryAnchor} onChange={onAnchorLinkChange}>
-      {Object.keys(groupedEdges)
-        .filter((key) => key.startsWith(`/${i18n.language}/`))
-        .sort((a: string, b: string) => {
-          const aOrder = getExampleOrder({
-            groupedEdgeKey: a,
-            examples,
-            groupedEdges,
-          });
-          const bOrder = getExampleOrder({
-            groupedEdgeKey: b,
-            examples,
-            groupedEdges,
-          });
-          return aOrder - bOrder;
-        })
-        .map((slugString) => {
-          const slugPieces = slugString.split('/');
-          if (slugPieces.length <= 3) {
-            return renderAnchorItems(groupedEdges[slugString]);
-          }
-          const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
-          const doc =
-            examples.find((item: any) => item.slug === menuItemLocaleKey) || {};
-          return (
-            <div className={styles.parent} key={slugString}>
-              <div className={styles.title}>
-                {doc.icon && (
-                  <MenuIcon
-                    className={styles.menuIcon}
-                    type={`icon-${doc.icon}`}
-                  />
-                )}
-                <span>
-                  {doc && doc.title
-                    ? capitalize(doc.title[i18n.language])
-                    : menuItemLocaleKey}
-                </span>
-              </div>
-              {renderAnchorItems(groupedEdges[slugString])}
-            </div>
-          );
-        })}
+      <Menu
+        mode="inline"
+        selectedKeys={selectedKeys}
+        style={{ height: '100%' }}
+        openKeys={openKeys}
+        onOpenChange={(currentOpenKeys) =>
+          setOpenKeys(currentOpenKeys as string[])
+        }
+        forceSubMenuRender
+      >
+        {Object.keys(groupedEdges)
+          .filter((key) => key.startsWith(`/${i18n.language}/`))
+          .sort((a: string, b: string) => {
+            const aOrder = getExampleOrder({
+              groupedEdgeKey: a,
+              examples,
+              groupedEdges,
+            });
+            const bOrder = getExampleOrder({
+              groupedEdgeKey: b,
+              examples,
+              groupedEdges,
+            });
+            return aOrder - bOrder;
+          })
+          .map((slugString) => {
+            const slugPieces = slugString.split('/');
+            if (slugPieces.length <= 3) {
+              return renderAnchorItems(groupedEdges[slugString]);
+            }
+            const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
+            const doc =
+              examples.find((item: any) => item.slug === menuItemLocaleKey) ||
+              {};
+            return (
+              <SubMenu
+                key={slugString}
+                title={
+                  <div>
+                    {doc.icon && (
+                      <MenuIcon
+                        className={styles.menuIcon}
+                        type={`icon-${doc.icon}`}
+                      />
+                    )}
+                    <span>
+                      {doc && doc.title
+                        ? capitalize(doc.title[i18n.language])
+                        : menuItemLocaleKey}
+                    </span>
+                  </div>
+                }
+              >
+                {renderAnchorItems(groupedEdges[slugString])}
+              </SubMenu>
+            );
+          })}
+      </Menu>
     </Anchor>
   );
 
