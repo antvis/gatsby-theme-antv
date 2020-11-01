@@ -11,11 +11,12 @@ import {
   Divider,
   Menu,
   Dropdown,
+  Tooltip,
 } from 'antd';
 import { useMedia } from 'react-use';
 import debounce from 'lodash/debounce';
 import { filter } from 'lodash-es';
-import { LeftOutlined, DownOutlined } from '@ant-design/icons';
+import { LeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
 import {
   useTranslation,
   withTranslation,
@@ -32,6 +33,7 @@ import ThemeSwicher from './ThemeSwitcher';
 import APIDoc from './APIDoc';
 import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
+import { getGithubSourceUrl } from '../templates/document';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -117,7 +119,7 @@ insertCss(`,
   const { showChartResize, showAPIDoc } = site.siteMetadata;
   const [layout, updateLayout] = useState<string>('viewDefault');
   const [codeQuery, updateCodeQuery] = useState<string>('');
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [currentExample, updateCurrentExample] = useState<
     PlayGroundItemProps
   >();
@@ -479,6 +481,22 @@ insertCss(`,
                       typeof currentExample.title === 'object'
                         ? currentExample.title[i18n.language]
                         : currentExample.title
+                    }
+                    subTitle={
+                      <Tooltip title={t('在 GitHub 上编辑')}>
+                        <a
+                          href={getGithubSourceUrl({
+                            githubUrl,
+                            relativePath,
+                            prefix: 'examples',
+                          })}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.editOnGtiHubButton}
+                        >
+                          <EditOutlined />
+                        </a>
+                      </Tooltip>
                     }
                     extra={
                       <Space split={<Divider type="vertical" />}>

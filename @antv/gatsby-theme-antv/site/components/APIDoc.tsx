@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tooltip, Collapse, Skeleton } from 'antd';
-import { EditOutlined } from '@ant-design/icons';
+import { Collapse, Skeleton } from 'antd';
 import Mark from 'mark.js';
-import { getGithubSourceUrl } from '../templates/document';
 import Tabs, { CollapseDataProp } from './Tabs';
 import CollapseIcon from './CollapseIcon';
 import styles from './APIDoc.module.less';
@@ -22,14 +20,11 @@ interface APIDocProps {
 
 const APIDoc: React.FC<APIDocProps> = ({
   markdownRemark,
-  githubUrl,
-  relativePath,
   exampleSections,
   codeQuery,
   description,
   showAPISearch,
 }) => {
-  const { t } = useTranslation();
   const [collapseData, updateCollapseData] = useState<CollapseDataProp[]>([]);
   const [searchQuery, updateSearchQuery] = useState<string>('');
   const { frontmatter } = markdownRemark;
@@ -272,23 +267,6 @@ const APIDoc: React.FC<APIDocProps> = ({
             : null}
           {exampleSections.design && active === 'design' ? (
             <div className={styles.designContent}>
-              <h1 className={styles.demoTtile}>
-                {frontmatter.title}
-                <Tooltip title={t('在 GitHub 上编辑')}>
-                  <a
-                    href={getGithubSourceUrl({
-                      githubUrl,
-                      relativePath,
-                      prefix: 'examples',
-                    })}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.editOnGtiHubButton}
-                  >
-                    <EditOutlined />
-                  </a>
-                </Tooltip>
-              </h1>
               <div
                 /* eslint-disable-next-line react/no-danger */
                 dangerouslySetInnerHTML={{
