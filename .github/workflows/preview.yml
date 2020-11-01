@@ -12,6 +12,6 @@ jobs:
           surge_token: ${{ secrets.SURGE_TOKEN }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           build: |
-            yarn
+            yarn --frozen-lockfile
             yarn run build
           dist: example/public
