@@ -152,7 +152,6 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
               order
             }
             html
-            htmlAst
           }
         }
       }
