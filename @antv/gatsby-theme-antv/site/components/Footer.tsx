@@ -29,7 +29,6 @@ const Footer: React.FC<FooterProps> = ({
   language,
   rootDomain = '',
   location,
-  githubUrl,
   ...resetProps
 }) => {
   const { t, i18n } = useTranslation();
@@ -144,6 +143,8 @@ const Footer: React.FC<FooterProps> = ({
     path.startsWith(`/zh/examples`) || path.startsWith(`/en/examples`);
   const isDocsPage = path.startsWith(`/zh/docs`) || path.startsWith(`/en/docs`);
   const is404Page = (location as any).key === 'initial';
+
+  delete resetProps.githubUrl;
 
   return (
     <RCFooter
