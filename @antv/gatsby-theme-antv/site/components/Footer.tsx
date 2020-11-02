@@ -29,6 +29,7 @@ const Footer: React.FC<FooterProps> = ({
   language,
   rootDomain = '',
   location,
+  githubUrl,
   ...resetProps
 }) => {
   const { t, i18n } = useTranslation();
