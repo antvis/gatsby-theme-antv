@@ -8,6 +8,7 @@ import {
   ZhihuOutlined,
 } from '@ant-design/icons';
 import classnames from 'classnames';
+import omit from 'omit.js';
 import { getProducts } from './getProducts';
 import { useChinaMirrorHost } from '../hooks';
 import styles from './Footer.module.less';
@@ -29,7 +30,7 @@ const Footer: React.FC<FooterProps> = ({
   language,
   rootDomain = '',
   location,
-  ...resetProps
+  ...restProps
 }) => {
   const { t, i18n } = useTranslation();
   const lang = language || i18n.language;
@@ -144,8 +145,6 @@ const Footer: React.FC<FooterProps> = ({
   const isDocsPage = path.startsWith(`/zh/docs`) || path.startsWith(`/en/docs`);
   const is404Page = (location as any).key === 'initial';
 
-  delete resetProps.githubUrl;
-
   return (
     <RCFooter
       maxColumnsPerRow={4}
@@ -195,7 +194,7 @@ const Footer: React.FC<FooterProps> = ({
           </div>
         )
       }
-      {...resetProps}
+      {...omit(restProps, ['githubUrl'])}
     />
   );
 };
