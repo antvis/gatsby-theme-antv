@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import { CaretRightOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
@@ -65,22 +65,20 @@ const Banner: React.FC<BannerProps> = ({
   const { site } = useStaticQuery(query);
   const { githubUrl } = site.siteMetadata;
 
-  const insNotifications: NotificationProps[] = [
-    {
-      type: t('推荐'),
-      title: t('欢迎进入 2020 可视化智能研发时代'),
-      date: '2020.01.08',
-      link: 'https://www.yuque.com/antv/blog/ygdubv',
-    },
-    {
-      type: t('推荐'),
-      title: t('AntV 11-22 品牌日：知源·致远'),
-      date: '2019.11.22',
-      link: 'https://www.yuque.com/antv/blog/2019-release',
-    },
-  ];
+  const [remoteNews, setRemoteNews] = useState<NotificationProps[]>([]);
 
-  const notificationsNode = (notifications || insNotifications)
+  useEffect(() => {
+    // https://my-json-server.typicode.com/antvis/antvis-sites-data/notifications
+    fetch(
+      `https://my-json-server.typicode.com/antvis/antvis-sites-data/notifications`,
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setRemoteNews(data);
+      });
+  }, []);
+
+  const notificationsNode = (notifications || remoteNews)
     .slice(0, 2)
     .map((notification, i) => (
       <Notification index={i} key={i} {...notification} />
