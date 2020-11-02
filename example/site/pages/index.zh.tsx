@@ -134,7 +134,7 @@ const IndexPage: React.FC = () => {
           console.log('close'); // eslint-disable-line no-console
         }}
         onPlayVideo={() => {
-          console.log('paly'); // eslint-disable-line no-console
+          console.log('play'); // eslint-disable-line no-console
         }}
       />
       <Features
