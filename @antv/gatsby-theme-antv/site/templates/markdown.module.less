@@ -30,7 +30,7 @@
   h5,
   h6 {
     clear: both;
-    margin: 1.6em 0 0.3em;
+    margin: 0.5em 0 0.3em;
     font-weight: 500;
     font-family: Avenir, @font-family, sans-serif;
   }
@@ -68,7 +68,7 @@
 
   p,
   pre {
-    margin: 0.6em 0;
+    margin: 0.3em 0;
   }
 
   pre > code[class*='language-'] {
@@ -162,7 +162,7 @@
   }
 
   blockquote {
-    margin: 1em 0;
+    margin: 0.5em 0;
     padding-left: 0.8em;
     color: @text-color-secondary;
     font-size: 90%;
@@ -199,7 +199,7 @@
     > img,
     > p > img {
       max-width: 100%;
-      margin: 1em 0;
+      margin: 0.5em 0;
     }
 
     > br,
@@ -312,7 +312,6 @@
   flex-direction: row-reverse;
 
   .galleryContent {
-    margin-top: -2.4em;
     flex: 1;
   }
 
@@ -366,6 +365,7 @@
         img {
           max-width: 100%;
           max-height: 100%;
+          object-fit: scale-down;
         }
       }
 
@@ -490,6 +490,7 @@
 }
 
 .galleryAnchor {
+  overflow-x: hidden;
   overflow-y: hidden;
 
   &:hover {
@@ -497,26 +498,23 @@
   }
 
   :global(.ant-anchor-link) {
-    line-height: 1.9;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
   }
 
   :global(.ant-anchor-ink) {
     display: none;
   }
 
-  :global(.ant-anchor-link-active) {
-    background-color: #f9f0ff;
-    border-right: 2px solid #873bf4;
-  }
-
-  .parent {
-    .title {
-      padding: 12px 0 12px 16px;
-    }
-
-    :global(.ant-anchor-link) {
-      padding-left: 32px;
-    }
+  :global(.ant-anchor-link-title) {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    display: flex;
+    align-items: center;
   }
 }
 

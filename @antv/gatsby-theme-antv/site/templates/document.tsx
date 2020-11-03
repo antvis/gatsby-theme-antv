@@ -95,10 +95,12 @@ const getAnchorLinks = (tableOfContents: string) => {
         const childs = item.childNodes as NodeListOf<HTMLElement>;
         childs.forEach((child: HTMLElement) => {
           if (child.tagName === 'A') {
-            link.href = (child as HTMLAnchorElement).hash;
+            link.href = decodeURIComponent((child as HTMLAnchorElement).hash);
             link.title = child.innerText;
           } else if (child.tagName === 'P') {
-            link.href = (child.childNodes[0] as HTMLAnchorElement).hash;
+            link.href = decodeURIComponent(
+              (child.childNodes[0] as HTMLAnchorElement).hash,
+            );
             link.title = (child.childNodes[0] as HTMLElement).innerText;
           } else if (child.tagName === 'UL') {
             link.children = parseUl(child);
@@ -377,6 +379,18 @@ export default function Template({
       </React.Fragment>
     ));
 
+  const onAnchorLinkChange = (currentActiveLink: string) => {
+    if (currentActiveLink) {
+      const link = document.querySelector(`a[href='${currentActiveLink}']`);
+      if (link) {
+        const anchor = link?.parentNode as Element;
+        anchor.scrollIntoView({
+          block: 'center',
+        });
+      }
+    }
+  };
+
   return (
     <>
       <SEO title={frontmatter.title} lang={i18n.language} />
@@ -389,7 +403,10 @@ export default function Template({
         <Article className={styles.markdown}>
           <Affix offsetTop={8}>
             <div className={styles.toc}>
-              <Anchor className={styles.apiAnchor}>
+              <Anchor
+                className={styles.apiAnchor}
+                onChange={onAnchorLinkChange}
+              >
                 {renderAnchorLinks(anchorLinks)}
               </Anchor>
             </div>

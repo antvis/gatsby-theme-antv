@@ -55,14 +55,6 @@
   }
 }
 
-:global(.ant-layout-has-sider) {
-  height: 100%;
-}
-
-:global(.ant-breadcrumb + .ant-page-header-heading) {
-  margin-top: -8px;
-}
-
 .breadDrop {
   display: inherit;
   cursor: pointer;
@@ -81,7 +73,7 @@
   position: relative;
 
   .preview {
-    padding: 16px 8px 8px 8px;
+    padding: 16px 16px 0px 0px;
     overflow: auto;
     height: 100%;
     width: 100%;
@@ -101,26 +93,6 @@
     .monaco {
       overflow: hidden;
       height: 100%;
-    }
-  }
-
-  :global {
-    .Pane1,
-    .Pane2 {
-      max-height: @editor-height;
-    }
-
-    .Resizer.vertical {
-      width: 11.5px !important;
-      height: @editor-height;
-    }
-
-    .ant-page-header {
-      padding: 0px;
-    }
-
-    .ant-breadcrumb {
-      font-size: 12px;
     }
   }
 
@@ -168,6 +140,66 @@
       height: 328px;
       padding: 16px;
     }
+  }
+
+  :global {
+    .Pane1,
+    .Pane2 {
+      max-height: @editor-height;
+    }
+
+    .Resizer.vertical {
+      width: 11.5px !important;
+      height: @editor-height;
+    }
+
+    .ant-page-header {
+      padding: 0px;
+    }
+
+    .ant-breadcrumb {
+      font-size: 12px;
+    }
+    .ant-breadcrumb + .ant-page-header-heading {
+      margin-top: -8px;
+    }
+    .ant-layout-has-sider {
+      height: 100%;
+    }
+    .ant-page-header-heading-title {
+      font-weight: 500;
+    }
+  }
+}
+
+.dropMenu {
+  max-height: 300px;
+  overflow-y: scroll;
+  div {
+    color: #6b7f90;
+  }
+  :global {
+    .ant-dropdown-menu-sub {
+      max-height: 300px;
+      overflow-y: scroll;
+    }
+  }
+}
+
+.editOnGtiHubButton {
+  font-size: 16px;
+  color: #999;
+  vertical-align: middle;
+  position: relative;
+  top: 2px;
+}
+
+.subMenu {
+  max-height: 300px;
+  overflow-y: scroll;
+  a {
+    color: #6b7f90;
+    font-size: 14px;
   }
 }
 

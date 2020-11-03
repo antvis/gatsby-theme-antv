@@ -12,9 +12,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-      - name: npm install, test and build
+      - name: yarn install, test and build
         run: |
-          yarn install
+          yarn --frozen-lockfile
           yarn lint
           yarn test
           yarn tsc

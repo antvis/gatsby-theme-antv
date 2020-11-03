@@ -87,8 +87,13 @@
 
 .docContent {
   overflow: auto;
-  height: calc(100vh - 112px);
+  height: calc(100vh - 64px);
   background-color: #fff;
+  // 兼容 Firfox
+  @-moz-document url-prefix() {
+    margin-top: -5px;
+  }
+
   description {
     display: none;
   }
@@ -96,15 +101,6 @@
 
 .designContent {
   padding: 8px 26px;
-}
-
-.editOnGtiHubButton {
-  margin-left: 0.5em;
-  font-size: 16px;
-  color: #999;
-  vertical-align: middle;
-  position: relative;
-  top: -2px;
 }
 
 tag {
@@ -128,9 +124,6 @@ tag {
   }
 }
 
-description {
-  display: none;
-}
 .skeleton {
   padding: 16px;
 }
