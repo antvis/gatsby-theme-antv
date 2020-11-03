@@ -53,6 +53,7 @@ const Banner: React.FC<BannerProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language.includes('zh') ? 'zh' : 'en';
+  const notificationsUrl = `https://my-json-server.typicode.com/antvis/antvis-sites-data/notifications?lang=${lang}`;
 
   const query = graphql`
     query SiteBannerQuery {
@@ -69,15 +70,12 @@ const Banner: React.FC<BannerProps> = ({
   const [remoteNews, setRemoteNews] = useState<NotificationProps[]>([]);
 
   useEffect(() => {
-    // https://my-json-server.typicode.com/antvis/antvis-sites-data/notifications
-    fetch(
-      `https://my-json-server.typicode.com/antvis/antvis-sites-data/notifications?lang=${lang}`,
-    )
+    fetch(notificationsUrl)
       .then((res) => res.json())
       .then((data) => {
         setRemoteNews(data);
       });
-  }, [lang]);
+  }, [notificationsUrl]);
 
   const notificationsNode = (notifications || remoteNews)
     .slice(0, 2)
