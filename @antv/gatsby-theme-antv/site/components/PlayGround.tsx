@@ -28,6 +28,7 @@ import Toolbar, { EDITOR_TABS } from './Toolbar';
 import ChartViewSwitcher from './ChartViewSwitcher';
 import LayoutSwitcher from './LayoutSwitcher';
 import PlayGrounds, { PlayGroundItemProps } from './PlayGrounds';
+import ThemeSwicher from './ThemeSwitcher';
 import APIDoc from './APIDoc';
 import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
@@ -484,6 +485,7 @@ insertCss(`,
                         {showAPIDoc && layout !== 'viewTwoRows' && (
                           <LayoutSwitcher updateLayout={updateLayout} />
                         )}
+                        <ThemeSwicher />
                       </Space>
                     }
                   />
