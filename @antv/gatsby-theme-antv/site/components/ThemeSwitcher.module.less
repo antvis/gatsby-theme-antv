@@ -1,0 +1,117 @@
+@import '~antd/es/style/themes/default.less';
+
+.btn {
+  :global(.ant-btn-icon-only) {
+    width: 30px;
+    height: 30px;
+    color: #6b7f90;
+  }
+}
+
+.switch {
+  width: 25px;
+}
+
+.dropGroup {
+  width: 45px;
+  height: 30px;
+  box-sizing: border-box;
+  border-radius: 3px 2px;
+  display: flex;
+  justify-content: center;
+  color: @primary-color;
+
+  button {
+    width: 20px;
+    height: 30px;
+    padding: 0px;
+    margin-right: -2px;
+
+    .themeBtn {
+      width: 16px;
+      height: 16px;
+      position: relative;
+
+      .colors {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      &::before {
+        content: '';
+        border: 7px solid rgba(255, 255, 255, 0);
+        border-radius: 50%;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: -32px;
+        border-radius: 50%;
+        box-shadow: 0 0 0 5px rgb(255, 255, 255);
+      }
+    }
+  }
+  span {
+    margin: auto 0;
+    font-size: 12px;
+  }
+
+  &:hover {
+    background: #f1eaff;
+    .themeBtn::before {
+      box-shadow: 0 0 0 5px #f1eaff;
+    }
+  }
+
+  .drop {
+    font-size: 12px;
+  }
+}
+
+.panelContainer {
+  width: 248px;
+  height: 30px;
+  padding: 4px;
+  border: #fff 1px solid;
+  box-sizing: border-box;
+
+  .colors {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    font-size: 0;
+
+    .color {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      height: 20px;
+      overflow: hidden;
+      color: #fff;
+      text-align: right;
+      box-shadow: 0 0 0 0 currentColor;
+      transition: all 0.3s;
+    }
+  }
+
+  &:hover {
+    border: @primary-color 1px solid;
+  }
+}
+
+.operateBtns {
+  span:hover {
+    color: @primary-color;
+  }
+}
+
+.block {
+  height: 12px;
+  width: 12px;
+  border-radius: 2px;
+  margin: 0 0.2em;
+  display: inline-block;
+  position: relative;
+  top: 1px;
+}
