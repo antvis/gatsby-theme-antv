@@ -40,14 +40,13 @@
 
       &::before {
         content: '';
-        border: 7px solid rgba(255, 255, 255, 0);
-        border-radius: 50%;
+        width: 23px;
+        height: 23px;
         position: absolute;
-        left: 0px;
-        top: 0px;
-        width: -32px;
+        top: -4px;
+        left: -4px;
+        border: 4px solid #fff;
         border-radius: 50%;
-        box-shadow: 0 0 0 5px rgb(255, 255, 255);
       }
     }
   }
@@ -59,7 +58,7 @@
   &:hover {
     background: #f1eaff;
     .themeBtn::before {
-      box-shadow: 0 0 0 5px #f1eaff;
+      border: 4px solid #f1eaff;
     }
   }
 
