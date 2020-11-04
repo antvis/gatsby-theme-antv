@@ -29,7 +29,7 @@ import Toolbar, { EDITOR_TABS } from './Toolbar';
 import ChartViewSwitcher from './ChartViewSwitcher';
 import LayoutSwitcher from './LayoutSwitcher';
 import PlayGrounds, { PlayGroundItemProps } from './PlayGrounds';
-import ThemeSwicher from './ThemeSwitcher';
+import ThemeSwitcher from './ThemeSwitcher';
 import APIDoc from './APIDoc';
 import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
@@ -86,6 +86,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
         site {
           siteMetadata {
             showChartResize
+            themeSwitcher
             showAPIDoc
             githubUrl
             playground {
@@ -116,13 +117,14 @@ insertCss(`,
     );
   };
   const { extraLib = '' } = site.siteMetadata.playground;
-  const { showChartResize, showAPIDoc } = site.siteMetadata;
+  const { showChartResize, showAPIDoc, themeSwitcher } = site.siteMetadata;
   const [layout, updateLayout] = useState<string>('viewDefault');
   const [codeQuery, updateCodeQuery] = useState<string>('');
   const { i18n, t } = useTranslation();
   const [currentExample, updateCurrentExample] = useState<
     PlayGroundItemProps
   >();
+  const [editRef, updateEditRef] = useState<any>();
   const { examples } = exampleSections;
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
@@ -134,6 +136,7 @@ insertCss(`,
   const [fileExtension, updateFileExtension] = useState<string | undefined>('');
   const [title, updateTitle] = useState<string | undefined>('');
   const [view, updateView] = useState<string>('desktop');
+  const [theme, updateTheme] = useState<string>();
   const [currentSourceCode, updateCurrentSourceCode] = useState<string>('');
   const [currentSourceData, updateCurrentSourceData] = useState(null);
 
@@ -283,9 +286,10 @@ insertCss(`,
         );
       }}
       editorDidMount={(editor, monaco) => {
+        updateEditRef(editor);
         editor.addAction({
           // An unique identifier of the contributed action.
-          id: 'my-unique-id',
+          id: 'search-in-doc',
 
           // A label of the action that will be presented to the user.
           label: 'search in document',
@@ -358,6 +362,33 @@ insertCss(`,
       });
     }
   }, [currentExample, layout, playground, editorValue]);
+
+  useEffect(() => {
+    if (!currentSourceCode || !theme || !themeSwitcher) return;
+
+    let source = currentSourceCode;
+    const render = source.match(/(\S*).render()/);
+    if (render && render?.length > 0) {
+      const chart = render[1];
+      let themeCode;
+      let reg;
+      if (themeSwitcher === 'g2') {
+        themeCode = `${chart}.theme(${theme});`;
+        reg = new RegExp(`( *)${chart}.theme(.*);\n`, 'g');
+        source = source.replace(reg, '');
+      } else if (themeSwitcher === 'g2plot') {
+        themeCode = `${chart}.chart.theme(${theme});`;
+        reg = new RegExp(`( *)${chart}.chart.theme(.*);\n`, 'g');
+        source = source.replace(reg, '');
+      }
+      const data = source.replace(
+        `${chart}.render()`,
+        `${themeCode}\n${chart}.render()`,
+      );
+      onCodeChange(data);
+      editRef.getAction('editor.action.formatDocument').run();
+    }
+  }, [theme]);
 
   // 根据pane框度及当前视图判断是否需要展示API文档搜索框
   const calcShowSearch = (size: number) => {
@@ -509,7 +540,9 @@ insertCss(`,
                         {showAPIDoc && layout !== 'viewTwoRows' && (
                           <LayoutSwitcher updateLayout={updateLayout} />
                         )}
-                        <ThemeSwicher />
+                        {themeSwitcher && (
+                          <ThemeSwitcher updateTheme={updateTheme} />
+                        )}
                       </Space>
                     }
                   />

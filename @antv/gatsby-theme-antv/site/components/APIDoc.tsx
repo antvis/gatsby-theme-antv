@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Collapse, Skeleton } from 'antd';
 import Mark from 'mark.js';
 import Tabs, { CollapseDataProp } from './Tabs';
