@@ -9,7 +9,7 @@ import pallette from '../pallette.json';
 import styles from './ThemeSwitcher.module.less';
 
 interface ThemeSwitcherProps {
-  updateLayout?: (val: string) => void;
+  updateTheme: (val: string) => void;
 }
 
 interface ColorsProps {
@@ -38,8 +38,8 @@ const Colors: FC<ColorsProps> = ({ colorStyle = {}, colors = [] }) => {
   );
 };
 
-const ThemeSwitcher: React.FC<ThemeSwitcherProps> = () => {
-  const defaultColorArr = pallette.categorical[0].color20?.slice(0, 3);
+const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
+  const defaultColorArr = pallette.categorical[0].colors20?.slice(0, 3);
   const [curColor, updateCurColor] = useState<string[]>(defaultColorArr);
   const copyToClipboard = (arr: string) => {
     const el = document.createElement('textarea');
@@ -54,21 +54,22 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = () => {
     <Menu className={styles.operateBtns}>
       <Menu.ItemGroup title="分类色板">
         {pallette.categorical.map(
-          (color: { color20: string[] }, key: number) => {
+          (color: { colors10: string[]; colors20: string[] }, key: number) => {
             return (
               <Menu.Item key={key}>
                 <Space>
                   <div
                     className={styles.panelContainer}
                     onClick={() => {
-                      updateCurColor(color.color20.slice(0, 3));
+                      updateCurColor(color.colors20.slice(0, 3));
+                      updateTheme(JSON.stringify(color));
                     }}
                   >
                     <Colors
                       colorStyle={{
-                        maxWidth: `${100 / color.color20.length}%`,
+                        maxWidth: `${100 / color.colors20.length}%`,
                       }}
-                      colors={color.color20}
+                      colors={color.colors20}
                     />
                   </div>
 
@@ -87,21 +88,22 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = () => {
       </Menu.ItemGroup>
       <Menu.ItemGroup title="顺序色板">
         {pallette.continuous.map(
-          (color: { color20: string[] }, key: number) => {
+          (color: { colors10: string[]; colors20: string[] }, key: number) => {
             return (
               <Menu.Item key={key}>
                 <Space>
                   <div
                     className={styles.panelContainer}
                     onClick={() => {
-                      updateCurColor(color.color20.slice(0, 3));
+                      updateCurColor(color.colors20.slice(0, 3));
+                      updateTheme(JSON.stringify(color));
                     }}
                   >
                     <Colors
                       colorStyle={{
-                        maxWidth: `${100 / color.color20.length}%`,
+                        maxWidth: `${100 / color.colors20.length}%`,
                       }}
-                      colors={color.color20}
+                      colors={color.colors20}
                     />
                   </div>
 
@@ -119,35 +121,38 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = () => {
         )}
       </Menu.ItemGroup>
       <Menu.ItemGroup title="发散色板">
-        {pallette.discrete.map((color: { color20: string[] }, key: number) => {
-          return (
-            <Menu.Item key={key}>
-              <Space>
-                <div
-                  className={styles.panelContainer}
-                  onClick={() => {
-                    updateCurColor(color.color20.slice(0, 3));
-                  }}
-                >
-                  <Colors
-                    colorStyle={{
-                      maxWidth: `${100 / color.color20.length}%`,
+        {pallette.discrete.map(
+          (color: { colors10: string[]; colors20: string[] }, key: number) => {
+            return (
+              <Menu.Item key={key}>
+                <Space>
+                  <div
+                    className={styles.panelContainer}
+                    onClick={() => {
+                      updateCurColor(color.colors20.slice(0, 3));
+                      updateTheme(JSON.stringify(color));
                     }}
-                    colors={color.color20}
-                  />
-                </div>
+                  >
+                    <Colors
+                      colorStyle={{
+                        maxWidth: `${100 / color.colors20.length}%`,
+                      }}
+                      colors={color.colors20}
+                    />
+                  </div>
 
-                <VerticalAlignBottomOutlined />
-                <CopyOutlined
-                  onClick={() => {
-                    copyToClipboard(JSON.stringify(color));
-                    message.success('Copied!');
-                  }}
-                />
-              </Space>
-            </Menu.Item>
-          );
-        })}
+                  <VerticalAlignBottomOutlined />
+                  <CopyOutlined
+                    onClick={() => {
+                      copyToClipboard(JSON.stringify(color));
+                      message.success('Copied!');
+                    }}
+                  />
+                </Space>
+              </Menu.Item>
+            );
+          },
+        )}
       </Menu.ItemGroup>
     </Menu>
   );
