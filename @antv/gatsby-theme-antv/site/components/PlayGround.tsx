@@ -374,7 +374,7 @@ insertCss(`,
       let reg;
       if (themeSwitcher === 'g2') {
         themeCode = `${chart}.theme(${theme});`;
-        reg = new RegExp(`( *)${chart}.theme(.*);\n`, 'g');
+        reg = new RegExp(`( *)${chart}.theme(.*);*(\n*)`, 'g');
         source = source.replace(reg, '');
       } else if (themeSwitcher === 'g2plot') {
         themeCode = `${chart}.chart.theme(${theme});`;
