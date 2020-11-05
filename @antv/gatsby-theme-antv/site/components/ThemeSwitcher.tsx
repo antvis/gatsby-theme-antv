@@ -43,7 +43,7 @@ const Colors: FC<ColorsProps> = ({ colorStyle = {}, colors = [] }) => {
 };
 
 const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const defaultColorArr = pallette.categorical[0].colors20?.slice(0, 3);
   const [curColor, updateCurColor] = useState<string[]>(defaultColorArr);
   const [curPalette, updateCurPalette] = useState<string[]>();
@@ -83,10 +83,9 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
                   onClick={() => {
                     updateCurColor(color.colors20.slice(0, 3));
 
-                    // 设计师建议分类色板只用前五个颜色，为了美观
                     const themeColors = {
-                      colors10: color.colors10.slice(0, 5),
-                      colors20: color.colors20.slice(0, 5),
+                      colors10: color.colors10,
+                      colors20: color.colors20,
                     };
                     updateTheme(JSON.stringify(themeColors));
                   }}
@@ -143,7 +142,7 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
                   />
                   <CopyOutlined
                     onClick={() => {
-                      copyToClipboard(JSON.stringify(color));
+                      copyToClipboard(JSON.stringify(color, null, '\t'));
                       message.success('Copied!');
                     }}
                   />
@@ -189,6 +188,15 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
           },
         )}
       </Menu.ItemGroup>
+
+      <a
+        rel="noreferrer"
+        className={styles.link}
+        target="_blank"
+        href={`https://antv.vision/${i18n.language}/docs/specification/principles/visual`}
+      >
+        {t('查看更多色板用法')}
+      </a>
     </Menu>
   );
 
