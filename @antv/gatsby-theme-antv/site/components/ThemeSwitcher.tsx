@@ -8,6 +8,7 @@ import {
 import pallette from '../pallette.json';
 import styles from './ThemeSwitcher.module.less';
 import AntvLogo from '../images/watermark.svg';
+
 const htmlToImage = require('html-to-image');
 
 interface ThemeSwitcherProps {
