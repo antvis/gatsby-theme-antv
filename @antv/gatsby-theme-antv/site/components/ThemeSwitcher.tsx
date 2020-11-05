@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Button, Menu, Dropdown, Space, message } from 'antd';
 import {
   CaretDownOutlined,
@@ -7,6 +7,8 @@ import {
 } from '@ant-design/icons';
 import pallette from '../pallette.json';
 import styles from './ThemeSwitcher.module.less';
+import AntvLogo from '../images/watermark.svg';
+const htmlToImage = require('html-to-image');
 
 interface ThemeSwitcherProps {
   updateTheme: (val: string) => void;
@@ -41,6 +43,7 @@ const Colors: FC<ColorsProps> = ({ colorStyle = {}, colors = [] }) => {
 const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
   const defaultColorArr = pallette.categorical[0].colors20?.slice(0, 3);
   const [curColor, updateCurColor] = useState<string[]>(defaultColorArr);
+  const [curPalette, updateCurPalette] = useState<string[]>();
   const copyToClipboard = (arr: string) => {
     const el = document.createElement('textarea');
     el.value = arr;
@@ -49,6 +52,21 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
     document.execCommand('copy');
     document.body.removeChild(el);
   };
+
+  const download = () => {
+    const palette = document.getElementById('palette');
+    if (!palette) return;
+    htmlToImage.toPng(palette).then(function (dataUrl: any) {
+      const link = document.createElement('a');
+      link.download = 'antv-palette.png';
+      link.href = dataUrl;
+      link.click();
+    });
+  };
+
+  useEffect(() => {
+    if (curPalette) download();
+  }, [curPalette]);
 
   const menu = (
     <Menu className={styles.operateBtns}>
@@ -73,7 +91,10 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
                     />
                   </div>
 
-                  <VerticalAlignBottomOutlined />
+                  <VerticalAlignBottomOutlined
+                    onClick={() => updateCurPalette(color.colors20)}
+                  />
+
                   <CopyOutlined
                     onClick={() => {
                       copyToClipboard(JSON.stringify(color));
@@ -107,7 +128,9 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
                     />
                   </div>
 
-                  <VerticalAlignBottomOutlined />
+                  <VerticalAlignBottomOutlined
+                    onClick={() => updateCurPalette(color.colors20)}
+                  />
                   <CopyOutlined
                     onClick={() => {
                       copyToClipboard(JSON.stringify(color));
@@ -141,7 +164,9 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
                     />
                   </div>
 
-                  <VerticalAlignBottomOutlined />
+                  <VerticalAlignBottomOutlined
+                    onClick={() => updateCurPalette(color.colors20)}
+                  />
                   <CopyOutlined
                     onClick={() => {
                       copyToClipboard(JSON.stringify(color));
@@ -158,23 +183,40 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
   );
 
   return (
-    <Dropdown overlay={menu}>
-      <div className={styles.dropGroup}>
-        <Button type="link" className={styles.switcher}>
-          <div className={styles.themeBtn}>
+    <>
+      <Dropdown overlay={menu}>
+        <div className={styles.dropGroup}>
+          <Button type="link" className={styles.switcher}>
+            <div className={styles.themeBtn}>
+              <Colors
+                colorStyle={{
+                  width: `${100 / curColor.length}%`,
+                  height: '100%',
+                  display: 'inline-block',
+                }}
+                colors={curColor}
+              />
+            </div>
+          </Button>
+          <CaretDownOutlined className={styles.drop} />
+        </div>
+      </Dropdown>
+      {curPalette && (
+        <div className={styles.palette} id="palette">
+          <AntvLogo />
+          <div className={styles.bg}>
             <Colors
               colorStyle={{
-                width: `${100 / curColor.length}%`,
+                width: `${100 / curPalette.length}%`,
                 height: '100%',
                 display: 'inline-block',
               }}
-              colors={curColor}
+              colors={curPalette}
             />
           </div>
-        </Button>
-        <CaretDownOutlined className={styles.drop} />
-      </div>
-    </Dropdown>
+        </div>
+      )}
+    </>
   );
 };
 export default ThemeSwitcher;
