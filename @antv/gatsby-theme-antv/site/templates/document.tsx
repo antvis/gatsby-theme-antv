@@ -371,7 +371,11 @@ export default function Template({
             onClick={() => changeAnchorLinkStatus(link)}
           />
         )}
-        <AnchorLink href={link.href} title={link.title}>
+        <AnchorLink
+          href={link.href}
+          title={link.title}
+          className={link.children ? styles.parent : styles.children}
+        >
           {link.children &&
             link.status === AnchorLinkStatus.EXPAND &&
             renderAnchorLinks(link.children)}
