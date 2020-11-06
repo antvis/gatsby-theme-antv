@@ -16,7 +16,7 @@ import {
   Anchor,
   BackTop,
 } from 'antd';
-import { groupBy } from 'lodash-es';
+import { groupBy, debounce } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
 import { useMedia } from 'react-use';
@@ -383,7 +383,7 @@ export default function Template({
       </React.Fragment>
     ));
 
-  const onAnchorLinkChange = (currentActiveLink: string) => {
+  const onAnchorLinkChange = debounce((currentActiveLink: string) => {
     if (currentActiveLink) {
       const link = document.querySelector(`a[href='${currentActiveLink}']`);
       if (link) {
@@ -393,7 +393,7 @@ export default function Template({
         });
       }
     }
-  };
+  }, 300);
 
   return (
     <>
