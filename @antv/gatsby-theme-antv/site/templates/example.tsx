@@ -7,7 +7,7 @@ import {
   MenuUnfoldOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { groupBy } from 'lodash-es';
+import { groupBy, debounce } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
 import { useMedia } from 'react-use';
@@ -205,7 +205,7 @@ export default function Template({
   );
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
-  const onAnchorLinkChange = (currentActiveLink: string) => {
+  const onAnchorLinkChange = debounce((currentActiveLink: string) => {
     let currentSlug = '';
     edges.forEach((edge: any) => {
       const {
@@ -228,7 +228,7 @@ export default function Template({
         });
       }
     }
-  };
+  }, 300);
 
   const menu = (
     <Anchor className={styles.galleryAnchor} onChange={onAnchorLinkChange}>

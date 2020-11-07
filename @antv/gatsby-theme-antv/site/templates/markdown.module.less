@@ -528,15 +528,15 @@
 }
 
 .apiAnchor {
+  padding-left: 14px;
   overflow: hidden;
 
   &:hover {
     overflow-y: auto;
   }
 
-  :global(.ant-anchor-link) {
-    padding: 6px 0 6px 24px;
-    font-size: 12px;
+  :global(.ant-anchor-ink) {
+    left: -10px;
   }
 
   :global(.ant-anchor-ink-ball) {
@@ -554,10 +554,19 @@
 
   :global(.anticon) {
     position: absolute;
-    padding-top: 6px;
-    padding-left: 10px;
+    padding-top: 5px;
     font-size: 12px;
     color: red;
+  }
+
+  .parent {
+    padding: 5px 0 5px 14px;
+    font-size: 12px;
+  }
+
+  .children {
+    padding: 5px 0 5px 14px;
+    font-size: 12px;
   }
 }
 
