@@ -81,7 +81,13 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
                     className={styles.panelContainer}
                     onClick={() => {
                       updateCurColor(color.colors20.slice(0, 3));
-                      updateTheme(JSON.stringify(color));
+
+                      // 设计师约定分类色板只用前五个颜色，为了美观
+                      const themeColors = {
+                        colors10: color.colors10.slice(0, 5),
+                        colors20: color.colors20.slice(0, 5),
+                      };
+                      updateTheme(JSON.stringify(themeColors));
                     }}
                   >
                     <Colors
