@@ -178,13 +178,13 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
       {rediectUrl && (
         <Helmet>
           <meta httpEquiv="refresh" content={`0;url=${rediectUrl}`} />
-          <meta title="xxxxxx" />
         </Helmet>
       )}
       <Seo
         title={siteUrl === 'https://antv.vision' ? '' : title}
         lang={i18n.language}
       />
+      xxxxxxxxx
       <Header
         subTitle={siteUrl === 'https://antv.vision' ? '' : title}
         path={path}
@@ -205,7 +205,6 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         {...logoProps}
       />
       <main className={styles.main}>{children}</main>
-
       {!(
         location.pathname.includes('/examples/') &&
         !location.pathname.endsWith('/gallery')
