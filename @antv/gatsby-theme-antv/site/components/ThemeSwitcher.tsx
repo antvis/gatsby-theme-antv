@@ -76,28 +76,29 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
           (color: { colors10: string[]; colors20: string[] }, key: number) => {
             return (
               <Menu.Item key={key}>
-                <Space>
-                  <div
-                    className={styles.panelContainer}
-                    onClick={() => {
-                      updateCurColor(color.colors20.slice(0, 3));
+                <div
+                  className={styles.panelContainer}
+                  onClick={() => {
+                    updateCurColor(color.colors20.slice(0, 3));
 
-                      // 设计师约定分类色板只用前五个颜色，为了美观
-                      const themeColors = {
-                        colors10: color.colors10.slice(0, 5),
-                        colors20: color.colors20.slice(0, 5),
-                      };
-                      updateTheme(JSON.stringify(themeColors));
+                    // 设计师建议分类色板只用前五个颜色，为了美观
+                    const themeColors = {
+                      colors10: color.colors10.slice(0, 5),
+                      colors20: color.colors20.slice(0, 5),
+                    };
+                    updateTheme(JSON.stringify(themeColors));
+                  }}
+                >
+                  <Colors
+                    colorStyle={{
+                      maxWidth: `${100 / color.colors20.length}%`,
+                      height: '24px',
                     }}
-                  >
-                    <Colors
-                      colorStyle={{
-                        maxWidth: `${100 / color.colors20.length}%`,
-                      }}
-                      colors={color.colors20}
-                    />
-                  </div>
+                    colors={color.colors20}
+                  />
+                </div>
 
+                <Space className={styles.btnGroup}>
                   <VerticalAlignBottomOutlined
                     onClick={() => updateCurPalette(color.colors20)}
                   />
@@ -119,22 +120,22 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
           (color: { colors10: string[]; colors20: string[] }, key: number) => {
             return (
               <Menu.Item key={key}>
-                <Space>
-                  <div
-                    className={styles.panelContainer}
-                    onClick={() => {
-                      updateCurColor(color.colors20.slice(0, 3));
-                      updateTheme(JSON.stringify(color));
+                <div
+                  className={styles.panelContainer}
+                  onClick={() => {
+                    updateCurColor(color.colors20.slice(0, 3));
+                    updateTheme(JSON.stringify(color));
+                  }}
+                >
+                  <Colors
+                    colorStyle={{
+                      maxWidth: `${100 / color.colors20.length}%`,
+                      height: '24px',
                     }}
-                  >
-                    <Colors
-                      colorStyle={{
-                        maxWidth: `${100 / color.colors20.length}%`,
-                      }}
-                      colors={color.colors20}
-                    />
-                  </div>
-
+                    colors={color.colors20}
+                  />
+                </div>
+                <Space className={styles.btnGroup}>
                   <VerticalAlignBottomOutlined
                     onClick={() => updateCurPalette(color.colors20)}
                   />
@@ -155,22 +156,22 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
           (color: { colors10: string[]; colors20: string[] }, key: number) => {
             return (
               <Menu.Item key={key}>
-                <Space>
-                  <div
-                    className={styles.panelContainer}
-                    onClick={() => {
-                      updateCurColor(color.colors20.slice(0, 3));
-                      updateTheme(JSON.stringify(color));
+                <div
+                  className={styles.panelContainer}
+                  onClick={() => {
+                    updateCurColor(color.colors20.slice(0, 3));
+                    updateTheme(JSON.stringify(color));
+                  }}
+                >
+                  <Colors
+                    colorStyle={{
+                      maxWidth: `${100 / color.colors20.length}%`,
+                      height: '24px',
                     }}
-                  >
-                    <Colors
-                      colorStyle={{
-                        maxWidth: `${100 / color.colors20.length}%`,
-                      }}
-                      colors={color.colors20}
-                    />
-                  </div>
-
+                    colors={color.colors20}
+                  />
+                </div>
+                <Space className={styles.btnGroup}>
                   <VerticalAlignBottomOutlined
                     onClick={() => updateCurPalette(color.colors20)}
                   />
