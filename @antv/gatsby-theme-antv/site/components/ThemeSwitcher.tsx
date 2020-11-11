@@ -59,7 +59,7 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
   const download = () => {
     const palette = document.getElementById('palette');
     if (!palette) return;
-    htmlToImage.toPng(palette).then(function (dataUrl: any) {
+    htmlToImage.toPng(palette).then((dataUrl: any) => {
       const link = document.createElement('a');
       link.download = 'antv-palette.png';
       link.href = dataUrl;

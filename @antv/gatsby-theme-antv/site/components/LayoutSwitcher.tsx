@@ -9,7 +9,7 @@ interface LayoutProps {
   updateLayout: (val: string) => void;
 }
 
-let icon: {} | null | undefined;
+let icon: JSX.Element;
 const curLayout = localStorage.getItem('layout');
 switch (curLayout) {
   case 'viewTwoCols':
