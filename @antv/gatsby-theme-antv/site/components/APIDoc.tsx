@@ -155,7 +155,9 @@ const APIDoc: React.FC<APIDocProps> = ({
         element.show = true;
       }
     });
-    updateOutsideActiveKeys([`outside-${initData[0].title}-0`]);
+    const defaultKey = initData[0]?.title;
+    if (defaultKey) updateOutsideActiveKeys([`outside-${defaultKey}-0`]);
+
     updateCollapseData(initData);
   }, [exampleSections]);
 
@@ -269,10 +271,6 @@ const APIDoc: React.FC<APIDocProps> = ({
         updateInsideActiveKeys={updateInsideActiveKeys}
         updateSearchQuery={updateSearchQuery}
         updateCollapseData={updateCollapseData}
-        showTabs={{
-          API: !!exampleSections.API,
-          design: !!exampleSections.design,
-        }}
         content={collapseData}
         codeQuery={codeQuery}
         showAPISearch={showAPISearch}
@@ -281,9 +279,11 @@ const APIDoc: React.FC<APIDocProps> = ({
         <Skeleton className={styles.skeleton} paragraph={{ rows: 16 }} />
       ) : (
         <div className={styles.docContent}>
-          {exampleSections.API && active === 'API' && collapseData.length > 0
-            ? renderCollapse()
-            : empty}
+          {exampleSections.API &&
+            active === 'API' &&
+            collapseData.length > 0 &&
+            renderCollapse()}
+          {!exampleSections.API && empty}
           {exampleSections.design && active === 'design' ? (
             <div className={styles.designContent}>
               <div
