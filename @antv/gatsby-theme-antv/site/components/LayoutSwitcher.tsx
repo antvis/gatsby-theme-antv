@@ -14,7 +14,7 @@ let icon = <DefaultIcon />;
 const LayoutSwitcher: React.FC<LayoutProps> = ({ updateLayout }) => {
   const { t } = useTranslation();
   const menu = (
-    <Menu>
+    <Menu className={styles.menu}>
       <Menu.Item
         icon={<DefaultIcon />}
         onClick={() => {
