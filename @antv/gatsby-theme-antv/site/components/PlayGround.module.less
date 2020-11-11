@@ -28,6 +28,7 @@
     position: relative;
     margin: auto;
     color: #6c7f90;
+    width: 22px !important;
     left: -1px;
     z-index: 4;
     width: 22px;
@@ -57,6 +58,7 @@
 
 .breadDrop {
   display: inherit;
+  color: #7d8a96;
   cursor: pointer;
 
   &:hover {
@@ -149,16 +151,18 @@
     }
 
     .Resizer.vertical {
-      width: 11.5px !important;
+      // width: 11.5px !important;
       height: @editor-height;
     }
 
     .ant-page-header {
       padding: 0px;
+      margin-bottom: -8px;
     }
 
     .ant-breadcrumb {
       font-size: 12px;
+      margin-bottom: 8px;
     }
     .ant-breadcrumb + .ant-page-header-heading {
       margin-top: -8px;

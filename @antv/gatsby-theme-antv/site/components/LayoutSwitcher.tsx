@@ -9,10 +9,22 @@ interface LayoutProps {
   updateLayout: (val: string) => void;
 }
 
-let icon = <DefaultIcon />;
+let icon: {} | null | undefined;
+const curLayout = localStorage.getItem('layout');
+switch (curLayout) {
+  case 'viewTwoCols':
+    icon = <TowRowsIcon />;
+    break;
+  case 'viewThreeCols':
+    icon = <ThreeRowsIcon />;
+    break;
+  default:
+    icon = <DefaultIcon />;
+}
 
 const LayoutSwitcher: React.FC<LayoutProps> = ({ updateLayout }) => {
   const { t } = useTranslation();
+
   const menu = (
     <Menu className={styles.menu}>
       <Menu.Item

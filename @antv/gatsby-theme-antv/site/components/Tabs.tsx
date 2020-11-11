@@ -110,6 +110,7 @@ const Tabs: React.FC<{
   };
 
   const searchOptions = () => {
+    if (!list) return;
     return Object.entries(list).map((item, index) => {
       return {
         value: item[0],
@@ -260,7 +261,7 @@ const Tabs: React.FC<{
           </div>
         </li>
       </ul>
-      {active === 'API' && showAPISearch && (
+      {active === 'API' && showAPISearch && showTabs.API && (
         <div className={styles.tabExtra}>
           <div className={styles.tabSearch}>
             <AutoComplete
