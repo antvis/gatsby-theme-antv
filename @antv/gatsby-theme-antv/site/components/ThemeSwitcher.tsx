@@ -5,6 +5,7 @@ import {
   CopyOutlined,
   VerticalAlignBottomOutlined,
 } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import pallette from '../pallette.json';
 import styles from './ThemeSwitcher.module.less';
 import AntvLogo from '../images/watermark.svg';
@@ -42,6 +43,7 @@ const Colors: FC<ColorsProps> = ({ colorStyle = {}, colors = [] }) => {
 };
 
 const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
+  const { t } = useTranslation();
   const defaultColorArr = pallette.categorical[0].colors20?.slice(0, 3);
   const [curColor, updateCurColor] = useState<string[]>(defaultColorArr);
   const [curPalette, updateCurPalette] = useState<string[]>();
@@ -71,7 +73,7 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
 
   const menu = (
     <Menu className={styles.operateBtns}>
-      <Menu.ItemGroup title="分类色板">
+      <Menu.ItemGroup title={t('分类色板')}>
         {pallette.categorical.map(
           (color: { colors10: string[]; colors20: string[] }, key: number) => {
             return (
@@ -115,7 +117,7 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
           },
         )}
       </Menu.ItemGroup>
-      <Menu.ItemGroup title="顺序色板">
+      <Menu.ItemGroup title={t('顺序色板')}>
         {pallette.continuous.map(
           (color: { colors10: string[]; colors20: string[] }, key: number) => {
             return (
@@ -151,7 +153,7 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
           },
         )}
       </Menu.ItemGroup>
-      <Menu.ItemGroup title="发散色板">
+      <Menu.ItemGroup title={t('发散色板')}>
         {pallette.discrete.map(
           (color: { colors10: string[]; colors20: string[] }, key: number) => {
             return (

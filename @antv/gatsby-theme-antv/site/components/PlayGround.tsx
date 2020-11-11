@@ -337,7 +337,7 @@ insertCss(`,
 
   useEffect(() => {
     dispatchResizeEvent();
-    if (isWide) localStorage.setItem('layout', layout);
+    if (isWide && showAPIDoc) localStorage.setItem('layout', layout);
     const pane = document.getElementsByClassName('ant-layout');
     if (!pane[1]) return;
     if (layout === 'viewTwoRows') {
@@ -375,11 +375,11 @@ insertCss(`,
       if (themeSwitcher === 'g2') {
         themeCode = `${chart}.theme(${theme});`;
         reg = new RegExp(`( *)${chart}.theme(.*);*(\n*)`, 'g');
-        source = source.replace(reg, '');
+        if (source.match(reg)) source = source.replace(reg, '');
       } else if (themeSwitcher === 'g2plot') {
         themeCode = `${chart}.chart.theme(${theme});`;
         reg = new RegExp(`( *)${chart}.chart.theme(.*);\n`, 'g');
-        source = source.replace(reg, '');
+        if (source.match(reg)) source = source.replace(reg, '');
       }
       const data = source.replace(
         `${chart}.render()`,
