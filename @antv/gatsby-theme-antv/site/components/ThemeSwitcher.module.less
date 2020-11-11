@@ -67,43 +67,100 @@
   }
 }
 
-.panelContainer {
-  width: 248px;
-  height: 30px;
-  padding: 4px;
-  border: #fff 1px solid;
-  box-sizing: border-box;
-
-  .colors {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    margin: 0;
-    font-size: 0;
-
-    .color {
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      height: 20px;
-      overflow: hidden;
-      color: #fff;
-      text-align: right;
-      box-shadow: 0 0 0 0 currentColor;
-      transition: all 0.3s;
-    }
-  }
-
-  &:hover {
-    border: @primary-color 1px solid;
-    cursor: pointer;
-  }
-}
-
 .operateBtns {
+  padding: 10px 6px;
+
   span:hover {
     color: @primary-color;
     cursor: pointer;
+  }
+  :global {
+    .ant-dropdown-menu-item-group-list {
+      margin: 0;
+    }
+
+    .ant-dropdown-menu-item {
+      padding: 1px 9px;
+      position: relative;
+    }
+    .ant-dropdown-menu-item:hover {
+      background-color: #fff;
+    }
+    .ant-dropdown-menu-item-group-title {
+      padding: 5px 12px 0px 12px;
+    }
+  }
+  .panelContainer {
+    width: 248px;
+    height: 32px;
+    padding: 3px;
+    border: #fff 1px solid;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    .colors {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      height: 24px;
+      margin: 0;
+      font-size: 0;
+      div:first-child {
+        border-radius: 2px 0 0 2px;
+      }
+      div:last-child {
+        border-radius: 0 2px 2px 0;
+      }
+
+      .color {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 20px;
+        overflow: hidden;
+        color: #fff;
+        text-align: right;
+        box-shadow: 0 0 0 0 currentColor;
+        transition: all 0.3s;
+      }
+    }
+
+    &:hover {
+      border: @primary-color 1px solid;
+    }
+    &:hover + .btnGroup {
+      visibility: visible;
+      transition: 0.2s;
+    }
+  }
+
+  .btnGroup {
+    position: absolute;
+    right: 16px;
+    top: 6px;
+    visibility: hidden;
+
+    div:first-child {
+      margin-right: 4px !important;
+    }
+
+    span {
+      background-color: #000000;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 2px;
+      opacity: 0.6;
+      padding: 2px;
+
+      &:hover {
+        opacity: 0.8;
+        transition: 0.2s;
+      }
+    }
+    &:hover {
+      visibility: visible;
+    }
   }
 }
 .palette {
