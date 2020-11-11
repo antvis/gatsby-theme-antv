@@ -44,7 +44,7 @@ const Colors: FC<ColorsProps> = ({
   return (
     <div
       className={styles.colors}
-      style={{ width: colors.length > 10 ? '100%' : '50%' }}
+      style={{ width: colors.length > 10 ? '100%' : '' }}
     >
       <div className={styles.container}>
         {description ? (
