@@ -9,8 +9,9 @@ interface LayoutProps {
   updateLayout: (val: string) => void;
 }
 
-let icon: JSX.Element;
-const curLayout = localStorage.getItem('layout');
+let icon: React.ReactNode;
+const curLayout =
+  typeof window !== 'undefined' ? localStorage.getItem('layout') : null;
 switch (curLayout) {
   case 'viewTwoCols':
     icon = <TowRowsIcon />;
