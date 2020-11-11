@@ -9,8 +9,9 @@ interface LayoutProps {
   updateLayout: (val: string) => void;
 }
 
-let icon: JSX.Element;
-const curLayout = localStorage.getItem('layout');
+let icon: React.ReactNode;
+const curLayout =
+  typeof window !== 'undefined' ? localStorage.getItem('layout') : null;
 switch (curLayout) {
   case 'viewTwoCols':
     icon = <TowRowsIcon />;
@@ -59,10 +60,10 @@ const LayoutSwitcher: React.FC<LayoutProps> = ({ updateLayout }) => {
   );
 
   return (
-    <Dropdown overlay={menu} overlayClassName={styles.layoutSwitcherDropdown}>
+    <Dropdown overlay={menu}>
       <div className={styles.dropGroup}>
         <Button type="link" className={styles.switch} icon={icon} />
-        <CaretDownOutlined className={styles.drop} style={{ fontSize: 12 }} />
+        <CaretDownOutlined className={styles.drop} />
       </div>
     </Dropdown>
   );
