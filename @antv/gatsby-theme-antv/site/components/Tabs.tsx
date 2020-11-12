@@ -19,15 +19,8 @@ export interface CollapseDataProp {
   };
 }
 
-interface ShowTabsProps {
-  examples?: boolean;
-  API?: boolean;
-  design?: boolean;
-}
-
 const Tabs: React.FC<{
   active: 'API' | 'design';
-  showTabs: ShowTabsProps;
   examplesCount?: number;
   title?: string;
   updateActive: (val: 'API' | 'design') => void;
@@ -40,7 +33,6 @@ const Tabs: React.FC<{
   showAPISearch: boolean;
 }> = ({
   active,
-  showTabs = {} as ShowTabsProps,
   title,
   updateActive,
   updateOutsideActiveKeys,
@@ -131,9 +123,7 @@ const Tabs: React.FC<{
   };
 
   const { t } = useTranslation();
-  if (showTabs.API === false && showTabs.design === false) {
-    return <p className={styles.title}>{t('演示')}</p>;
-  }
+
   const hiddenTitleForDocsearch = (
     <span className={styles.hidden}>{title} - </span>
   );
@@ -241,7 +231,6 @@ const Tabs: React.FC<{
         <li
           className={classNames({
             [styles.active]: active === 'API',
-            [styles.hidden]: showTabs.API === false,
           })}
         >
           <div onClick={() => updateActive('API')}>
@@ -252,7 +241,6 @@ const Tabs: React.FC<{
         <li
           className={classNames({
             [styles.active]: active === 'design',
-            [styles.hidden]: showTabs.design === false,
           })}
         >
           <div onClick={() => updateActive('design')}>
@@ -261,7 +249,7 @@ const Tabs: React.FC<{
           </div>
         </li>
       </ul>
-      {active === 'API' && showAPISearch && showTabs.API && (
+      {active === 'API' && showAPISearch && (
         <div className={styles.tabExtra}>
           <div className={styles.tabSearch}>
             <AutoComplete
