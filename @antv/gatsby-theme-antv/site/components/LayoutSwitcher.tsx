@@ -47,10 +47,10 @@ const LayoutSwitcher: React.FC<LayoutProps> = ({ updateLayout }) => {
   );
 
   return (
-    <Dropdown overlay={menu}>
+    <Dropdown overlay={menu} overlayClassName={styles.layoutSwitcherDropdown}>
       <div className={styles.dropGroup}>
         <Button type="link" className={styles.switch} icon={icon} />
-        <CaretDownOutlined className={styles.drop} />
+        <CaretDownOutlined className={styles.drop} style={{ fontSize: 12 }} />
       </div>
     </Dropdown>
   );
