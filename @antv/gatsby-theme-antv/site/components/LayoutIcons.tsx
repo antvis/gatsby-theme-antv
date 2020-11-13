@@ -1,8 +1,16 @@
 import React from 'react';
 import Icon from '@ant-design/icons';
 
-const DefaultSvg = () => (
-  <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
+interface IconProps {
+  style?: React.CSSProperties;
+}
+
+const DefaultSvg: React.FC<IconProps> = ({ style = {} }) => (
+  <svg
+    style={{ width: 14, height: 14, ...style }}
+    viewBox="0 0 16 16"
+    version="1.1"
+  >
     <g id="v1.1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="icon_jingdian" fill="#000000" fillRule="nonzero">
         <g id="编组">
@@ -27,8 +35,12 @@ const DefaultSvg = () => (
   </svg>
 );
 
-const ThreeRowsSvg = () => (
-  <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
+const ThreeRowsSvg: React.FC<IconProps> = ({ style = {} }) => (
+  <svg
+    style={{ width: 14, height: 14, ...style }}
+    viewBox="0 0 16 16"
+    version="1.1"
+  >
     <g id="v1.1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="icon_sanlan" fill="#000000" fillRule="nonzero">
         <g id="编组备份">
@@ -53,8 +65,12 @@ const ThreeRowsSvg = () => (
   </svg>
 );
 
-const TowRowsSvg = () => (
-  <svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1">
+const TowRowsSvg: React.FC<IconProps> = ({ style = {} }) => (
+  <svg
+    style={{ width: 14, height: 14, ...style }}
+    viewBox="0 0 16 16"
+    version="1.1"
+  >
     <title>编组备份 2</title>
     <g id="v1.1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
       <g id="icon_lianglan-" fill="#000000" fillRule="nonzero">

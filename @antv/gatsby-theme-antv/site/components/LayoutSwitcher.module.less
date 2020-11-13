@@ -1,16 +1,5 @@
 @import '~antd/es/style/themes/default.less';
 
-.btn {
-  :global(.ant-btn-icon-only) {
-    width: 30px;
-    height: 30px;
-    color: #6b7f90;
-  }
-}
-
-.switch {
-  width: 25px;
-}
 .dropGroup {
   width: 45px;
   height: 40px;
@@ -24,12 +13,24 @@
     transition: all 0.3s;
   }
 
-  .drop {
-    font-size: 12px;
+  .switch {
+    width: 25px;
+
+    :global(.anticon > span) {
+      width: 16px !important;
+      height: 16px !important;
+    }
   }
 }
 
-:global(.ant-dropdown-menu-item) {
-  color: #6b7f90;
-  font-size: 16px;
+.layoutSwitcherDropdown {
+  :global {
+    .ant-dropdown-menu-item {
+      color: #6b7f90;
+
+      .anticon {
+        vertical-align: -0.2em;
+      }
+    }
+  }
 }
