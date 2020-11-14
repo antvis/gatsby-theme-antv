@@ -153,7 +153,7 @@ const getMenuData = ({ groupedEdges, language, docs = [], level = 0 }: any) => {
     } else {
       const subGroupedEdges = {} as any;
       Object.keys(groupedEdges).forEach((item: string) => {
-        if (item.startsWith(key)) {
+        if (item === key) {
           subGroupedEdges[item] = groupedEdges[item];
         }
       });
