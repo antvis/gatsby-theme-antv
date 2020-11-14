@@ -80,6 +80,7 @@ insertCss(`,
     replaceInsertCss(source),
   );
   const [currentSourceData, updateCurrentSourceData] = useState(null);
+  const editroRef = useRef<any>(null);
 
   if (typeof window !== 'undefined') {
     (window as any).__reportErrorInPlayGround = (e: Error) => {
@@ -185,21 +186,22 @@ insertCss(`,
     }
   };
 
-  const [editorValue, updateEditorValue] = useState('');
   useEffect(() => {
-    if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
-      updateEditorValue(currentSourceCode);
-    } else if (currentEditorTab === EDITOR_TABS.DATA) {
-      updateEditorValue(JSON.stringify(currentSourceData, null, 2));
+    if (editroRef.current) {
+      if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
+        editroRef.current.setValue(currentSourceCode);
+      } else if (currentEditorTab === EDITOR_TABS.DATA) {
+        editroRef.current.setValue(JSON.stringify(currentSourceData, null, 2));
+      }
     }
-  }, [currentEditorTab, currentSourceCode]);
+  }, [currentEditorTab]);
 
   const editor = (
     <MonacoEditor
       language={
         currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'
       }
-      value={editorValue}
+      value={currentSourceCode}
       options={{
         readOnly: currentEditorTab === EDITOR_TABS.DATA,
         automaticLayout: true,
@@ -227,6 +229,9 @@ insertCss(`,
           extraLib,
           '',
         );
+      }}
+      editorDidMount={(editorInstance) => {
+        editroRef.current = editorInstance.getModel();
       }}
     />
   );
