@@ -135,6 +135,7 @@ insertCss(`,
   const [view, updateView] = useState<string>('desktop');
   const [currentSourceCode, updateCurrentSourceCode] = useState<string>('');
   const [currentSourceData, updateCurrentSourceData] = useState(null);
+  const editroRef = useRef<any>(null);
 
   if (typeof window !== 'undefined') {
     (window as any).__reportErrorInPlayGround = (e: Error) => {
@@ -239,14 +240,15 @@ insertCss(`,
     }
   };
 
-  const [editorValue, updateEditorValue] = useState('');
   useEffect(() => {
-    if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
-      updateEditorValue(currentSourceCode);
-    } else if (currentEditorTab === EDITOR_TABS.DATA) {
-      updateEditorValue(JSON.stringify(currentSourceData, null, 2));
+    if (editroRef.current) {
+      if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
+        editroRef.current.setValue(currentSourceCode);
+      } else if (currentEditorTab === EDITOR_TABS.DATA) {
+        editroRef.current.setValue(JSON.stringify(currentSourceData, null, 2));
+      }
     }
-  }, [currentEditorTab, currentSourceCode]);
+  }, [currentEditorTab]);
 
   const codeEditor = (
     <MonacoEditor
@@ -254,7 +256,7 @@ insertCss(`,
       language={
         currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'
       }
-      value={editorValue}
+      value={currentSourceCode}
       options={{
         readOnly: currentEditorTab === EDITOR_TABS.DATA,
         automaticLayout: true,
@@ -303,6 +305,7 @@ insertCss(`,
             updateCodeQuery(val);
           },
         });
+        editroRef.current = editor.getModel();
       }}
     />
   );
@@ -356,7 +359,7 @@ insertCss(`,
         block: 'nearest',
       });
     }
-  }, [currentExample, layout, playground, editorValue]);
+  }, [currentExample, layout, playground]);
 
   // 根据pane框度及当前视图判断是否需要展示API文档搜索框
   const calcShowSearch = (size: number) => {
