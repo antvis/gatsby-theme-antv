@@ -16,6 +16,7 @@ module.exports = {
     githubUrl: repository.url,
     showChartResize: true,
     showAPIDoc: true,
+    isAntVSite: false,
     navs: [
       {
         slug: 'docs/specification/getting-started',

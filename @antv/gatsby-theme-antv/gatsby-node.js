@@ -483,6 +483,7 @@ exports.sourceNodes = ({ actions }) => {
       docs: [SiteSiteMetadataDocs]
       examples: [SiteSiteMetadataExamples]
       redirects: [SiteSiteMetadataRedirects]
+      isAntvSite: Boolean
       showChartResize: Boolean
       showAPIDoc: Boolean
       showChinaMirror: Boolean

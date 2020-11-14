@@ -89,6 +89,7 @@ module.exports = {
     navs: [], // 用于定义顶部菜单
     docs: [], // 用于定义文档页面的二级分类菜单
     examples: [], // 用于定义演示页面的二级菜单，属性见下方
+    isAntVSite: false, //是否是AntV官网，header样式为定制
     showSearch: true, // 是否展示搜索框
     showChinaMirror: true, // 是否展示国内镜像链接
     showLanguageSwitcher: true, // 用于定义是否展示语言切换

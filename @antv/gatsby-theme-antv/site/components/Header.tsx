@@ -4,7 +4,12 @@ import React, { useState, useEffect } from 'react';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
-import { CheckOutlined, GithubOutlined, MenuOutlined } from '@ant-design/icons';
+import {
+  CheckOutlined,
+  GithubOutlined,
+  MenuOutlined,
+  CaretDownFilled,
+} from '@ant-design/icons';
 import { Popover, Button, Menu, Select, Dropdown, message, Modal } from 'antd';
 import GitUrlParse from 'git-url-parse';
 import Search, { SearchProps } from './Search';
@@ -14,6 +19,7 @@ import ExternalLinkIcon from './ExternalLinkIcon';
 import { getChinaMirrorHost } from '../utils';
 import { useLogoLink } from '../hooks';
 import AntvLogo from '../images/antv.svg';
+import AntvHomeLogo from '../images/antvhome.svg';
 import TranslationIcon from '../images/translation.svg';
 import styles from './Header.module.less';
 
@@ -52,6 +58,8 @@ interface HeaderProps {
   transparent?: boolean;
   /** 是否首页模式 */
   isHomePage?: boolean;
+  /** 是否是AntV官网 */
+  isAntVSite?: boolean;
   /** AntV root 域名，直接用主题的可不传 */
   rootDomain?: string;
   /** 是否展示国内镜像链接 */
@@ -103,11 +111,13 @@ const Header: React.FC<HeaderProps> = ({
   Link = 'a',
   transparent,
   isHomePage,
+  isAntVSite = false,
   rootDomain = '',
   docsearchOptions,
   versions,
 }) => {
   const { t, i18n } = useTranslation();
+  const isAntVHome = isAntVSite && isHomePage; // 是否为AntV官网首页
   const lang =
     typeof defaultLanguage !== 'undefined'
       ? defaultLanguage
@@ -144,7 +154,7 @@ const Header: React.FC<HeaderProps> = ({
   };
 
   const { img, link } = {
-    img: <AntvLogo />,
+    img: isAntVHome ? <AntvHomeLogo /> : <AntvLogo />,
     link: '',
     ...logo,
   };
@@ -272,7 +282,7 @@ const Header: React.FC<HeaderProps> = ({
               }}
             >
               {t('国内镜像')}
-              <ExternalLinkIcon />
+              {!isAntVHome && <ExternalLinkIcon />}
             </a>
           </li>
         </Popover>
@@ -322,13 +332,22 @@ const Header: React.FC<HeaderProps> = ({
         <li {...productItemProps}>
           <a>
             {t('所有产品')}
-            <img
-              src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png"
-              alt="antv logo arrow"
-              className={classNames(styles.arrow, {
-                [styles.open]: productMenuVisible,
-              })}
-            />
+            {!isAntVHome ? (
+              <img
+                src="https://gw.alipayobjects.com/zos/antfincdn/FLrTNDvlna/antv.png"
+                alt="antv logo arrow"
+                className={classNames(styles.arrow, {
+                  [styles.open]: productMenuVisible,
+                })}
+              />
+            ) : (
+              <CaretDownFilled
+                style={{ top: '1px', color: '#fff' }}
+                className={classNames(styles.arrow, {
+                  [styles.open]: productMenuVisible,
+                })}
+              />
+            )}
           </a>
           <Products
             className={styles.productsMenu}
@@ -440,6 +459,7 @@ const Header: React.FC<HeaderProps> = ({
       className={classNames(styles.header, {
         [styles.transparent]: !!transparent && !productMenuVisible,
         [styles.isHomePage]: !!isHomePage,
+        [styles.isAntVHome]: !!isAntVHome && !productMenuVisible,
         [styles.fixed]: popupMenuVisible,
       })}
     >
@@ -465,7 +485,9 @@ const Header: React.FC<HeaderProps> = ({
               </h2>
             </>
           )}
-          {showSearch && <Search docsearchOptions={docsearchOptions} />}
+          {showSearch && !isAntVHome && (
+            <Search docsearchOptions={docsearchOptions} />
+          )}
         </div>
         <nav className={styles.nav}>
           {menu}
