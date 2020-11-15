@@ -15,8 +15,8 @@ module.exports = {
     siteUrl: homepage,
     githubUrl: repository.url,
     showChartResize: true,
-    themeSwitcher: 'g2',
     showAPIDoc: true,
+    themeSwitcher: 'g2plot',
     navs: [
       {
         slug: 'docs/specification/getting-started',
