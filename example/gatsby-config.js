@@ -16,6 +16,7 @@ module.exports = {
     githubUrl: repository.url,
     showChartResize: true,
     showAPIDoc: true,
+    themeSwitcher: 'g2plot',
     isAntVSite: false,
     navs: [
       {
