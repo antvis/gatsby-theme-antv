@@ -45,13 +45,22 @@ export const getProducts = ({
   isChinaMirrorHost?: boolean;
 }): ProductItem[] => {
   const hosts: { [name: string]: string } = {};
-  ['g2', 'g2plot', 'g6', 'l7', 'f2', 'graphin', 'g', 'x6', 'ava'].forEach(
-    (name: string) => {
-      hosts[name] = isChinaMirrorHost
-        ? getChinaMirrorHost(`${name}.${ANTV_DOMAIN}`)
-        : `${name}.${ANTV_DOMAIN}`;
-    },
-  );
+  [
+    'g2',
+    'g2plot',
+    'g6',
+    'l7',
+    'f2',
+    'f2native',
+    'graphin',
+    'g',
+    'x6',
+    'ava',
+  ].forEach((name: string) => {
+    hosts[name] = isChinaMirrorHost
+      ? getChinaMirrorHost(`${name}.${ANTV_DOMAIN}`)
+      : `${name}.${ANTV_DOMAIN}`;
+  });
   const products = [
     {
       title: 'G2',
@@ -200,6 +209,56 @@ export const getProducts = ({
       ],
     },
     {
+      title: 'F2Native',
+      icon:
+        'https://gw.alipayobjects.com/zos/antfincdn/D%26fDbWqVkv/F2%252520yidongduankeshihuafangan.svg',
+      slogan: t('移动可视化方案'),
+      description: t(
+        '跨平台高性能的移动端可视化解决方案，满足你的各种图表需求',
+      ),
+      category: Categories[0],
+      links: [
+        {
+          icon: <HomeOutlined />,
+          title: t('产品首页'),
+          url: `https://${hosts.f2native}/${language}`,
+        },
+        {
+          icon: <PieChartOutlined />,
+          title: t('图表示例'),
+          url: `https://${hosts.f2nativef2native}/${language}/examples`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('使用文档'),
+          url: `https://${hosts.f2native}/${language}/docs/tutorial/getting-started`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('API 文档'),
+          url: `https://${hosts.f2native}/${language}/docs/api`,
+        },
+        {
+          icon: <HistoryOutlined />,
+          title: t('更新日志'),
+          url: `https://github.com/antvis/f2/blob/master/CHANGELOG.md`,
+          openExternal: true,
+        },
+        {
+          icon: <GithubOutlined />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/f2`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
+          title: t('国内镜像'),
+          url: `https://antv-f2.gitee.io`,
+          openExternal: true,
+        },
+      ],
+    },
+    {
       title: 'L7',
       icon:
         'https://gw.alipayobjects.com/zos/antfincdn/OI%26h7HXH33/L7%252520dilikongjianshujukeshihua.svg',
@@ -270,6 +329,11 @@ export const getProducts = ({
           url: `https://${hosts.g2plot}/${language}/docs/manual`,
         },
         {
+          icon: <ReadOutlined />,
+          title: t('API 文档'),
+          url: `https://${hosts.g2plot}/${language}/docs/manual/plot-api`,
+        },
+        {
           icon: <HistoryOutlined />,
           title: t('更新日志'),
           url: `https://github.com/antvis/g2plot/blob/master/CHANGELOG.md`,
@@ -302,6 +366,11 @@ export const getProducts = ({
           url: `https://${hosts.graphin}/${language}`,
         },
         {
+          icon: <PieChartOutlined />,
+          title: t('组件示例'),
+          url: `https://${hosts.graphin}/${language}/examples`,
+        },
+        {
           icon: <ReadOutlined />,
           title: t('使用文档'),
           url: `https://${hosts.graphin}/${language}/docs/manual/introduction`,
@@ -327,6 +396,91 @@ export const getProducts = ({
           icon: '🇨🇳',
           title: t('国内镜像'),
           url: `https://antv-graphin.gitee.io`,
+          openExternal: true,
+        },
+      ],
+    },
+    {
+      title: 'X6',
+      icon: 'https://gw.alipayobjects.com/zos/antfincdn/0b4HzOcEJY/Graphin.svg',
+      slogan: t(''),
+      description: t('基于 G6 封装的图分析应用组件。'),
+      category: Categories[1],
+      links: [
+        {
+          icon: <HomeOutlined />,
+          title: t('产品首页'),
+          url: `https://${hosts.x6}/${language}`,
+        },
+        {
+          icon: <PieChartOutlined />,
+          title: t('图表示例'),
+          url: `https://${hosts.x6}/${language}/examples`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('使用文档'),
+          url: `https://${hosts.x6}/${language}/docs/tutorial/about/`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('API 文档'),
+          url: `https://${hosts.x6}/${language}/docs/api/graph/`,
+        },
+        {
+          icon: <GithubOutlined />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/x6`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
+          title: t('国内镜像'),
+          url: `https://antv-x6.gitee.io`,
+          openExternal: true,
+        },
+      ],
+    },
+    {
+      title: 'AVA',
+      icon:
+        'https://gw.alipayobjects.com/zos/bmw-prod/eb12db02-036c-44e9-8d17-dc2eab5a7536.svg',
+      slogan: t(''),
+      description: t(
+        'AVA 是为了更简便的可视分析而生的技术框架。 VA 代表可视分析Visual Analytics 。第一个 A 具有多重涵义：其目标是成为一个自动化Automated、智能驱动 AI driven、支持增强分析 Augmented的可视分析解决方案。',
+      ),
+      category: Categories[1],
+      links: [
+        {
+          icon: <HomeOutlined />,
+          title: t('产品首页'),
+          url: `https://${hosts.ava}/${language}`,
+        },
+        {
+          icon: <PieChartOutlined />,
+          title: t('图表示例'),
+          url: `https://${hosts.ava}/${language}/examples`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('使用文档'),
+          url: `https://${hosts.ava}/${language}/docs/tutorial/getting-started`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('API 文档'),
+          url: `https://${hosts.ava}/${language}/docs/api/auto-chart`,
+        },
+        {
+          icon: <GithubOutlined />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/ava`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
+          title: t('国内镜像'),
+          url: `https://antv-ava.gitee.io`,
           openExternal: true,
         },
       ],
