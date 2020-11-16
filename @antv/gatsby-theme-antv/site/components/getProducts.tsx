@@ -236,13 +236,7 @@ export const getProducts = ({
         {
           icon: <ReadOutlined />,
           title: t('API 文档'),
-          url: `https://${hosts.f2native}/${language}/docs/api`,
-        },
-        {
-          icon: <HistoryOutlined />,
-          title: t('更新日志'),
-          url: `https://github.com/antvis/f2/blob/master/CHANGELOG.md`,
-          openExternal: true,
+          url: `https://${hosts.f2native}/${language}/docs/api/API`,
         },
         {
           icon: <GithubOutlined />,
