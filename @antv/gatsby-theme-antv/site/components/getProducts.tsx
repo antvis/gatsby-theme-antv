@@ -208,50 +208,7 @@ export const getProducts = ({
         },
       ],
     },
-    {
-      title: 'F2Native',
-      icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/D%26fDbWqVkv/F2%252520yidongduankeshihuafangan.svg',
-      slogan: t('移动可视化方案'),
-      description: t(
-        '跨平台高性能的移动端可视化解决方案，满足你的各种图表需求',
-      ),
-      category: Categories[0],
-      links: [
-        {
-          icon: <HomeOutlined />,
-          title: t('产品首页'),
-          url: `https://${hosts.f2native}/${language}`,
-        },
-        {
-          icon: <PieChartOutlined />,
-          title: t('图表示例'),
-          url: `https://${hosts.f2nativef2native}/${language}/examples`,
-        },
-        {
-          icon: <ReadOutlined />,
-          title: t('使用文档'),
-          url: `https://${hosts.f2native}/${language}/docs/tutorial/getting-started`,
-        },
-        {
-          icon: <ReadOutlined />,
-          title: t('API 文档'),
-          url: `https://${hosts.f2native}/${language}/docs/api/API`,
-        },
-        {
-          icon: <GithubOutlined />,
-          title: t('GitHub 仓库'),
-          url: `https://github.com/antvis/f2`,
-          openExternal: true,
-        },
-        {
-          icon: '🇨🇳',
-          title: t('国内镜像'),
-          url: `https://antv-f2.gitee.io`,
-          openExternal: true,
-        },
-      ],
-    },
+
     {
       title: 'L7',
       icon:
@@ -436,6 +393,51 @@ export const getProducts = ({
       ],
     },
     {
+      title: 'F2Native',
+      icon:
+        'https://gw.alipayobjects.com/zos/antfincdn/D%26fDbWqVkv/F2%252520yidongduankeshihuafangan.svg',
+      slogan: t('移动可视化方案'),
+      description: t(
+        '跨平台高性能的移动端可视化解决方案，满足你的各种图表需求',
+      ),
+      category: Categories[0],
+      links: [
+        {
+          icon: <HomeOutlined />,
+          title: t('产品首页'),
+          url: `https://${hosts.f2native}/${language}`,
+        },
+        {
+          icon: <PieChartOutlined />,
+          title: t('图表示例'),
+          url: `https://${hosts.f2nativef2native}/${language}/examples`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('使用文档'),
+          url: `https://${hosts.f2native}/${language}/docs/tutorial/getting-started`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('API 文档'),
+          url: `https://${hosts.f2native}/${language}/docs/api/API`,
+        },
+        {
+          icon: <GithubOutlined />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/f2`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
+          title: t('国内镜像'),
+          url: `https://antv-f2.gitee.io`,
+          openExternal: true,
+        },
+      ],
+    },
+
+    {
       title: 'AVA',
       icon:
         'https://gw.alipayobjects.com/zos/bmw-prod/eb12db02-036c-44e9-8d17-dc2eab5a7536.svg',
@@ -555,6 +557,7 @@ export const getProducts = ({
       ],
     },
   ];
+  console.log(`${products}`);
 
   return products;
 };

@@ -125,6 +125,13 @@ const Footer: React.FC<FooterProps> = ({
     ],
   };
 
+  // 占位
+  const empty = {
+    icon: '',
+    title: '',
+    items: [],
+  };
+
   const defaultColumns = products
     .filter((product) => product.category !== 'ecology')
     .map((product) => ({
@@ -145,11 +152,18 @@ const Footer: React.FC<FooterProps> = ({
   const isDocsPage = path.startsWith(`/zh/docs`) || path.startsWith(`/en/docs`);
   const is404Page = (location as any).key === 'initial';
 
+  const getColums = () => {
+    if (products.length % 2 !== 0) {
+      return [...defaultColumns, more, empty];
+    }
+    return [...defaultColumns, more];
+  };
+
   return (
     <RCFooter
       maxColumnsPerRow={4}
       theme={theme}
-      columns={columns || [...defaultColumns, more]}
+      columns={columns || getColums()}
       className={classnames(styles.footer, {
         [styles.withMenu]: !is404Page && (isExamplePage || isDocsPage),
       })}
