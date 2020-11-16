@@ -153,5 +153,8 @@
     "jest": "^26.0.1",
     "react-test-renderer": "^16.9.0",
     "ts-jest": "^26.0.0"
+  },
+  "resolutions": {
+    "normalize-url": "^4.1.0"
   }
 }
