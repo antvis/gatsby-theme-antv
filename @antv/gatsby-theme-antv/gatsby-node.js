@@ -384,7 +384,11 @@ exports.onCreateWebpackConfig = (
   }
 
   actions.setWebpackConfig({
-    plugins: [new MonacoWebpackPlugin()],
+    plugins: [
+      new MonacoWebpackPlugin({
+        languages: ['javascript', 'json', 'typescript', 'html'],
+      }),
+    ],
   });
 };
 
