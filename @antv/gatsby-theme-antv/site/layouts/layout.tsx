@@ -94,6 +94,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
       showLanguageSwitcher,
       showSearch,
       showChinaMirror,
+      isAntVSite,
       showGithubCorner,
       showAntVProductsCard,
       redirects = [],
@@ -195,7 +196,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         Link={Link}
         transparent={isHomePage}
         isHomePage={isHomePage}
-        isAntVSite={site.isAntVSite || false}
+        isAntVSite={isAntVSite}
         showSearch={parseNulltoUndefined(showSearch)}
         showGithubCorner={parseNulltoUndefined(showGithubCorner)}
         showAntVProductsCard={parseNulltoUndefined(showAntVProductsCard)}
