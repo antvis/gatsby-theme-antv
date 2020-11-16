@@ -420,6 +420,33 @@ insertCss(`,
     }
   }, [theme]);
 
+  useEffect(() => {
+    if (!currentSourceCode || !theme || !themeSwitcher) return;
+
+    let source = currentSourceCode;
+    const render = source.match(/(\S*).render()/);
+    if (render && render?.length > 0) {
+      const chart = render[1];
+      let themeCode;
+      let reg;
+      if (themeSwitcher === 'g2') {
+        themeCode = `${chart}.theme(${theme});`;
+        reg = new RegExp(`( *)${chart}.theme(.*);*(\n*)`, 'g');
+        if (source.match(reg)) source = source.replace(reg, '');
+      } else if (themeSwitcher === 'g2plot') {
+        themeCode = `${chart}.chart.theme(${theme});`;
+        reg = new RegExp(`( *)${chart}.chart.theme(.*);\n`, 'g');
+        if (source.match(reg)) source = source.replace(reg, '');
+      }
+      const data = source.replace(
+        `${chart}.render()`,
+        `${themeCode}\n${chart}.render()`,
+      );
+      onCodeChange(data);
+      editRef.getAction('editor.action.formatDocument').run();
+    }
+  }, [theme]);
+
   // 根据pane框度及当前视图判断是否需要展示API文档搜索框
   const calcShowSearch = (size: number) => {
     const clientw = document.body.clientWidth;
