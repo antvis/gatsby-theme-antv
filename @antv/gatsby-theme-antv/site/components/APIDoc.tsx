@@ -261,7 +261,6 @@ const APIDoc: React.FC<APIDocProps> = ({
     );
   };
 
-  console.log(exampleSections?.design?.node.html);
   return (
     <div className={styles.docPane}>
       <Tabs
@@ -280,12 +279,9 @@ const APIDoc: React.FC<APIDocProps> = ({
         <Skeleton className={styles.skeleton} paragraph={{ rows: 16 }} />
       ) : (
         <div className={styles.docContent}>
-          {exampleSections.API &&
-            active === 'API' &&
-            collapseData.length > 0 &&
-            renderCollapse()}
+          {active === 'API' && collapseData.length > 0 && renderCollapse()}
           {collapseData.length <= 0 && active === 'API' && empty}
-          {exampleSections.design && active === 'design' ? (
+          {active === 'design' ? (
             <div className={styles.designContent}>
               <div
                 /* eslint-disable-next-line react/no-danger */
@@ -296,14 +292,12 @@ const APIDoc: React.FC<APIDocProps> = ({
               <div
                 /* eslint-disable-next-line react/no-danger */
                 dangerouslySetInnerHTML={{
-                  __html: exampleSections.design.node.html,
+                  __html: exampleSections?.design?.node?.html,
                 }}
               />
-              {!exampleSections?.design?.node.html && empty}
+              {!exampleSections?.design?.node.html && !description && empty}
             </div>
-          ) : (
-            empty
-          )}
+          ) : null}
         </div>
       )}
     </div>
