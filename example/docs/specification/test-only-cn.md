@@ -45,7 +45,7 @@ AntV 色板以蚂蚁极客蓝为起始主色，根据不同数据类型、使用
 
 ![03-分类色板@3x.png](https://gw.alipayobjects.com/zos/antfincdn/dcADI7GBH%24/1.png)
 
-<swatch title="基础 10 色" colors="#5B8FF9,#61DDAA,#65789B,#F6BD16,#6F5EF9,#78D3F8,#9661BC,#F6903D,#008685,#F08BB4" colorNames="Geek Blue,Cyan,Grey,Sunrise Yellow,Dust Red,Daybreak Blue,Golden Purple,Sunset Orange,Dark Green,Magenta"></swatch>
+<swatch title="基础 10 色" colors="#5B8FF9,#61DDAA,#65789B,#F6BD16,#6F5EF9,#78D3F8,#9661BC,#F6903D,#008685,#F08BB4" colorNames="Geek Blue,Cyan,Grey,Sunrise Yellow,Deep Purple,Daybreak Blue,Golden Purple,Sunset Orange,Dark Green,Magenta"></swatch>
 
 <swatch title="扩展 20 色" colors="#5B8FF9,#CDDDFD,#61DDAA,#CDF3E4,#65789B,#CED4DE,#F6BD16,#FCEBB9,#6F5EF9,#D3CEFD,#78D3F8,#D3EEF9,#9661BC,#DECFEA,#F6903D,#FFE0C7,#008685,#BBDEDE,#F08BB4,#FFE0ED"></swatch>
 
@@ -219,8 +219,7 @@ AntV 色板在做无障碍验证时，得出以下几点取色建议 ：
 
 ## 资源下载
 
-- <img src="https://gw.alipayobjects.com/mdn/rms_624b2a/afts/img/A*PUsdR6401PIAAAAAAAAAAABkARQnAQ" width="27" alt="icon" /> [AntV 色板.sketch](https://www.yuque.com/attachments/yuque/0/2020/sketch/218706/1583201961356-1ce3fb8f-66b0-4b0c-b27c-691f306345ae.sketch?_lake_card=%7B%22uid%22%3A%221583201956414-0%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2020%2Fsketch%2F218706%2F1583201961356-1ce3fb8f-66b0-4b0c-b27c-691f306345ae.sketch%22%2C%22name%22%3A%22AntV+%E8%89%B2%E6%9D%BF.sketch%22%2C%22size%22%3A5161276%2C%22type%22%3A%22%22%2C%22ext%22%3A%22sketch%22%2C%22progress%22%3A%7B%22percent%22%3A99%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%22VLPws%22%2C%22card%22%3A%22file%22%7D)
-- <img src="https://gw.alipayobjects.com/mdn/rms_624b2a/afts/img/A*7M88TLJPib4AAAAAAAAAAABkARQnAQ" width="27" alt="icon" /> [AntV 色板.ase.zip](https://www.yuque.com/attachments/yuque/0/2020/zip/218706/1583201975252-c893c80e-4b31-49ae-8264-86baec447067.zip?_lake_card=%7B%22uid%22%3A%221583201975117-0%22%2C%22src%22%3A%22https%3A%2F%2Fwww.yuque.com%2Fattachments%2Fyuque%2F0%2F2020%2Fzip%2F218706%2F1583201975252-c893c80e-4b31-49ae-8264-86baec447067.zip%22%2C%22name%22%3A%22AntV+%E8%89%B2%E6%9D%BF.ase.zip%22%2C%22size%22%3A2881%2C%22type%22%3A%22application%2Fzip%22%2C%22ext%22%3A%22zip%22%2C%22progress%22%3A%7B%22percent%22%3A99%7D%2C%22status%22%3A%22done%22%2C%22percent%22%3A0%2C%22id%22%3A%22RrNV8%22%2C%22card%22%3A%22file%22%7D)
+- <img src="https://gw.alipayobjects.com/mdn/rms_624b2a/afts/img/A*PUsdR6401PIAAAAAAAAAAABkARQnAQ" width="27" alt="icon" /> [AntV 色板.sketch](https://gw.alipayobjects.com/os/bmw-prod/0dabf5eb-830a-4698-92a3-fe1a2681730c.sketch)
 - <img src="https://gw.alipayobjects.com/mdn/rms_624b2a/afts/img/A*_UQtSpEHRdQAAAAAAAAAAABkARQnAQ" width="27" alt="icon" /> [AntV 色板色值表](https://www.yuque.com/docs/share/98fd436e-bf79-4242-9ccd-2eeb74234ce6?#)
 
 ## 扩展阅读
