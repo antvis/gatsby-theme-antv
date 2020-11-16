@@ -261,6 +261,7 @@ const APIDoc: React.FC<APIDocProps> = ({
     );
   };
 
+  console.log(exampleSections?.design?.node.html);
   return (
     <div className={styles.docPane}>
       <Tabs
@@ -283,7 +284,7 @@ const APIDoc: React.FC<APIDocProps> = ({
             active === 'API' &&
             collapseData.length > 0 &&
             renderCollapse()}
-          {!exampleSections.API && empty}
+          {collapseData.length <= 0 && active === 'API' && empty}
           {exampleSections.design && active === 'design' ? (
             <div className={styles.designContent}>
               <div
@@ -298,9 +299,11 @@ const APIDoc: React.FC<APIDocProps> = ({
                   __html: exampleSections.design.node.html,
                 }}
               />
-              {!exampleSections.design.node.html && empty}
+              {!exampleSections?.design?.node.html && empty}
             </div>
-          ) : null}
+          ) : (
+            empty
+          )}
         </div>
       )}
     </div>
