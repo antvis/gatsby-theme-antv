@@ -1,7 +1,7 @@
 {
   "name": "@antv/gatsby-theme-antv",
   "description": "Ant Visualization solution home page",
-  "version": "1.0.0-beta.11",
+  "version": "1.0.0-beta.15",
   "author": "AntV Team <antv@antfin.com>",
   "keywords": [
     "gatsby",
@@ -78,6 +78,7 @@
     "gatsby-source-github": "^0.0.2",
     "gatsby-transformer-remark": "^2.8.8",
     "git-url-parse": "^11.1.2",
+    "html-to-image": "^1.3.20",
     "i18next": "^19.4.4",
     "indent-string": "^4.0.0",
     "insert-css": "^2.0.0",
@@ -153,5 +154,8 @@
     "jest": "^26.0.1",
     "react-test-renderer": "^16.9.0",
     "ts-jest": "^26.0.0"
+  },
+  "resolutions": {
+    "normalize-url": "^4.1.0"
   }
 }

@@ -1,0 +1,202 @@
+@import '~antd/es/style/themes/default.less';
+
+.btn {
+  :global(.ant-btn-icon-only) {
+    width: 30px;
+    height: 30px;
+    color: #6b7f90;
+  }
+}
+
+.switch {
+  width: 25px;
+}
+
+.dropGroup {
+  width: 45px;
+  height: 30px;
+  box-sizing: border-box;
+  border-radius: 3px 2px;
+  display: flex;
+  justify-content: center;
+  color: @primary-color;
+
+  button {
+    width: 20px;
+    height: 30px;
+    padding: 0px;
+    margin-right: -2px;
+
+    .themeBtn {
+      width: 16px;
+      height: 16px;
+      position: relative;
+
+      .colors {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      &::before {
+        content: '';
+        width: 23px;
+        height: 23px;
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        border: 4px solid #fff;
+        border-radius: 50%;
+      }
+    }
+  }
+  span {
+    margin: auto 0;
+    font-size: 12px;
+  }
+
+  &:hover {
+    background: #f1eaff;
+    .themeBtn::before {
+      border: 4px solid #f1eaff;
+    }
+  }
+
+  .drop {
+    font-size: 12px;
+  }
+}
+
+.operateBtns {
+  padding: 10px 6px;
+
+  span:hover {
+    color: @primary-color;
+    cursor: pointer;
+  }
+  :global {
+    .ant-dropdown-menu-item-group-list {
+      margin: 0;
+    }
+
+    .ant-dropdown-menu-item {
+      padding: 1px 9px;
+      position: relative;
+    }
+    .ant-dropdown-menu-item:hover {
+      background-color: #fff;
+    }
+    .ant-dropdown-menu-item-group-title {
+      padding: 5px 12px 0px 12px;
+    }
+  }
+  .panelContainer {
+    width: 248px;
+    height: 32px;
+    padding: 3px;
+    border: #fff 1px solid;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    .colors {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      height: 24px;
+      margin: 0;
+      font-size: 0;
+      div:first-child {
+        border-radius: 2px 0 0 2px;
+      }
+      div:last-child {
+        border-radius: 0 2px 2px 0;
+      }
+
+      .color {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 20px;
+        overflow: hidden;
+        color: #fff;
+        text-align: right;
+        box-shadow: 0 0 0 0 currentColor;
+        transition: all 0.3s;
+      }
+    }
+
+    &:hover {
+      border: @primary-color 1px solid;
+    }
+    &:hover + .btnGroup {
+      visibility: visible;
+      transition: 0.2s;
+    }
+  }
+
+  .btnGroup {
+    position: absolute;
+    right: 16px;
+    top: 6px;
+    visibility: hidden;
+
+    div:first-child {
+      margin-right: 4px !important;
+    }
+
+    span {
+      background-color: #000000;
+      color: #fff;
+      width: 20px;
+      height: 20px;
+      border-radius: 2px;
+      opacity: 0.8;
+      padding: 2px;
+
+      &:hover {
+        opacity: 1;
+        transition: 0.2s;
+      }
+    }
+    &:hover {
+      visibility: visible;
+    }
+  }
+}
+.palette {
+  width: 1067px;
+  height: 199px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: -12;
+
+  svg {
+    position: absolute;
+    width: 275.82px;
+    height: 87.4px;
+    top: 60px;
+  }
+
+  .bg {
+    width: 1067px;
+    height: 199px;
+    display: grid;
+  }
+}
+
+.block {
+  height: 12px;
+  width: 12px;
+  border-radius: 2px;
+  margin: 0 0.2em;
+  display: inline-block;
+  position: relative;
+  top: 1px;
+}
+.link {
+  display: block;
+  margin: 16px 0px 8px 75px;
+}

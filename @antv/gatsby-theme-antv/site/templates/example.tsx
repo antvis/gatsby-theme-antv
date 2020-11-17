@@ -154,8 +154,9 @@ export default function Template({
 
   const { frontmatter } = markdownRemark;
   const {
-    siteMetadata: { examples = [] },
+    siteMetadata: { examples = [], isAntVSite },
   } = site;
+
   const { i18n } = useTranslation();
 
   const groupedEdges = groupBy(
@@ -399,6 +400,7 @@ export default function Template({
           location={location}
           markdownRemark={markdownRemark}
           description={description}
+          isAntVSite={isAntVSite}
         />
       )}
     </div>
@@ -424,7 +426,7 @@ export default function Template({
         hasSider
         className={styles.layout}
       >
-        {gallery ? menuSider : null}
+        {gallery && !isAntVSite ? menuSider : null}
 
         <Article className={styles.markdown}>
           <div className={styles.main} style={{ width: '100%' }}>
@@ -458,6 +460,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        isAntVSite
         examples {
           slug
           icon

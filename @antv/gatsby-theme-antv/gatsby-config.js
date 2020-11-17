@@ -48,6 +48,7 @@ module.exports = ({
       navs: [],
       docs: [],
       examples: [],
+      isAntVSite: false,
       playground: {
         extraLib: getExtraLib(),
       },

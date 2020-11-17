@@ -384,7 +384,11 @@ exports.onCreateWebpackConfig = (
   }
 
   actions.setWebpackConfig({
-    plugins: [new MonacoWebpackPlugin()],
+    plugins: [
+      new MonacoWebpackPlugin({
+        languages: ['javascript', 'json', 'typescript', 'html'],
+      }),
+    ],
   });
 };
 
@@ -485,6 +489,7 @@ exports.sourceNodes = ({ actions }) => {
       redirects: [SiteSiteMetadataRedirects]
       isAntvSite: Boolean
       showChartResize: Boolean
+      themeSwitcher: String
       showAPIDoc: Boolean
       showChinaMirror: Boolean
       showGithubCorner: Boolean
