@@ -111,6 +111,56 @@ export const getProducts = ({
       ],
     },
     {
+      title: 'F2',
+      icon:
+        'https://gw.alipayobjects.com/zos/antfincdn/D%26fDbWqVkv/F2%252520yidongduankeshihuafangan.svg',
+      slogan: t('移动可视化方案'),
+      description: t(
+        '专注于移动端的可视化解决方案，兼容 H5/小程序/Weex 等多端环境',
+      ),
+      category: Categories[0],
+      links: [
+        {
+          icon: <HomeOutlined />,
+          title: t('产品首页'),
+          url: `https://${hosts.f2}/${language}`,
+        },
+        {
+          icon: <PieChartOutlined />,
+          title: t('图表示例'),
+          url: `https://${hosts.f2}/${language}/examples`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('使用文档'),
+          url: `https://${hosts.f2}/${language}/docs/tutorial/getting-started`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('API 文档'),
+          url: `https://${hosts.f2}/${language}/docs/api`,
+        },
+        {
+          icon: <HistoryOutlined />,
+          title: t('更新日志'),
+          url: `https://github.com/antvis/f2/blob/master/CHANGELOG.md`,
+          openExternal: true,
+        },
+        {
+          icon: <GithubOutlined />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/f2`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
+          title: t('国内镜像'),
+          url: `https://antv-f2.gitee.io`,
+          openExternal: true,
+        },
+      ],
+    },
+    {
       title: 'G6',
       icon:
         'https://gw.alipayobjects.com/zos/antfincdn/zS1wZZJVcJ/G6%252520tukeshihuayinqing.svg',
@@ -159,51 +209,42 @@ export const getProducts = ({
       ],
     },
     {
-      title: 'F2',
-      icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/D%26fDbWqVkv/F2%252520yidongduankeshihuafangan.svg',
-      slogan: t('移动可视化方案'),
-      description: t(
-        '专注于移动端的可视化解决方案，兼容 H5/小程序/Weex 等多端环境',
-      ),
+      title: 'X6',
+      icon: 'https://gw.alipayobjects.com/zos/antfincdn/0b4HzOcEJY/Graphin.svg',
+      slogan: t(''),
+      description: t('极易定制、开箱即用、数据驱动的图编辑引擎'),
       category: Categories[0],
       links: [
         {
           icon: <HomeOutlined />,
           title: t('产品首页'),
-          url: `https://${hosts.f2}/${language}`,
+          url: `https://${hosts.x6}/${language}`,
         },
         {
           icon: <PieChartOutlined />,
           title: t('图表示例'),
-          url: `https://${hosts.f2}/${language}/examples`,
+          url: `https://${hosts.x6}/${language}/examples`,
         },
         {
           icon: <ReadOutlined />,
           title: t('使用文档'),
-          url: `https://${hosts.f2}/${language}/docs/tutorial/getting-started`,
+          url: `https://${hosts.x6}/${language}/docs/tutorial/about/`,
         },
         {
           icon: <ReadOutlined />,
           title: t('API 文档'),
-          url: `https://${hosts.f2}/${language}/docs/api`,
-        },
-        {
-          icon: <HistoryOutlined />,
-          title: t('更新日志'),
-          url: `https://github.com/antvis/f2/blob/master/CHANGELOG.md`,
-          openExternal: true,
+          url: `https://${hosts.x6}/${language}/docs/api/graph/`,
         },
         {
           icon: <GithubOutlined />,
           title: t('GitHub 仓库'),
-          url: `https://github.com/antvis/f2`,
+          url: `https://github.com/antvis/x6`,
           openExternal: true,
         },
         {
           icon: '🇨🇳',
           title: t('国内镜像'),
-          url: `https://antv-f2.gitee.io`,
+          url: `https://antv-x6.gitee.io`,
           openExternal: true,
         },
       ],
@@ -304,6 +345,52 @@ export const getProducts = ({
         },
       ],
     },
+
+    {
+      title: 'F2Native',
+      icon:
+        'https://gw.alipayobjects.com/zos/antfincdn/D%26fDbWqVkv/F2%252520yidongduankeshihuafangan.svg',
+      slogan: t('移动可视化方案'),
+      description: t(
+        '跨平台高性能的移动端可视化解决方案，满足你的各种图表需求。',
+      ),
+      category: Categories[1],
+      links: [
+        {
+          icon: <HomeOutlined />,
+          title: t('产品首页'),
+          url: `https://${hosts.f2native}/${language}`,
+        },
+        {
+          icon: <PieChartOutlined />,
+          title: t('图表示例'),
+          url: `https://${hosts.f2nativef2native}/${language}/examples`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('使用文档'),
+          url: `https://${hosts.f2native}/${language}/docs/tutorial/getting-started`,
+        },
+        {
+          icon: <ReadOutlined />,
+          title: t('API 文档'),
+          url: `https://${hosts.f2native}/${language}/docs/api/API`,
+        },
+        {
+          icon: <GithubOutlined />,
+          title: t('GitHub 仓库'),
+          url: `https://github.com/antvis/f2`,
+          openExternal: true,
+        },
+        {
+          icon: '🇨🇳',
+          title: t('国内镜像'),
+          url: `https://antv-f2.gitee.io`,
+          openExternal: true,
+        },
+      ],
+    },
+
     {
       title: 'Graphin',
       icon: 'https://gw.alipayobjects.com/zos/antfincdn/0b4HzOcEJY/Graphin.svg',
@@ -347,91 +434,6 @@ export const getProducts = ({
           icon: '🇨🇳',
           title: t('国内镜像'),
           url: `https://antv-graphin.gitee.io`,
-          openExternal: true,
-        },
-      ],
-    },
-    {
-      title: 'X6',
-      icon: 'https://gw.alipayobjects.com/zos/antfincdn/0b4HzOcEJY/Graphin.svg',
-      slogan: t(''),
-      description: t('基于 G6 封装的图分析应用组件。'),
-      category: Categories[1],
-      links: [
-        {
-          icon: <HomeOutlined />,
-          title: t('产品首页'),
-          url: `https://${hosts.x6}/${language}`,
-        },
-        {
-          icon: <PieChartOutlined />,
-          title: t('图表示例'),
-          url: `https://${hosts.x6}/${language}/examples`,
-        },
-        {
-          icon: <ReadOutlined />,
-          title: t('使用文档'),
-          url: `https://${hosts.x6}/${language}/docs/tutorial/about/`,
-        },
-        {
-          icon: <ReadOutlined />,
-          title: t('API 文档'),
-          url: `https://${hosts.x6}/${language}/docs/api/graph/`,
-        },
-        {
-          icon: <GithubOutlined />,
-          title: t('GitHub 仓库'),
-          url: `https://github.com/antvis/x6`,
-          openExternal: true,
-        },
-        {
-          icon: '🇨🇳',
-          title: t('国内镜像'),
-          url: `https://antv-x6.gitee.io`,
-          openExternal: true,
-        },
-      ],
-    },
-    {
-      title: 'F2Native',
-      icon:
-        'https://gw.alipayobjects.com/zos/antfincdn/D%26fDbWqVkv/F2%252520yidongduankeshihuafangan.svg',
-      slogan: t('移动可视化方案'),
-      description: t(
-        '跨平台高性能的移动端可视化解决方案，满足你的各种图表需求',
-      ),
-      category: Categories[0],
-      links: [
-        {
-          icon: <HomeOutlined />,
-          title: t('产品首页'),
-          url: `https://${hosts.f2native}/${language}`,
-        },
-        {
-          icon: <PieChartOutlined />,
-          title: t('图表示例'),
-          url: `https://${hosts.f2nativef2native}/${language}/examples`,
-        },
-        {
-          icon: <ReadOutlined />,
-          title: t('使用文档'),
-          url: `https://${hosts.f2native}/${language}/docs/tutorial/getting-started`,
-        },
-        {
-          icon: <ReadOutlined />,
-          title: t('API 文档'),
-          url: `https://${hosts.f2native}/${language}/docs/api/API`,
-        },
-        {
-          icon: <GithubOutlined />,
-          title: t('GitHub 仓库'),
-          url: `https://github.com/antvis/f2`,
-          openExternal: true,
-        },
-        {
-          icon: '🇨🇳',
-          title: t('国内镜像'),
-          url: `https://antv-f2.gitee.io`,
           openExternal: true,
         },
       ],
@@ -557,7 +559,6 @@ export const getProducts = ({
       ],
     },
   ];
-  console.log(`${products}`);
 
   return products;
 };

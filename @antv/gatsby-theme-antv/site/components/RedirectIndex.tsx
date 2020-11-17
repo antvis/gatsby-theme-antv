@@ -39,7 +39,7 @@ class RedirectIndex extends React.PureComponent<WithTranslation> {
           title={title || 'AntV'}
           titleSuffix={t('蚂蚁数据可视化')}
           description={t(
-            'AntV 是蚂蚁金服全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。',
+            'AntV 是蚂蚁集团全新一代数据可视化解决方案，致力于提供一套简单方便、专业可靠、无限可能的数据可视化最佳实践。',
           )}
           lang={this.langKey}
         />
