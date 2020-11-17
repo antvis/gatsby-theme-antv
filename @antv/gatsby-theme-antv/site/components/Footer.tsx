@@ -13,6 +13,7 @@ import { getProducts } from './getProducts';
 import { useChinaMirrorHost } from '../hooks';
 import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
+import { divide } from 'lodash';
 
 export const OLD_SITE_DOMAIN = 'https://antv-2018.alipay.com';
 
@@ -125,13 +126,6 @@ const Footer: React.FC<FooterProps> = ({
     ],
   };
 
-  // 占位
-  const empty = {
-    icon: '',
-    title: '',
-    items: [],
-  };
-
   const defaultColumns = products
     .filter((product) => product.category !== 'ecology')
     .map((product) => ({
@@ -154,14 +148,14 @@ const Footer: React.FC<FooterProps> = ({
 
   const getColums = () => {
     if (products.length % 2 !== 0) {
-      return [...defaultColumns, more, empty];
+      return [...defaultColumns];
     }
-    return [...defaultColumns, more];
+    return [...defaultColumns];
   };
 
   return (
     <RCFooter
-      maxColumnsPerRow={4}
+      maxColumnsPerRow={5}
       theme={theme}
       columns={columns || getColums()}
       className={classnames(styles.footer, {
@@ -169,43 +163,57 @@ const Footer: React.FC<FooterProps> = ({
       })}
       bottom={
         bottom || (
-          <div className={styles.bottom}>
-            <div>
-              <a
-                href="https://weibo.com/antv2017"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <WeiboOutlined />
-              </a>
-              <a
-                href="https://zhuanlan.zhihu.com/aiux-antv"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ZhihuOutlined />
-              </a>
-              <a
-                href="https://github.com/antvis"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <GithubOutlined />
-              </a>
-              <a href={`${rootDomain}/${lang}/about`}>{t('关于我们')}</a>
-              <a
-                href={OLD_SITE_DOMAIN}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t('返回旧版')}
-              </a>
+          <>
+            <div className={styles.more}>
+              <span className={styles.title}>{more.title}</span>
+              {more.items.map((item: any) => (
+                <div key={item.title}>
+                  <a href={item.url} target="_blank" rel="noopener noreferrer">
+                    {item.icon}
+                    {item.title}
+                  </a>
+                  {item.description && <span>{`-  ${item.description}`}</span>}
+                </div>
+              ))}
             </div>
-            <div>
-              © {new Date().getFullYear()} Made with ❤ by{' '}
-              <a href="https://xtech.antfin.com/">XTech</a>
+            <div className={styles.bottom}>
+              <div>
+                <a
+                  href="https://weibo.com/antv2017"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <WeiboOutlined />
+                </a>
+                <a
+                  href="https://zhuanlan.zhihu.com/aiux-antv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ZhihuOutlined />
+                </a>
+                <a
+                  href="https://github.com/antvis"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <GithubOutlined />
+                </a>
+                <a href={`${rootDomain}/${lang}/about`}>{t('关于我们')}</a>
+                <a
+                  href={OLD_SITE_DOMAIN}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {t('返回旧版')}
+                </a>
+              </div>
+              <div>
+                © {new Date().getFullYear()} Made with ❤ by{' '}
+                <a href="https://xtech.antfin.com/">XTech</a>
+              </div>
             </div>
-          </div>
+          </>
         )
       }
       {...omit(restProps, ['githubUrl'])}
