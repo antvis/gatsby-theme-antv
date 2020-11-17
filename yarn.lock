@@ -81,6 +81,20 @@
     fecha "~4.2.0"
     tslib "^1.10.0"
 
+"@antv/component@^0.8.0":
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/@antv/component/-/component-0.8.2.tgz#deae48bd80ae2082cbb09e581c5547376b902f0c"
+  integrity sha512-aU65T9jD85H+3WhhmgPz8kiuqxJGPuHFgRiBYmR+vQUnAA2nOW2bCafiNx/bSEAqmVgsr+8e+9IDQZ6PowIgtQ==
+  dependencies:
+    "@antv/dom-util" "~2.0.1"
+    "@antv/g-base" "~0.5.0"
+    "@antv/matrix-util" "^3.1.0-beta.1"
+    "@antv/path-util" "~2.0.7"
+    "@antv/scale" "~0.3.1"
+    "@antv/util" "~2.0.0"
+    fecha "~4.2.0"
+    tslib "^1.10.0"
+
 "@antv/coord@^0.3.0":
   version "0.3.0"
   resolved "https://registry.npmjs.org/@antv/coord/-/coord-0.3.0.tgz#47239cfd3545f87b7a67a9bed92d12a529d5a996"
@@ -90,14 +104,14 @@
     "@antv/util" "~2.0.3"
     tslib "^1.10.0"
 
-"@antv/dom-util@~2.0.1":
+"@antv/dom-util@^2.0.2", "@antv/dom-util@~2.0.1":
   version "2.0.2"
   resolved "https://registry.npmjs.org/@antv/dom-util/-/dom-util-2.0.2.tgz#4c7b0a195e027e55570435a6825cec56dfb0b590"
   integrity sha512-i/rh385casRd6OA4rbpbA2jyiwY/w7PtkA+74mH43PiBzOcLpDg1jEWR9dMO0tIqUzHQWWqKNNjmXVubl4GS6g==
   dependencies:
     tslib "^1.10.0"
 
-"@antv/event-emitter@^0.1.1", "@antv/event-emitter@~0.1.0":
+"@antv/event-emitter@^0.1.1", "@antv/event-emitter@^0.1.2", "@antv/event-emitter@~0.1.0":
   version "0.1.2"
   resolved "https://registry.npmjs.org/@antv/event-emitter/-/event-emitter-0.1.2.tgz#a17b7cb86e6d071880dc6bfb232756f88624ecbc"
   integrity sha512-6C6NJOdoNVptCr5y9BVOhKkCgW7LFs/SpcRyAExUeSjAm0zJqcqNkSIRGsXYhj4PJI+CZICHzGwwiSnIsE68Ug==
@@ -118,6 +132,22 @@
     d3-timer "^1.0.9"
     detect-browser "^5.1.0"
 
+"@antv/g-base@^0.5.0", "@antv/g-base@^0.5.1", "@antv/g-base@~0.5.0":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@antv/g-base/-/g-base-0.5.1.tgz#466b8719ae99e4d26e4e1fffade9db176000de1e"
+  integrity sha512-gbv+uz/SvzM4/p3PLjAiEZUp6kdzKkCbVWTCdBXB1cvNMttlEzWEB8MOFbEkcIAy7TtjQJJRv8ThI/ngFzU+fg==
+  dependencies:
+    "@antv/event-emitter" "^0.1.1"
+    "@antv/g-math" "^0.1.5"
+    "@antv/matrix-util" "^3.1.0-beta.1"
+    "@antv/path-util" "~2.0.5"
+    "@antv/util" "~2.0.0"
+    "@types/d3-timer" "^1.0.9"
+    d3-ease "^1.0.5"
+    d3-interpolate "^1.3.2"
+    d3-timer "^1.0.9"
+    detect-browser "^5.1.0"
+
 "@antv/g-canvas@^0.4.0":
   version "0.4.15"
   resolved "https://registry.npmjs.org/@antv/g-canvas/-/g-canvas-0.4.15.tgz#81ac1be269d96280202ffefa02a39f060b1a8c07"
@@ -129,7 +159,19 @@
     "@antv/util" "~2.0.0"
     gl-matrix "^3.0.0"
 
-"@antv/g-math@^0.1.3":
+"@antv/g-canvas@^0.5.0":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@antv/g-canvas/-/g-canvas-0.5.3.tgz#6d5028395b8093c799f4bc612765fe53d0d9d04d"
+  integrity sha512-80k1BbiY05heHKUm4o6IL6KVRZS+uAgzdIF2OaC9grQc6KxrJoK2dCxKpmna3NBHTU9Sm+/rsiGcL7lp7S+ecQ==
+  dependencies:
+    "@antv/g-base" "^0.5.1"
+    "@antv/g-math" "^0.1.5"
+    "@antv/matrix-util" "^3.1.0-beta.1"
+    "@antv/path-util" "~2.0.5"
+    "@antv/util" "~2.0.0"
+    gl-matrix "^3.0.0"
+
+"@antv/g-math@^0.1.3", "@antv/g-math@^0.1.5":
   version "0.1.5"
   resolved "https://registry.npmjs.org/@antv/g-math/-/g-math-0.1.5.tgz#8e4498a7bc02b113c11b50373a9b15273139cdef"
   integrity sha512-29B3p33jzUPIyx1xYfNCexbp7jvahD6bD8FKKyWqfYZHQbvrFfV8ZNUu66RJLfDrl0KaKT6C5whfKs/WrVaflQ==
@@ -146,6 +188,16 @@
     "@antv/g-math" "^0.1.3"
     "@antv/util" "~2.0.0"
     detect-browser "^4.6.0"
+
+"@antv/g-svg@^0.5.0":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@antv/g-svg/-/g-svg-0.5.2.tgz#1b9fd195d18fc974f44addc4eb5f85c3bd31bd99"
+  integrity sha512-T0PYjIM+WX6zv3yUgSkyRcHFq4hlio0MeRGoJR60P5U5MNSdkZnblcu79cpU2i42Z7wBr404Kv1dplCGxC38PA==
+  dependencies:
+    "@antv/g-base" "^0.5.1"
+    "@antv/g-math" "^0.1.5"
+    "@antv/util" "~2.0.0"
+    detect-browser "^5.0.0"
 
 "@antv/g2@^4.0.7":
   version "4.0.15"
@@ -166,6 +218,40 @@
     "@antv/scale" "^0.3.1"
     "@antv/util" "~2.0.5"
     tslib "^2.0.0"
+
+"@antv/g2@^4.1.0-beta.18":
+  version "4.1.0-beta.18"
+  resolved "https://registry.yarnpkg.com/@antv/g2/-/g2-4.1.0-beta.18.tgz#f432d5edd74597f244b6b7b184a74e281bec1c8a"
+  integrity sha512-RW3e95V2aUtys36guS7PNHbfgyYZgigu18OLSYPkgyRLF0pPABcSrIot+xnVGQ4Cx0ZDmhJVTvpXjU4QMa96kw==
+  dependencies:
+    "@antv/adjust" "^0.2.1"
+    "@antv/attr" "^0.3.1"
+    "@antv/color-util" "^2.0.2"
+    "@antv/component" "^0.8.0"
+    "@antv/coord" "^0.3.0"
+    "@antv/dom-util" "^2.0.2"
+    "@antv/event-emitter" "~0.1.0"
+    "@antv/g-base" "^0.5.0"
+    "@antv/g-canvas" "^0.5.0"
+    "@antv/g-svg" "^0.5.0"
+    "@antv/matrix-util" "^3.1.0-beta.1"
+    "@antv/path-util" "^2.0.3"
+    "@antv/scale" "^0.3.1"
+    "@antv/util" "~2.0.5"
+    tslib "^2.0.0"
+
+"@antv/g2plot@^2.0.9":
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/@antv/g2plot/-/g2plot-2.0.9.tgz#3d7144608d30b64430ec46d9cb79fb9f1c3e9d2e"
+  integrity sha512-iP2PVU7SU+N6HnXVnx35dZ7LHJMaBZZjxVW5p1uQXAJ+/UBeCnwp4bqw0tEWw4qwXCl4JkQ+UW+6ygpQMB4C2w==
+  dependencies:
+    "@antv/event-emitter" "^0.1.2"
+    "@antv/g2" "^4.1.0-beta.18"
+    d3-hierarchy "^2.0.0"
+    d3-regression "^1.3.5"
+    dayjs "^1.8.36"
+    size-sensor "^1.0.1"
+    tslib "^1.13.0"
 
 "@antv/matrix-util@^3.1.0-beta.1", "@antv/matrix-util@^3.1.0-beta.2":
   version "3.1.0-beta.2"
@@ -5392,12 +5478,22 @@ d3-ease@^1.0.5:
   resolved "https://registry.npmjs.org/d3-ease/-/d3-ease-1.0.7.tgz#9a834890ef8b8ae8c558b2fe55bd57f5993b85e2"
   integrity sha512-lx14ZPYkhNx0s/2HX5sLFUI3mbasHjSSpwO/KaaNACweVwxUruKyWVcb293wMv1RqTPZyZ8kSZ2NogUZNcLOFQ==
 
+d3-hierarchy@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/d3-hierarchy/-/d3-hierarchy-2.0.0.tgz#dab88a58ca3e7a1bc6cab390e89667fcc6d20218"
+  integrity sha512-SwIdqM3HxQX2214EG9GTjgmCc/mbSx4mQBn+DuEETubhOw6/U3fmnji4uCVrmzOydMHSO1nZle5gh6HB/wdOzw==
+
 d3-interpolate@^1.3.2:
   version "1.4.0"
   resolved "https://registry.npmjs.org/d3-interpolate/-/d3-interpolate-1.4.0.tgz#526e79e2d80daa383f9e0c1c1c7dcc0f0583e987"
   integrity sha512-V9znK0zc3jOPV4VD2zZn0sDhZU3WAE2bmlxdIwwQPPzPjvyLkd8B3JUVdS1IDUFDkWZ72c9qnv1GK2ZagTZ8EA==
   dependencies:
     d3-color "1"
+
+d3-regression@^1.3.5:
+  version "1.3.5"
+  resolved "https://registry.yarnpkg.com/d3-regression/-/d3-regression-1.3.5.tgz#ad4318aa426987fce3fedbee4106cee5443ce31f"
+  integrity sha512-gVxMjvgi0oE/dRWan2g1TI4/HkYcXFLVyf2MAGxUbVuM36GlOeCmM1SdbZa9lXmi4XKIsHMsARPCrD/x0xsWNQ==
 
 d3-timer@^1.0.9:
   version "1.0.10"
@@ -5452,7 +5548,7 @@ date-fns@^2.14.0, date-fns@^2.15.0:
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
   integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
 
-dayjs@^1.8.30:
+dayjs@^1.8.30, dayjs@^1.8.36:
   version "1.9.6"
   resolved "https://registry.npmjs.org/dayjs/-/dayjs-1.9.6.tgz#6f0c77d76ac1ff63720dd1197e5cb87b67943d70"
   integrity sha512-HngNLtPEBWRo8EFVmHFmSXAjtCX8rGNqeXQI0Gh7wCTSqwaKgPIDqu9m07wABVopNwzvOeCb+2711vQhDlcIXw==
@@ -5694,7 +5790,7 @@ detect-browser@^4.6.0:
   resolved "https://registry.npmjs.org/detect-browser/-/detect-browser-4.8.0.tgz#1d73bd88c17be866901950ce0aaae1ed060902c6"
   integrity sha512-f4h2dFgzHUIpjpBLjhnDIteXv8VQiUm8XzAuzQtYUqECX/eKh67ykuiVoyb7Db7a0PUSmJa3OGXStG0CbQFUVw==
 
-detect-browser@^5.1.0:
+detect-browser@^5.0.0, detect-browser@^5.1.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/detect-browser/-/detect-browser-5.2.0.tgz#c9cd5afa96a6a19fda0bbe9e9be48a6b6e1e9c97"
   integrity sha512-tr7XntDAu50BVENgQfajMLzacmSe34D+qZc4zjnniz0ZVuw/TZcLcyxHQjYpJTM36sGEkZZlYLnIM1hH7alTMA==
@@ -8927,11 +9023,6 @@ html-parse-stringify2@2.0.1:
   integrity sha1-3FZwtyksoVi3vJFsmmc1rIhyg0o=
   dependencies:
     void-elements "^2.0.1"
-
-html-tag-names@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.npmjs.org/html-tag-names/-/html-tag-names-1.1.5.tgz#f537420c16769511283f8ae1681785fbc89ee0a9"
-  integrity sha512-aI5tKwNTBzOZApHIynaAwecLBv8TlZTEy/P4Sj2SzzAhBrGuI8yGZ0UIXVPQzOHGS+to2mjb04iy6VWt/8+d8A==
 
 html-to-image@^1.3.20:
   version "1.3.20"
@@ -15491,6 +15582,11 @@ sitemap@^1.13.0:
     underscore "^1.7.0"
     url-join "^1.1.0"
 
+size-sensor@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/size-sensor/-/size-sensor-1.0.1.tgz#f84e46206d3e259faff1d548e4b3beca93219dbb"
+  integrity sha512-QTy7MnuugCFXIedXRpUSk9gUnyNiaxIdxGfUjr8xxXOqIB3QvBUYP9+b51oCg2C4dnhaeNk/h57TxjbvoJrJUA==
+
 slash@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
@@ -16759,7 +16855,7 @@ tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
-tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
+tslib@^1.10.0, tslib@^1.13.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
