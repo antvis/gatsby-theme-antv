@@ -45,6 +45,7 @@ interface PlayGroundProps {
   markdownRemark: any;
   categories: string[];
   allDemos: any;
+  isAntVSite?: boolean;
 }
 
 const MonacoEditor = lazy(() => import('react-monaco-editor'));
@@ -86,6 +87,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
         site {
           siteMetadata {
             showChartResize
+            isAntVSite
             themeSwitcher
             showAPIDoc
             githubUrl
@@ -104,7 +106,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   );
 
   const {
-    siteMetadata: { githubUrl, playground },
+    siteMetadata: { githubUrl, playground, isAntVSite },
   } = site;
   const replaceInsertCss = (str: string) => {
     // 统一增加对 insert-css 的使用注释
@@ -661,6 +663,7 @@ insertCss(`,
           exampleSections={exampleSections}
           description={description}
           codeQuery={codeQuery}
+          isAntVSite={isAntVSite}
           showAPISearch={showAPISearch}
         />
       ) : (

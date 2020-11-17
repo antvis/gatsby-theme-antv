@@ -31,6 +31,7 @@ const Tabs: React.FC<{
   codeQuery: string;
   content?: CollapseDataProp[];
   showAPISearch: boolean;
+  isAntVSite?: boolean;
 }> = ({
   active,
   title,
@@ -42,6 +43,7 @@ const Tabs: React.FC<{
   codeQuery,
   content,
   showAPISearch,
+  isAntVSite,
 }) => {
   const [options, updateOptions] = useState<SelectProps<[]>['options']>([]);
   const [input, updateInput] = useState<string>('');
@@ -228,16 +230,19 @@ const Tabs: React.FC<{
   return (
     <div className={styles.tabsBar}>
       <ul className={styles.tabs}>
-        <li
-          className={classNames({
-            [styles.active]: active === 'API',
-          })}
-        >
-          <div onClick={() => updateActive('API')}>
-            {hiddenTitleForDocsearch}
-            API
-          </div>
-        </li>
+        {!isAntVSite && (
+          <li
+            className={classNames({
+              [styles.active]: active === 'API',
+            })}
+          >
+            <div onClick={() => updateActive('API')}>
+              {hiddenTitleForDocsearch}
+              API
+            </div>
+          </li>
+        )}
+
         <li
           className={classNames({
             [styles.active]: active === 'design',
