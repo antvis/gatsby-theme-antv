@@ -13,7 +13,6 @@ import { getProducts } from './getProducts';
 import { useChinaMirrorHost } from '../hooks';
 import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
-import { divide } from 'lodash';
 
 export const OLD_SITE_DOMAIN = 'https://antv-2018.alipay.com';
 
