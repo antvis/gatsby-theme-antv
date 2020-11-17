@@ -39,22 +39,29 @@
     display: block;
     border-bottom: none !important;
     border-top: 1px solid #d9d9d94f;
+    padding: 0 16px;
 
     :global {
       .ant-collapse-header {
-        padding-left: 32px;
+        padding-left: 16px;
         .ant-collapse-arrow {
           font-size: 9px;
           color: #8b99a7;
+          position: absolute;
+          left: 0px;
         }
       }
 
       .ant-collapse-content {
         border: none;
         padding-bottom: 8px;
+        margin: 0 -16px;
 
         .ant-collapse-content-box {
-          padding: 0px 16px;
+          padding: 0px 32px;
+          p {
+            color: rgba(0, 0, 0, 0.65);
+          }
 
           .ant-collapse {
             background-color: #fff;
@@ -126,4 +133,20 @@ tag {
 
 .skeleton {
   padding: 16px;
+}
+
+.emptyContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  .empty {
+    margin: auto;
+  }
+  span {
+    font-size: 80px;
+  }
+  div {
+    color: rgba(0, 0, 0, 0.65);
+    margin: 16px 0;
+  }
 }

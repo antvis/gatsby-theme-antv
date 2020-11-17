@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Collapse, Skeleton } from 'antd';
+import Icon from '@ant-design/icons';
 import Mark from 'mark.js';
+import { useTranslation } from 'react-i18next';
 import Tabs, { CollapseDataProp } from './Tabs';
 import CollapseIcon from './CollapseIcon';
+import EmptySvg from '../images/empty.svg';
+
 import styles from './APIDoc.module.less';
 
 const { Panel } = Collapse;
-
 interface APIDocProps {
   markdownRemark: any;
   githubUrl: string;
@@ -24,6 +27,7 @@ const APIDoc: React.FC<APIDocProps> = ({
   description,
   showAPISearch,
 }) => {
+  const { t } = useTranslation();
   const [collapseData, updateCollapseData] = useState<CollapseDataProp[]>([]);
   const [searchQuery, updateSearchQuery] = useState<string>('');
   const { frontmatter } = markdownRemark;
@@ -151,6 +155,9 @@ const APIDoc: React.FC<APIDocProps> = ({
         element.show = true;
       }
     });
+    const defaultKey = initData[0]?.title;
+    if (defaultKey) updateOutsideActiveKeys([`outside-${defaultKey}-0`]);
+
     updateCollapseData(initData);
   }, [exampleSections]);
 
@@ -184,6 +191,15 @@ const APIDoc: React.FC<APIDocProps> = ({
     </>
   );
 
+  const empty = (
+    <div className={styles.emptyContainer}>
+      <div className={styles.empty}>
+        <Icon component={EmptySvg} />
+        <div>{t('正在施工中...')}</div>
+      </div>
+    </div>
+  );
+
   const renderCollapse = () => {
     return (
       <div id="apiStructure">
@@ -212,6 +228,12 @@ const APIDoc: React.FC<APIDocProps> = ({
               {data?.children?.map((child: CollapseDataProp, index: number) => (
                 <Collapse
                   bordered={false}
+                  expandIcon={({ isActive }) => (
+                    <CollapseIcon
+                      rotate={isActive ? 90 : 0}
+                      type="caret-right"
+                    />
+                  )}
                   activeKey={insideActiveKeys}
                   onChange={insideHandleChange}
                   key={`collapse-${child.title}-${index}`}
@@ -249,10 +271,6 @@ const APIDoc: React.FC<APIDocProps> = ({
         updateInsideActiveKeys={updateInsideActiveKeys}
         updateSearchQuery={updateSearchQuery}
         updateCollapseData={updateCollapseData}
-        showTabs={{
-          API: !!exampleSections.API,
-          design: !!exampleSections.design,
-        }}
         content={collapseData}
         codeQuery={codeQuery}
         showAPISearch={showAPISearch}
@@ -261,10 +279,9 @@ const APIDoc: React.FC<APIDocProps> = ({
         <Skeleton className={styles.skeleton} paragraph={{ rows: 16 }} />
       ) : (
         <div className={styles.docContent}>
-          {exampleSections.API && active === 'API' && collapseData.length > 0
-            ? renderCollapse()
-            : null}
-          {exampleSections.design && active === 'design' ? (
+          {active === 'API' && collapseData.length > 0 && renderCollapse()}
+          {collapseData.length <= 0 && active === 'API' && empty}
+          {active === 'design' ? (
             <div className={styles.designContent}>
               <div
                 /* eslint-disable-next-line react/no-danger */
@@ -275,9 +292,10 @@ const APIDoc: React.FC<APIDocProps> = ({
               <div
                 /* eslint-disable-next-line react/no-danger */
                 dangerouslySetInnerHTML={{
-                  __html: exampleSections.design.node.html,
+                  __html: exampleSections?.design?.node?.html,
                 }}
               />
+              {!exampleSections?.design?.node.html && !description && empty}
             </div>
           ) : null}
         </div>

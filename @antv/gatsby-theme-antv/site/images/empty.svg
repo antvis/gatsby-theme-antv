@@ -1,0 +1,27 @@
+
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60px" height="67px" viewBox="0 0 60 67" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>default_nothing</title>
+    <defs>
+        <polygon id="path-1" points="0 0.00888463389 57.3906527 0.00888463389 57.3906527 18.2400086 0 18.2400086"></polygon>
+        <polygon id="path-3" points="0 0.00888715356 57.1895053 0.00888715356 57.1895053 55.4222547 0 55.4222547"></polygon>
+    </defs>
+    <g id="default_nothing" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组" transform="translate(1.000000, 1.000000)">
+            <g transform="translate(0.000000, 46.083984)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <g id="Clip-2"></g>
+                <path d="M57.3906527,9.12444663 C57.3906527,14.158896 44.5255017,18.2400086 28.6554718,18.2400086 C12.7854418,18.2400086 0,14.158896 0,9.12444663 C0,4.08999722 12.7854418,0.00888463389 28.6554718,0.00888463389 C44.5255017,0.00888463389 57.3906527,4.08999722 57.3906527,9.12444663" id="Fill-1" fill="#A3B5D6" mask="url(#mask-2)"></path>
+            </g>
+            <g>
+                <mask id="mask-4" fill="white">
+                    <use xlink:href="#path-3"></use>
+                </mask>
+                <g id="Clip-4"></g>
+                <polygon id="Fill-3" fill="#A3B5D6" mask="url(#mask-4)" points="0.847798013 55.4222547 -2.39070004e-05 54.9804403 28.7404937 0.00888715356 57.1895053 54.9821907 56.3400099 55.4205043 28.7361107 2.08039409"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>
