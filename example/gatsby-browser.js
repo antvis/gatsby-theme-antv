@@ -1,5 +1,7 @@
 window.g2 = require('./src/index.ts').default;
 window.g2plot = require('@antv/g2plot');
+window.f2 = require('@antv/f2');
+window.g6 = require('@antv/g6');
 window.react = require('react');
 window.reactDom = require('react-dom');
 window.antd = require('antd');

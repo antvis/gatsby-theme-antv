@@ -1,0 +1,36 @@
+{
+  "title": {
+    "zh": "中文分类",
+    "en": "Category"
+  },
+  "demos": [
+    {
+      "filename": "g2.js",
+      "title": {
+        "zh": "g2",
+        "en": "g2"
+      }
+    },
+    {
+      "filename": "g2plot.js",
+      "title": {
+        "zh": "g2plot",
+        "en": "g2plot"
+      }
+    },
+    {
+      "filename": "g6.js",
+      "title": {
+        "zh": "g6",
+        "en": "g6"
+      }
+    },
+    {
+      "filename": "f2.js",
+      "title": {
+        "zh": "f2",
+        "en": "f2"
+      }
+    }
+  ]
+}

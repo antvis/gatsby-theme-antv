@@ -44,5 +44,8 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "dependencies": {
+    "g6": "^0.2.0"
   }
 }

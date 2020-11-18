@@ -19,6 +19,9 @@
   "dependencies": {
     "@antv/g2": "^4.0.7",
     "@antv/g2plot": "^2.0.9",
+    "@antv/g6": "^3.8.5",
+    "@antv/f2": "^3.8.0",
+    "@antv/l7": "^2.2.41",
     "@antv/gatsby-theme-antv": "^1.0.0-beta.11",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
