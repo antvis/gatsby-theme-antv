@@ -21,6 +21,7 @@ interface FooterProps extends RcFooterProps {
   language?: string;
   githubUrl?: string;
   location: Location;
+  isAntVSite?: boolean;
 }
 
 const Footer: React.FC<FooterProps> = ({
@@ -30,6 +31,7 @@ const Footer: React.FC<FooterProps> = ({
   language,
   rootDomain = '',
   location,
+  isAntVSite = false,
   ...restProps
 }) => {
   const { t, i18n } = useTranslation();
@@ -158,7 +160,8 @@ const Footer: React.FC<FooterProps> = ({
       theme={theme}
       columns={columns || getColums()}
       className={classnames(styles.footer, {
-        [styles.withMenu]: !is404Page && (isExamplePage || isDocsPage),
+        [styles.withMenu]:
+          !is404Page && (isExamplePage || isDocsPage) && !isAntVSite,
       })}
       bottom={
         bottom || (
