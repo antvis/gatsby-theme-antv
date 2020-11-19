@@ -12,10 +12,11 @@ import {
   Menu,
   Dropdown,
   Tooltip,
+  Empty,
 } from 'antd';
 import { useMedia } from 'react-use';
 import debounce from 'lodash/debounce';
-import { filter } from 'lodash-es';
+import { filter, update } from 'lodash-es';
 import { LeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
 import {
   useTranslation,
@@ -45,7 +46,6 @@ interface PlayGroundProps {
   markdownRemark: any;
   categories: string[];
   allDemos: any;
-  isAntVSite?: boolean;
 }
 
 const MonacoEditor = lazy(() => import('react-monaco-editor'));
@@ -87,7 +87,6 @@ const PlayGround: React.FC<PlayGroundProps> = ({
         site {
           siteMetadata {
             showChartResize
-            isAntVSite
             themeSwitcher
             showAPIDoc
             githubUrl
@@ -106,7 +105,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   );
 
   const {
-    siteMetadata: { githubUrl, playground, isAntVSite },
+    siteMetadata: { githubUrl, playground },
   } = site;
   const replaceInsertCss = (str: string) => {
     // 统一增加对 insert-css 的使用注释
@@ -119,8 +118,11 @@ insertCss(`,
     );
   };
   const { extraLib = '' } = site.siteMetadata.playground;
+
+  const localLayout =
+    typeof window !== 'undefined' ? localStorage.getItem('layout') : null;
   const { showChartResize, showAPIDoc, themeSwitcher } = site.siteMetadata;
-  const [layout, updateLayout] = useState<string>('viewDefault');
+  const [layout, updateLayout] = useState<string>(localLayout || 'viewDefault');
   const [codeQuery, updateCodeQuery] = useState<string>('');
   const { i18n, t } = useTranslation();
   const [currentExample, updateCurrentExample] = useState<
@@ -139,9 +141,11 @@ insertCss(`,
   const [title, updateTitle] = useState<string | undefined>('');
   const [view, updateView] = useState<string>('desktop');
   const [theme, updateTheme] = useState<string>();
+  const [docsEmpty, updateDocsEmpty] = useState<boolean>(false);
   const [currentSourceCode, updateCurrentSourceCode] = useState<string>('');
   const [currentSourceData, updateCurrentSourceData] = useState(null);
   const editroRef = useRef<any>(null);
+  const isWide = useMedia('(min-width: 767.99px)', true);
 
   if (typeof window !== 'undefined') {
     (window as any).__reportErrorInPlayGround = (e: Error) => {
@@ -163,6 +167,15 @@ insertCss(`,
     updateCurrentSourceCode(replaceInsertCss(current.source));
   };
 
+  const setLayout = (ifWide: boolean, empty: boolean) => {
+    if (!ifWide) {
+      updateLayout('viewTwoRows');
+      updateCollapsed(true);
+    } else if (!showAPIDoc || empty) {
+      updateLayout('viewTwoCols');
+    }
+  };
+
   useEffect(() => {
     if (currentExample || !examples) return;
     const defaultExample =
@@ -170,7 +183,18 @@ insertCss(`,
         (item: any) => `#${item.filename.split('.')[0]}` === location.hash,
       ) || examples[0];
     updateCurrentExample(defaultExample);
-  }, [examples]);
+    if (
+      !exampleSections?.design?.node?.html &&
+      !description &&
+      !exampleSections.API.node.html
+    ) {
+      updateDocsEmpty(true);
+    }
+  }, [examples, description]);
+
+  useEffect(() => {
+    setLayout(isWide, docsEmpty);
+  }, [isWide, docsEmpty]);
 
   useEffect(() => {
     if (!currentExample || !allDemos) return;
@@ -326,23 +350,10 @@ insertCss(`,
     updateCollapsed(!collapsed);
   };
 
-  const isWide = useMedia('(min-width: 767.99px)', true);
-
-  useEffect(() => {
-    const localLayout = localStorage.getItem('layout');
-    if (!isWide) {
-      updateLayout('viewTwoRows');
-      updateCollapsed(true);
-    } else if (!showAPIDoc) {
-      updateLayout('viewTwoCols');
-    } else if (localLayout) {
-      updateLayout(localLayout);
-    }
-  }, [isWide]);
-
   useEffect(() => {
     dispatchResizeEvent();
-    if (isWide && showAPIDoc) localStorage.setItem('layout', layout);
+    if (isWide && showAPIDoc && !docsEmpty)
+      localStorage.setItem('layout', layout);
     const pane = document.getElementsByClassName('ant-layout');
     if (!pane[1]) return;
     if (layout === 'viewTwoRows') {
@@ -596,9 +607,11 @@ insertCss(`,
                             view={view}
                           />
                         )}
-                        {showAPIDoc && layout !== 'viewTwoRows' && (
-                          <LayoutSwitcher updateLayout={updateLayout} />
-                        )}
+                        {showAPIDoc &&
+                          !docsEmpty &&
+                          layout !== 'viewTwoRows' && (
+                            <LayoutSwitcher updateLayout={updateLayout} />
+                          )}
                         {themeSwitcher && (
                           <ThemeSwitcher updateTheme={updateTheme} />
                         )}
@@ -663,7 +676,6 @@ insertCss(`,
           exampleSections={exampleSections}
           description={description}
           codeQuery={codeQuery}
-          isAntVSite={isAntVSite}
           showAPISearch={showAPISearch}
         />
       ) : (

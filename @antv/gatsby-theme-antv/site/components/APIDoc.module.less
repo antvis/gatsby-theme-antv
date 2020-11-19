@@ -62,6 +62,9 @@
           p {
             color: rgba(0, 0, 0, 0.65);
           }
+          img {
+            min-width: 400px;
+          }
 
           .ant-collapse {
             background-color: #fff;
@@ -94,11 +97,14 @@
 
 .docContent {
   overflow: auto;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 104px);
   background-color: #fff;
   // 兼容 Firfox
   @-moz-document url-prefix() {
     margin-top: -5px;
+  }
+  img {
+    min-width: 400px;
   }
 
   description {
@@ -110,7 +116,7 @@
   padding: 8px 26px;
   box-sizing: border-box;
   overflow: auto;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 108px);
   background-color: #fff;
 }
 
