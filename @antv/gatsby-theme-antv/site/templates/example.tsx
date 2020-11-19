@@ -154,7 +154,7 @@ export default function Template({
 
   const { frontmatter } = markdownRemark;
   const {
-    siteMetadata: { examples = [], isAntVSite },
+    siteMetadata: { examples = [] },
   } = site;
 
   const { i18n } = useTranslation();
@@ -400,7 +400,6 @@ export default function Template({
           location={location}
           markdownRemark={markdownRemark}
           description={description}
-          isAntVSite={isAntVSite}
         />
       )}
     </div>
@@ -426,7 +425,7 @@ export default function Template({
         hasSider
         className={styles.layout}
       >
-        {gallery && !isAntVSite ? menuSider : null}
+        {gallery ? menuSider : null}
 
         <Article className={styles.markdown}>
           <div className={styles.main} style={{ width: '100%' }}>
@@ -460,7 +459,6 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
-        isAntVSite
         examples {
           slug
           icon

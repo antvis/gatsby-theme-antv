@@ -18,7 +18,6 @@ interface APIDocProps {
   description: string;
   codeQuery: string;
   showAPISearch: boolean;
-  isAntVSite?: boolean;
 }
 
 const APIDoc: React.FC<APIDocProps> = ({
@@ -27,7 +26,6 @@ const APIDoc: React.FC<APIDocProps> = ({
   codeQuery,
   description,
   showAPISearch,
-  isAntVSite,
 }) => {
   const { t } = useTranslation();
   const [collapseData, updateCollapseData] = useState<CollapseDataProp[]>([]);
@@ -35,11 +33,7 @@ const APIDoc: React.FC<APIDocProps> = ({
   const { frontmatter } = markdownRemark;
   const [outsideActiveKeys, updateOutsideActiveKeys] = useState<string[]>([]);
   const [insideActiveKeys, updateInsideActiveKeys] = useState<string[]>([]);
-
-  // antv官网精品图库没有API文档，默认只展示design文档
-  const [active, updateActive] = useState<'API' | 'design'>(
-    isAntVSite ? 'design' : 'API',
-  );
+  const [active, updateActive] = useState<'API' | 'design'>('API');
 
   const outsideHandleChange = (activeKey: any) => {
     updateOutsideActiveKeys(activeKey);
@@ -165,6 +159,9 @@ const APIDoc: React.FC<APIDocProps> = ({
     if (defaultKey) updateOutsideActiveKeys([`outside-${defaultKey}-0`]);
 
     updateCollapseData(initData);
+    if (initData.length <= 0) {
+      updateActive('design');
+    }
   }, [exampleSections]);
 
   useEffect(() => {
@@ -280,7 +277,6 @@ const APIDoc: React.FC<APIDocProps> = ({
         content={collapseData}
         codeQuery={codeQuery}
         showAPISearch={showAPISearch}
-        isAntVSite={isAntVSite}
       />
       {!exampleSections ? (
         <Skeleton className={styles.skeleton} paragraph={{ rows: 16 }} />
@@ -302,7 +298,7 @@ const APIDoc: React.FC<APIDocProps> = ({
                   __html: exampleSections?.design?.node?.html,
                 }}
               />
-              {!exampleSections?.design?.node.html && !description && empty}
+              {!exampleSections?.design?.node.html && !description && empty}{' '}
             </div>
           ) : null}
         </div>

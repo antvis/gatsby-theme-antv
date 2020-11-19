@@ -2,7 +2,7 @@ export const splitPaneMap: { [key: string]: any } = {
   viewDefault: {
     outside: {
       split: 'vertical',
-      size: '50%',
+      size: '60%',
     },
     inside: {
       split: 'horizontal',
