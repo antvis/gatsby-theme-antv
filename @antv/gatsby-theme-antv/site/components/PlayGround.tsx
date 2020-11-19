@@ -118,7 +118,9 @@ insertCss(`,
     );
   };
   const { extraLib = '' } = site.siteMetadata.playground;
-  const localLayout = localStorage.getItem('layout');
+
+  const localLayout =
+    typeof window !== 'undefined' ? localStorage.getItem('layout') : null;
   const { showChartResize, showAPIDoc, themeSwitcher } = site.siteMetadata;
   const [layout, updateLayout] = useState<string>(localLayout || 'viewDefault');
   const [codeQuery, updateCodeQuery] = useState<string>('');
