@@ -12,11 +12,10 @@ import {
   Menu,
   Dropdown,
   Tooltip,
-  Empty,
 } from 'antd';
 import { useMedia } from 'react-use';
 import debounce from 'lodash/debounce';
-import { filter, update } from 'lodash-es';
+import { filter } from 'lodash-es';
 import { LeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
 import {
   useTranslation,
@@ -186,7 +185,7 @@ insertCss(`,
     if (
       !exampleSections?.design?.node?.html &&
       !description &&
-      !exampleSections.API.node.html
+      !exampleSections?.API?.node?.html
     ) {
       updateDocsEmpty(true);
     }
@@ -379,32 +378,18 @@ insertCss(`,
     }
   }, [currentExample, layout, playground]);
 
-  useEffect(() => {
-    if (!currentSourceCode || !theme || !themeSwitcher) return;
+  const getThemeCode = (themeString: string) => {
+    const colors = JSON.parse(themeString);
 
-    let source = currentSourceCode;
-    const render = source.match(/(\S*).render()/);
-    if (render && render?.length > 0) {
-      const chart = render[1];
-      let themeCode;
-      let reg;
-      if (themeSwitcher === 'g2') {
-        themeCode = `${chart}.theme(${theme});`;
-        reg = new RegExp(`( *)${chart}.theme(.*);*(\n*)`, 'g');
-        if (source.match(reg)) source = source.replace(reg, '');
-      } else if (themeSwitcher === 'g2plot') {
-        themeCode = `${chart}.chart.theme(${theme});`;
-        reg = new RegExp(`( *)${chart}.chart.theme(.*);\n`, 'g');
-        if (source.match(reg)) source = source.replace(reg, '');
-      }
-      const data = source.replace(
-        `${chart}.render()`,
-        `${themeCode}\n${chart}.render()`,
-      );
-      onCodeChange(data);
-      editRef.getAction('editor.action.formatDocument').run();
-    }
-  }, [theme]);
+    const res = {
+      styleSheet: {
+        brandColor: colors.colors10[0],
+        paletteQualitative10: colors.colors10,
+        paletteQualitative20: colors.colors20,
+      },
+    };
+    return JSON.stringify(res);
+  };
 
   useEffect(() => {
     if (!currentSourceCode || !theme || !themeSwitcher) return;
@@ -416,39 +401,12 @@ insertCss(`,
       let themeCode;
       let reg;
       if (themeSwitcher === 'g2') {
-        themeCode = `${chart}.theme(${theme});`;
+        themeCode = `${chart}.theme(${getThemeCode(theme)});`;
         reg = new RegExp(`( *)${chart}.theme(.*);*(\n*)`, 'g');
         if (source.match(reg)) source = source.replace(reg, '');
       } else if (themeSwitcher === 'g2plot') {
-        themeCode = `${chart}.chart.theme(${theme});`;
-        reg = new RegExp(`( *)${chart}.chart.theme(.*);\n`, 'g');
-        if (source.match(reg)) source = source.replace(reg, '');
-      }
-      const data = source.replace(
-        `${chart}.render()`,
-        `${themeCode}\n${chart}.render()`,
-      );
-      onCodeChange(data);
-      editRef.getAction('editor.action.formatDocument').run();
-    }
-  }, [theme]);
-
-  useEffect(() => {
-    if (!currentSourceCode || !theme || !themeSwitcher) return;
-
-    let source = currentSourceCode;
-    const render = source.match(/(\S*).render()/);
-    if (render && render?.length > 0) {
-      const chart = render[1];
-      let themeCode;
-      let reg;
-      if (themeSwitcher === 'g2') {
-        themeCode = `${chart}.theme(${theme});`;
-        reg = new RegExp(`( *)${chart}.theme(.*);*(\n*)`, 'g');
-        if (source.match(reg)) source = source.replace(reg, '');
-      } else if (themeSwitcher === 'g2plot') {
-        themeCode = `${chart}.chart.theme(${theme});`;
-        reg = new RegExp(`( *)${chart}.chart.theme(.*);\n`, 'g');
+        themeCode = `${chart}.update(${getThemeCode(theme)});`;
+        reg = new RegExp(`( *)${chart}.update(.*);\n`, 'g');
         if (source.match(reg)) source = source.replace(reg, '');
       }
       const data = source.replace(
