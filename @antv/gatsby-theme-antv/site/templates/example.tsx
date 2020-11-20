@@ -280,7 +280,7 @@ export default function Template({
                     )}
                     <span>
                       {doc && doc.title
-                        ? capitalize(doc.title[i18n.language])
+                        ? doc.title[i18n.language]
                         : menuItemLocaleKey}
                     </span>
                   </div>
