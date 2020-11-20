@@ -210,7 +210,8 @@ export const getProducts = ({
     },
     {
       title: 'X6',
-      icon: 'https://gw.alipayobjects.com/zos/antfincdn/0b4HzOcEJY/Graphin.svg',
+      icon:
+        'https://gw.alipayobjects.com/mdn/rms_a8a5bf/afts/img/A*ES3rTbxp5hcAAAAAAAAAAAAAARQnAQ',
       slogan: t(''),
       description: t('极易定制、开箱即用、数据驱动的图编辑引擎'),
       category: Categories[0],
