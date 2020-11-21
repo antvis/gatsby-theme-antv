@@ -17,7 +17,6 @@ import SEO from '../components/Seo';
 
 import PlayGround from '../components/PlayGround';
 import NavigatorBanner from '../components/NavigatorBanner';
-import { capitalize } from '../utils';
 import { usePrevAndNext } from '../hooks';
 
 import styles from './markdown.module.less';
