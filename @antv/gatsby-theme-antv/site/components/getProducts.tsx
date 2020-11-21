@@ -209,10 +209,10 @@ export const getProducts = ({
       ],
     },
     {
-      title: t('X6 图编辑引擎'),
+      title: 'X6',
       icon:
         'https://gw.alipayobjects.com/zos/bmw-prod/1d5e84d0-d153-4648-81c0-397b3d383d2c.svg',
-      slogan: t(''),
+      slogan: t('图编辑引擎'),
       description: t('极易定制、开箱即用、数据驱动的图编辑引擎'),
       category: Categories[0],
       links: [
@@ -250,7 +250,6 @@ export const getProducts = ({
         },
       ],
     },
-
     {
       title: 'L7',
       icon:
