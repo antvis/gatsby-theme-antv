@@ -6,7 +6,7 @@ window.antd = require('antd');
 
 // gatsby-browser.js
 exports.shouldUpdateScroll = ({ routerProps, prevRouterProps }) => {
-  if (routerProps.location.hash) {
+  if (!prevRouterProps || !routerProps || routerProps.location.hash) {
     return false;
   }
   const { pathname: prevPathname } = prevRouterProps.location;
