@@ -445,9 +445,7 @@ export const getProducts = ({
       icon:
         'https://gw.alipayobjects.com/zos/bmw-prod/eb12db02-036c-44e9-8d17-dc2eab5a7536.svg',
       slogan: t(''),
-      description: t(
-        'AVA 是为了更简便的可视分析而生的技术框架。 VA 代表可视分析Visual Analytics 。第一个 A 具有多重涵义：其目标是成为一个自动化Automated、智能驱动 AI driven、支持增强分析 Augmented的可视分析解决方案。',
-      ),
+      description: t('AVA 是为了更简便的可视分析而生的技术框架。'),
       category: Categories[1],
       links: [
         {
