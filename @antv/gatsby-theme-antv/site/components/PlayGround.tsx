@@ -378,16 +378,30 @@ insertCss(`,
     }
   }, [currentExample, layout, playground]);
 
-  const getThemeCode = (themeString: string) => {
+  const getThemeCode = (type: string, themeString: string) => {
     const colors = JSON.parse(themeString);
 
-    const res = {
-      styleSheet: {
-        brandColor: colors.colors10[0],
-        paletteQualitative10: colors.colors10,
-        paletteQualitative20: colors.colors20,
-      },
-    };
+    let res;
+    if (type === 'g2') {
+      res = {
+        styleSheet: {
+          brandColor: colors.colors10[0],
+          paletteQualitative10: colors.colors10,
+          paletteQualitative20: colors.colors20,
+        },
+      };
+    } else {
+      res = {
+        theme: {
+          styleSheet: {
+            brandColor: colors.colors10[0],
+            paletteQualitative10: colors.colors10,
+            paletteQualitative20: colors.colors20,
+          },
+        },
+      };
+    }
+
     return JSON.stringify(res);
   };
 
@@ -401,11 +415,11 @@ insertCss(`,
       let themeCode;
       let reg;
       if (themeSwitcher === 'g2') {
-        themeCode = `${chart}.theme(${getThemeCode(theme)});`;
+        themeCode = `${chart}.theme(${getThemeCode('g2', theme)});`;
         reg = new RegExp(`( *)${chart}.theme(.*);*(\n*)`, 'g');
         if (source.match(reg)) source = source.replace(reg, '');
       } else if (themeSwitcher === 'g2plot') {
-        themeCode = `${chart}.update(${getThemeCode(theme)});`;
+        themeCode = `${chart}.update(${getThemeCode('g2plot', theme)});`;
         reg = new RegExp(`( *)${chart}.update(.*);\n`, 'g');
         if (source.match(reg)) source = source.replace(reg, '');
       }

@@ -314,7 +314,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         return postSlug === exampleRootSlug;
       });
       if (descriptionPosts) {
-        context.description = descriptionPosts.node.html;
+        context.description = descriptionPosts?.node?.html;
       }
     } else if (isDocsPage) {
       // 将 examples 传递给 document template

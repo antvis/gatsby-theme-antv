@@ -209,7 +209,7 @@ export const getProducts = ({
       ],
     },
     {
-      title: 'X6',
+      title: t('X6 图编辑引擎'),
       icon:
         'https://gw.alipayobjects.com/mdn/rms_a8a5bf/afts/img/A*ES3rTbxp5hcAAAAAAAAAAAAAARQnAQ',
       slogan: t(''),

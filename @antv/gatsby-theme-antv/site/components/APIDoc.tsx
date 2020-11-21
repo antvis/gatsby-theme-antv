@@ -148,7 +148,7 @@ const APIDoc: React.FC<APIDocProps> = ({
 
   useEffect(() => {
     if (!exampleSections?.API) return;
-    const initData = createApiStructure(exampleSections.API.node.html);
+    const initData = createApiStructure(exampleSections?.API?.node?.html);
     initData.forEach((node: { title: string; show: boolean }) => {
       const element = node;
       if (element.title) {
@@ -298,7 +298,7 @@ const APIDoc: React.FC<APIDocProps> = ({
                   __html: exampleSections?.design?.node?.html,
                 }}
               />
-              {!exampleSections?.design?.node.html && !description && empty}{' '}
+              {!exampleSections?.design?.node?.html && !description && empty}{' '}
             </div>
           ) : null}
         </div>
