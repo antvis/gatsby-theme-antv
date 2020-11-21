@@ -3,13 +3,9 @@ title: 测试只有中文
 order: 3
 ---
 
-[![](https://img.shields.io/travis/antvis/g2.svg)](https://travis-ci.org/antvis/g2)
-![](https://img.shields.io/badge/language-javascript-red.svg)
-![](https://img.shields.io/badge/license-MIT-000000.svg)
+[![](https://img.shields.io/travis/antvis/g2.svg)](https://travis-ci.org/antvis/g2) ![](https://img.shields.io/badge/language-javascript-red.svg) ![](https://img.shields.io/badge/license-MIT-000000.svg)
 
-[![NPM Package](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2)
-[![NPM Downloads](https://img.shields.io/npm/dm/@antv/g2.svg)](https://npmjs.org/package/@antv/g2)
-[![Percentage of issues still open](https://isitmaintained.com/badge/open/antvis/g2.svg)](https://isitmaintained.com/project/antvis/g2 'Percentage of issues still open')
+[![NPM Package](https://img.shields.io/npm/v/@antv/g2.svg)](https://www.npmjs.com/package/@antv/g2) [![NPM Downloads](https://img.shields.io/npm/dm/@antv/g2.svg)](https://npmjs.org/package/@antv/g2) [![Percentage of issues still open](https://isitmaintained.com/badge/open/antvis/g2.svg)](https://isitmaintained.com/project/antvis/g2 'Percentage of issues still open')
 
 G2 是一套基于可视化编码的图形语法，以数据驱动，具有高度的易用性和扩展性，用户无需关注各种繁琐的实现细节，一条语句即可构建出各种各样的可交互的统计图表。
 
@@ -151,6 +147,34 @@ AntV 色板以蚂蚁极客蓝为起始主色，根据不同数据类型、使用
 
 ![Artboard Copy 5@2x.png](https://gw.alipayobjects.com/mdn/rms_624b2a/afts/img/A*WfR-QLKisxgAAAAAAAAAAABkARQnAQ)
 
+## 3 大颜色主题
+
+在默认主题的基础上，新增三大颜色主题，分别是秋日橙主题、马卡龙主题、强对比主题，这三类主题色板各有不同的使用场景。
+
+### 秋日橙主题
+
+以橙色调为主的主题色板，整体基调是秋日的丰收色，同时适应深浅模式，可按需替换默认主题。
+
+<swatch title="Autumn" colors="#FF6B3B,#626681,#FFC100,#9FB40F,#76523B,#DAD5B5,#0E8E89,#E19348,#F383A2,#247FEA,#2BCB95,#B1ABF4,#1D42C2,#1D9ED1,#D64BC0,#255634,#8C8C47,#8CDAE5,#8E283B,#791DC9" colorNames="Autumn" descriptions="秋日橙色板，适用于橙色调的产品，可按需替换默认色板。|马卡龙色板，颜色明快，适用于较为活泼轻松的产品或蓝紫色调的产品，可按需替换默认色板。|强对比色板，建议用于投屏及讲演等场景。"></swatch>
+
+![秋日橙.gif](https://gw.alipayobjects.com/mdn/rms_a8a5bf/afts/img/A*4eQ-Q7NX-wIAAAAAAAAAAAAAARQnAQ)
+
+### 马卡龙主题
+
+以粉紫色调为主的主题色板，整体基调是马卡龙糖果色，同时适应深浅模式，风格活泼明快，可按需替换默认主题。
+
+<swatch title="Macaron" colors="#025DF4,#DB6BCF,#2498D1,#BBBDE6,#4045B2,#21A97A,#FF745A,#007E99,#FFA8A8,#2391FF,#FFC328,#A0DC2C,#946DFF,#626681,#EB4185,#CD8150,#36BCCB,#327039,#803488,#83BC99" colorNames="Macaron" descriptions="马卡龙色板，颜色明快，适用于较为活泼轻松的产品或蓝紫色调的产品，可按需替换默认色板。"></swatch>
+
+![马卡龙.gif](https://gw.alipayobjects.com/mdn/rms_a8a5bf/afts/img/A*PhfqRLQmq4QAAAAAAAAAAAAAARQnAQ)
+
+### 强对比主题
+
+强对比分类主题，颜色饱和度较高，强对比度，在投屏场景等降对比场景使用。
+
+<swatch title="Contrasting Orange" colors="#FF4500,#1AAF8B,#406C85,#F6BD16,#B40F0F,#2FB8FC,#4435FF,#FF5CA2,#BBE800,#FE8A26,#946DFF,#6C3E00,#6193FF,#FF988E,#36BCCB,#004988,#FFCF9D,#CCDC8A,#8D00A1,#1CC25E" colorNames="Contrasting Orange" descriptions="强对比色板，建议用于投屏及讲演等场景。"></swatch>
+
+![强对比橙.gif](https://gw.alipayobjects.com/mdn/rms_a8a5bf/afts/img/A*JGEATr_GLWoAAAAAAAAAAAAAARQnAQ)
+
 ---
 
 ## 8 条使用建议
@@ -216,11 +240,6 @@ AntV 色板在做无障碍验证时，得出以下几点取色建议 ：
   一般场景中，我们常也会使用黄绿配色，黄绿对比中，黄是暖色系，绿是冷色系，同样能给到对比感受，且打破常规的蓝红对比色，给到新颖的色彩感受，但如果你的用户中视障人士占比较多，则尽量避免绿黄配色，如图为两种色板在正常人眼和红绿色盲眼中的对比效果，黄绿配色在红绿色盲眼中就失去了色彩对比，难以区分。
 
 <img src="https://gw.alipayobjects.com/mdn/rms_624b2a/afts/img/A*LZGKTq93oGsAAAAAAAAAAABkARQnAQ" width="100%" alt="suggestion" />
-
-## 资源下载
-
-- <img src="https://gw.alipayobjects.com/mdn/rms_624b2a/afts/img/A*PUsdR6401PIAAAAAAAAAAABkARQnAQ" width="27" alt="icon" /> [AntV 色板.sketch](https://gw.alipayobjects.com/os/bmw-prod/0dabf5eb-830a-4698-92a3-fe1a2681730c.sketch)
-- <img src="https://gw.alipayobjects.com/mdn/rms_624b2a/afts/img/A*_UQtSpEHRdQAAAAAAAAAAABkARQnAQ" width="27" alt="icon" /> [AntV 色板色值表](https://www.yuque.com/docs/share/98fd436e-bf79-4242-9ccd-2eeb74234ce6?#)
 
 ## 扩展阅读
 

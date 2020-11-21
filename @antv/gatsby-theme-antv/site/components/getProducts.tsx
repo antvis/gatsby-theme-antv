@@ -211,7 +211,7 @@ export const getProducts = ({
     {
       title: t('X6 图编辑引擎'),
       icon:
-        'https://gw.alipayobjects.com/mdn/rms_a8a5bf/afts/img/A*ES3rTbxp5hcAAAAAAAAAAAAAARQnAQ',
+        'https://gw.alipayobjects.com/zos/bmw-prod/1d5e84d0-d153-4648-81c0-397b3d383d2c.svg',
       slogan: t(''),
       description: t('极易定制、开箱即用、数据驱动的图编辑引擎'),
       category: Categories[0],
@@ -443,11 +443,9 @@ export const getProducts = ({
     {
       title: 'AVA',
       icon:
-        'https://gw.alipayobjects.com/zos/bmw-prod/eb12db02-036c-44e9-8d17-dc2eab5a7536.svg',
+        'https://gw.alipayobjects.com/zos/bmw-prod/1069c628-7460-4b09-a649-0f2ad64dfc78.svg',
       slogan: t(''),
-      description: t(
-        'AVA 是为了更简便的可视分析而生的技术框架。 VA 代表可视分析Visual Analytics 。第一个 A 具有多重涵义：其目标是成为一个自动化Automated、智能驱动 AI driven、支持增强分析 Augmented的可视分析解决方案。',
-      ),
+      description: t('AVA 是为了更简便的可视分析而生的技术框架。'),
       category: Categories[1],
       links: [
         {

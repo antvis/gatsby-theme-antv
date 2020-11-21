@@ -426,28 +426,24 @@ export default function Template({
       >
         {gallery ? menuSider : null}
 
-        <Article className={styles.markdown}>
-          <div className={styles.main} style={{ width: '100%' }}>
-            {gallery ? (
-              galleryPageContent
-            ) : (
-              <div className={styles.exampleLayout}>{exmaplePageContent}</div>
-            )}
-            {gallery && (
-              <>
-                <div>
-                  <NavigatorBanner type="prev" post={prev} />
-                  <NavigatorBanner type="next" post={next} />
+        {gallery ? (
+          <Article className={styles.markdown}>
+            <div className={styles.main} style={{ width: '100%' }}>
+              {galleryPageContent}
+              <div>
+                <NavigatorBanner type="prev" post={prev} />
+                <NavigatorBanner type="next" post={next} />
+              </div>
+              <BackTop style={{ right: 32 }}>
+                <div className={styles.backTop}>
+                  <VerticalAlignTopOutlined />
                 </div>
-                <BackTop style={{ right: 32 }}>
-                  <div className={styles.backTop}>
-                    <VerticalAlignTopOutlined />
-                  </div>
-                </BackTop>
-              </>
-            )}
-          </div>
-        </Article>
+              </BackTop>
+            </div>
+          </Article>
+        ) : (
+          <div className={styles.exampleLayout}>{exmaplePageContent}</div>
+        )}
       </AntLayout>
     </>
   );
