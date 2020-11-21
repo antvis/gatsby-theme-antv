@@ -169,7 +169,7 @@ const Footer: React.FC<FooterProps> = ({
             <div className={styles.more}>
               <span className={styles.title}>{more.title}</span>
               {more.items.map((item: any) => (
-                <div key={item.title}>
+                <div key={item.title} style={{ marginRight: 16 }}>
                   <a href={item.url} target="_blank" rel="noopener noreferrer">
                     {item.icon}
                     {item.title}
