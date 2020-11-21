@@ -8,11 +8,12 @@
   left: 0;
   top: 64px;
   opacity: 0;
+  max-height: calc(100vh - 64px);
   transform: translateY(-12px);
   transition: all 0.3s ease-in;
   background: #fff;
-  padding: 0;
-  overflow: hidden;
+  padding: 8px 0 0;
+  overflow: auto;
   box-shadow: none;
   line-height: 1.5;
   font-weight: normal;
@@ -27,7 +28,6 @@
     opacity: 1;
     box-shadow: 0 2px 8px #f0f1f2 inset;
     pointer-events: auto;
-    max-height: unset !important;
     transform: translateY(0);
   }
 
@@ -38,7 +38,7 @@
   h3 {
     font-size: 14px;
     line-height: 22px;
-    margin: 32px 0 24px 0;
+    margin: 24px 0;
     color: #a3b1bf;
     font-weight: normal;
     padding-bottom: 8px;
