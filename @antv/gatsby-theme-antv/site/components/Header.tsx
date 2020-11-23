@@ -458,8 +458,8 @@ const Header: React.FC<HeaderProps> = ({
     <header
       className={classNames(styles.header, {
         [styles.transparent]: !!transparent && !productMenuVisible,
-        [styles.isHomePage]: !!isHomePage,
-        [styles.isAntVHome]: !!isAntVHome && !productMenuVisible && isWide,
+        [styles.isHomePage]: !!isHomePage && !isAntVHome,
+        [styles.lightTheme]: !!isAntVHome && !productMenuVisible && isWide,
         [styles.fixed]: popupMenuVisible,
       })}
     >
