@@ -147,7 +147,10 @@ const APIDoc: React.FC<APIDocProps> = ({
   };
 
   useEffect(() => {
-    if (!exampleSections?.API) return;
+    if (!exampleSections?.API) {
+      updateActive('design');
+      return;
+    }
     const initData = createApiStructure(exampleSections?.API?.node?.html);
     initData.forEach((node: { title: string; show: boolean }) => {
       const element = node;
