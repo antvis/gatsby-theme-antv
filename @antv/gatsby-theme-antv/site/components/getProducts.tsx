@@ -460,12 +460,12 @@ export const getProducts = ({
         {
           icon: <ReadOutlined />,
           title: t('使用文档'),
-          url: `https://${hosts.ava}/${language}/docs/tutorial/getting-started`,
+          url: `https://${hosts.ava}/${language}/docs/guide`,
         },
         {
           icon: <ReadOutlined />,
           title: t('API 文档'),
-          url: `https://${hosts.ava}/${language}/docs/api/auto-chart`,
+          url: `https://${hosts.ava}/${language}/docs/api`,
         },
         {
           icon: <GithubOutlined />,
