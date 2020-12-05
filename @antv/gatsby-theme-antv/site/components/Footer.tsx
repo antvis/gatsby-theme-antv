@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withPrefix } from 'gatsby';
 import { default as RCFooter, FooterProps as RcFooterProps } from 'rc-footer';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +21,6 @@ interface FooterProps extends RcFooterProps {
   language?: string;
   githubUrl?: string;
   location: Location;
-  isAntVSite?: boolean;
 }
 
 const Footer: React.FC<FooterProps> = ({
@@ -31,9 +30,9 @@ const Footer: React.FC<FooterProps> = ({
   language,
   rootDomain = '',
   location,
-  isAntVSite = false,
   ...restProps
 }) => {
+  const [withMenu, setWithMenu] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
   const lang = language || i18n.language;
   const [isChinaMirrorHost] = useChinaMirrorHost();
@@ -139,13 +138,25 @@ const Footer: React.FC<FooterProps> = ({
       items: product.links,
     }));
 
-  // 有 menu 的模版 footer 表现不同，通过 location 判断加载的模版
-  const pathPrefix = withPrefix('/').replace(/\/$/, '');
-  const path = location.pathname.replace(pathPrefix, '');
-  const isExamplePage =
-    path.startsWith(`/zh/examples`) || path.startsWith(`/en/examples`);
-  const isDocsPage = path.startsWith(`/zh/docs`) || path.startsWith(`/en/docs`);
-  const is404Page = (location as any).key === 'initial';
+  useEffect(() => {
+    // 有 menu 的模版 footer 表现不同，通过 location 判断加载的模版
+    const pathPrefix = withPrefix('/').replace(/\/$/, '');
+    const path = location.pathname.replace(pathPrefix, '');
+    const isExamplePage =
+      path.startsWith(`/zh/examples`) || path.startsWith(`/en/examples`);
+    const isDocsPage =
+      path.startsWith(`/zh/docs`) || path.startsWith(`/en/docs`);
+    // examples 页面里目前只有 gallery 是有 footer 的，
+    // 且 gallery 会出现 `location.key = 'initial'` 逻辑，所以先统一处理为需要 menu
+    if (isExamplePage) {
+      setWithMenu(true);
+    } else if (isDocsPage) {
+      // 文档页为 404 时 footer 没有 menu
+      setWithMenu(!((location as any).key === 'initial'));
+    } else {
+      setWithMenu(false);
+    }
+  }, [location]);
 
   const getColums = () => {
     if (products.length % 2 !== 0) {
@@ -160,8 +171,7 @@ const Footer: React.FC<FooterProps> = ({
       theme={theme}
       columns={columns || getColums()}
       className={classnames(styles.footer, {
-        [styles.withMenu]:
-          !is404Page && (isExamplePage || isDocsPage) && !isAntVSite,
+        [styles.withMenu]: withMenu,
       })}
       bottom={
         bottom || (
