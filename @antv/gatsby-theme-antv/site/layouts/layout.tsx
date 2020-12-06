@@ -215,7 +215,6 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
           githubUrl={githubUrl}
           rootDomain="https://antv.vision"
           location={location}
-          isAntVSite={isAntVSite}
           {...footerProps}
         />
       )}
