@@ -475,7 +475,7 @@ insertCss(`,
   const routes = [
     {
       path: `/${i18n.language}/examples`,
-      breadcrumbName: i18n.language === 'zh' ? '图表演示' : 'Gallery',
+      breadcrumbName: i18n.language === 'zh' ? '图表示例' : 'Gallery',
     },
     {
       path: '/category',
