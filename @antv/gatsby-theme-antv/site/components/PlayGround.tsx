@@ -539,76 +539,76 @@ insertCss(`,
               onClick={toggle}
               rotate={collapsed ? 180 : 0}
             />
-            <Content className={styles.chartContainer}>
-              {relativePath ? (
-                <div
-                  className={classNames(
-                    styles.preview,
-                    `playground-${relativePath.split('/').join('-')}`,
-                  )}
-                >
-                  <PageHeader
-                    ghost={false}
-                    breadcrumb={isWide ? { routes, itemRender } : {}}
-                    title={
-                      typeof currentExample.title === 'object'
-                        ? currentExample.title[i18n.language]
-                        : currentExample.title
-                    }
-                    subTitle={
-                      <Tooltip title={t('在 GitHub 上编辑')}>
-                        <a
-                          href={getGithubSourceUrl({
-                            githubUrl,
-                            relativePath,
-                            prefix: 'examples',
-                          })}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.editOnGtiHubButton}
-                        >
-                          <EditOutlined />
-                        </a>
-                      </Tooltip>
-                    }
-                    extra={
-                      <Space split={<Divider type="vertical" />}>
-                        {showChartResize && layout === 'viewDefault' && (
-                          <ChartViewSwitcher
-                            updateView={updateView}
-                            view={view}
-                          />
-                        )}
-                        {showAPIDoc &&
-                          !docsEmpty &&
-                          layout !== 'viewTwoRows' && (
-                            <LayoutSwitcher updateLayout={updateLayout} />
-                          )}
-                        {themeSwitcher && (
-                          <ThemeSwitcher updateTheme={updateTheme} />
-                        )}
-                      </Space>
-                    }
-                  />
 
-                  {error ? (
-                    <Result
-                      status="error"
-                      title={
-                        i18n.language === 'zh'
-                          ? '演示代码报错，请检查'
-                          : 'Demo code error, please check'
-                      }
-                      subTitle={<pre>{error && error.message}</pre>}
-                    />
-                  ) : (
-                    <div ref={playgroundNode} className={styles[view]} />
-                  )}
-                </div>
-              ) : (
-                <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
-              )}
-            </Content>
+            {relativePath ? (
+              <Layout>
+                <PageHeader
+                  ghost={false}
+                  breadcrumb={isWide ? { routes, itemRender } : {}}
+                  title={
+                    typeof currentExample.title === 'object'
+                      ? currentExample.title[i18n.language]
+                      : currentExample.title
+                  }
+                  subTitle={
+                    <Tooltip title={t('在 GitHub 上编辑')}>
+                      <a
+                        href={getGithubSourceUrl({
+                          githubUrl,
+                          relativePath,
+                          prefix: 'examples',
+                        })}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.editOnGtiHubButton}
+                      >
+                        <EditOutlined />
+                      </a>
+                    </Tooltip>
+                  }
+                  extra={
+                    <Space split={<Divider type="vertical" />}>
+                      {showChartResize && layout === 'viewDefault' && (
+                        <ChartViewSwitcher
+                          updateView={updateView}
+                          view={view}
+                        />
+                      )}
+                      {showAPIDoc && !docsEmpty && layout !== 'viewTwoRows' && (
+                        <LayoutSwitcher updateLayout={updateLayout} />
+                      )}
+                      {themeSwitcher && (
+                        <ThemeSwitcher updateTheme={updateTheme} />
+                      )}
+                    </Space>
+                  }
+                />
+                <Content className={styles.chartContainer}>
+                  <div
+                    className={classNames(
+                      styles.preview,
+                      `playground-${relativePath.split('/').join('-')}`,
+                    )}
+                  >
+                    {error ? (
+                      <Result
+                        status="error"
+                        title={
+                          i18n.language === 'zh'
+                            ? '演示代码报错，请检查'
+                            : 'Demo code error, please check'
+                        }
+                        subTitle={<pre>{error && error.message}</pre>}
+                      />
+                    ) : (
+                      <div ref={playgroundNode} className={styles[view]} />
+                    )}
+                  </div>
+                </Content>
+              </Layout>
+            ) : (
+              <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
+            )}
           </Layout>
 
           <div className={styles.editor}>
