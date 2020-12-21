@@ -237,7 +237,11 @@ const Header: React.FC<HeaderProps> = ({
           content={
             <div style={{ width: 300 }}>
               <div>
-                <span role="img" aria-labelledby="中国">
+                <span
+                  role="img"
+                  aria-labelledby="中国"
+                  style={{ marginRight: '8px' }}
+                >
                   🇨🇳
                 </span>
                 AntV 系列网站部署在 gh-pages

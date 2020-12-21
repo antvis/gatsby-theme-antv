@@ -364,7 +364,7 @@ export const getProducts = ({
         {
           icon: <PieChartOutlined />,
           title: t('图表示例'),
-          url: `https://${hosts.f2nativef2native}/${language}/examples`,
+          url: `https://${hosts.f2native}/${language}/docs/examples`,
         },
         {
           icon: <ReadOutlined />,

@@ -8,6 +8,7 @@ import CollapseIcon from './CollapseIcon';
 import EmptySvg from '../images/empty.svg';
 
 import styles from './APIDoc.module.less';
+import docStyles from '../templates/markdown.module.less';
 
 const { Panel } = Collapse;
 interface APIDocProps {
@@ -208,7 +209,7 @@ const APIDoc: React.FC<APIDocProps> = ({
 
   const renderCollapse = () => {
     return (
-      <div id="apiStructure">
+      <div id="apiStructure" className={docStyles.markdown}>
         <Collapse
           expandIcon={({ isActive }) => (
             <CollapseIcon rotate={isActive ? 90 : 0} type="caret-right" />

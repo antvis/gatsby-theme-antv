@@ -1,6 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
 import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { useStaticQuery, graphql, Link, navigate } from 'gatsby';
 import classNames from 'classnames';
 import {
   Skeleton,
@@ -10,13 +10,14 @@ import {
   PageHeader,
   Divider,
   Menu,
-  Dropdown,
+  TreeSelect,
   Tooltip,
 } from 'antd';
 import { useMedia } from 'react-use';
 import debounce from 'lodash/debounce';
 import { filter } from 'lodash-es';
-import { LeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
+
+import { LeftOutlined, EditOutlined } from '@ant-design/icons';
 import {
   useTranslation,
   withTranslation,
@@ -45,6 +46,12 @@ interface PlayGroundProps {
   markdownRemark: any;
   categories: string[];
   allDemos: any;
+}
+
+interface TreeItem {
+  title: string;
+  value: string;
+  children?: any;
 }
 
 const MonacoEditor = lazy(() => import('react-monaco-editor'));
@@ -442,40 +449,10 @@ insertCss(`,
     }
   };
 
-  const menu = (
-    <Menu className={styles.dropMenu}>
-      {categories.map((category: string, i: number) => (
-        <SubMenu
-          popupClassName={styles.subMenu}
-          key={`${category}${i}`}
-          title={category}
-        >
-          {allDemos[category].map((item: any, key: number) => {
-            const demoSlug = item.relativePath.replace(
-              /\/demo\/(.*)\..*/,
-              (_: string, filename: string) => {
-                return `#${filename}`;
-              },
-            );
-            return (
-              <Menu.Item key={`${item?.title}${key}`}>
-                <Link to={`/${i18n.language}/examples/${demoSlug}`}>
-                  {typeof item.title === 'object'
-                    ? item.title[i18n.language]
-                    : item.title || item?.filename}
-                </Link>
-              </Menu.Item>
-            );
-          })}
-        </SubMenu>
-      ))}
-    </Menu>
-  );
-
   const routes = [
     {
       path: `/${i18n.language}/examples`,
-      breadcrumbName: i18n.language === 'zh' ? '图表演示' : 'Gallery',
+      breadcrumbName: i18n.language === 'zh' ? '图表示例' : 'Gallery',
     },
     {
       path: '/category',
@@ -484,14 +461,72 @@ insertCss(`,
     },
   ];
 
+  const getTreeData = () => {
+    const result: TreeItem[] = [];
+    categories.forEach((category: string) => {
+      const root: TreeItem = {
+        title: category,
+        value: '',
+        children: [],
+      };
+
+      allDemos[category].forEach((item: any, index: number) => {
+        const demoSlug = item.relativePath.replace(
+          /\/demo\/(.*)\..*/,
+          (_: string, filename: string) => {
+            return `#${filename}`;
+          },
+        );
+        const path = `/${i18n.language}/examples/${demoSlug}`;
+        if (index === 0) {
+          root.value = `root::${path}`;
+        }
+        const child = {
+          title:
+            typeof item.title === 'object'
+              ? item.title[i18n.language]
+              : item.title || item?.filename,
+          value: path,
+        };
+        root.children.push(child);
+      });
+
+      result.push(root);
+    });
+    return result;
+  };
+
+  const onChange = (value: string) => {
+    const tmp = value.split('::');
+    const path = tmp[1] ? tmp[1] : value;
+    // window.location.assign(path);
+    // window.location.href = `${path}`;
+
+    window.history.pushState({}, '', `${path}`);
+    window.location.reload();
+  };
+
   function itemRender(route: any) {
     if (route.children) {
       return (
-        <Dropdown overlay={menu} className={styles.breadDrop}>
-          <div>
-            {currentCategory} <DownOutlined />
-          </div>
-        </Dropdown>
+        <TreeSelect
+          className={styles.breadDrop}
+          style={{ width: '100%' }}
+          value={currentCategory}
+          bordered={false}
+          dropdownStyle={{
+            maxHeight: 640,
+            overflow: 'auto',
+            color: '#7d8a96 !important',
+            paddingRight: '8px',
+          }}
+          dropdownClassName={styles.breadDropItem}
+          dropdownMatchSelectWidth={false}
+          treeData={getTreeData()}
+          placeholder="Please select"
+          treeDefaultExpandAll
+          onChange={onChange}
+        />
       );
     }
 
@@ -539,76 +574,76 @@ insertCss(`,
               onClick={toggle}
               rotate={collapsed ? 180 : 0}
             />
-            <Content className={styles.chartContainer}>
-              {relativePath ? (
-                <div
-                  className={classNames(
-                    styles.preview,
-                    `playground-${relativePath.split('/').join('-')}`,
-                  )}
-                >
-                  <PageHeader
-                    ghost={false}
-                    breadcrumb={isWide ? { routes, itemRender } : {}}
-                    title={
-                      typeof currentExample.title === 'object'
-                        ? currentExample.title[i18n.language]
-                        : currentExample.title
-                    }
-                    subTitle={
-                      <Tooltip title={t('在 GitHub 上编辑')}>
-                        <a
-                          href={getGithubSourceUrl({
-                            githubUrl,
-                            relativePath,
-                            prefix: 'examples',
-                          })}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.editOnGtiHubButton}
-                        >
-                          <EditOutlined />
-                        </a>
-                      </Tooltip>
-                    }
-                    extra={
-                      <Space split={<Divider type="vertical" />}>
-                        {showChartResize && layout === 'viewDefault' && (
-                          <ChartViewSwitcher
-                            updateView={updateView}
-                            view={view}
-                          />
-                        )}
-                        {showAPIDoc &&
-                          !docsEmpty &&
-                          layout !== 'viewTwoRows' && (
-                            <LayoutSwitcher updateLayout={updateLayout} />
-                          )}
-                        {themeSwitcher && (
-                          <ThemeSwitcher updateTheme={updateTheme} />
-                        )}
-                      </Space>
-                    }
-                  />
 
-                  {error ? (
-                    <Result
-                      status="error"
-                      title={
-                        i18n.language === 'zh'
-                          ? '演示代码报错，请检查'
-                          : 'Demo code error, please check'
-                      }
-                      subTitle={<pre>{error && error.message}</pre>}
-                    />
-                  ) : (
-                    <div ref={playgroundNode} className={styles[view]} />
-                  )}
-                </div>
-              ) : (
-                <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
-              )}
-            </Content>
+            {relativePath ? (
+              <Layout>
+                <PageHeader
+                  ghost={false}
+                  breadcrumb={isWide ? { routes, itemRender } : {}}
+                  title={
+                    typeof currentExample.title === 'object'
+                      ? currentExample.title[i18n.language]
+                      : currentExample.title
+                  }
+                  subTitle={
+                    <Tooltip title={t('在 GitHub 上编辑')}>
+                      <a
+                        href={getGithubSourceUrl({
+                          githubUrl,
+                          relativePath,
+                          prefix: 'examples',
+                        })}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.editOnGtiHubButton}
+                      >
+                        <EditOutlined />
+                      </a>
+                    </Tooltip>
+                  }
+                  extra={
+                    <Space split={<Divider type="vertical" />}>
+                      {showChartResize && layout === 'viewDefault' && (
+                        <ChartViewSwitcher
+                          updateView={updateView}
+                          view={view}
+                        />
+                      )}
+                      {showAPIDoc && !docsEmpty && layout !== 'viewTwoRows' && (
+                        <LayoutSwitcher updateLayout={updateLayout} />
+                      )}
+                      {themeSwitcher && (
+                        <ThemeSwitcher updateTheme={updateTheme} />
+                      )}
+                    </Space>
+                  }
+                />
+                <Content className={styles.chartContainer}>
+                  <div
+                    className={classNames(
+                      styles.preview,
+                      `playground-${relativePath.split('/').join('-')}`,
+                    )}
+                  >
+                    {error ? (
+                      <Result
+                        status="error"
+                        title={
+                          i18n.language === 'zh'
+                            ? '演示代码报错，请检查'
+                            : 'Demo code error, please check'
+                        }
+                        subTitle={<pre>{error && error.message}</pre>}
+                      />
+                    ) : (
+                      <div ref={playgroundNode} className={styles[view]} />
+                    )}
+                  </div>
+                </Content>
+              </Layout>
+            ) : (
+              <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
+            )}
           </Layout>
 
           <div className={styles.editor}>
