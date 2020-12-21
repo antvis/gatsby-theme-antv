@@ -1,6 +1,6 @@
 @import '~antd/es/style/themes/default.less';
 @editor-height: 100vh;
-@playground-height: calc(100% - 64px);
+@playground-height: 100%;
 
 .playgroundCard {
   background-color: #fff;
@@ -92,7 +92,7 @@
   position: relative;
 
   .preview {
-    padding: 0px 16px 0px 0px;
+    padding: 16px;
     overflow: auto;
     height: 100%;
     width: 100%;
@@ -127,7 +127,7 @@
 
     > * {
       width: 100%;
-      height: @playground-height;
+      height: 100%;
     }
   }
 
