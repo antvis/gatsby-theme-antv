@@ -57,12 +57,29 @@
 }
 
 .breadDrop {
-  display: inherit;
   color: #7d8a96;
   cursor: pointer;
+  font-size: 12px;
+  margin-top: -16px;
+  :global {
+    .ant-select-selector {
+      padding-left: 0px;
+    }
+  }
 
   &:hover {
     color: @primary-color;
+  }
+  :global {
+    .ant-select-suffix {
+      font-size: 10px;
+    }
+  }
+}
+
+.breadDropItem {
+  div {
+    color: #7d8a96;
   }
 }
 
@@ -166,6 +183,7 @@
 
     .ant-page-header {
       margin-left: -16px;
+      margin-right: 1px;
       z-index: 99;
     }
 
@@ -185,19 +203,8 @@
     .ant-space-item-split {
       margin-right: 0 !important;
     }
-  }
-}
-
-.dropMenu {
-  max-height: 300px;
-  overflow-y: auto;
-  div {
-    color: #6b7f90;
-  }
-  :global {
-    .ant-dropdown-menu-sub {
-      max-height: 300px;
-      overflow-y: auto;
+    .ant-breadcrumb {
+      display: flex;
     }
   }
 }
