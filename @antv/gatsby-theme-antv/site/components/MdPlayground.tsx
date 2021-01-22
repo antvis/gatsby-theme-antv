@@ -68,6 +68,9 @@ const PlayGround: React.FC<PlayGroundProps> = ({
       `// 我们用 insert-css 演示引入自定义样式
 // 推荐将样式添加到自己的样式文件中
 // 若拷贝官方代码，别忘了 npm install insert-css
+// We use 'insert-css' to insert custom styles
+// It is recommended to add the style to your own style sheet files
+// If you want to copy the code directly, please remember to install the npm package 'insert-css'
 insertCss(`,
     );
   };
