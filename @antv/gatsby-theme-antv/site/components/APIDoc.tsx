@@ -211,9 +211,6 @@ const APIDoc: React.FC<APIDocProps> = ({
     return (
       <div id="apiStructure" className={docStyles.markdown}>
         <Collapse
-          expandIcon={({ isActive }) => (
-            <CollapseIcon rotate={isActive ? 90 : 0} type="caret-right" />
-          )}
           className={styles.rootCollapse}
           activeKey={outsideActiveKeys}
           onChange={outsideHandleChange}
@@ -235,12 +232,6 @@ const APIDoc: React.FC<APIDocProps> = ({
               {data?.children?.map((child: CollapseDataProp, index: number) => (
                 <Collapse
                   bordered={false}
-                  expandIcon={({ isActive }) => (
-                    <CollapseIcon
-                      rotate={isActive ? 90 : 0}
-                      type="caret-right"
-                    />
-                  )}
                   activeKey={insideActiveKeys}
                   onChange={insideHandleChange}
                   key={`collapse-${child.title}-${index}`}

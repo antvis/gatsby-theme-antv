@@ -1,6 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
 import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
-import { useStaticQuery, graphql, Link, navigate } from 'gatsby';
+import { useStaticQuery, graphql, Link } from 'gatsby';
 import classNames from 'classnames';
 import {
   Skeleton,
@@ -9,7 +9,6 @@ import {
   Space,
   PageHeader,
   Divider,
-  Menu,
   TreeSelect,
   Tooltip,
 } from 'antd';
@@ -37,8 +36,6 @@ import styles from './PlayGround.module.less';
 import { getGithubSourceUrl } from '../templates/document';
 
 const { Content, Sider } = Layout;
-const { SubMenu } = Menu;
-
 interface PlayGroundProps {
   exampleSections: any;
   location: Location;
@@ -113,16 +110,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const {
     siteMetadata: { githubUrl, playground },
   } = site;
-  const replaceInsertCss = (str: string) => {
-    // 统一增加对 insert-css 的使用注释
-    return str.replace(
-      /^insertCss\(/gm,
-      `// 我们用 insert-css 演示引入自定义样式
-// 推荐将样式添加到自己的样式文件中
-// 若拷贝官方代码，别忘了 npm install insert-css
-insertCss(`,
-    );
-  };
+
   const { extraLib = '' } = site.siteMetadata.playground;
 
   const localLayout =
@@ -152,6 +140,21 @@ insertCss(`,
   const [currentSourceData, updateCurrentSourceData] = useState(null);
   const editroRef = useRef<any>(null);
   const isWide = useMedia('(min-width: 767.99px)', true);
+
+  const comment =
+    i18n.language === 'zh'
+      ? `// 我们用 insert-css 演示引入自定义样式
+// 推荐将样式添加到自己的样式文件中
+// 若拷贝官方代码，别忘了 npm install insert-css
+insertCss(`
+      : `// We use 'insert-css' to insert custom styles
+// It is recommended to add the style to your own style sheet files
+// If you want to copy the code directly, please remember to install the npm package 'insert-css
+insertCss(`;
+  const replaceInsertCss = (str: string) => {
+    // 统一增加对 insert-css 的使用注释
+    return str.replace(/^insertCss\(/gm, comment);
+  };
 
   if (typeof window !== 'undefined') {
     (window as any).__reportErrorInPlayGround = (e: Error) => {
