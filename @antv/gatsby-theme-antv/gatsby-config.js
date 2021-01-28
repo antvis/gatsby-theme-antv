@@ -49,6 +49,7 @@ module.exports = ({
       docs: [],
       examples: [],
       isAntVSite: false,
+      galleryMenuCloseAll: false,
       playground: {
         extraLib: getExtraLib(),
       },

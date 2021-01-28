@@ -153,7 +153,7 @@ export default function Template({
 
   const { frontmatter } = markdownRemark;
   const {
-    siteMetadata: { examples = [] },
+    siteMetadata: { examples = [], galleryMenuCloseAll = false },
   } = site;
 
   const { i18n } = useTranslation();
@@ -201,7 +201,8 @@ export default function Template({
   );
 
   const [openKeys, setOpenKeys] = useState<string[]>(() =>
-    Object.keys(groupedEdges),
+    // 是否默认收起所有 sub menu
+    galleryMenuCloseAll ? [] : Object.keys(groupedEdges),
   );
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
@@ -454,6 +455,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        galleryMenuCloseAll
         examples {
           slug
           icon
