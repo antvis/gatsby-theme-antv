@@ -17,6 +17,7 @@ module.exports = {
     showChartResize: true,
     showAPIDoc: true,
     themeSwitcher: 'g2plot',
+    galleryMenuCloseAll: true,
     navs: [
       {
         slug: 'docs/specification/getting-started',
