@@ -7,6 +7,7 @@ import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { Result } from 'antd';
 import debounce from 'lodash/debounce';
+import get from 'lodash/get';
 import {
   useTranslation,
   withTranslation,
@@ -53,6 +54,9 @@ const PlayGround: React.FC<PlayGroundProps> = ({
       query {
         site {
           siteMetadata {
+            mdPlayground {
+              splitPaneMainSize
+            }
             playground {
               extraLib
             }
@@ -63,6 +67,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   );
 
   const { extraLib = '' } = site.siteMetadata.playground;
+  const splitPaneSize = get(site.siteMetadata, ['splitPaneMainSize'], '62%');
   const { t, i18n } = useTranslation();
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
@@ -262,7 +267,7 @@ insertCss(`;
     >
       <SplitPane
         split={isWide ? 'vertical' : 'horizontal'}
-        defaultSize="62%"
+        defaultSize={splitPaneSize}
         minSize={100}
         onDragFinished={dispatchResizeEvent}
       >

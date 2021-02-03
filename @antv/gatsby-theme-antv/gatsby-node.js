@@ -440,6 +440,10 @@ exports.sourceNodes = ({ actions }) => {
       indexName: String
     }
 
+    type MDPlayGround {
+      splitPaneMainSize: String
+    }
+
     type PlayGround {
       container: String
       playgroundDidMount: String
@@ -497,6 +501,7 @@ exports.sourceNodes = ({ actions }) => {
       showLanguageSwitcher: Boolean
       showAntVProductsCard: Boolean
       showSearch: Boolean
+      mdPlayground: MDPlayGround
       playground: PlayGround
       docsearchOptions: DocsearchOptions
       versions: Json
