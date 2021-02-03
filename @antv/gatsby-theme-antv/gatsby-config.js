@@ -50,6 +50,11 @@ module.exports = ({
       examples: [],
       isAntVSite: false,
       galleryMenuCloseAll: false,
+      // markdown 文档中的 playground 若干设置
+      mdPlayground: {
+        // 第一个分块的大小
+        splitPaneMainSize: '62%',
+      },
       playground: {
         extraLib: getExtraLib(),
       },

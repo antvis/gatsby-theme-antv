@@ -99,6 +99,10 @@ module.exports = {
     showChartResize: true, // 是否在demo页展示图表视图切换
     themeSwitcher: 'g2', // 是否在demo页展示主题切换, 取值为'g2' | 'g2plot' 如果不设置则不展示主题切换工具
     showAPIDoc: true, // 是否在demo页展示API文档
+    mdPlayground: {
+      // markdown 文档中的 playground 若干设置
+      splitPaneMainSize: '62%',
+    },
     playground: {
       container: '<canvas id="container" />', // 定义演示的渲染节点，默认 <div id="container" />
       playgroundDidMount: 'console.log("playgroundDidMount");',
