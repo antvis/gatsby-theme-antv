@@ -323,7 +323,7 @@ export const getProducts = ({
         {
           icon: <ReadOutlined />,
           title: t('API 文档'),
-          url: `https://${hosts.g2plot}/${language}/docs/manual/plot-api`,
+          url: `https://${hosts.g2plot}/${language}/docs/api`,
         },
         {
           icon: <HistoryOutlined />,
