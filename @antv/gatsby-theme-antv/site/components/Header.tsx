@@ -83,11 +83,20 @@ export const redirectToChinaMirror = (githubUrl: string): void => {
   }
   const { name } = GitUrlParse(githubUrl);
   if (!name.includes('.') && !name.includes('-')) {
-    window.location.href = window.location.href.replace(
-      window.location.host,
-      `antv-${name}.gitee.io`,
-    );
-    return;
+    switch (name) {
+      case 'antvis':
+        window.location.href = window.location.href.replace(
+          window.location.host,
+          `antv.gitee.io`,
+        );
+        break;
+      default:
+        window.location.href = window.location.href.replace(
+          window.location.host,
+          `antv-${name}.gitee.io`,
+        );
+        return;
+    }
   }
   message.info('镜像本地调试暂时无法跳转。');
 };
@@ -195,8 +204,11 @@ const Header: React.FC<HeaderProps> = ({
       };
 
   const { name } = GitUrlParse(githubUrl);
-  const chinaMirrorUrl = name ? `https://antv-${name}.gitee.io` : '';
-
+  let chinaMirrorUrl = '';
+  if (name === 'antvis') chinaMirrorUrl = `https://antv.gitee.io`;
+  else if (chinaMirrorUrl) {
+    chinaMirrorUrl = `https://antv-${name}.gitee.io`;
+  }
   const [logoLink] = useLogoLink({
     siteUrl,
     lang,
