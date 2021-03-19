@@ -79,18 +79,6 @@ const Footer: React.FC<FooterProps> = ({
       {
         icon: (
           <img
-            src="https://gw.alipayobjects.com/zos/antfincdn/sAEs8aHCnd/yunfengdie.png"
-            alt="yunfengdie"
-          />
-        ),
-        title: t('云凤蝶'),
-        url: 'https://yunfengdie.com',
-        description: t('中台建站平台'),
-        openExternal: true,
-      },
-      {
-        icon: (
-          <img
             src="https://gw.alipayobjects.com/zos/antfincdn/v2%24rh7lqpu/82f338dd-b0a6-41bc-9a86-58aaa9df217b.png"
             alt="Egg"
           />
