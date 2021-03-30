@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { Avatar, Tooltip } from 'antd';
+import { useTranslation } from 'react-i18next';
 import styles from './Contributors.module.less';
 
 type Props = {
@@ -15,6 +16,8 @@ type Props = {
 const Contributors: React.FC<Props> = (props) => {
   const { contributors, style } = props;
 
+  const { t } = useTranslation();
+
   const openGithub = (githubId: string) => {
     window.open(`https://github.com/${githubId}`);
   };
@@ -23,7 +26,7 @@ const Contributors: React.FC<Props> = (props) => {
     <div className={styles.docsContributors} style={style || {}}>
       {_.map(contributors, ({ author, avatar, github }) => {
         return (
-          <Tooltip title={author}>
+          <Tooltip title={`${t('贡献者')}: ${author}`}>
             <span onClick={() => openGithub(github)}>
               <Avatar size={24} src={avatar} />
             </span>

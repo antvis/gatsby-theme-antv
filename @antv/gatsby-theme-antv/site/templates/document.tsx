@@ -436,8 +436,10 @@ export default function Template({
             </h1>
             <div className={styles.meta}>
               <ReadingTime readingTime={readingTime} />
-              <span className={styles.contributorsLabel}>{t('贡献者')}:</span>
-              <Contributors contributors={frontmatter.contributors} />
+              <Contributors
+                style={{ marginLeft: '8px' }}
+                contributors={frontmatter.contributors}
+              />
             </div>
             <div className={styles.content}>{renderAst(htmlAst)}</div>
             <div>
