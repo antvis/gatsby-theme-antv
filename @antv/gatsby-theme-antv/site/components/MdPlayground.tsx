@@ -67,7 +67,11 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   );
 
   const { extraLib = '' } = site.siteMetadata.playground;
-  const splitPaneSize = get(site.siteMetadata, ['splitPaneMainSize'], '62%');
+  const splitPaneSize = get(
+    site.siteMetadata,
+    ['mdPlayground', 'splitPaneMainSize'],
+    '62%',
+  );
   const { t, i18n } = useTranslation();
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();

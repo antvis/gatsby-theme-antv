@@ -44,5 +44,10 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "resolutions": {
+    "monaco-editor": "0.21.3",
+    "@babel/plugin-transform-spread": "7.12.1",
+    "@babel/standalone": "7.12.6"
   }
 }

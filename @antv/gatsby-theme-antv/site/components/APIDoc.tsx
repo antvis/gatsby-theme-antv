@@ -4,7 +4,6 @@ import Icon from '@ant-design/icons';
 import Mark from 'mark.js';
 import { useTranslation } from 'react-i18next';
 import Tabs, { CollapseDataProp } from './Tabs';
-import CollapseIcon from './CollapseIcon';
 import EmptySvg from '../images/empty.svg';
 
 import styles from './APIDoc.module.less';
