@@ -28,6 +28,7 @@ import NavigatorBanner from '../components/NavigatorBanner';
 import SEO from '../components/Seo';
 import CustomTag from '../components/CustomTag';
 import MdPlayground from '../components/MdPlayground';
+import Contributors from '../components/Contributors';
 import { usePrevAndNext } from '../hooks';
 import { capitalize } from '../utils';
 import styles from './markdown.module.less';
@@ -435,6 +436,8 @@ export default function Template({
             </h1>
             <div className={styles.meta}>
               <ReadingTime readingTime={readingTime} />
+              <span className={styles.contributorsLabel}>{t('贡献者')}:</span>
+              <Contributors contributors={frontmatter.contributors} />
             </div>
             <div className={styles.content}>{renderAst(htmlAst)}</div>
             <div>
@@ -482,6 +485,11 @@ export const pageQuery = graphql`
       }
       frontmatter {
         title
+        contributors {
+          author
+          github
+          avatar
+        }
       }
       parent {
         ... on File {
