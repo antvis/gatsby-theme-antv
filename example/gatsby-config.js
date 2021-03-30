@@ -69,16 +69,16 @@ module.exports = {
       {
         slug: 'api/antv',
         title: {
-          zh: '测试 g2',
-          en: 'test g2',
+          zh: '测试 G2',
+          en: 'test G2',
         },
         order: 0,
       },
       {
         slug: 'api/g2plot',
         title: {
-          zh: 'g2plot',
-          en: 'g2plot',
+          zh: 'G2Plot',
+          en: 'G2Plot',
         },
         order: 1,
       },
@@ -120,6 +120,10 @@ module.exports = {
     </script>
   </body>
 </html>`,
+    },
+    mdPlayground: {
+      // markdown 文档中的 playground 若干设置
+      splitPaneMainSize: '50%',
     },
     redirects: [],
   },
