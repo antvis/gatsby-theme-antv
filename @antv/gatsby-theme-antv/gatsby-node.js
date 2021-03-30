@@ -423,10 +423,16 @@ exports.sourceNodes = ({ actions }) => {
   const { createTypes } = actions;
 
   createTypes(`
+    type Contributor {
+      author: String
+      avatar: String
+      github: String
+    }
     type MarkdownRemarkFrontmatter {
       icon: String
       order: Int
       redirect_from: [String]
+      contributors: [Contributor]
     }
 
     type MarkdownRemark {

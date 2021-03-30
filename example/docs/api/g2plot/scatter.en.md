@@ -1,6 +1,14 @@
 ---
 title: Scatter
 order: 1
+contributors:
+  [
+    {
+      author: '新茗',
+      github: 'visiky',
+      avatar: 'https://gw.alipayobjects.com/zos/antfincdn/KAeYPA3TV0/avatar.jpeg',
+    },
+  ]
 ---
 
 ### 图表容器
