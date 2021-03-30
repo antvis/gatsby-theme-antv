@@ -11,5 +11,17 @@
   },
   "tsdocMetadata": {
     "enabled": false
+  },
+  "messages": {
+    "extractorMessageReporting": {
+      "ae-missing-release-tag": {
+        "logLevel": "none"
+      }
+    },
+    "tsdocMessageReporting": {
+      "tsdoc-param-tag-missing-hyphen": {
+        "logLevel": "none"
+      }
+    }
   }
 }
