@@ -12,11 +12,11 @@ import {
   withTranslation,
   WithTranslation,
 } from 'react-i18next';
-import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
 import { MonacoEditor } from './Editor';
 import styles from './MdPlayGround.module.less';
+import { transformWithBabel } from '../utils';
 
 interface PlayGroundProps {
   source: string;
@@ -186,11 +186,7 @@ insertCss(`;
     if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
       updateCurrentSourceCode(value);
       try {
-        const { code } = transform(value, {
-          filename: relativePath,
-          presets: ['react', 'typescript', 'es2015', 'stage-3'],
-          plugins: ['transform-modules-umd'],
-        });
+        const code = transformWithBabel(value, relativePath);
         updateCompiledCode(code);
       } catch (e) {
         console.error(e); // eslint-disable-line no-console
