@@ -382,14 +382,14 @@ exports.onCreateWebpackConfig = (
       }),
     );
   }
-
-  actions.setWebpackConfig({
-    plugins: [
-      new MonacoWebpackPlugin({
-        languages: ['javascript', 'json', 'typescript', 'html'],
-      }),
-    ],
-  });
+  // Monaco React 版本自带异步加载，所以无需插件去做按需！
+  // actions.setWebpackConfig({
+  //   plugins: [
+  //     // new MonacoWebpackPlugin({
+  //     //   languages: ['javascript', 'json', 'typescript', 'html'],
+  //     // }),
+  //   ],
+  // });
 };
 
 exports.createSchemaCustomization = ({ actions }) => {

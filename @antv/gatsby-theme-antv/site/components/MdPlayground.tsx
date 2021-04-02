@@ -1,7 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
 import React, { useRef, useEffect, useState } from 'react';
 // gatsby ssr not support Suspense&lazy https://github.com/gatsbyjs/gatsby/issues/11960
-import loadable from '@loadable/component';
 import { useStaticQuery, graphql } from 'gatsby';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
@@ -16,9 +15,8 @@ import {
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
+import { MonacoEditor } from './Editor';
 import styles from './MdPlayGround.module.less';
-
-const MonacoEditor = loadable(() => import('react-monaco-editor'));
 
 interface PlayGroundProps {
   source: string;
@@ -215,41 +213,9 @@ insertCss(`;
 
   const editor = (
     <MonacoEditor
-      language={
-        currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'
-      }
-      value={currentSourceCode}
-      options={{
-        readOnly: currentEditorTab === EDITOR_TABS.DATA,
-        automaticLayout: true,
-        minimap: {
-          enabled: false,
-        },
-        scrollBeyondLastLine: false,
-        fixedOverflowWidgets: true,
-        lineNumbersMinChars: 4,
-        showFoldingControls: 'always',
-        foldingHighlight: true,
-      }}
-      onChange={(value) => onCodeChange(value)}
-      editorWillMount={(monaco) => {
-        monaco.editor.defineTheme('customTheme', {
-          base: 'vs',
-          inherit: true,
-          rules: [],
-          colors: {
-            'editor.inactiveSelectionBackground': '#ffffff',
-          },
-        });
-        monaco.editor.setTheme('customTheme');
-        monaco.languages.typescript.javascriptDefaults.addExtraLib(
-          extraLib,
-          '',
-        );
-      }}
-      editorDidMount={(editorInstance) => {
-        editroRef.current = editorInstance.getModel();
-      }}
+      height="90vh"
+      defaultLanguage="javascript"
+      defaultValue="// some comment"
     />
   );
 

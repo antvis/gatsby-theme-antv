@@ -1,5 +1,5 @@
 /* eslint no-underscore-dangle: 0 */
-import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { useStaticQuery, graphql, Link } from 'gatsby';
 import classNames from 'classnames';
 import {
@@ -31,7 +31,7 @@ import LayoutSwitcher from './LayoutSwitcher';
 import PlayGrounds, { PlayGroundItemProps } from './PlayGrounds';
 import ThemeSwitcher from './ThemeSwitcher';
 import APIDoc from './APIDoc';
-import PageLoading from './PageLoading';
+import { MonacoEditor } from './Editor';
 import styles from './PlayGround.module.less';
 import { getGithubSourceUrl } from '../templates/document';
 
@@ -50,8 +50,6 @@ interface TreeItem {
   value: string;
   children?: any;
 }
-
-const MonacoEditor = lazy(() => import('react-monaco-editor'));
 
 const execute = debounce(
   (
@@ -291,62 +289,9 @@ insertCss(`;
 
   const codeEditor = (
     <MonacoEditor
-      height="calc(100% - 32px)"
-      language={
-        currentEditorTab === EDITOR_TABS.JAVASCRIPT ? 'javascript' : 'json'
-      }
-      value={currentSourceCode}
-      options={{
-        readOnly: currentEditorTab === EDITOR_TABS.DATA,
-        automaticLayout: true,
-        minimap: {
-          enabled: false,
-        },
-        scrollBeyondLastLine: false,
-        fixedOverflowWidgets: true,
-      }}
-      onChange={(value) => onCodeChange(value)}
-      editorWillMount={(monaco: any) => {
-        monaco.editor.defineTheme('customTheme', {
-          base: 'vs',
-          inherit: true,
-          rules: [],
-          colors: {
-            'editor.inactiveSelectionBackground': '#ffffff',
-          },
-        });
-        monaco.editor.setTheme('customTheme');
-
-        monaco.languages.typescript.javascriptDefaults.addExtraLib(
-          extraLib,
-          '',
-        );
-      }}
-      editorDidMount={(editor, monaco) => {
-        updateEditRef(editor);
-        editor.addAction({
-          // An unique identifier of the contributed action.
-          id: 'search-in-doc',
-
-          // A label of the action that will be presented to the user.
-          label: 'search in document',
-
-          contextMenuGroupId: 'navigation',
-
-          // An optional array of keybindings for the action.
-          keybindings: [
-            // eslint-disable-next-line no-bitwise
-            monaco.KeyMod.CtrlCmd | monaco.KeyCode.F10,
-          ],
-
-          contextMenuOrder: 0,
-          run: (ed: any) => {
-            const val = ed.getModel().getValueInRange(ed.getSelection());
-            updateCodeQuery(val);
-          },
-        });
-        editroRef.current = editor.getModel();
-      }}
+      height="90vh"
+      defaultLanguage="javascript"
+      defaultValue="// some comment"
     />
   );
 
@@ -667,9 +612,7 @@ insertCss(`;
             {!relativePath ? (
               <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
             ) : (
-              <div className={styles.monaco}>
-                <Suspense fallback={<PageLoading />}>{codeEditor}</Suspense>
-              </div>
+              <div className={styles.monaco}>{codeEditor}</div>
             )}
           </div>
         </SplitPane>

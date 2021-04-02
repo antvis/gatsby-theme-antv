@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense, lazy } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   CodeSandboxOutlined,
   Html5Outlined,
@@ -13,12 +13,11 @@ import { getParameters } from 'codesandbox/lib/api/define';
 import stackblitzSdk from '@stackblitz/sdk';
 import { useTranslation } from 'react-i18next';
 import indentString from 'indent-string';
-import PageLoading from './PageLoading';
+import { MonacoEditor } from './Editor';
 import { ping } from '../utils';
 import styles from './Toolbar.module.less';
 
 const { Paragraph } = Typography;
-const MonacoEditor = lazy(() => import('react-monaco-editor'));
 
 export enum EDITOR_TABS {
   JAVASCRIPT = 'JavaScript',
@@ -268,21 +267,11 @@ const Toolbar: React.FC<ToolbarProps> = ({
             }
           >
             <div className={styles.editor}>
-              <Suspense fallback={<PageLoading />}>
-                <MonacoEditor
-                  height="600px"
-                  language="html"
-                  value={getHtmlCodeTemplate()}
-                  options={{
-                    readOnly: true,
-                    automaticLayout: true,
-                    minimap: {
-                      enabled: false,
-                    },
-                    scrollBeyondLastLine: false,
-                  }}
-                />
-              </Suspense>
+              <MonacoEditor
+                height="90vh"
+                defaultLanguage="javascript"
+                defaultValue="// some comment"
+              />
             </div>
           </Modal>
         </>
