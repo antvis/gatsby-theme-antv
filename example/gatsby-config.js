@@ -100,11 +100,17 @@ module.exports = {
     },
     ecosystems: [
       {
-        name: 'Antd Charts',
+        name: {
+          zh: '蚂蚁设计',
+          en: 'Ant Design',
+        },
         url: 'https://2x.ant.design',
       },
       {
-        name: 'ChartCube',
+        name: {
+          zh: '图表加工厂',
+          en: 'ChartCube',
+        },
         url: 'https://chartcube.alipay.com/',
       },
     ],

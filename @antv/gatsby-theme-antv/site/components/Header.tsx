@@ -73,7 +73,10 @@ interface HeaderProps {
   /** 展示版本切换 */
   versions?: { [key: string]: string };
   /** 展示周边生态 */
-  ecosystems?: Array<{ name: string; url: string }>;
+  ecosystems?: Array<{
+    name: Record<string /** zh, en */, string>;
+    url: string;
+  }>;
 }
 
 export const redirectToChinaMirror = (githubUrl: string): void => {
@@ -254,9 +257,9 @@ const Header: React.FC<HeaderProps> = ({
             overlay={
               <Menu>
                 {map(ecosystems, ({ url, name: ecosystemName }) => (
-                  <Menu.Item key={ecosystemName}>
+                  <Menu.Item key={ecosystemName?.[lang]}>
                     <a target="_blank" rel="noreferrer" href={url}>
-                      {ecosystemName} <ExternalLinkIcon />
+                      {ecosystemName?.[lang]} <ExternalLinkIcon />
                     </a>
                   </Menu.Item>
                 ))}
@@ -481,7 +484,7 @@ const Header: React.FC<HeaderProps> = ({
             >
               <TranslationIcon className={styles.translation} />
             </a>
-          </Dropdown>{' '}
+          </Dropdown>
         </li>
       )}
       {showGithubCorner && (

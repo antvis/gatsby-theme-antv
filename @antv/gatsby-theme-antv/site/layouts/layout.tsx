@@ -75,7 +75,10 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
           }
           versions
           ecosystems {
-            name
+            name {
+              zh
+              en
+            }
             url
           }
         }

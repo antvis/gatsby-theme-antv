@@ -463,6 +463,11 @@ exports.sourceNodes = ({ actions }) => {
       en: String
     }
 
+    type SiteSiteMetadataEcosystemName {
+      zh: String
+      en: String
+    }
+
     type SiteSiteMetadataDocs {
       slug: String!
       title: SiteSiteMetadataTitle!
@@ -488,7 +493,7 @@ exports.sourceNodes = ({ actions }) => {
     }
 
     type Ecosystems {
-      name: String!
+      name: SiteSiteMetadataEcosystemName!
       url: String!
     }
 
