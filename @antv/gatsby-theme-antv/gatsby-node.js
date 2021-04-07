@@ -487,6 +487,11 @@ exports.sourceNodes = ({ actions }) => {
       to: String
     }
 
+    type Ecosystems {
+      name: String!
+      url: String!
+    }
+
     type SiteSiteMetadata {
       title: String!
       description: String!
@@ -511,6 +516,7 @@ exports.sourceNodes = ({ actions }) => {
       playground: PlayGround
       docsearchOptions: DocsearchOptions
       versions: Json
+      ecosystems: [Ecosystems]
     }
 
     type Site implements Node {

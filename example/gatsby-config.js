@@ -98,6 +98,16 @@ module.exports = {
       '2.x': 'https://2x.ant.design',
       '1.x': 'https://1x.ant.design',
     },
+    ecosystems: [
+      {
+        name: 'Antd Charts',
+        url: 'https://2x.ant.design',
+      },
+      {
+        name: 'ChartCube',
+        url: 'https://chartcube.alipay.com/',
+      },
+    ],
     playground: {
       container: '<div id="container" class="ok" />',
       playgroundDidMount: 'console.log("playgroundDidMount");',

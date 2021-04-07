@@ -9,9 +9,11 @@ import {
   GithubOutlined,
   MenuOutlined,
   CaretDownFilled,
+  DownOutlined,
 } from '@ant-design/icons';
 import { Popover, Button, Menu, Select, Dropdown, message, Modal } from 'antd';
 import GitUrlParse from 'git-url-parse';
+import map from 'lodash/map';
 import Search, { SearchProps } from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
@@ -70,6 +72,8 @@ interface HeaderProps {
   docsearchOptions?: SearchProps['docsearchOptions'];
   /** 展示版本切换 */
   versions?: { [key: string]: string };
+  /** 展示周边生态 */
+  ecosystems?: Array<{ name: string; url: string }>;
 }
 
 export const redirectToChinaMirror = (githubUrl: string): void => {
@@ -124,6 +128,7 @@ const Header: React.FC<HeaderProps> = ({
   rootDomain = '',
   docsearchOptions,
   versions,
+  ecosystems,
 }) => {
   const { t, i18n } = useTranslation();
   const isAntVHome = isAntVSite && isHomePage; // 是否为AntV官网首页
@@ -243,6 +248,28 @@ const Header: React.FC<HeaderProps> = ({
       })}
     >
       {navs && navs.length ? <NavMenuItems navs={navs} path={path} /> : null}
+      {ecosystems && ecosystems.length ? (
+        <li>
+          <Dropdown
+            overlay={
+              <Menu>
+                {map(ecosystems, ({ url, name: ecosystemName }) => (
+                  <Menu.Item key={ecosystemName}>
+                    <a target="_blank" href={url}>
+                      {ecosystemName} <ExternalLinkIcon />
+                    </a>
+                  </Menu.Item>
+                ))}
+              </Menu>
+            }
+          >
+            <span>
+              {t('周边生态')}
+              <DownOutlined style={{ marginLeft: '6px' }} />
+            </span>
+          </Dropdown>
+        </li>
+      ) : null}
       {showChinaMirror && isWide ? (
         <Popover
           title={null}
@@ -398,6 +425,7 @@ const Header: React.FC<HeaderProps> = ({
           </Select>
         </li>
       ) : null}
+
       {showLanguageSwitcher && (
         <li>
           <Dropdown
@@ -453,7 +481,7 @@ const Header: React.FC<HeaderProps> = ({
             >
               <TranslationIcon className={styles.translation} />
             </a>
-          </Dropdown>
+          </Dropdown>{' '}
         </li>
       )}
       {showGithubCorner && (
