@@ -463,6 +463,11 @@ exports.sourceNodes = ({ actions }) => {
       en: String
     }
 
+    type SiteSiteMetadataEcosystemName {
+      zh: String
+      en: String
+    }
+
     type SiteSiteMetadataDocs {
       slug: String!
       title: SiteSiteMetadataTitle!
@@ -485,6 +490,11 @@ exports.sourceNodes = ({ actions }) => {
     type SiteSiteMetadataRedirects {
       from: String!
       to: String
+    }
+
+    type Ecosystems {
+      name: SiteSiteMetadataEcosystemName!
+      url: String!
     }
 
     type SiteSiteMetadata {
@@ -511,6 +521,7 @@ exports.sourceNodes = ({ actions }) => {
       playground: PlayGround
       docsearchOptions: DocsearchOptions
       versions: Json
+      ecosystems: [Ecosystems]
     }
 
     type Site implements Node {

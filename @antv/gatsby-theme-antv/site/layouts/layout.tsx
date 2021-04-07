@@ -74,6 +74,13 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
             indexName
           }
           versions
+          ecosystems {
+            name {
+              zh
+              en
+            }
+            url
+          }
         }
       }
       locales {
@@ -100,6 +107,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
       redirects = [],
       docsearchOptions,
       versions,
+      ecosystems,
     },
   } = site;
 
@@ -204,6 +212,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         showLanguageSwitcher={parseNulltoUndefined(showLanguageSwitcher)}
         docsearchOptions={docsearchOptions}
         versions={versions}
+        ecosystems={ecosystems}
         {...logoProps}
       />
       <main className={styles.main}>{children}</main>

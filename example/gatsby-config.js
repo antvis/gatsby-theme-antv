@@ -98,6 +98,22 @@ module.exports = {
       '2.x': 'https://2x.ant.design',
       '1.x': 'https://1x.ant.design',
     },
+    ecosystems: [
+      {
+        name: {
+          zh: '蚂蚁设计',
+          en: 'Ant Design',
+        },
+        url: 'https://2x.ant.design',
+      },
+      {
+        name: {
+          zh: '图表加工厂',
+          en: 'ChartCube',
+        },
+        url: 'https://chartcube.alipay.com/',
+      },
+    ],
     playground: {
       container: '<div id="container" class="ok" />',
       playgroundDidMount: 'console.log("playgroundDidMount");',
