@@ -255,7 +255,7 @@ const Header: React.FC<HeaderProps> = ({
               <Menu>
                 {map(ecosystems, ({ url, name: ecosystemName }) => (
                   <Menu.Item key={ecosystemName}>
-                    <a target="_blank" href={url}>
+                    <a target="_blank" rel="noreferrer" href={url}>
                       {ecosystemName} <ExternalLinkIcon />
                     </a>
                   </Menu.Item>
