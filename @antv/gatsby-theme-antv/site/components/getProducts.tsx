@@ -544,14 +544,15 @@ export const getProducts = ({
       ],
     },
     {
-      title: 'Viser',
-      icon: 'https://gw.alipayobjects.com/zos/antfincdn/QAyW5h99HVa/Viser.svg',
-      description: t('基于 G2 实现的可视化解决方案'),
+      title: 'Ant Design Charts',
+      icon:
+        'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
+      description: t('基于 G2Plot 实现的 React 可视化图表库'),
       category: Categories[2],
       links: [
         {
           title: t('产品首页'),
-          url: `https://viserjs.github.io/`,
+          url: `https://charts.ant.design/`,
           openExternal: true,
         },
       ],
