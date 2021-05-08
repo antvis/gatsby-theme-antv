@@ -98,6 +98,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
         content: {
           main: `index.${fileExtension}`,
           dependencies: deps,
+          devDependencies: { typescript: '^3' },
         },
       },
       [`index.${fileExtension}`]: {
