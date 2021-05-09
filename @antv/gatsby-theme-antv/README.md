@@ -97,6 +97,10 @@ module.exports = {
       container: '<canvas id="container" />', // 定义演示的渲染节点，默认 <div id="container" />
       playgroundDidMount: 'console.log("playgroundDidMount");',
       playgroundWillUnmount: 'console.log("playgroundWillUnmount");',
+      devDependencies: {
+        // 如果 example 是 ts 文件，需要加上 ts 依赖，才能在 codesandbox 正确运行
+        typescript: 'latest',
+      },
     },
     versions: [
       {

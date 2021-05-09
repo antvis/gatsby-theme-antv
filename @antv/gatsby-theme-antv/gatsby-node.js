@@ -455,6 +455,7 @@ exports.sourceNodes = ({ actions }) => {
       playgroundDidMount: String
       playgroundWillUnmount: String
       dependencies: Json
+      devDependencies: Json
       htmlCodeTemplate: String
     }
 

@@ -469,6 +469,7 @@ export const pageQuery = graphql`
           playgroundDidMount
           playgroundWillUnmount
           dependencies
+          devDependencies
           htmlCodeTemplate
         }
       }
