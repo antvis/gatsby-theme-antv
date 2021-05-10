@@ -42,6 +42,9 @@ interface ToolbarProps {
     dependencies?: {
       [key: string]: string;
     };
+    devDependencies?: {
+      [key: string]: string;
+    };
     htmlCodeTemplate?: string;
   };
   isFullScreen?: boolean;
@@ -88,6 +91,8 @@ const Toolbar: React.FC<ToolbarProps> = ({
 
   // 使用 playground.dependencies 定义的版本号
   const dependencies = playground.dependencies || {};
+  const devDependencies = playground.devDependencies || {};
+
   Object.keys(dependencies).forEach((name) => {
     deps[name] = dependencies[name];
   });
@@ -98,6 +103,7 @@ const Toolbar: React.FC<ToolbarProps> = ({
         content: {
           main: `index.${fileExtension}`,
           dependencies: deps,
+          devDependencies,
         },
       },
       [`index.${fileExtension}`]: {

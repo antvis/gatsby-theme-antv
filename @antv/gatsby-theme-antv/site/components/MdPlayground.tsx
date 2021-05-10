@@ -33,6 +33,9 @@ interface PlayGroundProps {
     dependencies?: {
       [key: string]: string;
     };
+    devDependencies?: {
+      [key: string]: string;
+    };
     htmlCodeTemplate?: string;
   };
   height?: number;

@@ -121,6 +121,9 @@ module.exports = {
       dependencies: {
         '@antv/l7': 'beta',
       },
+      devDependencies: {
+        typescript: 'latest',
+      },
       htmlCodeTemplate: `<!DOCTYPE html>
 <html>
   <head>
