@@ -145,5 +145,10 @@ module.exports = {
       splitPaneMainSize: '50%',
     },
     redirects: [],
+    // 更新公告
+    announcement: {
+      zh: '1. 文档更新啦！请前往 API 文档，查看图表组件说明。2. 欢迎大家体验周边生态 Theme-Set 和 vis-dashboard。',
+      en: 'Docs updated! Please go to the page of API Docs see the details.',
+    },
   },
 };
