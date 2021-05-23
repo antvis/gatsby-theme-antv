@@ -364,16 +364,18 @@ export default function Template({
 
   /** 公告 id 更新，更新下本地缓存 */
   useEffect(() => {
-    try {
-      const item = localStorage.getItem(BANNER_LOCALSTORAGE_KEY) || '{}';
-      if (get(JSON.parse(item), [bannerId]) !== false) {
-        localStorage.setItem(
-          BANNER_LOCALSTORAGE_KEY,
-          JSON.stringify({ [bannerId]: true }),
-        );
+    if (typeof localStorage !== undefined) {
+      try {
+        const item = localStorage.getItem(BANNER_LOCALSTORAGE_KEY) || '{}';
+        if (get(JSON.parse(item), [bannerId]) !== false) {
+          localStorage.setItem(
+            BANNER_LOCALSTORAGE_KEY,
+            JSON.stringify({ [bannerId]: true }),
+          );
+        }
+      } catch (e) {
+        console.error(e);
       }
-    } catch (e) {
-      console.error(e);
     }
   }, [bannerId]);
 
@@ -387,10 +389,11 @@ export default function Template({
           }}
         />
         {/* 是否展示上新公告  */}
-        {get(
-          JSON.parse(localStorage.getItem(BANNER_LOCALSTORAGE_KEY) || '{}'),
-          [bannerId],
-        ) &&
+        {typeof localStorage !== undefined &&
+          get(
+            JSON.parse(localStorage.getItem(BANNER_LOCALSTORAGE_KEY) || '{}'),
+            [bannerId],
+          ) &&
           bannerId && (
             <Alert
               message={
@@ -412,10 +415,12 @@ export default function Template({
               closable
               onClose={() => {
                 // 关闭公告
-                localStorage.setItem(
-                  BANNER_LOCALSTORAGE_KEY,
-                  JSON.stringify({ [bannerId]: false }),
-                );
+                if (typeof localStorage !== undefined) {
+                  localStorage.setItem(
+                    BANNER_LOCALSTORAGE_KEY,
+                    JSON.stringify({ [bannerId]: false }),
+                  );
+                }
               }}
             />
           )}
