@@ -156,6 +156,25 @@
         }
       }
 
+      .ecoSystems {
+        cursor: pointer;
+        transition: all 0.3s;
+
+        svg {
+          opacity: 0.3;
+        }
+
+        &:hover {
+          & {
+            color: @primary-color;
+          }
+          svg {
+            color: #697b8c;
+            opacity: 0.5;
+          }
+        }
+      }
+
       .githubCorner {
         i {
           font-size: 20px;
@@ -183,9 +202,17 @@
       .versions {
         color: #697b8c;
         margin-right: -16px;
+        transition: all 0.3s;
         :global {
           .ant-select-arrow {
+            transition: all 0.3s;
             font-size: 10px;
+          }
+        }
+        &:hover {
+          color: @primary-color;
+          :global .ant-select-arrow {
+            color: rgba(0, 0, 0, 0.5);
           }
         }
       }

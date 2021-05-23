@@ -254,6 +254,7 @@ const Header: React.FC<HeaderProps> = ({
       {ecosystems && ecosystems.length ? (
         <li>
           <Dropdown
+            className={styles.ecoSystems}
             overlay={
               <Menu>
                 {map(ecosystems, ({ url, name: ecosystemName }) => (
