@@ -1,22 +1,13 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { graphql, Link } from 'gatsby';
-import {
-  Layout as AntLayout,
-  Anchor,
-  Affix,
-  BackTop,
-  Menu,
-  Badge,
-  Alert,
-} from 'antd';
+import { Layout as AntLayout, Anchor, Affix, BackTop, Menu, Badge } from 'antd';
 import {
   createFromIconfontCN,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  NotificationFilled,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { groupBy, debounce, get } from 'lodash-es';
+import { groupBy, debounce } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
 import { useMedia } from 'react-use';
@@ -26,6 +17,7 @@ import SEO from '../components/Seo';
 
 import PlayGround from '../components/PlayGround';
 import NavigatorBanner from '../components/NavigatorBanner';
+import Announcement from '../components/Announcement';
 import { usePrevAndNext } from '../hooks';
 
 import styles from './markdown.module.less';
@@ -362,23 +354,6 @@ export default function Template({
     return demosOnTheNew.map((d) => d.id).join('-');
   }, [demosOnTheNew]);
 
-  /** 公告 id 更新，更新下本地缓存 */
-  useEffect(() => {
-    if (typeof localStorage !== undefined) {
-      try {
-        const item = localStorage.getItem(BANNER_LOCALSTORAGE_KEY) || '{}';
-        if (get(JSON.parse(item), [bannerId]) !== false) {
-          localStorage.setItem(
-            BANNER_LOCALSTORAGE_KEY,
-            JSON.stringify({ [bannerId]: true }),
-          );
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    }
-  }, [bannerId]);
-
   const galleryPageContent = (
     <div className={styles.gallery}>
       <div className={styles.galleryContent}>
@@ -389,41 +364,23 @@ export default function Template({
           }}
         />
         {/* 是否展示上新公告  */}
-        {typeof localStorage !== undefined &&
-          get(
-            JSON.parse(localStorage.getItem(BANNER_LOCALSTORAGE_KEY) || '{}'),
-            [bannerId],
-          ) &&
-          bannerId && (
-            <Alert
-              message={
-                <div>
-                  {t('上新啦，点击直达：')}
-                  {demosOnTheNew.map((demo, idx) => (
-                    <span key={demo.title}>
-                      {idx !== 0 && '，'}
-                      <a href={`#category-${demo.category.replace(/\s/g, '')}`}>
-                        {demo.title}
-                      </a>
-                    </span>
-                  ))}
-                </div>
-              }
-              type="info"
-              showIcon
-              icon={<NotificationFilled style={{ height: '16px' }} />}
-              closable
-              onClose={() => {
-                // 关闭公告
-                if (typeof localStorage !== undefined) {
-                  localStorage.setItem(
-                    BANNER_LOCALSTORAGE_KEY,
-                    JSON.stringify({ [bannerId]: false }),
-                  );
-                }
-              }}
-            />
-          )}
+        <Announcement
+          message={
+            <div>
+              {t('上新啦，点击直达：')}
+              {demosOnTheNew.map((demo, idx) => (
+                <span key={demo.title}>
+                  {idx !== 0 && '，'}
+                  <a href={`#category-${demo.category.replace(/\s/g, '')}`}>
+                    {demo.title}
+                  </a>
+                </span>
+              ))}
+            </div>
+          }
+          localStorageId={BANNER_LOCALSTORAGE_KEY}
+          bannerId={bannerId}
+        />
         {Categories.map((category: string, i) => (
           <div key={i}>
             {category !== 'OTHER' && (
