@@ -168,7 +168,7 @@ export default function Template({
     siteMetadata: { examples = [], galleryMenuCloseAll = false },
   } = site;
 
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const groupedEdges = groupBy(
     edgesInExamples,
@@ -398,7 +398,7 @@ export default function Template({
             <Alert
               message={
                 <div>
-                  上新啦，点击直达：
+                  {t('上新啦，点击直达：')}
                   {demosOnTheNew.map((demo, idx) => (
                     <span key={demo.title}>
                       {idx !== 0 && '，'}
