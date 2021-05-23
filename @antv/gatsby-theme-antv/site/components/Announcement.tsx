@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react';
 import { Alert } from 'antd';
-import type { AlertProps } from 'antd';
 import { get } from 'lodash';
 import { NotificationFilled } from '@ant-design/icons';
 
-type Props = AlertProps & {
+type Props = {
+  message: React.ReactNode;
   localStorageId: string;
   bannerId: string;
+  style?: React.CSSProperties;
 };
 
 /**
@@ -18,7 +19,7 @@ const Announcement: React.FC<Props> = ({
   localStorageId,
   ...alertProps
 }) => {
-  const isBrowser = localStorage !== undefined;
+  const isBrowser = typeof window !== 'undefined';
   /** 公告 id 更新，更新下本地缓存 */
   useEffect(() => {
     try {
