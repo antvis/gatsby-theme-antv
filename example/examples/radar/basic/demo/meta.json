@@ -10,7 +10,8 @@
         "zh": "基础雷达图",
         "en": "Rardar chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*WOFpTJUAWssAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*WOFpTJUAWssAAAAAAAAAAABkARQnAQ",
+      "new": true
     },
     {
       "filename": "series.ts",
@@ -18,7 +19,8 @@
         "zh": "多组雷达图",
         "en": "multiple Rardar chart"
       },
-      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NKROSYNo6IAAAAAAAAAAAABkARQnAQ"
+      "screenshot": "https://gw.alipayobjects.com/mdn/rms_d314dd/afts/img/A*NKROSYNo6IAAAAAAAAAAAABkARQnAQ",
+      "new": true
     },
     {
       "filename": "crosshairs.ts",

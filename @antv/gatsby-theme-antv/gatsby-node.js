@@ -469,6 +469,11 @@ exports.sourceNodes = ({ actions }) => {
       en: String
     }
 
+    type Announcement {
+      zh: String
+      en: String
+    }
+
     type SiteSiteMetadataDocs {
       slug: String!
       title: SiteSiteMetadataTitle!
@@ -523,6 +528,7 @@ exports.sourceNodes = ({ actions }) => {
       docsearchOptions: DocsearchOptions
       versions: Json
       ecosystems: [Ecosystems]
+      announcement: Announcement
     }
 
     type Site implements Node {

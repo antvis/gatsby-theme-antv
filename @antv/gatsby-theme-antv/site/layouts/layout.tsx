@@ -10,6 +10,7 @@ import Header from '../components/Header';
 import PageLoading from '../components/PageLoading';
 import Footer, { OLD_SITE_DOMAIN } from '../components/Footer';
 import styles from './layout.module.less';
+import TopBanner from '../components/TopBanner';
 
 i18n
   .use(initReactI18next) // passes i18n down to react-i18next
@@ -81,6 +82,10 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
             }
             url
           }
+          announcement {
+            zh
+            en
+          }
         }
       }
       locales {
@@ -108,6 +113,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
       docsearchOptions,
       versions,
       ecosystems,
+      announcement,
     },
   } = site;
 
@@ -154,7 +160,11 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
   const getRediectUrl = () => {
     const list = redirects || [];
     for (let i = 0; i < list.length; i += 1) {
-      const { from = '', to, keepUrl } = list[i] as {
+      const {
+        from = '',
+        to,
+        keepUrl,
+      } = list[i] as {
         from: string | RegExp;
         to: string;
         keepUrl?: boolean;
@@ -215,6 +225,8 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         ecosystems={ecosystems}
         {...logoProps}
       />
+      {/* 首页不展示 头部 banner */}
+      {!isHomePage && <TopBanner announcement={announcement} />}
       <main className={styles.main}>{children}</main>
       {!(
         location.pathname.includes('/examples/') &&

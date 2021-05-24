@@ -393,6 +393,24 @@
         white-space: nowrap;
       }
     }
+
+    // 自定义上新徽章
+    .customRibbon {
+      transform: rotate(45deg) translate(5px, -12px);
+      border-radius: 0;
+      width: 65px;
+      height: 18px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 18px;
+      text-align: center;
+
+      :global {
+        .ant-ribbon-corner {
+          display: none;
+        }
+      }
+    }
   }
 }
 

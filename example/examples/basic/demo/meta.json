@@ -15,10 +15,11 @@
     {
       "filename": "ts-demo.ts",
       "title": {
-        "zh": "中文标题",
-        "en": "example two"
+        "zh": "上新",
+        "en": "new example"
       },
-      "screenshot": "https://gw.alipayobjects.com/os/s/prod/antv/assets/dist/3.0.0/g2/3.x/column/histogram-c5da3.png"
+      "screenshot": "https://gw.alipayobjects.com/os/s/prod/antv/assets/dist/3.0.0/g2/3.x/column/histogram-c5da3.png",
+      "new": true
     }
   ]
 }
