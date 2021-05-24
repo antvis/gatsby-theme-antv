@@ -7,7 +7,7 @@ import {
   MenuUnfoldOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { groupBy, debounce } from 'lodash-es';
+import { groupBy, debounce, each, filter, find, size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
 import { useMedia } from 'react-use';
@@ -183,11 +183,11 @@ export default function Template({
   const [prev, next] = usePrevAndNext();
 
   // 获取 demo 的 Category 分类
-  const getDemoCategory = (demo: any) => {
-    if (!demo.postFrontmatter || !demo.postFrontmatter[i18n.language]) {
+  const getDemoCategory = (demo: any, lang = i18n.language) => {
+    if (!demo.postFrontmatter || !demo.postFrontmatter[lang]) {
       return 'OTHER';
     }
-    return demo.postFrontmatter[i18n.language].title;
+    return demo.postFrontmatter[lang].title;
   };
 
   const allDemosInCategory = groupBy(allDemos || [], getDemoCategory);
@@ -332,22 +332,40 @@ export default function Template({
     </Affix>
   );
 
-  /** 获取上新的 demo. 直接用英文 title 作为 id */
-  const demosOnTheNew = useMemo((): Array<{
+  type NewDemo = {
     title: string;
     id: string;
     category: string;
-  }> => {
-    return allDemos
-      .filter((demo) => demo.new)
-      .map((demo) => {
-        return {
-          title: demo.title[i18n.language],
-          id: demo.title.en,
-          category: getDemoCategory(demo),
-        };
-      });
-  }, [allDemos, i18n.language]);
+  };
+
+  /** 获取上新的 demo. 直接用英文 title 作为 id */
+  const demosOnTheNew = useMemo((): Array<NewDemo> => {
+    const result: NewDemo[] = [];
+
+    each(allDemosInCategory, (categoryDemos, category) => {
+      const newDemos = filter(categoryDemos, (d) => d.new);
+      // 大于4个新增 demo 或全部新增，则直接使用 category 作为代替
+      if (
+        size(newDemos) > 6 ||
+        (size(newDemos) && size(newDemos) === size(categoryDemos))
+      ) {
+        result.push({
+          title: category,
+          id: getDemoCategory(newDemos[0], 'en'),
+          category,
+        });
+      } else {
+        each(newDemos, (demo) =>
+          result.push({
+            title: demo.title[i18n.language],
+            id: demo.title.en,
+            category: getDemoCategory(demo),
+          }),
+        );
+      }
+    });
+    return result;
+  }, [allDemosInCategory, allDemos, i18n.language]);
 
   /** 公告 id */
   const bannerId = useMemo(() => {
