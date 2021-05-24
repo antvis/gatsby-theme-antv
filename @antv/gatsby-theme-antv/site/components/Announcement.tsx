@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react';
 import { Alert } from 'antd';
-import { get } from 'lodash';
+import { assign, get } from 'lodash';
 import { NotificationFilled } from '@ant-design/icons';
+import cx from 'classnames';
+import styles from './Announcement.module.less';
 
 type Props = {
   message: React.ReactNode;
@@ -43,8 +45,9 @@ const Announcement: React.FC<Props> = ({
       message={message}
       type="info"
       showIcon
-      icon={<NotificationFilled style={{ height: '16px' }} />}
+      icon={<NotificationFilled style={{ height: '16px', color: '#4776E8' }} />}
       closable
+      className={cx('banner-announcement', styles.bannerAnnouncement)}
       onClose={() => {
         // 关闭公告
         if (isBrowser) {

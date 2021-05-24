@@ -225,7 +225,8 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         ecosystems={ecosystems}
         {...logoProps}
       />
-      <TopBanner announcement={announcement} />
+      {/* 首页不展示 头部 banner */}
+      {!isHomePage && <TopBanner announcement={announcement} />}
       <main className={styles.main}>{children}</main>
       {!(
         location.pathname.includes('/examples/') &&
