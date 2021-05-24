@@ -364,23 +364,25 @@ export default function Template({
           }}
         />
         {/* 是否展示上新公告  */}
-        <Announcement
-          message={
-            <div>
-              {t('上新啦，点击直达：')}
-              {demosOnTheNew.map((demo, idx) => (
-                <span key={demo.title}>
-                  {idx !== 0 && '，'}
-                  <a href={`#category-${demo.category.replace(/\s/g, '')}`}>
-                    {demo.title}
-                  </a>
-                </span>
-              ))}
-            </div>
-          }
-          localStorageId={BANNER_LOCALSTORAGE_KEY}
-          bannerId={bannerId}
-        />
+        {demosOnTheNew.length && (
+          <Announcement
+            message={
+              <div>
+                {t('上新啦，点击直达：')}
+                {demosOnTheNew.map((demo, idx) => (
+                  <span key={demo.title}>
+                    {idx !== 0 && '，'}
+                    <a href={`#category-${demo.category.replace(/\s/g, '')}`}>
+                      {demo.title}
+                    </a>
+                  </span>
+                ))}
+              </div>
+            }
+            localStorageId={BANNER_LOCALSTORAGE_KEY}
+            bannerId={bannerId}
+          />
+        )}
         {Categories.map((category: string, i) => (
           <div key={i}>
             {category !== 'OTHER' && (
