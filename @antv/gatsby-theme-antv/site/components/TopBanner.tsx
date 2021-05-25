@@ -20,18 +20,16 @@ const TopBanner: React.FC<Props> = ({ announcement }) => {
     return announcement ? announcement.en : '';
   }, [announcement]);
 
-  return (
+  const content = get(announcement, i18n.language);
+
+  return content ? (
     <Announcement
-      message={
-        <span className={styles.topBannerAnnouncements}>
-          {get(announcement, i18n.language)}
-        </span>
-      }
+      message={<span className={styles.topBannerAnnouncements}>{content}</span>}
       bannerId={bannerId}
       localStorageId={BANNER_LOCALSTORAGE_KEY}
       style={{ borderRadius: 0, borderWidth: '1px 0' }}
     />
-  );
+  ) : null;
 };
 
 export default TopBanner;

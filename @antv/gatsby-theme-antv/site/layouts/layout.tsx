@@ -193,6 +193,10 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
       }
     : {};
 
+  const isExamplePage =
+    location.pathname.includes('/examples/') &&
+    !location.pathname.endsWith('/gallery');
+
   return (
     <>
       {rediectUrl && (
@@ -225,13 +229,12 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         ecosystems={ecosystems}
         {...logoProps}
       />
-      {/* 首页不展示 头部 banner */}
-      {!isHomePage && <TopBanner announcement={announcement} />}
+      {/* 首页和 example 演示页 不展示 头部 banner */}
+      {!isHomePage && !isExamplePage && (
+        <TopBanner announcement={announcement} />
+      )}
       <main className={styles.main}>{children}</main>
-      {!(
-        location.pathname.includes('/examples/') &&
-        !location.pathname.endsWith('/gallery')
-      ) && (
+      {!isExamplePage && (
         <Footer
           githubUrl={githubUrl}
           rootDomain="https://antv.vision"
