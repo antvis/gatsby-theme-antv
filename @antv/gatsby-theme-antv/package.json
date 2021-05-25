@@ -1,7 +1,7 @@
 {
   "name": "@antv/gatsby-theme-antv",
   "description": "Ant Visualization solution home page",
-  "version": "1.1.3",
+  "version": "1.1.5",
   "author": "AntV Team <antv@antfin.com>",
   "keywords": [
     "gatsby",
@@ -122,7 +122,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "serve": "gatsby serve",
-    "release": "read -p 'GITHUB_TOKEN: ' GITHUB_TOKEN && export GITHUB_TOKEN=$GITHUB_TOKEN && release-it",
+    "release": "release-it",
     "copy:components": "mkdir -p lib && cp -R .tmp/@antv/gatsby-theme-antv/site/components lib && cp site/components/*.less ./lib/components && cp site/common.json ./lib && cp -R site/images ./lib",
     "compile:components": "rm -rf .tmp lib && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && npm run copy:components",
     "test": "jest"
@@ -132,7 +132,7 @@
       "commitMessage": ":sparkles: Release ${version}"
     },
     "github": {
-      "release": true
+      "release": false
     },
     "hooks": {
       "before:init": [
