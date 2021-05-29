@@ -382,7 +382,7 @@ export default function Template({
           }}
         />
         {/* 是否展示上新公告  */}
-        {demosOnTheNew.length && (
+        {demosOnTheNew.length ? (
           <Announcement
             message={
               <div>
@@ -400,7 +400,7 @@ export default function Template({
             localStorageId={BANNER_LOCALSTORAGE_KEY}
             bannerId={bannerId}
           />
-        )}
+        ) : null}
         {Categories.map((category: string, i) => (
           <div key={i}>
             {category !== 'OTHER' && (
