@@ -193,7 +193,7 @@ const ThemeSwitcher: React.FC<ThemeSwitcherProps> = ({ updateTheme }) => {
         rel="noreferrer"
         className={styles.link}
         target="_blank"
-        href={`https://antv.vision/${i18n.language}/docs/specification/principles/visual`}
+        href={`https://theme-set.antv.vision/`}
       >
         {t('查看更多色板用法')}
       </a>
