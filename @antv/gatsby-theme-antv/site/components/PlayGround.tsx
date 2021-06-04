@@ -140,7 +140,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const [docsEmpty, updateDocsEmpty] = useState<boolean>(false);
   const [currentSourceCode, updateCurrentSourceCode] = useState<string>('');
   const [currentSourceData, updateCurrentSourceData] = useState(null);
-  const editroRef = useRef<any>(null);
+  const editorRef = useRef<any>(null);
   const isWide = useMedia('(min-width: 767.99px)', true);
 
   const comment =
@@ -245,7 +245,7 @@ insertCss(`;
     };
   }, []);
 
-  const [editorTabs, updateEditroTabs] = useState<EDITOR_TABS[]>([]);
+  const [editorTabs, updateEditorTabs] = useState<EDITOR_TABS[]>([]);
   const [currentEditorTab, updateCurrentEditorTab] = useState(
     EDITOR_TABS.JAVASCRIPT,
   );
@@ -253,7 +253,7 @@ insertCss(`;
     const dataFileMatch = currentSourceCode.match(/fetch\('(.*)'\)/);
 
     if (dataFileMatch && dataFileMatch.length > 0) {
-      updateEditroTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
+      updateEditorTabs([EDITOR_TABS.JAVASCRIPT, EDITOR_TABS.DATA]);
       fetch(dataFileMatch[1])
         .then((response) => response.json())
         .then((data) => {
@@ -282,11 +282,11 @@ insertCss(`;
   };
 
   useEffect(() => {
-    if (editroRef.current) {
+    if (editorRef.current) {
       if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
-        editroRef.current.setValue(currentSourceCode);
+        editorRef.current.setValue(currentSourceCode);
       } else if (currentEditorTab === EDITOR_TABS.DATA) {
-        editroRef.current.setValue(JSON.stringify(currentSourceData, null, 2));
+        editorRef.current.setValue(JSON.stringify(currentSourceData, null, 2));
       }
     }
   }, [currentEditorTab]);
@@ -347,7 +347,7 @@ insertCss(`;
             updateCodeQuery(val);
           },
         });
-        editroRef.current = editor.getModel();
+        editorRef.current = editor.getModel();
       }}
     />
   );
