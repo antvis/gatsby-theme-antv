@@ -14,11 +14,12 @@ import stackblitzSdk from '@stackblitz/sdk';
 import { useTranslation } from 'react-i18next';
 import indentString from 'indent-string';
 import PageLoading from './PageLoading';
+import { loadMonacoEditorComponent } from './MonacoLoader';
 import { ping } from '../utils';
 import styles from './Toolbar.module.less';
 
 const { Paragraph } = Typography;
-const MonacoEditor = lazy(() => import('react-monaco-editor'));
+const MonacoEditor = lazy(loadMonacoEditorComponent);
 
 export enum EDITOR_TABS {
   JAVASCRIPT = 'JavaScript',

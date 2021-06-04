@@ -16,9 +16,10 @@ import {
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
+import { loadMonacoEditorComponent } from './MonacoLoader';
 import styles from './MdPlayGround.module.less';
 
-const MonacoEditor = loadable(() => import('react-monaco-editor'));
+const MonacoEditor = loadable(loadMonacoEditorComponent);
 
 interface PlayGroundProps {
   source: string;

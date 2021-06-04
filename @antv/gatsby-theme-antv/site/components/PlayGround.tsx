@@ -34,6 +34,7 @@ import APIDoc from './APIDoc';
 import PageLoading from './PageLoading';
 import styles from './PlayGround.module.less';
 import { getGithubSourceUrl } from '../templates/document';
+import { loadMonacoEditorComponent } from './MonacoLoader';
 
 const { Content, Sider } = Layout;
 interface PlayGroundProps {
@@ -51,7 +52,7 @@ interface TreeItem {
   children?: any;
 }
 
-const MonacoEditor = lazy(() => import('react-monaco-editor'));
+const MonacoEditor = lazy(loadMonacoEditorComponent);
 
 const execute = debounce(
   (
@@ -120,10 +121,9 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const [layout, updateLayout] = useState<string>(localLayout || 'viewDefault');
   const [codeQuery, updateCodeQuery] = useState<string>('');
   const { i18n, t } = useTranslation();
-  const [
-    currentExample,
-    updateCurrentExample,
-  ] = useState<PlayGroundItemProps>();
+  const [currentExample, updateCurrentExample] = useState<
+    PlayGroundItemProps
+  >();
   const [editRef, updateEditRef] = useState<any>();
   const { examples } = exampleSections;
   const playgroundNode = useRef<HTMLDivElement>(null);
