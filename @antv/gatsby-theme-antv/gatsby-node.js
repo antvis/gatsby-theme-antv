@@ -16,7 +16,6 @@ const { transform } = require('@babel/standalone');
 
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
-const MonacoWebpackPlugin = require(`monaco-editor-webpack-plugin`);
 
 function getLocaleResources() {
   let locale = {};
@@ -384,11 +383,7 @@ exports.onCreateWebpackConfig = (
   }
 
   actions.setWebpackConfig({
-    plugins: [
-      new MonacoWebpackPlugin({
-        languages: ['javascript', 'json', 'typescript', 'html'],
-      }),
-    ],
+    plugins: [],
   });
 };
 

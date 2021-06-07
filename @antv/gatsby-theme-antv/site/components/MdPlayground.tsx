@@ -16,9 +16,10 @@ import {
 import { transform } from '@babel/standalone';
 import SplitPane from 'react-split-pane';
 import Toolbar, { EDITOR_TABS } from './Toolbar';
+import { loadMonacoEditorComponent } from './MonacoLoader';
 import styles from './MdPlayGround.module.less';
 
-const MonacoEditor = loadable(() => import('react-monaco-editor'));
+const MonacoEditor = loadable(loadMonacoEditorComponent);
 
 interface PlayGroundProps {
   source: string;
@@ -81,7 +82,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const [compiledCode, updateCompiledCode] = useState(babeledSource);
 
   const [currentSourceData, updateCurrentSourceData] = useState(null);
-  const editroRef = useRef<any>(null);
+  const editorRef = useRef<any>(null);
 
   const comment =
     i18n.language === 'zh'
@@ -207,11 +208,11 @@ insertCss(`;
   };
 
   useEffect(() => {
-    if (editroRef.current) {
+    if (editorRef.current) {
       if (currentEditorTab === EDITOR_TABS.JAVASCRIPT) {
-        editroRef.current.setValue(currentSourceCode);
+        editorRef.current.setValue(currentSourceCode);
       } else if (currentEditorTab === EDITOR_TABS.DATA) {
-        editroRef.current.setValue(JSON.stringify(currentSourceData, null, 2));
+        editorRef.current.setValue(JSON.stringify(currentSourceData, null, 2));
       }
     }
   }, [currentEditorTab]);
@@ -251,7 +252,7 @@ insertCss(`;
         );
       }}
       editorDidMount={(editorInstance) => {
-        editroRef.current = editorInstance.getModel();
+        editorRef.current = editorInstance.getModel();
       }}
     />
   );
