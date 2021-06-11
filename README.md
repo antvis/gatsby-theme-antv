@@ -95,6 +95,7 @@ module.exports = {
     showChinaMirror: true, // 是否展示国内镜像链接
     showLanguageSwitcher: true, // 用于定义是否展示语言切换
     showAntVProductsCard: true, // 是否展示 AntV 系列产品的卡片链接
+    showGithubStar: false, // 是否展示 Github Star
     showGithubCorner: true, // 是否展示角落的 GitHub 图标
     showChartResize: true, // 是否在demo页展示图表视图切换
     themeSwitcher: 'g2', // 是否在demo页展示主题切换, 取值为'g2' | 'g2plot' 如果不设置则不展示主题切换工具
@@ -128,7 +129,8 @@ module.exports = {
     ],
     announcement: {
       zh: '站内公告，用于展示一些更新信息，如：文档更新、版本发布等',
-      en: 'The announcement in the website, used to display some updated information, such as document update, version release and etc',
+      en:
+        'The announcement in the website, used to display some updated information, such as document update, version release and etc',
     },
   },
 };
@@ -162,24 +164,28 @@ import Companies from '@antv/gatsby-theme-antv/site/components/Companies';
 const Layout = () => {
   const features = [
     {
-      icon: 'https://gw.alipayobjects.com/zos/basement_prod/5dbaf094-c064-4a0d-9968-76020b9f1510.svg',
+      icon:
+        'https://gw.alipayobjects.com/zos/basement_prod/5dbaf094-c064-4a0d-9968-76020b9f1510.svg',
       title: 'xxxxx',
       description: 'xxxxxxxxxxxxxxxxxxxxxxxxx',
     },
     {
-      icon: 'https://gw.alipayobjects.com/zos/basement_prod/0a0371ab-6bed-41ad-a99b-87a5044ba11b.svg',
+      icon:
+        'https://gw.alipayobjects.com/zos/basement_prod/0a0371ab-6bed-41ad-a99b-87a5044ba11b.svg',
       title: 'xxxxx',
       description: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     },
     {
-      icon: 'https://gw.alipayobjects.com/zos/basement_prod/716d0bc0-e311-4b28-b79f-afdd16e8148e.svg',
+      icon:
+        'https://gw.alipayobjects.com/zos/basement_prod/716d0bc0-e311-4b28-b79f-afdd16e8148e.svg',
       title: 'xxxxx',
       description: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     },
   ];
   const cases = [
     {
-      logo: 'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
+      logo:
+        'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
       title: '灯塔专业版',
       description:
         '深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金',

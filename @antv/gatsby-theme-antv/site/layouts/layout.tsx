@@ -57,6 +57,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
           showChinaMirror
           showLanguageSwitcher
           showAntVProductsCard
+          showGithubStar
           showGithubCorner
           navs {
             slug
@@ -107,6 +108,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
       showSearch,
       showChinaMirror,
       isAntVSite,
+      showGithubStar,
       showGithubCorner,
       showAntVProductsCard,
       redirects = [],
@@ -160,11 +162,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
   const getRediectUrl = () => {
     const list = redirects || [];
     for (let i = 0; i < list.length; i += 1) {
-      const {
-        from = '',
-        to,
-        keepUrl,
-      } = list[i] as {
+      const { from = '', to, keepUrl } = list[i] as {
         from: string | RegExp;
         to: string;
         keepUrl?: boolean;
@@ -220,6 +218,7 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         isHomePage={isHomePage}
         isAntVSite={isAntVSite}
         showSearch={parseNulltoUndefined(showSearch)}
+        showGithubStar={parseNulltoUndefined(showGithubStar)}
         showGithubCorner={parseNulltoUndefined(showGithubCorner)}
         showAntVProductsCard={parseNulltoUndefined(showAntVProductsCard)}
         showChinaMirror={parseNulltoUndefined(showChinaMirror)}
