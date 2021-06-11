@@ -14,6 +14,7 @@ import {
 import { Popover, Button, Menu, Select, Dropdown, message, Modal } from 'antd';
 import GitUrlParse from 'git-url-parse';
 import { map } from 'lodash-es';
+import GitHubButton from 'react-github-btn';
 import Search, { SearchProps } from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';
@@ -38,8 +39,10 @@ interface HeaderProps {
   navs?: Nav[];
   /** 是否显示搜索框 */
   showSearch?: boolean;
-  /** 是否显示搜索框 */
+  /** 是否显示 Github 图标 */
   showGithubCorner?: boolean;
+  /** 是否显示 Github Star */
+  showGithubStar?: boolean;
   /** 是否显示切换语言选项 */
   showLanguageSwitcher?: boolean;
   /** 切换语言的回调 */
@@ -115,6 +118,7 @@ const Header: React.FC<HeaderProps> = ({
   path = '',
   navs = [],
   showSearch = true,
+  showGithubStar = false,
   showGithubCorner = true,
   showAntVProductsCard = true,
   showLanguageSwitcher = true,
@@ -251,6 +255,7 @@ const Header: React.FC<HeaderProps> = ({
       })}
     >
       {navs && navs.length ? <NavMenuItems navs={navs} path={path} /> : null}
+
       {ecosystems && ecosystems.length ? (
         <li>
           <Dropdown
@@ -274,6 +279,7 @@ const Header: React.FC<HeaderProps> = ({
           </Dropdown>
         </li>
       ) : null}
+
       {showChinaMirror && isWide ? (
         <Popover
           title={null}
@@ -404,6 +410,7 @@ const Header: React.FC<HeaderProps> = ({
           />
         </li>
       ) : null}
+
       {versions ? (
         <li>
           <Select
@@ -488,6 +495,7 @@ const Header: React.FC<HeaderProps> = ({
           </Dropdown>
         </li>
       )}
+
       {showGithubCorner && (
         <li className={styles.githubCorner}>
           <a
@@ -497,6 +505,21 @@ const Header: React.FC<HeaderProps> = ({
           >
             <GithubOutlined />
           </a>
+        </li>
+      )}
+
+      {showGithubStar && (
+        <li className={styles.githubStar}>
+          <span>
+            <GitHubButton
+              href={`https://github.com/${GitUrlParse(githubUrl).full_name}`}
+              data-size="large"
+              data-show-count="true"
+              aria-label={`Star ${GitUrlParse(githubUrl).full_name} on GitHub`}
+            >
+              Star
+            </GitHubButton>
+          </span>
         </li>
       )}
     </ul>

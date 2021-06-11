@@ -519,6 +519,7 @@ exports.sourceNodes = ({ actions }) => {
       themeSwitcher: String
       showAPIDoc: Boolean
       showChinaMirror: Boolean
+      showGithubStar: Boolean
       showGithubCorner: Boolean
       showLanguageSwitcher: Boolean
       showAntVProductsCard: Boolean
