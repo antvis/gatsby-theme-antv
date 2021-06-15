@@ -3,11 +3,22 @@
   "description": "Ant Visualization solution home page",
   "version": "1.1.5",
   "author": "AntV Team <antv@antfin.com>",
+  "license": "MIT",
   "keywords": [
     "gatsby",
     "antvis",
     "antv"
   ],
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "release": "release-it",
+    "copy:components": "mkdir -p lib && cp -R .tmp/@antv/gatsby-theme-antv/site/components lib && cp site/components/*.less ./lib/components && cp site/common.json ./lib && cp -R site/images ./lib",
+    "compile:components": "rm -rf .tmp lib && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && npm run copy:components",
+    "test": "jest"
+  },
   "homepage": "https://antvis.github.io",
   "repository": {
     "type": "git",
@@ -16,24 +27,21 @@
   "bugs": {
     "url": "https://github.com/antvis/gatsby-theme-antv/issues"
   },
-  "dependencies": {
-    "@ant-design/icons": "^4.1.0",
+  "devDependencies": {
     "@babel/plugin-transform-modules-umd": "^7.2.0",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.6.3",
     "@babel/preset-typescript": "^7.6.0",
     "@babel/standalone": "^7.6.4",
-    "@hot-loader/react-dom": "^16.9.0+4.12.11",
-    "@loadable/component": "^5.13.2",
-    "@microsoft/api-extractor": "^7.9.2",
-    "@rstacruz/gatsby-remark-component": "^2.0.0",
-    "@stackblitz/sdk": "^1.3.0",
+    "@testing-library/jest-dom": "^5.7.0",
+    "@testing-library/react": "^11.0.2",
     "@types/classnames": "^2.2.9",
     "@types/git-url-parse": "^9.0.0",
     "@types/gtag.js": "^0.0.3",
     "@types/jest": "^26.0.0",
     "@types/loadable__component": "^5.13.0",
     "@types/lodash-es": "^4.17.3",
+    "@types/mark.js": "^8.11.5",
     "@types/parse-github-url": "^1.0.0",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
@@ -42,8 +50,25 @@
     "@types/react-slick": "^0.23.4",
     "@types/rehype-react": "^4.0.0",
     "@types/shallowequal": "^1.1.1",
-    "antd": "^4.2.2",
+    "babel-jest": "^26.0.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-preset-gatsby": "^0.5.1",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^26.0.1",
+    "lodash": "^4.17.15",
+    "mkdirp": "^1.0.3",
+    "release-it": "^14.0.1",
+    "ts-jest": "^26.0.0",
+    "typescript": "^4.0.2"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.1.0",
+    "@hot-loader/react-dom": "^16.9.0+4.12.11",
+    "@loadable/component": "^5.13.2",
+    "@microsoft/api-extractor": "^7.9.2",
+    "@rstacruz/gatsby-remark-component": "^2.0.0",
+    "@stackblitz/sdk": "^1.3.0",
+    "antd": "^4.2.2",
     "classnames": "^2.2.6",
     "codesandbox": "^2.1.10",
     "docsearch.js": "^2.6.3",
@@ -83,11 +108,9 @@
     "indent-string": "^4.0.0",
     "insert-css": "^2.0.0",
     "less": "^3.10.3",
-    "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "mark.js": "^8.11.1",
     "matchmedia-polyfill": "^0.3.2",
-    "mkdirp": "^1.0.3",
     "monaco-editor": "^0.21.0",
     "monaco-editor-webpack-plugin": "^2.0.0",
     "normalize.css": "^8.0.1",
@@ -109,23 +132,10 @@
     "react-test-renderer": "^16.9.0",
     "react-use": "^15.0.0",
     "rehype-react": "^6.0.0",
-    "release-it": "^14.0.1",
     "shallowequal": "^1.1.0",
     "slash": "^3.0.0",
     "slick-carousel": "^1.8.1",
-    "typescript": "^4.0.2",
     "video-react": "^0.14.1"
-  },
-  "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "release": "release-it",
-    "copy:components": "mkdir -p lib && cp -R .tmp/@antv/gatsby-theme-antv/site/components lib && cp site/components/*.less ./lib/components && cp site/common.json ./lib && cp -R site/images ./lib",
-    "compile:components": "rm -rf .tmp lib && ../../node_modules/.bin/tsc --outDir .tmp --noEmit false -d && npm run copy:components",
-    "test": "jest"
   },
   "release-it": {
     "git": {
@@ -143,17 +153,6 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.7.0",
-    "@testing-library/react": "^11.0.2",
-    "@types/jest": "^26.0.3",
-    "@types/mark.js": "^8.11.5",
-    "babel-jest": "^26.0.1",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.0.1",
-    "react-test-renderer": "^16.9.0",
-    "ts-jest": "^26.0.0"
   },
   "resolutions": {
     "normalize-url": "^4.1.0"
