@@ -13,7 +13,7 @@ import {
 } from '@ant-design/icons';
 import { Popover, Button, Menu, Select, Dropdown, message, Modal } from 'antd';
 import GitUrlParse from 'git-url-parse';
-import map from 'lodash/map';
+import { map } from 'lodash-es';
 import Search, { SearchProps } from './Search';
 import Products from './Products';
 import NavMenuItems, { Nav } from './NavMenuItems';

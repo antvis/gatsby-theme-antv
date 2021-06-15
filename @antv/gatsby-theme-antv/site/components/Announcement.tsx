@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Alert } from 'antd';
-import { assign, get } from 'lodash';
+import { get } from 'lodash-es';
 import { NotificationFilled } from '@ant-design/icons';
 import cx from 'classnames';
 import styles from './Announcement.module.less';
