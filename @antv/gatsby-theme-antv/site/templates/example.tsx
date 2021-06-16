@@ -7,19 +7,16 @@ import {
   MenuUnfoldOutlined,
   VerticalAlignTopOutlined,
 } from '@ant-design/icons';
-import { groupBy, debounce, each, filter, find, size } from 'lodash-es';
+import { groupBy, debounce, each, filter, size } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import Drawer from 'rc-drawer';
 import { useMedia } from 'react-use';
-
 import Article from '../components/Article';
 import SEO from '../components/Seo';
-
 import PlayGround from '../components/PlayGround';
 import NavigatorBanner from '../components/NavigatorBanner';
 import Announcement from '../components/Announcement';
 import { usePrevAndNext } from '../hooks';
-
 import styles from './markdown.module.less';
 
 const { SubMenu } = Menu;

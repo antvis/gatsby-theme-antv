@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { get } from 'lodash';
+import { get } from 'lodash-es';
 import { useTranslation } from 'react-i18next';
 import styles from './TopBanner.module.less';
 import Announcement from './Announcement';

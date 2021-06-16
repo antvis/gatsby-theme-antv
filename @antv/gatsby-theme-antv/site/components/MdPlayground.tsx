@@ -6,8 +6,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { useMedia } from 'react-use';
 import classNames from 'classnames';
 import { Result } from 'antd';
-import debounce from 'lodash/debounce';
-import get from 'lodash/get';
+import { get, debounce } from 'lodash-es';
 import {
   useTranslation,
   withTranslation,

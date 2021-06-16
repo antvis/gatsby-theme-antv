@@ -1,5 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
+import { map } from 'lodash-es';
 import { Avatar, Tooltip } from 'antd';
 import { useTranslation } from 'react-i18next';
 import styles from './Contributors.module.less';
@@ -24,7 +24,7 @@ const Contributors: React.FC<Props> = (props) => {
 
   return (
     <div className={styles.docsContributors} style={style || {}}>
-      {_.map(contributors, ({ author, avatar, github }) => {
+      {map(contributors, ({ author, avatar, github }) => {
         return (
           <Tooltip title={`${t('贡献者')}: ${author}`}>
             <span onClick={() => openGithub(github)}>

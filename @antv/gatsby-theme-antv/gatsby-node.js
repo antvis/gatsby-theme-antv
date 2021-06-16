@@ -10,7 +10,7 @@ const slash = require('slash');
 const fs = require('fs');
 const mkdirp = require('mkdirp');
 const webpack = require('webpack');
-const { isEqual } = require('lodash');
+const { isEqual } = require('lodash/isEqual');
 const { getSlugAndLang } = require('ptz-i18n');
 const { transform } = require('@babel/standalone');
 
@@ -519,6 +519,7 @@ exports.sourceNodes = ({ actions }) => {
       themeSwitcher: String
       showAPIDoc: Boolean
       showChinaMirror: Boolean
+      showGithubStar: Boolean
       showGithubCorner: Boolean
       showLanguageSwitcher: Boolean
       showAntVProductsCard: Boolean

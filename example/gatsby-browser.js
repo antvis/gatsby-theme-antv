@@ -1,4 +1,4 @@
-window.g2 = require('./src/index.ts').default;
+window.g2 = require('./src/index').default;
 window.g2plot = require('@antv/g2plot');
 window.react = require('react');
 window.reactDom = require('react-dom');
@@ -36,7 +36,7 @@ exports.shouldUpdateScroll = ({ routerProps, prevRouterProps }) => {
 /*
  * Custom Layout Footer
  * https://github.com/react-component/footer#api
- * 
+ *
 
 const React = require('react');
 

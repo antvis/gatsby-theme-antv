@@ -13,9 +13,7 @@ import {
   Tooltip,
 } from 'antd';
 import { useMedia } from 'react-use';
-import debounce from 'lodash/debounce';
-import { filter } from 'lodash-es';
-
+import { filter, debounce } from 'lodash-es';
 import { LeftOutlined, EditOutlined } from '@ant-design/icons';
 import {
   useTranslation,
@@ -120,10 +118,9 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const [layout, updateLayout] = useState<string>(localLayout || 'viewDefault');
   const [codeQuery, updateCodeQuery] = useState<string>('');
   const { i18n, t } = useTranslation();
-  const [
-    currentExample,
-    updateCurrentExample,
-  ] = useState<PlayGroundItemProps>();
+  const [currentExample, updateCurrentExample] = useState<
+    PlayGroundItemProps
+  >();
   const [editRef, updateEditRef] = useState<any>();
   const { examples } = exampleSections;
   const playgroundNode = useRef<HTMLDivElement>(null);
