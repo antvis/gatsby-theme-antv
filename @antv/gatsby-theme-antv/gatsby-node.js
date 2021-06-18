@@ -16,7 +16,6 @@ const { transform } = require('@babel/standalone');
 
 const documentTemplate = require.resolve(`./site/templates/document.tsx`);
 const exampleTemplate = require.resolve(`./site/templates/example.tsx`);
-const MonacoWebpackPlugin = require(`monaco-editor-webpack-plugin`);
 
 function getLocaleResources() {
   let locale = {};
@@ -385,10 +384,14 @@ exports.onCreateWebpackConfig = (
 
   actions.setWebpackConfig({
     plugins: [
-      new MonacoWebpackPlugin({
-        languages: ['javascript', 'json', 'typescript', 'html'],
-      }),
+      // Monaco React 版本自带异步加载 CDN 资源，所以无需插件去做按需！
+      // new MonacoWebpackPlugin({
+      //   languages: ['javascript', 'json', 'typescript', 'html'],
+      // }),
     ],
+    // externals: {
+    //   '@babel/standalone': 'Babel',
+    // },
   });
 };
 

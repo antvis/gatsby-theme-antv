@@ -8,6 +8,13 @@ module.exports = {
         GATrackingId: `UA-148148901-11`,
       },
     },
+    {
+      resolve: 'gatsby-plugin-webpack-bundle-analyzer',
+      options: {
+        analyzerPort: 3000,
+        production: true,
+      },
+    },
   ],
   siteMetadata: {
     title: 'AntV test site',

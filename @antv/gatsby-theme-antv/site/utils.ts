@@ -1,3 +1,5 @@
+import { transform } from '@babel/standalone';
+
 type Status = 'responded' | 'error' | 'timeout';
 
 export const ping = (callback: (status: Status) => void): NodeJS.Timeout => {
@@ -42,3 +44,20 @@ export const getChinaMirrorHost = (host?: string): string => {
   }
   return hostString;
 };
+
+/**
+ * 使用 babel 编译一下代码
+ * @param code
+ * @param filename
+ */
+export function transformWithBabel(code: string, filename = ''): string {
+  // const babel = await import('@babel/standalone');
+  const transformed = transform(code, {
+    filename,
+    presets: ['react', 'typescript', 'es2015', 'stage-3'],
+    plugins: ['transform-modules-umd'],
+    babelrc: false,
+  });
+
+  return transformed.code;
+}

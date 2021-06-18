@@ -26,5 +26,8 @@
     "ptz-i18n": "^1.0.0",
     "react": "^16.10.2",
     "react-dom": "^16.10.2"
+  },
+  "devDependencies": {
+    "gatsby-plugin-webpack-bundle-analyzer": "^1.0.5"
   }
 }
