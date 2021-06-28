@@ -277,7 +277,20 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
           }
         });
         return { ...demo, postFrontmatter };
-      });
+      }).map((item) => {
+        const source = fs.readFileSync(item.absolutePath, 'utf8');
+        const { code } = transform(source, {
+          filename: item.absolutePath,
+          presets: ['react', 'typescript', 'es2015', 'stage-3'],
+          plugins: ['transform-modules-umd'],
+          babelrc: false,
+        });
+        return {
+          ...item,
+          source,
+          babeledSource: code,
+        };
+      });;
     }
 
     if (isGalleryPage) {
@@ -305,6 +318,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         )
         .sort((a, b) => a.order - b.order);
       context.exampleSections = {
+        posts,
         examples,
         design,
         API,

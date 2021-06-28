@@ -9,7 +9,6 @@ import {
   Space,
   PageHeader,
   Divider,
-  TreeSelect,
   Tooltip,
 } from 'antd';
 import { useMedia } from 'react-use';
@@ -41,12 +40,29 @@ interface PlayGroundProps {
   markdownRemark: any;
   categories: string[];
   allDemos: any;
+  examples: any;
+  treeData: TreeItem[];
 }
 
-interface TreeItem {
-  title: string;
-  value: string;
+interface NodePost {
+  node: {
+    fields: {
+      slug: string;
+    },
+    html?: string;
+  }
+}
+
+export interface TreeItem {
+  title?: string;
+  value?: string;
+  key?: string;
   children?: any;
+  icon?: string;
+  relativePath?: string;
+  filename?: string;
+  screenshot?: string;
+  node?: any;
 }
 
 const MonacoEditor = lazy(() => import('react-monaco-editor'));
@@ -78,9 +94,10 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   exampleSections,
   location,
   markdownRemark,
-  description,
   allDemos,
   categories,
+  treeData,
+  examples,
 }) => {
   const { site } = useStaticQuery(
     graphql`
@@ -121,8 +138,9 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const [currentExample, updateCurrentExample] = useState<
     PlayGroundItemProps
   >();
+  // 获取路由 用来获取 配置文档
+  const [pathname, setPathname] = useState<string>();
   const [editRef, updateEditRef] = useState<any>();
-  const { examples } = exampleSections;
   const playgroundNode = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<Error | null>();
   const [collapsed, updateCollapsed] = useState<boolean>(false);
@@ -139,6 +157,28 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const [currentSourceData, updateCurrentSourceData] = useState(null);
   const editroRef = useRef<any>(null);
   const isWide = useMedia('(min-width: 767.99px)', true);
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
+  }, [window.location.pathname]);
+
+  // 获取最新的 description 示例 设计指引 1
+  const description = exampleSections.posts.find((post: NodePost) => {
+    const { slug } = post?.node?.fields;
+    return slug === `${pathname}`;
+  })?.node?.html;
+
+  // 获取最新的 design 示例 设计指引 2
+  const design = exampleSections.posts.find((post: NodePost) => {
+    const { slug } = post?.node?.fields;
+    return slug === `${pathname}/design`;
+  });
+
+  // 获取最新的 API 文档
+  const API = exampleSections.posts.find((post: NodePost) => {
+    const { slug } = post.node.fields;
+    return slug === `${pathname}/API`;
+  });
 
   const comment =
     i18n.language === 'zh'
@@ -188,7 +228,8 @@ insertCss(`;
     if (currentExample || !examples) return;
     const defaultExample =
       examples.find(
-        (item: any) => `#${item.filename.split('.')[0]}` === location.hash,
+        (item: any) =>
+          `#${item.filename.split('.')[0]}` === location.hash && location.pathname.match(item.absolutePath.match(/(?<=\/example\/).+(?=\/demo\/)/)[0])
       ) || examples[0];
     updateCurrentExample(defaultExample);
     if (
@@ -451,17 +492,16 @@ insertCss(`;
     }
   };
 
-  const routes = [
-    {
-      path: `/${i18n.language}/examples`,
-      breadcrumbName: i18n.language === 'zh' ? '图表示例' : 'Gallery',
-    },
-    {
-      path: '/category',
-      breadcrumbName: 'Second-level Menu',
-      children: [],
-    },
-  ];
+  // 提取出来获取 唯一value值的 方法
+  const getPath = (item: PlayGroundItemProps) => {
+    const demoSlug = item.relativePath?.replace(
+      /\/demo\/(.*)\..*/,
+      (_: string, filename: string) => {
+        return `#${filename}`;
+      },
+    );
+    return `/${i18n.language}/examples/${demoSlug}`;
+  };
 
   const getTreeData = () => {
     const result: TreeItem[] = [];
@@ -472,18 +512,13 @@ insertCss(`;
         children: [],
       };
 
-      allDemos[category].forEach((item: any, index: number) => {
-        const demoSlug = item.relativePath.replace(
-          /\/demo\/(.*)\..*/,
-          (_: string, filename: string) => {
-            return `#${filename}`;
-          },
-        );
-        const path = `/${i18n.language}/examples/${demoSlug}`;
+      allDemos[category].forEach((item: PlayGroundItemProps, index: number) => {
+        const path = getPath(item);
         if (index === 0) {
           root.value = `root::${path}`;
         }
         const child = {
+          ...item, // 需要里面的 各种数据
           title:
             typeof item.title === 'object'
               ? item.title[i18n.language]
@@ -495,49 +530,36 @@ insertCss(`;
 
       result.push(root);
     });
-    return result;
+
+    const newTreeData: TreeItem[] = [];
+    // 扁平化 一级菜单中的数据， 示例有些并不是在第三层， 也有在第二层
+    treeData.forEach((treeItem) => {
+      const slugPieces = treeItem.value?.split('/');
+      if (!slugPieces) return
+      if (slugPieces.length <= 3) {
+        newTreeData.push(...treeItem.children);
+      } else {
+        newTreeData.push(treeItem);
+      }
+    })
+
+    return transforNode(newTreeData, result);
   };
 
-  const onChange = (value: string) => {
-    const tmp = value.split('::');
-    const path = tmp[1] ? tmp[1] : value;
-    // window.location.assign(path);
-    // window.location.href = `${path}`;
-
-    window.history.pushState({}, '', `${path}`);
-    window.location.reload();
-  };
-
-  function itemRender(route: any) {
-    if (route.children) {
-      return (
-        <TreeSelect
-          className={styles.breadDrop}
-          style={{ width: '100%' }}
-          value={currentCategory}
-          bordered={false}
-          dropdownStyle={{
-            maxHeight: 640,
-            overflow: 'auto',
-            color: '#7d8a96 !important',
-            paddingRight: '8px',
-          }}
-          dropdownClassName={styles.breadDropItem}
-          dropdownMatchSelectWidth={false}
-          treeData={getTreeData()}
-          placeholder="Please select"
-          treeDefaultExpandAll
-          onChange={onChange}
-        />
-      );
-    }
-
-    return (
-      <Link key={route.path} to={route.path}>
-        {route.breadcrumbName}
-      </Link>
-    );
-  }
+  // 一级菜单，二级菜单 数据 treeData + 二级菜单，示例 数据 result 写成一个 一级，二级，示例的三层树结构 数据
+  const transforNode = (treeData: TreeItem[], result: TreeItem[]): TreeItem[] =>
+    treeData.map(item => {
+      if (item.children && !item.node) {
+        return { ...item, children: transforNode(item.children, result) };
+      } else {
+        const { frontmatter, fields } = item.node;
+        return {
+          ...frontmatter,
+          value: 'secondaryKey-' + fields?.slug, // 提前给二级菜单的key值加入 特殊值 好辨别
+          children: result.find(({ title }) => title === frontmatter.title)?.children,
+        }
+      }
+    });
 
   return (
     <SplitPane
@@ -556,7 +578,7 @@ insertCss(`;
           <Layout className={styles.playgroundCard}>
             <Sider
               collapsedWidth={0}
-              width={120}
+              width={250} // 多长好不晓得，250 差不多
               trigger={null}
               collapsible
               collapsed={collapsed}
@@ -564,9 +586,10 @@ insertCss(`;
               theme="light"
             >
               <PlayGrounds
-                examples={examples}
+                getPath={getPath}
                 currentExample={currentExample}
                 updateCurrentExample={updateCurrentExample}
+                treeData={getTreeData()}
               />
             </Sider>
 
@@ -581,7 +604,6 @@ insertCss(`;
               <Layout>
                 <PageHeader
                   ghost={false}
-                  breadcrumb={isWide ? { routes, itemRender } : {}}
                   title={
                     typeof currentExample.title === 'object'
                       ? currentExample.title[i18n.language]
@@ -682,8 +704,8 @@ insertCss(`;
           markdownRemark={markdownRemark}
           githubUrl={githubUrl}
           relativePath={relativePath}
-          exampleSections={exampleSections}
-          description={description}
+          exampleSections={{ ...exampleSections, design, API }} // 新的design/API
+          description={description} // 新的 description
           codeQuery={codeQuery}
           showAPISearch={showAPISearch}
         />

@@ -235,6 +235,24 @@ export default function Template({
     }
   }, 300);
 
+  // 提取出筛选 和 排序的方法 好在获取treeData 的时候使用
+  const groupedEdgesDataEdit = () =>
+    Object.keys(groupedEdges)
+      .filter((key) => key.startsWith(`/${i18n.language}/`))
+      .sort((a: string, b: string) => {
+        const aOrder = getExampleOrder({
+          groupedEdgeKey: a,
+          examples,
+          groupedEdges,
+        });
+        const bOrder = getExampleOrder({
+          groupedEdgeKey: b,
+          examples,
+          groupedEdges,
+        });
+        return aOrder - bOrder;
+      });
+
   const menu = (
     <Anchor className={styles.galleryAnchor} onChange={onAnchorLinkChange}>
       <Menu
@@ -247,21 +265,7 @@ export default function Template({
         }
         forceSubMenuRender
       >
-        {Object.keys(groupedEdges)
-          .filter((key) => key.startsWith(`/${i18n.language}/`))
-          .sort((a: string, b: string) => {
-            const aOrder = getExampleOrder({
-              groupedEdgeKey: a,
-              examples,
-              groupedEdges,
-            });
-            const bOrder = getExampleOrder({
-              groupedEdgeKey: b,
-              examples,
-              groupedEdges,
-            });
-            return aOrder - bOrder;
-          })
+        {groupedEdgesDataEdit()
           .map((slugString) => {
             const slugPieces = slugString.split('/');
             if (slugPieces.length <= 3) {
@@ -297,6 +301,38 @@ export default function Template({
       </Menu>
     </Anchor>
   );
+
+  const getTreeData = () =>
+    groupedEdgesDataEdit()
+      .map((slugString) => {
+        const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
+        const doc =
+          examples.find((item: any) => item.slug === menuItemLocaleKey) ||
+          {};
+          
+        return {
+          title: doc && doc.title
+            ? doc.title[i18n.language]
+            : menuItemLocaleKey,
+          value: slugString,
+          icon: doc.icon,
+          children: groupedEdges[slugString].filter(edge => {
+            const {
+              node: {
+                fields: { slug },
+              },
+            } = edge;
+            if (
+              slug.endsWith('/API') ||
+              slug.endsWith('/design') ||
+              slug.endsWith('/gallery')
+            ) {
+              return false;
+            }
+            return true;
+          })
+        }
+      });
 
   const isWide = useMedia('(min-width: 767.99px)', true);
   const [drawOpen, setDrawOpen] = useState(false);
@@ -472,10 +508,12 @@ export default function Template({
         <PlayGround
           allDemos={allDemosInCategory}
           categories={Categories}
+          examples={allDemos}
           exampleSections={exampleSections}
           location={location}
           markdownRemark={markdownRemark}
           description={description}
+          treeData={getTreeData()}
         />
       )}
     </div>
