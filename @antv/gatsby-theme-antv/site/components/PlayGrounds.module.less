@@ -2,7 +2,7 @@
 
 .shadowWrapper {
   position: relative;
-  margin: 12px 0;
+  margin-bottom: 12px;
   overflow: hidden;
 
   &::before,
@@ -36,12 +36,10 @@
 
 .card {
   display: flex;
-  justify-content: center;
   width: 100px;
   height: 70px;
-  margin: 8px 0 8px 8px;
   cursor: pointer;
-  padding: 2px;
+  margin-left: 48px;
   position: relative;
   border: 1px solid #ebedf0;
   transition: all 0.3s;
@@ -82,5 +80,40 @@
   &.current::after {
     background-color: fade(@primary-color, 10%);
     border-color: @primary-color;
+  }
+}
+
+.searchSider {
+  height: 50px;
+  display: flex;
+  padding-left: 24px;
+  align-items: center;
+  background-color: #fff;
+  justify-content: space-between;
+
+  .searchSiderIcon {
+    margin: 0 15px;
+    cursor: pointer;
+  }
+}
+
+.searchValue {
+  color: #873bf4;
+  font-weight: 500;
+}
+
+.siderbarMenu {
+  .menuTitleContent {
+    display: inline-block;
+    width: 100%;
+    vertical-align: bottom;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .subMenuTitleContent {
+    width: calc(100% - 16px);
   }
 }
