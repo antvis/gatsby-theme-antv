@@ -129,6 +129,8 @@ const PlayGround: React.FC<PlayGroundProps> = ({
 
   const { extraLib = '' } = site.siteMetadata.playground;
 
+  const isBrowser = typeof window !== 'undefined';
+
   const localLayout =
     typeof window !== 'undefined' ? localStorage.getItem('layout') : null;
   const { showChartResize, showAPIDoc, themeSwitcher } = site.siteMetadata;
@@ -159,8 +161,10 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const isWide = useMedia('(min-width: 767.99px)', true);
 
   useEffect(() => {
-    setPathname(window.location.pathname);
-  }, [window.location.pathname]);
+    if(isBrowser) {
+      setPathname(window.location.pathname);
+    }
+  }, [isBrowser && window.location.pathname]);
 
   // 获取最新的 description 示例 设计指引 1
   const description = exampleSections.posts.find((post: NodePost) => {
@@ -578,7 +582,7 @@ insertCss(`;
           <Layout className={styles.playgroundCard}>
             <Sider
               collapsedWidth={0}
-              width={250} // 多长好不晓得，250 差不多
+              width={188} // 多长好不晓得，250 差不多
               trigger={null}
               collapsible
               collapsed={collapsed}

@@ -236,7 +236,7 @@ export default function Template({
   }, 300);
 
   // 提取出筛选 和 排序的方法 好在获取treeData 的时候使用
-  const groupedEdgesDataEdit = () =>
+  const groupedEdgesDataEdit = 
     Object.keys(groupedEdges)
       .filter((key) => key.startsWith(`/${i18n.language}/`))
       .sort((a: string, b: string) => {
@@ -265,7 +265,7 @@ export default function Template({
         }
         forceSubMenuRender
       >
-        {groupedEdgesDataEdit()
+        {groupedEdgesDataEdit
           .map((slugString) => {
             const slugPieces = slugString.split('/');
             if (slugPieces.length <= 3) {
@@ -303,7 +303,7 @@ export default function Template({
   );
 
   const getTreeData = () =>
-    groupedEdgesDataEdit()
+    groupedEdgesDataEdit
       .map((slugString) => {
         const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
         const doc =
