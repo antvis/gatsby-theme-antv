@@ -92,6 +92,22 @@ module.exports = {
           en: 'Category',
         },
       },
+      {
+        slug: 'scatter',
+        icon: 'scatter',
+        title: {
+          zh: '散点图',
+          en: 'Scatter',
+        },
+      },
+      {
+        slug: 'radar',
+        icon: 'radar',
+        title: {
+          zh: '雷达图',
+          en: 'Radar',
+        },
+      },
     ],
     versions: {
       [version]: 'https://ant.design',

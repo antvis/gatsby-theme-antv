@@ -1,6 +1,6 @@
 /* eslint no-underscore-dangle: 0 */
 import React, { useRef, useEffect, useState, Suspense, lazy } from 'react';
-import { useStaticQuery, graphql, Link } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import classNames from 'classnames';
 import {
   Skeleton,
@@ -12,7 +12,7 @@ import {
   Tooltip,
 } from 'antd';
 import { useMedia } from 'react-use';
-import { filter, debounce } from 'lodash-es';
+import { debounce } from 'lodash-es';
 import { LeftOutlined, EditOutlined } from '@ant-design/icons';
 import {
   useTranslation,
@@ -48,9 +48,9 @@ interface NodePost {
   node: {
     fields: {
       slug: string;
-    },
+    };
     html?: string;
-  }
+  };
 }
 
 export interface TreeItem {
@@ -137,9 +137,8 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const [layout, updateLayout] = useState<string>(localLayout || 'viewDefault');
   const [codeQuery, updateCodeQuery] = useState<string>('');
   const { i18n, t } = useTranslation();
-  const [currentExample, updateCurrentExample] = useState<
-    PlayGroundItemProps
-  >();
+  const [currentExample, updateCurrentExample] =
+    useState<PlayGroundItemProps>();
   // 获取路由 用来获取 配置文档
   const [pathname, setPathname] = useState<string>();
   const [editRef, updateEditRef] = useState<any>();
@@ -148,7 +147,6 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const [collapsed, updateCollapsed] = useState<boolean>(false);
   const [showAPISearch, updateShowAPIsearch] = useState<boolean>(true);
   const [compiledCode, updateCompiledCode] = useState<string>('');
-  const [currentCategory, updateCurrentCategory] = useState<string>('');
   const [relativePath, updateRelativePath] = useState<string | undefined>('');
   const [fileExtension, updateFileExtension] = useState<string | undefined>('');
   const [title, updateTitle] = useState<string | undefined>('');
@@ -161,7 +159,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const isWide = useMedia('(min-width: 767.99px)', true);
 
   useEffect(() => {
-    if(isBrowser) {
+    if (isBrowser) {
       setPathname(window.location.pathname);
     }
   }, [isBrowser && window.location.pathname]);
@@ -233,7 +231,10 @@ insertCss(`;
     const defaultExample =
       examples.find(
         (item: any) =>
-          `#${item.filename.split('.')[0]}` === location.hash && location.pathname.match(item.absolutePath.match(/(?<=\/example\/).+(?=\/demo\/)/)[0])
+          `#${item.filename.split('.')[0]}` === location.hash &&
+          location.pathname.match(
+            item.absolutePath.match(/(?<=\/example\/).+(?=\/demo\/)/)[0],
+          ),
       ) || examples[0];
     updateCurrentExample(defaultExample);
     if (
@@ -254,13 +255,6 @@ insertCss(`;
 
     updateView('desktop');
     updateCurrentExampleParams(currentExample);
-    filter(allDemos, (item: any, key: string) => {
-      const cur = item.find(
-        (val: any) => val?.relativePath === currentExample.relativePath,
-      );
-      if (cur) updateCurrentCategory(key);
-      return item;
-    });
   }, [currentExample, allDemos]);
 
   const executeCode = () => {
@@ -507,6 +501,21 @@ insertCss(`;
     return `/${i18n.language}/examples/${demoSlug}`;
   };
 
+  // 一级菜单，二级菜单 数据 treeData + 二级菜单，示例 数据 result 写成一个 一级，二级，示例的三层树结构 数据
+  const transforNode = (data: TreeItem[], result: TreeItem[]): TreeItem[] =>
+    data.map((item) => {
+      if (item.children && !item.node) {
+        return { ...item, children: transforNode(item.children, result) };
+      }
+      const { frontmatter, fields } = item.node;
+      return {
+        ...frontmatter,
+        value: `secondaryKey-${fields?.slug}`, // 提前给二级菜单的key值加入 特殊值 好辨别
+        children: result.find(({ title: k }) => k === frontmatter.title)
+          ?.children,
+      };
+    });
+
   const getTreeData = () => {
     const result: TreeItem[] = [];
     categories.forEach((category: string) => {
@@ -539,31 +548,16 @@ insertCss(`;
     // 扁平化 一级菜单中的数据， 示例有些并不是在第三层， 也有在第二层
     treeData.forEach((treeItem) => {
       const slugPieces = treeItem.value?.split('/');
-      if (!slugPieces) return
+      if (!slugPieces) return;
       if (slugPieces.length <= 3) {
         newTreeData.push(...treeItem.children);
       } else {
         newTreeData.push(treeItem);
       }
-    })
+    });
 
     return transforNode(newTreeData, result);
   };
-
-  // 一级菜单，二级菜单 数据 treeData + 二级菜单，示例 数据 result 写成一个 一级，二级，示例的三层树结构 数据
-  const transforNode = (treeData: TreeItem[], result: TreeItem[]): TreeItem[] =>
-    treeData.map(item => {
-      if (item.children && !item.node) {
-        return { ...item, children: transforNode(item.children, result) };
-      } else {
-        const { frontmatter, fields } = item.node;
-        return {
-          ...frontmatter,
-          value: 'secondaryKey-' + fields?.slug, // 提前给二级菜单的key值加入 特殊值 好辨别
-          children: result.find(({ title }) => title === frontmatter.title)?.children,
-        }
-      }
-    });
 
   return (
     <SplitPane
