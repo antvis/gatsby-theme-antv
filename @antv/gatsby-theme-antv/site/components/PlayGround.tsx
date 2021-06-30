@@ -228,14 +228,19 @@ insertCss(`;
 
   useEffect(() => {
     if (currentExample || !examples) return;
-    const defaultExample =
-      examples.find(
-        (item: any) =>
-          `#${item.filename.split('.')[0]}` === location.hash &&
-          location.pathname.match(
-            item.absolutePath.match(/(?<=\/example\/).+(?=\/demo\/)/)[0],
-          ),
-      ) || examples[0];
+
+    let defaultExample = examples[0];
+    for (let i = 0; i < examples.length; i += 1) {
+      const item = examples[i];
+      const dirname = `${location.pathname.split('/').slice(3).join('/')}`;
+      const fullname = `${dirname}/demo/${location.hash?.replace('#', '')}`;
+      if (item.absolutePath.match(dirname)) {
+        defaultExample = item;
+      }
+      if (!location.hash || item.relativePath.match(fullname)) {
+        break;
+      }
+    }
     updateCurrentExample(defaultExample);
     if (
       !exampleSections?.design?.node?.html &&
