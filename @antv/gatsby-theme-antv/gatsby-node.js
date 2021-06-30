@@ -244,55 +244,49 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
 
     if (isGalleryPage || isExamplePage) {
       // 找到所有的演示
-      context.allDemos = allDemos
-        .map((demo) => {
-          const postsOfDemo = posts.filter((post) => {
-            // 标记演示所属的文章用于分类
-            const postSlug = post.node.fields.slug;
-            if (
-              !postSlug.startsWith(`/zh/examples`) &&
-              !postSlug.startsWith(`/en/examples`)
-            ) {
-              return false;
-            }
-            if (postSlug.endsWith(`/API`) || postSlug.endsWith(`/design`)) {
-              return false;
-            }
-            return demo.absolutePath
-              .split('/demo/')[0]
-              .endsWith(postSlug.replace(/^\/(zh|en)\//, ''));
-          });
-
-          const postFrontmatter = {};
-          postsOfDemo.forEach((post) => {
-            if (post.node.fields.slug.startsWith(`/zh/examples`)) {
-              postFrontmatter.zh = {
-                ...post.node.frontmatter,
-                order: getPostOrder(post, siteMetadata, 'examples'),
-              };
-            } else if (post.node.fields.slug.startsWith(`/en/examples`)) {
-              postFrontmatter.en = {
-                ...post.node.frontmatter,
-                order: getPostOrder(post, siteMetadata, 'examples'),
-              };
-            }
-          });
-          return { ...demo, postFrontmatter };
-        })
-        .map((item) => {
-          const source = fs.readFileSync(item.absolutePath, 'utf8');
-          const { code } = transform(source, {
-            filename: item.absolutePath,
-            presets: ['react', 'typescript', 'es2015', 'stage-3'],
-            plugins: ['transform-modules-umd'],
-            babelrc: false,
-          });
-          return {
-            ...item,
-            source,
-            babeledSource: code,
-          };
+      context.allDemos = allDemos.map((demo) => {
+        const postsOfDemo = posts.filter((post) => {
+          // 标记演示所属的文章用于分类
+          const postSlug = post.node.fields.slug;
+          if (
+            !postSlug.startsWith(`/zh/examples`) &&
+            !postSlug.startsWith(`/en/examples`)
+          ) {
+            return false;
+          }
+          if (postSlug.endsWith(`/API`) || postSlug.endsWith(`/design`)) {
+            return false;
+          }
+          return demo.absolutePath
+            .split('/demo/')[0]
+            .endsWith(postSlug.replace(/^\/(zh|en)\//, ''));
         });
+
+        const postFrontmatter = {};
+        postsOfDemo.forEach((post) => {
+          if (post.node.fields.slug.startsWith(`/zh/examples`)) {
+            postFrontmatter.zh = {
+              ...post.node.frontmatter,
+              order: getPostOrder(post, siteMetadata, 'examples'),
+            };
+          } else if (post.node.fields.slug.startsWith(`/en/examples`)) {
+            postFrontmatter.en = {
+              ...post.node.frontmatter,
+              order: getPostOrder(post, siteMetadata, 'examples'),
+            };
+          }
+        });
+
+        // 上面已经作为 转换了，直接根据 absolutePath 找到就行了，减少转换和 map
+        const transformExample = allExamples.find(
+          (d) => d.absolutePath === demo.absolutePath,
+        );
+        return {
+          ...demo,
+          ...transformExample,
+          postFrontmatter,
+        };
+      });
     }
 
     if (isGalleryPage) {
