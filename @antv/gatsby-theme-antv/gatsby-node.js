@@ -304,14 +304,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
       } else if (/\/examples\/.*\/design$/.test(slug)) {
         exampleRootSlug = exampleRootSlug.replace(/\/design$/, '');
       }
-      const design = posts.find((post) => {
-        const { slug: postSlug } = post.node.fields;
-        return postSlug === `${exampleRootSlug}/design`;
-      });
-      const API = posts.find((post) => {
-        const { slug: postSlug } = post.node.fields;
-        return postSlug === `${exampleRootSlug}/API`;
-      });
+
       const examples = allExamples
         .filter((item) =>
           `${exampleRootSlug}/demo`.endsWith(
