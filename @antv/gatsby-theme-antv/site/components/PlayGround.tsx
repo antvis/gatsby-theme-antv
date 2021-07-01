@@ -164,36 +164,33 @@ const PlayGround: React.FC<PlayGroundProps> = ({
 
   useEffect(() => {
     if (isBrowser) {
-      setPathname(window.location.pathname.replace('/examples',''));
+      setPathname(window.location.pathname.replace('/examples', ''));
     }
   }, [isBrowser && window.location.pathname]);
-  
+
   useEffect(() => {
-    if (!pathname) return
+    if (!pathname) return;
     // 获取最新的 description 示例 设计指引 1
-    const description = exampleSections.descriptions[pathname];
-    setDescription(description);
+    const desc = exampleSections.descriptions[pathname];
+    setDescription(desc);
 
     // 获取最新的 design 示例 设计指引 2
-    const design = {
+    const newDesign = {
       node: {
         html: exampleSections.designs[`${pathname}`],
       },
     };
-    setDesign(design);
+    setDesign(newDesign);
 
     // 获取最新的 API 文档
-    const API = {
+    const newAPI = {
       node: {
         html: exampleSections.APIs[`${pathname}`],
       },
     };
-    setAPI(API);
+    setAPI(newAPI);
 
-    updateDocsEmpty(
-      !design?.node?.html &&
-      !description &&
-      !API?.node?.html);
+    updateDocsEmpty(!design?.node?.html && !description && !API?.node?.html);
   }, [pathname]);
 
   const comment =
@@ -718,7 +715,7 @@ insertCss(`;
           githubUrl={githubUrl}
           relativePath={relativePath}
           exampleSections={{ ...exampleSections, design, API }} // 新的design/API
-          description={description} // 新的 description
+          description={description || ''} // 新的 description
           codeQuery={codeQuery}
           showAPISearch={showAPISearch}
         />
