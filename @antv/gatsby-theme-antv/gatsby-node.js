@@ -311,11 +311,11 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         .filter(item => item.node.html)
         .reduce((designPost, item) => {
           if (/^\/(en|zh)\/examples\/.*?(?=design)/.test(item.node.fields.slug)) {
-            designPost.design[item.node.fields.slug.replace('/design', '').replace('/examples', '')] = item.node.html;
+            designPost.designs[item.node.fields.slug.replace('/design', '').replace('/examples', '')] = item.node.html;
           } else if (/^\/(en|zh)\/examples\/.*?(?=API)/.test(item.node.fields.slug)) {
-            designPost.API[item.node.fields.slug.replace('/API', '').replace('/examples', '')] = item.node.html;
+            designPost.APIs[item.node.fields.slug.replace('/API', '').replace('/examples', '')] = item.node.html;
           } else if (/^\/(en|zh)\/examples\/(?!.*(API|design))/.test(item.node.fields.slug)) {
-            designPost.description[item.node.fields.slug.replace('/examples', '')] = item.node.html;
+            designPost.descriptions[item.node.fields.slug.replace('/examples', '')] = item.node.html;
           }
           return designPost;
         }, {
