@@ -46,7 +46,7 @@ interface PlayGroundProps {
 
 interface NodePost {
   node: {
-    fields: {
+    fields?: {
       slug: string;
     };
     html?: string;
@@ -158,29 +158,43 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const editroRef = useRef<any>(null);
   const isWide = useMedia('(min-width: 767.99px)', true);
 
+  const [description, setDescription] = useState<string>();
+  const [design, setDesign] = useState<NodePost>();
+  const [API, setAPI] = useState<NodePost>();
+
   useEffect(() => {
     if (isBrowser) {
-      setPathname(window.location.pathname);
+      setPathname(window.location.pathname.replace('/examples',''));
     }
   }, [isBrowser && window.location.pathname]);
+  
+  useEffect(() => {
+    if (!pathname) return
+    // 获取最新的 description 示例 设计指引 1
+    const description = exampleSections.descriptions[pathname];
+    setDescription(description);
 
-  // 获取最新的 description 示例 设计指引 1
-  const description = exampleSections.posts.find((post: NodePost) => {
-    const { slug } = post?.node?.fields;
-    return slug === `${pathname}`;
-  })?.node?.html;
+    // 获取最新的 design 示例 设计指引 2
+    const design = {
+      node: {
+        html: exampleSections.designs[`${pathname}`],
+      },
+    };
+    setDesign(design);
 
-  // 获取最新的 design 示例 设计指引 2
-  const design = exampleSections.posts.find((post: NodePost) => {
-    const { slug } = post?.node?.fields;
-    return slug === `${pathname}/design`;
-  });
+    // 获取最新的 API 文档
+    const API = {
+      node: {
+        html: exampleSections.APIs[`${pathname}`],
+      },
+    };
+    setAPI(API);
 
-  // 获取最新的 API 文档
-  const API = exampleSections.posts.find((post: NodePost) => {
-    const { slug } = post.node.fields;
-    return slug === `${pathname}/API`;
-  });
+    updateDocsEmpty(
+      !design?.node?.html &&
+      !description &&
+      !API?.node?.html);
+  }, [pathname]);
 
   const comment =
     i18n.language === 'zh'
@@ -223,6 +237,9 @@ insertCss(`;
       updateCollapsed(true);
     } else if (!showAPIDoc || empty) {
       updateLayout('viewTwoCols');
+    } else {
+      // 恢复至localStorage 选中
+      updateLayout(localStorage.getItem('layout') || 'viewDefault');
     }
   };
 
@@ -242,14 +259,7 @@ insertCss(`;
       }
     }
     updateCurrentExample(defaultExample);
-    if (
-      !exampleSections?.design?.node?.html &&
-      !description &&
-      !exampleSections?.API?.node?.html
-    ) {
-      updateDocsEmpty(true);
-    }
-  }, [examples, description]);
+  }, [examples]);
 
   useEffect(() => {
     setLayout(isWide, docsEmpty);
