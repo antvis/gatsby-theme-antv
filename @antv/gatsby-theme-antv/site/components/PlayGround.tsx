@@ -36,7 +36,6 @@ const { Content, Sider } = Layout;
 interface PlayGroundProps {
   exampleSections: any;
   location: Location;
-  description: string;
   markdownRemark: any;
   categories: string[];
   allDemos: any;
@@ -99,6 +98,9 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   treeData,
   examples,
 }) => {
+
+  const { API, design, description } = exampleSections;
+
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -158,10 +160,6 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   const editroRef = useRef<any>(null);
   const isWide = useMedia('(min-width: 767.99px)', true);
 
-  const [description, setDescription] = useState<string>();
-  const [design, setDesign] = useState<NodePost>();
-  const [API, setAPI] = useState<NodePost>();
-
   useEffect(() => {
     if (isBrowser) {
       setPathname(window.location.pathname.replace('/examples', ''));
@@ -170,26 +168,6 @@ const PlayGround: React.FC<PlayGroundProps> = ({
 
   useEffect(() => {
     if (!pathname) return;
-    // 获取最新的 description 示例 设计指引 1
-    const desc = exampleSections.descriptions[pathname];
-    setDescription(desc);
-
-    // 获取最新的 design 示例 设计指引 2
-    const newDesign = {
-      node: {
-        html: exampleSections.designs[`${pathname}`],
-      },
-    };
-    setDesign(newDesign);
-
-    // 获取最新的 API 文档
-    const newAPI = {
-      node: {
-        html: exampleSections.APIs[`${pathname}`],
-      },
-    };
-    setAPI(newAPI);
-
     updateDocsEmpty(!design?.node?.html && !description && !API?.node?.html);
   }, [pathname]);
 
