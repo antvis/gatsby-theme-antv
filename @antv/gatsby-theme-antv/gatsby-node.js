@@ -307,34 +307,27 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         )
         .sort((a, b) => a.order - b.order);
 
-      const newPosts = posts
-        .filter(item => item.node.html)
-        .reduce((designPost, item) => {
-          if (/^\/(en|zh)\/examples\/.*?(?=design)/.test(item.node.fields.slug)) {
-            designPost.designs[item.node.fields.slug.replace('/design', '').replace('/examples', '')] = item.node.html;
-          } else if (/^\/(en|zh)\/examples\/.*?(?=API)/.test(item.node.fields.slug)) {
-            designPost.APIs[item.node.fields.slug.replace('/API', '').replace('/examples', '')] = item.node.html;
-          } else if (/^\/(en|zh)\/examples\/(?!.*(API|design))/.test(item.node.fields.slug)) {
-            designPost.descriptions[item.node.fields.slug.replace('/examples', '')] = item.node.html;
-          }
-          return designPost;
-        }, {
-          designs: {},
-          APIs: {},
-          descriptions: {},
-        });
+      const design = posts.find((post) => {
+        const { slug: postSlug } = post.node.fields;
+        return postSlug === `${exampleRootSlug}/design`;
+      });
+      const API = posts.find((post) => {
+        const { slug: postSlug } = post.node.fields;
+        return postSlug === `${exampleRootSlug}/API`;
+      });
 
-      context.exampleSections = {
-        examples,
-        ...newPosts
-      };
       const descriptionPosts = posts.find((post) => {
         const { slug: postSlug } = post.node.fields;
         return postSlug === exampleRootSlug;
       });
-      if (descriptionPosts) {
-        context.description = descriptionPosts.node.html;
-      }
+
+      context.exampleSections = {
+        examples,
+        API,
+        design,
+        description: descriptionPosts && descriptionPosts.node.html,
+      };
+
     } else if (isDocsPage) {
       // 将 examples 传递给 document template
       context.examples = allExamples;

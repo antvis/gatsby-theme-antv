@@ -124,7 +124,6 @@ export default function Template({
   pageContext: {
     exampleSections: any;
     allDemos?: any[];
-    description: string;
   };
 }): React.ReactNode {
   const { allMarkdownRemark, site } = data; // data.markdownRemark holds our post data
@@ -175,7 +174,7 @@ export default function Template({
     },
   );
 
-  const { exampleSections = {}, allDemos = [], description = '' } = pageContext;
+  const { exampleSections = {}, allDemos = [] } = pageContext;
 
   const [prev, next] = usePrevAndNext();
 
@@ -411,7 +410,7 @@ export default function Template({
         <div
           /* eslint-disable-next-line react/no-danger */
           dangerouslySetInnerHTML={{
-            __html: description,
+            __html: exampleSections.description,
           }}
         />
         {/* 是否展示上新公告  */}
@@ -512,7 +511,6 @@ export default function Template({
           exampleSections={exampleSections}
           location={location}
           markdownRemark={markdownRemark}
-          description={description}
           treeData={getTreeData()}
         />
       )}

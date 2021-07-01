@@ -209,8 +209,12 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
             cursor: 'pointer',
           }}
           onClick={() => {
-            window.history.pushState({}, '', `${item.value}`);
-            updateCurrentExample(item as any);
+            if(item.value?.match( window.location.pathname)) {
+              window.history.replaceState({}, '', `${item.value}`);
+              updateCurrentExample(item as any);
+            } else {
+              window.location.href = `${window.location.origin}${item.value}`
+            }
           }}
         >
           <span className={styles.menuTitleContent}>{example(item)}</span>
