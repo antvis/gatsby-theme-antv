@@ -46,7 +46,7 @@ interface PlayGroundProps {
 
 interface NodePost {
   node: {
-    fields: {
+    fields?: {
       slug: string;
     };
     html?: string;
@@ -164,31 +164,30 @@ const PlayGround: React.FC<PlayGroundProps> = ({
 
   useEffect(() => {
     if (isBrowser) {
-      setPathname(window.location.pathname);
+      setPathname(window.location.pathname.replace('/examples',''));
     }
   }, [isBrowser && window.location.pathname]);
-
+  
   useEffect(() => {
-    if(!pathname) return
+    if (!pathname) return
     // 获取最新的 description 示例 设计指引 1
-    const description = exampleSections.posts.find((post: NodePost) => {
-      const { slug } = post?.node?.fields;
-      return slug === `${pathname}`;
-    })?.node?.html;
+    const description = exampleSections.description[pathname];
     setDescription(description);
 
     // 获取最新的 design 示例 设计指引 2
-    const design = exampleSections.posts.find((post: NodePost) => {
-      const { slug } = post?.node?.fields;
-      return slug === `${pathname}/design`;
-    });
-    setDesign(design)
+    const design = {
+      node: {
+        html: exampleSections.design[`${pathname}`],
+      },
+    };
+    setDesign(design);
 
     // 获取最新的 API 文档
-    const API = exampleSections.posts.find((post: NodePost) => {
-      const { slug } = post.node.fields;
-      return slug === `${pathname}/API`;
-    });
+    const API = {
+      node: {
+        html: exampleSections.API[`${pathname}`],
+      },
+    };
     setAPI(API);
 
     updateDocsEmpty(

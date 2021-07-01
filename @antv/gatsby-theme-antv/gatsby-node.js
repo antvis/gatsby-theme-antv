@@ -319,11 +319,27 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
           ),
         )
         .sort((a, b) => a.order - b.order);
+
+      const newPosts = posts
+        .filter(item => item.node.html)
+        .reduce((designPost, item) => {
+          if (/^\/(en|zh)\/examples\/.*?(?=design)/.test(item.node.fields.slug)) {
+            designPost.design[item.node.fields.slug.replace('/design', '').replace('/examples', '')] = item.node.html;
+          } else if (/^\/(en|zh)\/examples\/.*?(?=API)/.test(item.node.fields.slug)) {
+            designPost.API[item.node.fields.slug.replace('/API', '').replace('/examples', '')] = item.node.html;
+          } else if (/^\/(en|zh)\/examples\/(?!.*(API|design))/.test(item.node.fields.slug)) {
+            designPost.description[item.node.fields.slug.replace('/examples', '')] = item.node.html;
+          }
+          return designPost;
+        }, {
+          design: {},
+          API: {},
+          description: {},
+        });
+
       context.exampleSections = {
-        posts,
         examples,
-        design,
-        API,
+        ...newPosts
       };
       const descriptionPosts = posts.find((post) => {
         const { slug: postSlug } = post.node.fields;
@@ -342,7 +358,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
     const oldPage = Array.from(pages)
       .map((item) => item[1])
       .find((p) => p.path === slug);
-    if (oldPage && !isEqual(oldPage.context, context)) {
+    if (oldPage && isEqual && !isEqual(oldPage.context, context)) {
       deletePage(oldPage);
     }
 
