@@ -163,12 +163,15 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
             currentExample && item.relativePath === currentExample.relativePath,
         })}
       >
-        <img
-          src={
-            item.screenshot ||
-            'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
-          }
-          alt={item.title || item.relativePath}
+        <div
+          className={classNames(styles.screenshot)}
+          style={{
+            backgroundImage: `url(${
+              item.screenshot ||
+              'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
+            })`,
+          }}
+          title={item.title || item.relativePath}
         />
       </a>
     </Tooltip>
