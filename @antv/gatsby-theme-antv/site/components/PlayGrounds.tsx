@@ -2,7 +2,7 @@ import _ from 'lodash';
 import classNames from 'classnames';
 import { Tooltip, Menu, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
-import React, { useState, useEffect, ReactNode } from 'react';
+import React, { useState, useEffect, ReactNode, useRef } from 'react';
 import Icon, { createFromIconfontCN, SearchOutlined } from '@ant-design/icons';
 import type { TreeItem } from './PlayGround';
 import CollaspeAllSvg from '../images/collapse-all.svg';
@@ -59,6 +59,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
   // 菜单栏展开keys
   const [openKeys, setOpenKeys] = useState<string[]>([]);
 
+  const menuRef = useRef<Menu | null>(null);
   // 初始化点击进来的示例按钮a的dom
   const [aRef, setARef] = useState<HTMLAnchorElement>();
 
@@ -119,7 +120,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
   useEffect(() => {
     const exampleKey = getPath(currentExample);
     setOpenKeys(getDefaultOpenKeys(getTreeData(), exampleKey));
-  }, []);
+  }, [currentExample]);
 
   // 初始化滚动到中间
   useEffect(() => {
@@ -209,11 +210,14 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
             cursor: 'pointer',
           }}
           onClick={() => {
-            if(item.value?.match( window.location.pathname)) {
+            if (item.value?.match(window.location.pathname)) {
               window.history.replaceState({}, '', `${item.value}`);
               updateCurrentExample(item as any);
             } else {
-              window.location.href = `${window.location.origin}${item.value}`
+              window.history.pushState({}, '', `${item.value}`);
+              menuRef?.current?.forceUpdate(() => {
+                updateCurrentExample(item as any);
+              });
             }
           }}
         >
@@ -247,6 +251,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
       {searchSider()}
       {openKeys && (
         <Menu
+          ref={menuRef}
           mode="inline"
           style={{ width: '100%' }}
           className={styles.siderbarMenu}
