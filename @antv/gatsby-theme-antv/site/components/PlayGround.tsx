@@ -198,7 +198,7 @@ insertCss(`;
     updateRelativePath(current?.relativePath);
     updateFileExtension(
       current?.relativePath.split('.')[
-        current.relativePath.split('.').length - 1
+      current.relativePath.split('.').length - 1
       ] || 'js',
     );
     updateTitle(current?.title);
@@ -549,145 +549,145 @@ insertCss(`;
     return transforNode(newTreeData, result);
   };
 
-  return (
+  return playground && currentExample && layout ? (
     <SplitPane
       split={splitPaneMap[layout].outside.split}
       size={splitPaneMap[layout].outside.size}
       onDragFinished={dispatchResizeEvent}
       onChange={(size) => calcShowSearch(size)}
     >
-      {playground && currentExample && layout ? (
-        <SplitPane
-          split={splitPaneMap[layout].inside.split}
-          size={splitPaneMap[layout].inside.size}
-          onDragFinished={dispatchResizeEvent}
-          className={styles.playground}
-        >
-          <Layout className={styles.playgroundCard}>
-            <Sider
-              collapsedWidth={0}
-              width={188} // 多长好不晓得，250 差不多
-              trigger={null}
-              collapsible
-              collapsed={collapsed}
-              className={styles.menuSider}
-              theme="light"
-            >
-              <PlayGrounds
-                getPath={getPath}
-                currentExample={currentExample}
-                updateCurrentExample={updateCurrentExample}
-                treeData={getTreeData()}
-              />
-            </Sider>
-
-            <LeftOutlined
-              className={styles.trigger}
-              type={collapsed ? 'menu-unfold' : 'menu-fold'}
-              onClick={toggle}
-              rotate={collapsed ? 180 : 0}
+      <SplitPane
+        split={splitPaneMap[layout].inside.split}
+        size={splitPaneMap[layout].inside.size}
+        onDragFinished={dispatchResizeEvent}
+        className={styles.playground}
+        ref={(e: any) => {
+          if (e?.splitPane) {
+            e.splitPane.scrollTop = 0; // 保证示例永远不会掉下去
+          }
+        }}
+      >
+        <Layout className={styles.playgroundCard}>
+          <Sider
+            collapsedWidth={0}
+            width={188} // 多长好不晓得，250 差不多
+            trigger={null}
+            collapsible
+            collapsed={collapsed}
+            className={styles.menuSider}
+            theme="light"
+          >
+            <PlayGrounds
+              getPath={getPath}
+              currentExample={currentExample}
+              updateCurrentExample={updateCurrentExample}
+              treeData={getTreeData()}
             />
+          </Sider>
 
-            {relativePath ? (
-              <Layout>
-                <PageHeader
-                  ghost={false}
-                  title={
-                    typeof currentExample.title === 'object'
-                      ? currentExample.title[i18n.language]
-                      : currentExample.title
-                  }
-                  subTitle={
-                    <Tooltip title={t('在 GitHub 上编辑')}>
-                      <a
-                        href={getGithubSourceUrl({
-                          githubUrl,
-                          relativePath,
-                          prefix: 'examples',
-                        })}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.editOnGtiHubButton}
-                      >
-                        <EditOutlined />
-                      </a>
-                    </Tooltip>
-                  }
-                  extra={
-                    <Space split={<Divider type="vertical" />}>
-                      {showChartResize && layout === 'viewDefault' && (
-                        <ChartViewSwitcher
-                          updateView={updateView}
-                          view={view}
-                        />
-                      )}
-                      {showAPIDoc && !docsEmpty && layout !== 'viewTwoRows' && (
-                        <LayoutSwitcher updateLayout={updateLayout} />
-                      )}
-                      {themeSwitcher && (
-                        <ThemeSwitcher updateTheme={updateTheme} />
-                      )}
-                    </Space>
-                  }
-                />
-                <Content className={styles.chartContainer}>
-                  <div
-                    className={classNames(
-                      styles.preview,
-                      `playground-${relativePath.split('/').join('-')}`,
-                    )}
-                  >
-                    {error ? (
-                      <Result
-                        status="error"
-                        title={
-                          i18n.language === 'zh'
-                            ? '演示代码报错，请检查'
-                            : 'Demo code error, please check'
-                        }
-                        subTitle={<pre>{error && error.message}</pre>}
+          <LeftOutlined
+            className={styles.trigger}
+            type={collapsed ? 'menu-unfold' : 'menu-fold'}
+            onClick={toggle}
+            rotate={collapsed ? 180 : 0}
+          />
+
+          {relativePath ? (
+            <Layout>
+              <PageHeader
+                ghost={false}
+                title={
+                  typeof currentExample.title === 'object'
+                    ? currentExample.title[i18n.language]
+                    : currentExample.title
+                }
+                subTitle={
+                  <Tooltip title={t('在 GitHub 上编辑')}>
+                    <a
+                      href={getGithubSourceUrl({
+                        githubUrl,
+                        relativePath,
+                        prefix: 'examples',
+                      })}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={styles.editOnGtiHubButton}
+                    >
+                      <EditOutlined />
+                    </a>
+                  </Tooltip>
+                }
+                extra={
+                  <Space split={<Divider type="vertical" />}>
+                    {showChartResize && layout === 'viewDefault' && (
+                      <ChartViewSwitcher
+                        updateView={updateView}
+                        view={view}
                       />
-                    ) : (
-                      <div ref={playgroundNode} className={styles[view]} />
                     )}
-                  </div>
-                </Content>
-              </Layout>
-            ) : (
-              <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
-            )}
-          </Layout>
-
-          <div className={styles.editor}>
-            {title && fileExtension && (
-              <Toolbar
-                fileExtension={fileExtension}
-                sourceCode={currentSourceCode}
-                playground={playground}
-                location={location}
-                title={title}
-                onExecuteCode={executeCode}
-                editorTabs={editorTabs}
-                currentEditorTab={currentEditorTab}
-                onEditorTabChange={updateCurrentEditorTab}
-                onToggleFullscreen={null}
+                    {showAPIDoc && !docsEmpty && layout !== 'viewTwoRows' && (
+                      <LayoutSwitcher updateLayout={updateLayout} />
+                    )}
+                    {themeSwitcher && (
+                      <ThemeSwitcher updateTheme={updateTheme} />
+                    )}
+                  </Space>
+                }
               />
-            )}
-            {!relativePath ? (
-              <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
-            ) : (
-              <div className={styles.monaco}>
-                <Suspense fallback={<PageLoading />}>{codeEditor}</Suspense>
-              </div>
-            )}
-          </div>
-        </SplitPane>
-      ) : (
-        <></>
-      )}
+              <Content className={styles.chartContainer}>
+                <div
+                  className={classNames(
+                    styles.preview,
+                    `playground-${relativePath.split('/').join('-')}`,
+                  )}
+                >
+                  {error ? (
+                    <Result
+                      status="error"
+                      title={
+                        i18n.language === 'zh'
+                          ? '演示代码报错，请检查'
+                          : 'Demo code error, please check'
+                      }
+                      subTitle={<pre>{error && error.message}</pre>}
+                    />
+                  ) : (
+                    <div ref={playgroundNode} className={styles[view]} />
+                  )}
+                </div>
+              </Content>
+            </Layout>
+          ) : (
+            <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
+          )}
+        </Layout>
 
+        <div className={styles.editor}>
+          {title && fileExtension && (
+            <Toolbar
+              fileExtension={fileExtension}
+              sourceCode={currentSourceCode}
+              playground={playground}
+              location={location}
+              title={title}
+              onExecuteCode={executeCode}
+              editorTabs={editorTabs}
+              currentEditorTab={currentEditorTab}
+              onEditorTabChange={updateCurrentEditorTab}
+              onToggleFullscreen={null}
+            />
+          )}
+          {!relativePath ? (
+            <Skeleton paragraph={{ rows: 8 }} className={styles.skeleton} />
+          ) : (
+            <div className={styles.monaco}>
+              <Suspense fallback={<PageLoading />}>{codeEditor}</Suspense>
+            </div>
+          )}
+        </div>
+      </SplitPane>
       {relativePath &&
-      (layout === 'viewDefault' || layout === 'viewThreeCols') ? (
+        (layout === 'viewDefault' || layout === 'viewThreeCols') ? (
         <APIDoc
           markdownRemark={markdownRemark}
           githubUrl={githubUrl}
@@ -701,6 +701,8 @@ insertCss(`;
         <></>
       )}
     </SplitPane>
+  ) : (
+    <></>
   );
 };
 
