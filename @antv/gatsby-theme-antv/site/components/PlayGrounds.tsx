@@ -217,10 +217,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
               window.history.replaceState({}, '', `${item.value}`);
               updateCurrentExample(item as any);
             } else {
-              window.history.pushState({}, '', `${item.value}`);
-              menuRef?.current?.forceUpdate(() => {
-                updateCurrentExample(item as any);
-              });
+              window.location.href = `${window.location.origin}${item.value}`;
             }
           }}
         >
