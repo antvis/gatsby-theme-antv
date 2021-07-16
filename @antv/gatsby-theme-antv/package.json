@@ -6,8 +6,11 @@
   "license": "MIT",
   "keywords": [
     "gatsby",
+    "gatsby-plugin",
+    "gatsby-theme",
+    "antv",
     "antvis",
-    "antv"
+    "antd"
   ],
   "scripts": {
     "build": "gatsby build",
