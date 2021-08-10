@@ -93,6 +93,7 @@ module.exports = {
     showChartResize: true, // 是否在demo页展示图表视图切换
     themeSwitcher: 'g2', // 是否在demo页展示主题切换, 取值为'g2' | 'g2plot' 如果不设置则不展示主题切换工具
     showAPIDoc: true, // 是否在demo页展示API文档
+    showExampleDemoTitle: true, // 有截图的是否要展示 title 名称
     playground: {
       container: '<canvas id="container" />', // 定义演示的渲染节点，默认 <div id="container" />
       playgroundDidMount: 'console.log("playgroundDidMount");',

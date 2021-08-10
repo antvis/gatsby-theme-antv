@@ -110,6 +110,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
             themeSwitcher
             showAPIDoc
             githubUrl
+            showExampleDemoTitle
             playground {
               extraLib
               container
@@ -126,7 +127,7 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   );
 
   const {
-    siteMetadata: { githubUrl, playground },
+    siteMetadata: { githubUrl, playground, showExampleDemoTitle },
   } = site;
 
   const { extraLib = '' } = site.siteMetadata.playground;
@@ -578,6 +579,7 @@ insertCss(`;
             theme="light"
           >
             <PlayGrounds
+              showExampleDemoTitle={showExampleDemoTitle}
               getPath={getPath}
               currentExample={currentExample}
               updateCurrentExample={updateCurrentExample}
