@@ -327,7 +327,6 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
         design,
         description: descriptionPosts && descriptionPosts.node.html,
       };
-
     } else if (isDocsPage) {
       // 将 examples 传递给 document template
       context.examples = allExamples;
@@ -534,6 +533,8 @@ exports.sourceNodes = ({ actions }) => {
       showGithubStar: Boolean
       showGithubCorner: Boolean
       showLanguageSwitcher: Boolean
+      showWxQrcode: Boolean
+      wxQrcode: String
       showAntVProductsCard: Boolean
       showSearch: Boolean
       mdPlayground: MDPlayGround
