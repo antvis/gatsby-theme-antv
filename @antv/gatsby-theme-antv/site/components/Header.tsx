@@ -10,7 +10,7 @@ import {
   MenuOutlined,
   CaretDownFilled,
   DownOutlined,
-  QrcodeOutlined,
+  WechatOutlined,
 } from '@ant-design/icons';
 import { Popover, Button, Menu, Select, Dropdown, message, Modal } from 'antd';
 import GitUrlParse from 'git-url-parse';
@@ -514,7 +514,7 @@ const Header: React.FC<HeaderProps> = ({
             overlayStyle={{ width: 128, height: 128 }}
             overlayInnerStyle={{ padding: 2 }}
           >
-            <QrcodeOutlined />
+            <WechatOutlined />
           </Popover>
         </li>
       )}
