@@ -59,6 +59,8 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
           showAntVProductsCard
           showGithubStar
           showGithubCorner
+          showWxQrcode
+          wxQrcode
           navs {
             slug
             title {
@@ -110,6 +112,8 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
       isAntVSite,
       showGithubStar,
       showGithubCorner,
+      showWxQrcode,
+      wxQrcode,
       showAntVProductsCard,
       redirects = [],
       docsearchOptions,
@@ -162,7 +166,11 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
   const getRediectUrl = () => {
     const list = redirects || [];
     for (let i = 0; i < list.length; i += 1) {
-      const { from = '', to, keepUrl } = list[i] as {
+      const {
+        from = '',
+        to,
+        keepUrl,
+      } = list[i] as {
         from: string | RegExp;
         to: string;
         keepUrl?: boolean;
@@ -223,6 +231,8 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
         showAntVProductsCard={parseNulltoUndefined(showAntVProductsCard)}
         showChinaMirror={parseNulltoUndefined(showChinaMirror)}
         showLanguageSwitcher={parseNulltoUndefined(showLanguageSwitcher)}
+        showWxQrcode={parseNulltoUndefined(showWxQrcode)}
+        wxQrcode={parseNulltoUndefined(wxQrcode)}
         docsearchOptions={docsearchOptions}
         versions={versions}
         ecosystems={ecosystems}
