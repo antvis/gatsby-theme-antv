@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Collapse, Skeleton } from 'antd';
 import Icon from '@ant-design/icons';
+import _ from 'lodash';
 import Mark from 'mark.js';
 import { useTranslation } from 'react-i18next';
 import Tabs, { CollapseDataProp } from './Tabs';
@@ -73,8 +74,8 @@ const APIDoc: React.FC<APIDocProps> = ({
         // 第一个标题能展开
         return true;
       }
-      // 最多展开2级
-      return level < firstDepth + 2;
+      // 最多展开 3 级 (G2/G2Plot 层级较深)
+      return level < firstDepth + 3;
     };
 
     const getDescription = (node: HTMLElement) => {
@@ -111,6 +112,11 @@ const APIDoc: React.FC<APIDocProps> = ({
       }
       if (level === firstDepth + 1 && result.length) {
         result[result.length - 1].children.push(node);
+      } else if (level === firstDepth + 2) {
+        const pNode: any = _.last(result[result.length - 1].children);
+        if (pNode && pNode.children) {
+          pNode.children.push(node);
+        }
       }
     };
     for (let i = 0, len = nodes.length; i < len; i += 1) {
@@ -207,6 +213,32 @@ const APIDoc: React.FC<APIDocProps> = ({
   );
 
   const renderCollapse = () => {
+    const renderInner = (data: any) => {
+      return _.map(data?.children, (child: CollapseDataProp, idx: number) => (
+        <Collapse
+          bordered={false}
+          activeKey={insideActiveKeys}
+          onChange={insideHandleChange}
+          key={`collapse-${child.title}-${idx}`}
+        >
+          <Panel
+            header={child.title}
+            key={`inside-${child.title}-${idx}`}
+            extra={genExtra(child.options)}
+          >
+            {child.content && (
+              <div
+                /* eslint-disable-next-line react/no-danger */
+                dangerouslySetInnerHTML={{
+                  __html: child.content,
+                }}
+              />
+            )}
+            {renderInner(child)}
+          </Panel>
+        </Collapse>
+      ));
+    };
     return (
       <div id="apiStructure" className={docStyles.markdown}>
         <Collapse
@@ -228,29 +260,7 @@ const APIDoc: React.FC<APIDocProps> = ({
                   }}
                 />
               )}
-              {data?.children?.map((child: CollapseDataProp, index: number) => (
-                <Collapse
-                  bordered={false}
-                  activeKey={insideActiveKeys}
-                  onChange={insideHandleChange}
-                  key={`collapse-${child.title}-${index}`}
-                >
-                  <Panel
-                    header={child.title}
-                    key={`inside-${child.title}-${i}`}
-                    extra={genExtra(child.options)}
-                  >
-                    {child.content && (
-                      <div
-                        /* eslint-disable-next-line react/no-danger */
-                        dangerouslySetInnerHTML={{
-                          __html: child.content,
-                        }}
-                      />
-                    )}
-                  </Panel>
-                </Collapse>
-              ))}
+              {renderInner(data)}
             </Panel>
           ))}
         </Collapse>
