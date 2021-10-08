@@ -31,6 +31,8 @@
       { "extensions": [".ts", ".tsx", ".js", ".jsx"] }
     ],
     "react/prop-types": 0,
+    "react/require-default-props": 0,
+    "react/no-unused-prop-types": 0,
     "react/state-in-constructor": 0,
     "react/jsx-props-no-spreading": 0,
     "react/no-array-index-key": 0,
