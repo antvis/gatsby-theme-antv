@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import { reduce, difference, size, map } from 'lodash-es';
 import classNames from 'classnames';
 import { Tooltip, Menu, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
@@ -70,7 +70,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
 
   // 查找符合条件的数据 从title和 searchValue 可以匹配 就返回 否自返回[]
   const findSearchTreeData = (data: TreeItem[]): TreeItem[] =>
-    _.reduce(
+    reduce(
       data,
       (value: TreeItem[], item: TreeItem) => {
         if (item.title?.match(searchValue)) {
@@ -78,7 +78,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
         }
         if (item.children) {
           const searchData = findSearchTreeData(item.children);
-          return _.size(searchData)
+          return size(searchData)
             ? [...value, { ...item, children: searchData }]
             : value;
         }
@@ -94,7 +94,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
   // 控制 菜单栏展开key 保证二级菜单唯一
   const onOpenChange = (keys: any[]) => {
     let newKeys = keys;
-    const diffKey = _.difference(keys, openKeys)[0];
+    const diffKey = difference(keys, openKeys)[0];
     if (diffKey && /^secondaryKey-/.test(diffKey)) {
       newKeys = [
         ...newKeys.filter((key) => !/^secondaryKey-/.test(key)),
@@ -106,7 +106,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
 
   // 获取默认展开的keys数组 传入treeData 和 底层的 key  返回符合条件的 keys
   const getDefaultOpenKeys = (data: TreeItem[], key: string): string[] =>
-    _.reduce(
+    reduce(
       data,
       (value: any[], item: TreeItem) => {
         if (item.children) {
@@ -168,17 +168,18 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
         <div
           className={classNames(styles.screenshot)}
           style={{
-            backgroundImage: `url(${item.screenshot ||
+            backgroundImage: `url(${
+              item.screenshot ||
               'https://gw.alipayobjects.com/os/s/prod/antv/assets/image/screenshot-placeholder-b8e70.png'
-              })`,
+            })`,
           }}
           title={item.title || item.relativePath}
         >
-          {(showExampleDemoTitle || !item.screenshot) && <div
-            className={classNames(styles.exampleDemoTitle)}
-          >
-            {item.title}
-          </div>}
+          {(showExampleDemoTitle || !item.screenshot) && (
+            <div className={classNames(styles.exampleDemoTitle)}>
+              {item.title}
+            </div>
+          )}
         </div>
       </a>
     </Tooltip>
@@ -186,7 +187,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
 
   // 导航栏
   const getMenuSub = (data: TreeItem[]) =>
-    _.map(data, (item) =>
+    map(data, (item: TreeItem) =>
       item.children ? (
         <SubMenu
           key={item.value}
@@ -241,7 +242,7 @@ const PlayGrounds: React.FC<PlayGroundsProps> = ({
         placeholder={t('搜索')}
         prefix={<SearchOutlined />}
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={(e: any) => setSearchValue(e.target.value)}
       />
       <Tooltip placement="right" title={t('收起所有')}>
         <Icon

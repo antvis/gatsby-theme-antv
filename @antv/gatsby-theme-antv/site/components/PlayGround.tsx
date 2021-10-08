@@ -98,7 +98,6 @@ const PlayGround: React.FC<PlayGroundProps> = ({
   treeData,
   examples,
 }) => {
-
   const { API, design, description } = exampleSections;
 
   const { site } = useStaticQuery(
@@ -199,7 +198,7 @@ insertCss(`;
     updateRelativePath(current?.relativePath);
     updateFileExtension(
       current?.relativePath.split('.')[
-      current.relativePath.split('.').length - 1
+        current.relativePath.split('.').length - 1
       ] || 'js',
     );
     updateTitle(current?.title);
@@ -301,7 +300,7 @@ insertCss(`;
         updateCompiledCode(code);
       } catch (e) {
         console.error(e); // eslint-disable-line no-console
-        setError(e);
+        setError(e as any);
         return;
       }
       setError(null);
@@ -622,10 +621,7 @@ insertCss(`;
                 extra={
                   <Space split={<Divider type="vertical" />}>
                     {showChartResize && layout === 'viewDefault' && (
-                      <ChartViewSwitcher
-                        updateView={updateView}
-                        view={view}
-                      />
+                      <ChartViewSwitcher updateView={updateView} view={view} />
                     )}
                     {showAPIDoc && !docsEmpty && layout !== 'viewTwoRows' && (
                       <LayoutSwitcher updateLayout={updateLayout} />
@@ -689,7 +685,7 @@ insertCss(`;
         </div>
       </SplitPane>
       {relativePath &&
-        (layout === 'viewDefault' || layout === 'viewThreeCols') ? (
+      (layout === 'viewDefault' || layout === 'viewThreeCols') ? (
         <APIDoc
           markdownRemark={markdownRemark}
           githubUrl={githubUrl}

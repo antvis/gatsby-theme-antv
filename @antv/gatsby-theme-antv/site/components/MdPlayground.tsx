@@ -198,7 +198,7 @@ insertCss(`;
         updateCompiledCode(code);
       } catch (e) {
         console.error(e); // eslint-disable-line no-console
-        setError(e);
+        setError(e as any);
         return;
       }
       setError(null);
