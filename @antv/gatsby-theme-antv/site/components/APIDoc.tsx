@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Collapse, Skeleton } from 'antd';
 import Icon from '@ant-design/icons';
-import _ from 'lodash';
+import { last, map } from 'lodash';
 import Mark from 'mark.js';
 import { useTranslation } from 'react-i18next';
 import Tabs, { CollapseDataProp } from './Tabs';
 import EmptySvg from '../images/empty.svg';
-
 import styles from './APIDoc.module.less';
 import docStyles from '../templates/markdown.module.less';
 
@@ -113,7 +112,7 @@ const APIDoc: React.FC<APIDocProps> = ({
       if (level === firstDepth + 1 && result.length) {
         result[result.length - 1].children.push(node);
       } else if (level === firstDepth + 2) {
-        const pNode: any = _.last(result[result.length - 1].children);
+        const pNode: any = last(result[result.length - 1].children);
         if (pNode && pNode.children) {
           pNode.children.push(node);
         }
@@ -214,7 +213,7 @@ const APIDoc: React.FC<APIDocProps> = ({
 
   const renderCollapse = () => {
     const renderInner = (data: any) => {
-      return _.map(data?.children, (child: CollapseDataProp, idx: number) => (
+      return map(data?.children, (child: CollapseDataProp, idx: number) => (
         <Collapse
           bordered={false}
           activeKey={insideActiveKeys}
