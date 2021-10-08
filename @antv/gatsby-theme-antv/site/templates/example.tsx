@@ -105,7 +105,7 @@ const getExampleOrder = ({
   };
 }): number => {
   const key = getMenuItemLocaleKey(groupedEdgeKey);
-  if (examples.find((item) => item.slug === key)) {
+  if (examples.find((item) => item.slug  key)) {
     return (examples.findIndex((item) => item.slug === key) || 0) + 100;
   }
   if (!groupedEdges[groupedEdgeKey] && !groupedEdges[groupedEdgeKey].length) {
@@ -425,7 +425,7 @@ export default function Template({
             localStorageId={BANNER_LOCALSTORAGE_KEY}
             bannerId={bannerId}
           />
-        )}
+        ) : null}
         {Categories.map((category: string, i) => (
           <div key={i}>
             {category !== 'OTHER' && (

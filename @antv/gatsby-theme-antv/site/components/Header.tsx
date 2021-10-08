@@ -10,6 +10,7 @@ import {
   MenuOutlined,
   CaretDownFilled,
   DownOutlined,
+  WechatOutlined,
 } from '@ant-design/icons';
 import { Popover, Button, Menu, Select, Dropdown, message, Modal } from 'antd';
 import GitUrlParse from 'git-url-parse';
@@ -47,6 +48,10 @@ interface HeaderProps {
   showLanguageSwitcher?: boolean;
   /** 切换语言的回调 */
   onLanguageChange?: (language: string) => void;
+  /** 是否二维码 */
+  showWxQrcode?: boolean;
+  /** 二维码图表地址 */
+  wxQrcode?: string;
   /** 自定义 logo */
   logo?: {
     img?: React.ReactNode;
@@ -125,6 +130,9 @@ const Header: React.FC<HeaderProps> = ({
   showChinaMirror = true,
   logo,
   onLanguageChange,
+  // 默认就使用 AntV 的公众号
+  showWxQrcode = true,
+  wxQrcode = 'https://gw.alipayobjects.com/zos/antfincdn/ZKlx96dsfs/qrcode_for_gh_f52d8b6aa591_258.jpg',
   siteUrl,
   githubUrl = 'https://github.com/antvis',
   defaultLanguage,
@@ -227,9 +235,8 @@ const Header: React.FC<HeaderProps> = ({
     link,
   });
 
-  const [chinaMirrorHintVisible, updateChinaMirrorHintVisible] = useState(
-    false,
-  );
+  const [chinaMirrorHintVisible, updateChinaMirrorHintVisible] =
+    useState(false);
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (
@@ -493,6 +500,22 @@ const Header: React.FC<HeaderProps> = ({
               <TranslationIcon className={styles.translation} />
             </a>
           </Dropdown>
+        </li>
+      )}
+
+      {showWxQrcode && wxQrcode && (
+        <li className={styles.wxQrcode}>
+          <Popover
+            content={
+              <img width="100%" height="100%" src={wxQrcode} alt="wx-qrcode" />
+            }
+            title={null}
+            overlayClassName="wx-qrcode-popover"
+            overlayStyle={{ width: 128, height: 128 }}
+            overlayInnerStyle={{ padding: 2 }}
+          >
+            <WechatOutlined />
+          </Popover>
         </li>
       )}
 

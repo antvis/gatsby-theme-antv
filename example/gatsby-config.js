@@ -18,6 +18,9 @@ module.exports = {
     showAPIDoc: true,
     themeSwitcher: 'g2plot',
     galleryMenuCloseAll: true,
+    showWxQrcode: true,
+    wxQrcode:
+      'https://gw.alipayobjects.com/zos/antfincdn/ZKlx96dsfs/qrcode_for_gh_f52d8b6aa591_258.jpg',
     navs: [
       {
         slug: 'docs/specification/getting-started',
