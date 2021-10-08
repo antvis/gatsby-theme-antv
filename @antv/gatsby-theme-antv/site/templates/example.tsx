@@ -105,7 +105,7 @@ const getExampleOrder = ({
   };
 }): number => {
   const key = getMenuItemLocaleKey(groupedEdgeKey);
-  if (examples.find((item) => item.slug === key)) {
+  if (examples.find((item) => item.slug  key)) {
     return (examples.findIndex((item) => item.slug === key) || 0) + 100;
   }
   if (!groupedEdges[groupedEdgeKey] && !groupedEdges[groupedEdgeKey].length) {
@@ -235,22 +235,21 @@ export default function Template({
   }, 300);
 
   // 提取出筛选 和 排序的方法 好在获取treeData 的时候使用
-  const groupedEdgesDataEdit = 
-    Object.keys(groupedEdges)
-      .filter((key) => key.startsWith(`/${i18n.language}/`))
-      .sort((a: string, b: string) => {
-        const aOrder = getExampleOrder({
-          groupedEdgeKey: a,
-          examples,
-          groupedEdges,
-        });
-        const bOrder = getExampleOrder({
-          groupedEdgeKey: b,
-          examples,
-          groupedEdges,
-        });
-        return aOrder - bOrder;
+  const groupedEdgesDataEdit = Object.keys(groupedEdges)
+    .filter((key) => key.startsWith(`/${i18n.language}/`))
+    .sort((a: string, b: string) => {
+      const aOrder = getExampleOrder({
+        groupedEdgeKey: a,
+        examples,
+        groupedEdges,
       });
+      const bOrder = getExampleOrder({
+        groupedEdgeKey: b,
+        examples,
+        groupedEdges,
+      });
+      return aOrder - bOrder;
+    });
 
   const menu = (
     <Anchor className={styles.galleryAnchor} onChange={onAnchorLinkChange}>
@@ -264,74 +263,68 @@ export default function Template({
         }
         forceSubMenuRender
       >
-        {groupedEdgesDataEdit
-          .map((slugString) => {
-            const slugPieces = slugString.split('/');
-            if (slugPieces.length <= 3) {
-              return renderAnchorItems(groupedEdges[slugString]);
-            }
-            const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
-            const doc =
-              examples.find((item: any) => item.slug === menuItemLocaleKey) ||
-              {};
-            return (
-              <SubMenu
-                key={slugString}
-                title={
-                  <div>
-                    {doc.icon && (
-                      <MenuIcon
-                        className={styles.menuIcon}
-                        type={`icon-${doc.icon}`}
-                      />
-                    )}
-                    <span>
-                      {doc && doc.title
-                        ? doc.title[i18n.language]
-                        : menuItemLocaleKey}
-                    </span>
-                  </div>
-                }
-              >
-                {renderAnchorItems(groupedEdges[slugString])}
-              </SubMenu>
-            );
-          })}
+        {groupedEdgesDataEdit.map((slugString) => {
+          const slugPieces = slugString.split('/');
+          if (slugPieces.length <= 3) {
+            return renderAnchorItems(groupedEdges[slugString]);
+          }
+          const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
+          const doc =
+            examples.find((item: any) => item.slug === menuItemLocaleKey) || {};
+          return (
+            <SubMenu
+              key={slugString}
+              title={
+                <div>
+                  {doc.icon && (
+                    <MenuIcon
+                      className={styles.menuIcon}
+                      type={`icon-${doc.icon}`}
+                    />
+                  )}
+                  <span>
+                    {doc && doc.title
+                      ? doc.title[i18n.language]
+                      : menuItemLocaleKey}
+                  </span>
+                </div>
+              }
+            >
+              {renderAnchorItems(groupedEdges[slugString])}
+            </SubMenu>
+          );
+        })}
       </Menu>
     </Anchor>
   );
 
   const getTreeData = () =>
-    groupedEdgesDataEdit
-      .map((slugString) => {
-        const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
-        const doc =
-          examples.find((item: any) => item.slug === menuItemLocaleKey) ||
-          {};
-          
-        return {
-          title: doc && doc.title
-            ? doc.title[i18n.language]
-            : menuItemLocaleKey,
-          value: slugString,
-          icon: doc.icon,
-          children: groupedEdges[slugString].filter(edge => {
-            const {
-              node: {
-                fields: { slug },
-              },
-            } = edge;
-            if (
-              slug.endsWith('/API') ||
-              slug.endsWith('/design') ||
-              slug.endsWith('/gallery')
-            ) {
-              return false;
-            }
-            return true;
-          })
-        }
-      });
+    groupedEdgesDataEdit.map((slugString) => {
+      const menuItemLocaleKey = getMenuItemLocaleKey(slugString);
+      const doc =
+        examples.find((item: any) => item.slug === menuItemLocaleKey) || {};
+
+      return {
+        title: doc && doc.title ? doc.title[i18n.language] : menuItemLocaleKey,
+        value: slugString,
+        icon: doc.icon,
+        children: groupedEdges[slugString].filter((edge) => {
+          const {
+            node: {
+              fields: { slug },
+            },
+          } = edge;
+          if (
+            slug.endsWith('/API') ||
+            slug.endsWith('/design') ||
+            slug.endsWith('/gallery')
+          ) {
+            return false;
+          }
+          return true;
+        }),
+      };
+    });
 
   const isWide = useMedia('(min-width: 767.99px)', true);
   const [drawOpen, setDrawOpen] = useState(false);
@@ -414,7 +407,7 @@ export default function Template({
           }}
         />
         {/* 是否展示上新公告  */}
-        {demosOnTheNew.length ? (
+        {demosOnTheNew.length > 0 && (
           <Announcement
             message={
               <div>
