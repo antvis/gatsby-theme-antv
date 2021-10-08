@@ -105,7 +105,7 @@ const getExampleOrder = ({
   };
 }): number => {
   const key = getMenuItemLocaleKey(groupedEdgeKey);
-  if (examples.find((item) => item.slug  key)) {
+  if (examples.find((item) => item.slug === key)) {
     return (examples.findIndex((item) => item.slug === key) || 0) + 100;
   }
   if (!groupedEdges[groupedEdgeKey] && !groupedEdges[groupedEdgeKey].length) {
@@ -407,7 +407,7 @@ export default function Template({
           }}
         />
         {/* 是否展示上新公告  */}
-        {demosOnTheNew.length > 0 && (
+        {demosOnTheNew.length > 0 ? (
           <Announcement
             message={
               <div>
