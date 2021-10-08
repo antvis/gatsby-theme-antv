@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Collapse, Skeleton } from 'antd';
 import Icon from '@ant-design/icons';
-import { last, map } from 'lodash';
+import { last, map } from 'lodash-es';
 import Mark from 'mark.js';
 import { useTranslation } from 'react-i18next';
 import Tabs, { CollapseDataProp } from './Tabs';

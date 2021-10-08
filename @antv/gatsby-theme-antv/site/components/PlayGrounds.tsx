@@ -1,4 +1,4 @@
-import { reduce, difference, size, map } from 'lodash';
+import { reduce, difference, size, map } from 'lodash-es';
 import classNames from 'classnames';
 import { Tooltip, Menu, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
