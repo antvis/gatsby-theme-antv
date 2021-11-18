@@ -145,9 +145,6 @@
     "git": {
       "commitMessage": ":sparkles: Release ${version}"
     },
-    "github": {
-      "release": false
-    },
     "hooks": {
       "before:init": [
         "npm test",
