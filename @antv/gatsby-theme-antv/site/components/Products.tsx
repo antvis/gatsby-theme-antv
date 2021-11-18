@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Product from './Product';
-import { getProducts } from './getProducts';
+import { CATEGORIES, getNewProducts, ProductType } from './getProducts';
 import { useChinaMirrorHost } from '../hooks';
 import styles from './Product.module.less';
 
@@ -21,12 +21,18 @@ const Products: React.FC<ProductsProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const [isChinaMirrorHost] = useChinaMirrorHost();
-  const data = getProducts({
-    t,
-    language: language || i18n.language,
-    rootDomain,
-    isChinaMirrorHost,
-  });
+  const [products, setProducts] = React.useState<ProductType[]>([]);
+
+  const lang = i18n.language === 'zh' ? 'zh' : 'en';
+  React.useEffect(() => {
+    getNewProducts({
+      language: lang,
+      isChinaMirrorHost,
+    }).then((data) => {
+      setProducts(data);
+    });
+  }, [lang, isChinaMirrorHost]);
+
   return (
     <>
       <div
@@ -35,56 +41,29 @@ const Products: React.FC<ProductsProps> = ({
         })}
       >
         <div className={styles.container}>
-          <h3>{t('基础产品')}</h3>
-          <ul>
-            {data
-              .filter(item => item.category === 'basic')
-              .map(product => (
-                <Product
-                  key={product.title}
-                  name={product.title}
-                  slogan={product.slogan || ''}
-                  description={product.description}
-                  url={(product.links || [])[0].url}
-                  icon={product.icon as string}
-                  links={product.links}
-                  language={language || i18n.language}
-                />
-              ))}
-          </ul>
-          <h3>{t('拓展产品')}</h3>
-          <ul>
-            {data
-              .filter(item => item.category === 'extension')
-              .map(product => (
-                <Product
-                  key={product.title}
-                  name={product.title}
-                  slogan={product.slogan || ''}
-                  description={product.description}
-                  url={(product.links || [])[0].url}
-                  icon={product.icon as string}
-                  links={product.links}
-                  language={language || i18n.language}
-                />
-              ))}
-          </ul>
-          <h3>{t('周边生态')}</h3>
-          <ul>
-            {data
-              .filter(item => item.category === 'ecology')
-              .map(product => (
-                <Product
-                  key={product.title}
-                  name={product.title}
-                  slogan={product.slogan || ''}
-                  description={product.description}
-                  url={(product.links || [])[0].url}
-                  icon={product.icon as string}
-                  language={language || i18n.language}
-                />
-              ))}
-          </ul>
+          {CATEGORIES.map(({ name, type }) => {
+            return (
+              <React.Fragment>
+                <h3>{t(name)}</h3>
+                <ul>
+                  {products
+                    .filter((item) => item.category === type)
+                    .map((product) => (
+                      <Product
+                        key={product.title}
+                        name={product.title}
+                        slogan={product.slogan || ''}
+                        description={product.description}
+                        url={product.links?.home?.url}
+                        icon={product.icon as string}
+                        links={product.links}
+                        language={language || i18n.language}
+                      />
+                    ))}
+                </ul>
+              </React.Fragment>
+            );
+          })}
         </div>
       </div>
       <div className={styles.mask} />

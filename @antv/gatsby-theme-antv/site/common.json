@@ -79,5 +79,18 @@
   "返回旧版": "Old site",
   "查看详情": "More",
 
-  "上新啦，点击直达：": "New demos online. Click to visit: "
+  "上新啦，点击直达：": "New demos online. Click to visit: ",
+
+  "React 应用开发框架": "React Application Framework",
+  "组件/文档研发工具": "Component doc generator",
+  "React Hooks 库": "React Hooks Library",
+  "设计动效": "Motion Solution",
+  "社区": "Community",
+  "StackOverflow": "StackOverflow",
+  "体验科技专栏": "Ant Financial Experience Tech",
+  "帮助": "Help",
+  "蚂蚁体验科技大会": "Experience Tech Conference",
+  "标准版基础产品": "Standard basic products",
+  "标准版扩展产品": "Standard extended products",
+  "移动定制（F版）产品": "Mobile (F series) products"
 }
