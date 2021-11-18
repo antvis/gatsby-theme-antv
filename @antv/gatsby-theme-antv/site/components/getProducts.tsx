@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   AreaChartOutlined,
   DingdingOutlined,
@@ -10,11 +9,12 @@ import {
   ReadOutlined,
   YuqueOutlined,
 } from '@ant-design/icons';
-
+import { each } from 'lodash';
 import { getChinaMirrorHost } from '../utils';
 
 const tuple = <T extends string[]>(...args: T) => args;
 const Categories = tuple('basic', 'extension', 'ecology');
+const Link = tuple('home', 'example', 'api');
 
 export interface ProductItem {
   title: string;
@@ -592,11 +592,11 @@ export function getNewProducts({
           return products
             .filter((d) => d.lang === language)
             .map((d) => {
-              const links: ProductType['links'] = d.links ? { ...d.links } : {};
-              Object.keys(links).forEach((k: string) => {
-                // @ts-ignore
-                let actualUrl = links[k].url || '';
+              const links = d.links ? { ...d.links } : {};
+              const newLinks: any = {};
 
+              each(links, (value, k: string) => {
+                let actualUrl = value?.url || '';
                 if (isChinaMirrorHost) {
                   // g2plot.antv.vision => antv-g2plot.gitee.io
                   const match = actualUrl.match(
@@ -609,8 +609,7 @@ export function getNewProducts({
                     );
                   }
                 }
-                // @ts-ignore
-                links[k].url = actualUrl;
+                newLinks[k] = { ...value, url: actualUrl };
               });
               return { ...d, links };
             });

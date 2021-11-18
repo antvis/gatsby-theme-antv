@@ -13,12 +13,7 @@ interface ProductsProps {
   className?: string;
 }
 
-const Products: React.FC<ProductsProps> = ({
-  show,
-  rootDomain = '',
-  language,
-  className,
-}) => {
+const Products: React.FC<ProductsProps> = ({ show, language, className }) => {
   const { t, i18n } = useTranslation();
   const [isChinaMirrorHost] = useChinaMirrorHost();
   const [products, setProducts] = React.useState<ProductType[]>([]);
@@ -41,9 +36,9 @@ const Products: React.FC<ProductsProps> = ({
         })}
       >
         <div className={styles.container}>
-          {CATEGORIES.map(({ name, type }) => {
+          {CATEGORIES.map(({ name, type }, idx) => {
             return (
-              <React.Fragment>
+              <React.Fragment key={idx}>
                 <h3>{t(name)}</h3>
                 <ul>
                   {products
