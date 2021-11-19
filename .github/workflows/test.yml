@@ -1,0 +1,23 @@
+name: Publish a release
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # change to macOS-latest if need to run ci/test
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: yarn install
+      - run: npm run lint
+      - run: npm run build
+
+  release-it:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: npm run release
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
