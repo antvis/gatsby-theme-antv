@@ -43,15 +43,6 @@ interface PlayGroundProps {
   treeData: TreeItem[];
 }
 
-interface NodePost {
-  node: {
-    fields?: {
-      slug: string;
-    };
-    html?: string;
-  };
-}
-
 export interface TreeItem {
   title?: string;
   value?: string;

@@ -6,11 +6,10 @@ import {
   GithubOutlined,
   WeiboOutlined,
   ZhihuOutlined,
+  QuestionCircleOutlined,
 } from '@ant-design/icons';
 import classnames from 'classnames';
 import omit from 'omit.js';
-import { getProducts } from './getProducts';
-import { useChinaMirrorHost } from '../hooks';
 import styles from './Footer.module.less';
 import 'rc-footer/assets/index.less';
 
@@ -35,96 +34,6 @@ const Footer: React.FC<FooterProps> = ({
   const [withMenu, setWithMenu] = useState<boolean>(false);
   const { t, i18n } = useTranslation();
   const lang = language || i18n.language;
-  const [isChinaMirrorHost] = useChinaMirrorHost();
-  const products = getProducts({
-    t,
-    language: lang,
-    rootDomain,
-    isChinaMirrorHost,
-  });
-
-  const more = {
-    icon: (
-      <img
-        src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
-        alt="more products"
-      />
-    ),
-    title: t('更多产品'),
-    items: [
-      {
-        icon: (
-          <img
-            src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
-            alt="Ant Design"
-          />
-        ),
-        title: 'Ant Design',
-        url: 'https://ant.design',
-        description: t('企业级 UI 设计语言'),
-        openExternal: true,
-      },
-      {
-        icon: (
-          <img
-            src="https://gw.alipayobjects.com/zos/rmsportal/XuVpGqBFxXplzvLjJBZB.svg"
-            alt="yuque"
-          />
-        ),
-        title: t('语雀'),
-        url: 'https://yuque.com',
-        description: t('知识创作与分享工具'),
-        openExternal: true,
-      },
-      {
-        icon: (
-          <img
-            src="https://gw.alipayobjects.com/zos/antfincdn/v2%24rh7lqpu/82f338dd-b0a6-41bc-9a86-58aaa9df217b.png"
-            alt="Egg"
-          />
-        ),
-        title: 'Egg',
-        url: 'https://eggjs.org',
-        description: t('企业级 Node 开发框架'),
-        openExternal: true,
-      },
-      {
-        icon: (
-          <img
-            src="https://gw.alipayobjects.com/zos/rmsportal/DMDOlAUhmktLyEODCMBR.ico"
-            alt="kitchen"
-          />
-        ),
-        title: 'Kitchen',
-        description: t('Sketch 工具集'),
-        url: 'https://kitchen.alipay.com',
-        openExternal: true,
-      },
-      {
-        icon: (
-          <img
-            src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
-            alt="xtech"
-          />
-        ),
-        title: t('蚂蚁体验科技'),
-        url: 'https://xtech.antfin.com/',
-        openExternal: true,
-      },
-    ],
-  };
-
-  const defaultColumns = products
-    .filter((product) => product.category !== 'ecology')
-    .map((product) => ({
-      title: (
-        <span>
-          {product.title}
-          <span className={styles.description}>{product.slogan}</span>
-        </span>
-      ),
-      items: product.links,
-    }));
 
   useEffect(() => {
     // 有 menu 的模版 footer 表现不同，通过 location 判断加载的模版
@@ -147,10 +56,159 @@ const Footer: React.FC<FooterProps> = ({
   }, [location]);
 
   const getColums = () => {
-    if (products.length % 2 !== 0) {
-      return [...defaultColumns];
-    }
-    return [...defaultColumns];
+    // 如果外部没有传入 columns，则默认展示 antv footer
+    const col1 = {
+      title: t('Resources'),
+      items: [
+        {
+          title: 'Ant Design',
+          url: 'https://ant.design',
+          openExternal: true,
+        },
+        {
+          title: 'Ant Design Mobile',
+          url: 'https://mobile.ant.design',
+          openExternal: true,
+        },
+        {
+          title: 'Umi',
+          description: t('React 应用开发框架'),
+          url: 'https://umijs.org',
+          openExternal: true,
+        },
+        {
+          title: 'Dumi',
+          description: t('组件/文档研发工具'),
+          url: 'https://d.umijs.org',
+          openExternal: true,
+        },
+        {
+          title: 'ahooks',
+          description: t('React Hooks 库'),
+          url: 'https://github.com/alibaba/hooks',
+          openExternal: true,
+        },
+        {
+          title: t('国内镜像'),
+          url: 'https://antv.gitee.io/',
+        },
+      ],
+    };
+
+    const col2 = {
+      title: t('社区'),
+      items: [
+        {
+          icon: <ZhihuOutlined style={{ color: '#0084ff' }} />,
+          title: t('体验科技专栏'),
+          url: 'http://zhuanlan.zhihu.com/xtech',
+          openExternal: true,
+        },
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/mZBWtboYbnMkTBaRIuWQ.png"
+              alt="seeconf"
+            />
+          ),
+          title: 'SEE Conf',
+          description: t('蚂蚁体验科技大会'),
+          url: 'https://seeconf.antfin.com/',
+          openExternal: true,
+        },
+      ],
+    };
+
+    const col3 = {
+      title: t('帮助'),
+      items: [
+        {
+          icon: <GithubOutlined />,
+          title: 'GitHub',
+          url: 'https://github.com/antvis',
+          openExternal: true,
+        },
+        {
+          icon: <QuestionCircleOutlined />,
+          title: t('StackOverflow'),
+          url: 'http://stackoverflow.com/questions/tagged/antv',
+          openExternal: true,
+        },
+      ],
+    };
+
+    const more = {
+      icon: (
+        <img
+          src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
+          alt="more products"
+        />
+      ),
+      title: t('更多产品'),
+      items: [
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg"
+              alt="Ant Design"
+            />
+          ),
+          title: 'Ant Design',
+          url: 'https://ant.design',
+          description: t('企业级 UI 设计语言'),
+          openExternal: true,
+        },
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/XuVpGqBFxXplzvLjJBZB.svg"
+              alt="yuque"
+            />
+          ),
+          title: t('语雀'),
+          url: 'https://yuque.com',
+          description: t('知识创作与分享工具'),
+          openExternal: true,
+        },
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/antfincdn/v2%24rh7lqpu/82f338dd-b0a6-41bc-9a86-58aaa9df217b.png"
+              alt="Egg"
+            />
+          ),
+          title: 'Egg',
+          url: 'https://eggjs.org',
+          description: t('企业级 Node 开发框架'),
+          openExternal: true,
+        },
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/DMDOlAUhmktLyEODCMBR.ico"
+              alt="kitchen"
+            />
+          ),
+          title: 'Kitchen',
+          description: t('Sketch 工具集'),
+          url: 'https://kitchen.alipay.com',
+          openExternal: true,
+        },
+        {
+          icon: (
+            <img
+              src="https://gw.alipayobjects.com/zos/rmsportal/nBVXkrFdWHxbZlmMbsaH.svg"
+              alt="xtech"
+            />
+          ),
+          title: t('蚂蚁体验科技'),
+          url: 'https://xtech.antfin.com/',
+          openExternal: true,
+        },
+      ],
+    };
+
+    return [col1, col2, col3, more];
   };
 
   return (
@@ -164,18 +222,6 @@ const Footer: React.FC<FooterProps> = ({
       bottom={
         bottom || (
           <>
-            <div className={styles.more}>
-              <span className={styles.title}>{more.title}</span>
-              {more.items.map((item: any) => (
-                <div key={item.title} style={{ marginRight: 16 }}>
-                  <a href={item.url} target="_blank" rel="noopener noreferrer">
-                    {item.icon}
-                    {item.title}
-                  </a>
-                  {item.description && <span>{`-  ${item.description}`}</span>}
-                </div>
-              ))}
-            </div>
             <div className={styles.bottom}>
               <div>
                 <a

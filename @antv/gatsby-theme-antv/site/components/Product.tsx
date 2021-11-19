@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { ProductType } from './getProducts';
 import styles from './Product.module.less';
 
 interface ProductProps {
@@ -7,12 +9,7 @@ interface ProductProps {
   slogan?: string;
   description?: string;
   url?: string;
-  links?: Array<{
-    title: React.ReactNode;
-    url?: string;
-    icon?: React.ReactNode;
-    openExternal?: boolean;
-  }>;
+  links: ProductType['links'];
   style?: React.CSSProperties;
   language?: string;
 }
@@ -30,36 +27,53 @@ const Product: React.FC<ProductProps> = ({
   url = '',
   slogan,
   description,
-  links = [],
+  links = {},
   style,
   language,
-}) => (
-  <li className={styles.product} style={style}>
-    <a href={url} target={getTarget(url)}>
-      <img alt={name} src={icon} />
-    </a>
-    <div className={styles.productContent}>
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <li className={styles.product} style={style}>
       <a href={url} target={getTarget(url)}>
-        <h4>
-          {name}
-          <span
-            className={styles.productSlogan}
-            style={{ opacity: language === 'en' ? 0.7 : '' }}
-          >
-            {slogan}
-          </span>
-        </h4>
+        <img alt={name} src={icon} />
       </a>
-      <div className={styles.productDescription}>{description}</div>
-      <div className={styles.productLinks}>
-        {links.slice(0, 2).map(item => (
-          <a href={item.url} target={getTarget(item.url || '')} key={item.url}>
-            {item.title}
-          </a>
-        ))}
+      <div className={styles.productContent}>
+        <a href={url} target={getTarget(url)}>
+          <h4>
+            {name}
+            <span
+              className={styles.productSlogan}
+              style={{ opacity: language === 'en' ? 0.7 : '' }}
+            >
+              {slogan}
+            </span>
+          </h4>
+        </a>
+        <div className={styles.productDescription}>{description}</div>
+        <div className={styles.productLinks}>
+          {links.home && (
+            <a
+              href={links.home.url}
+              target={getTarget(links.home.url || '')}
+              key={links.home.url}
+            >
+              {links.home.title ?? t('产品首页')}
+            </a>
+          )}
+          {links.example && (
+            <a
+              href={links.example.url}
+              target={getTarget(links.example.url || '')}
+              key={links.example.url}
+            >
+              {links.example.title ?? t('图表示例')}
+            </a>
+          )}
+        </div>
       </div>
-    </div>
-  </li>
-);
+    </li>
+  );
+};
 
 export default Product;
