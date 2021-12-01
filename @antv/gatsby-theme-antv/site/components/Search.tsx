@@ -35,6 +35,7 @@ function initDocSearch({
         hit.url = hit.url.replace('l7.antv.vision', window.location.host);
         hit.url = hit.url.replace('x6.antv.vision', window.location.host);
         hit.url = hit.url.replace('g2plot.antv.vision', window.location.host);
+        hit.url = hit.url.replace('s2.antv.vision', window.location.host);
         hit.url = hit.url.replace('graphin.antv.vision', window.location.host);
         hit.url = hit.url.replace('https:', window.location.protocol);
         hit.url = hit.url.replace('#gatsby-focus-wrapper', '');
