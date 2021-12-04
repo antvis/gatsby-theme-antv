@@ -30,12 +30,20 @@ function initDocSearch({
       hits.forEach((hit) => {
         /* eslint-disable no-param-reassign */
         hit.url = hit.url.replace('g2.antv.vision', window.location.host);
-        hit.url = hit.url.replace('g6.antv.vision', window.location.host);
-        hit.url = hit.url.replace('f2.antv.vision', window.location.host);
-        hit.url = hit.url.replace('l7.antv.vision', window.location.host);
-        hit.url = hit.url.replace('x6.antv.vision', window.location.host);
         hit.url = hit.url.replace('g2plot.antv.vision', window.location.host);
+        hit.url = hit.url.replace('s2.antv.vision', window.location.host);
         hit.url = hit.url.replace('graphin.antv.vision', window.location.host);
+        hit.url = hit.url.replace('g6.antv.vision', window.location.host);
+        hit.url = hit.url.replace('x6.antv.vision', window.location.host);
+        hit.url = hit.url.replace('xflow.antv.vision', window.location.host);
+
+        hit.url = hit.url.replace('l7.antv.vision', window.location.host);
+
+        hit.url = hit.url.replace('l7plot.antv.vision', window.location.host);
+        hit.url = hit.url.replace('ava.antv.vision', window.location.host);
+        hit.url = hit.url.replace('f2.antv.vision', window.location.host);
+        hit.url = hit.url.replace('f2native.antv.vision', window.location.host);
+        hit.url = hit.url.replace('f6.antv.vision', window.location.host);
         hit.url = hit.url.replace('https:', window.location.protocol);
         hit.url = hit.url.replace('#gatsby-focus-wrapper', '');
         /* eslint-enable no-param-reassign */
