@@ -141,7 +141,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
   const { createPage, deletePage } = actions;
   const result = await graphql(`
     {
-      allMarkdownRemark(limit: 1000) {
+      allMarkdownRemark(limit: 10000) {
         edges {
           node {
             fields {
@@ -155,7 +155,7 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
           }
         }
       }
-      allFile(limit: 1000) {
+      allFile(limit: 10000) {
         nodes {
           relativePath
           absolutePath
