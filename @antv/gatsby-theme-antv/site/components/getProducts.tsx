@@ -609,7 +609,7 @@ export function getNewProducts({
             }
             newLinks[k] = { ...value, url: actualUrl };
           });
-          return { ...d, links };
+          return { ...d, links: newLinks };
         });
     });
 }
