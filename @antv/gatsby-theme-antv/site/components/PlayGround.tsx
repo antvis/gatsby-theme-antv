@@ -189,7 +189,7 @@ insertCss(`;
     updateRelativePath(current?.relativePath);
     updateFileExtension(
       current?.relativePath.split('.')[
-        current.relativePath.split('.').length - 1
+      current.relativePath.split('.').length - 1
       ] || 'js',
     );
     updateTitle(current?.title);
@@ -213,14 +213,22 @@ insertCss(`;
     if (currentExample || !examples) return;
 
     let defaultExample = examples[0];
+    const pathName = location.pathname.split('/');
+    const dirname = pathName.slice(2).join('\\/');
+    const fullname = `${pathName.slice(3).join('\\/')}\\/demo\\/${location.hash?.replace('#', '').replace('/', '\\/')}`;
+    const dirnameReg = new RegExp(`.+\\/${dirname}.+`);
+    const fullnameReg = new RegExp(`${fullname}\\.(jsx|tsx|ts|js)$`);
+
     for (let i = 0; i < examples.length; i += 1) {
       const item = examples[i];
-      const dirname = `${location.pathname.split('/').slice(3).join('/')}`;
-      const fullname = `${dirname}/demo/${location.hash?.replace('#', '')}`;
-      if (item.absolutePath.match(dirname)) {
+      if (dirnameReg.test(item.absolutePath)) {
         defaultExample = item;
+
+        if (fullnameReg.test(item.relativePath)) {
+          break;
+        }
       }
-      if (!location.hash || item.relativePath.match(fullname)) {
+      if (!location.hash) {
         break;
       }
     }
@@ -676,7 +684,7 @@ insertCss(`;
         </div>
       </SplitPane>
       {relativePath &&
-      (layout === 'viewDefault' || layout === 'viewThreeCols') ? (
+        (layout === 'viewDefault' || layout === 'viewThreeCols') ? (
         <APIDoc
           markdownRemark={markdownRemark}
           githubUrl={githubUrl}
