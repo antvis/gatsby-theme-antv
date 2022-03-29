@@ -46,6 +46,9 @@ interface ToolbarProps {
       [key: string]: string;
     };
     htmlCodeTemplate?: string;
+    json?: {
+      [key: string]: any;
+    };
   };
   isFullScreen?: boolean;
   editorTabs: EDITOR_TABS[];
@@ -137,9 +140,8 @@ const Toolbar: React.FC<ToolbarProps> = ({
     return text;
   }
 
-  codeSandboxConfig.files[`index.${fileExtension}`].content = replaceFetchUrl(
-    sourceCode,
-  );
+  codeSandboxConfig.files[`index.${fileExtension}`].content =
+    replaceFetchUrl(sourceCode);
 
   function getHtmlCodeTemplate() {
     const { htmlCodeTemplate = '', container = '' } = playground;
@@ -174,6 +176,12 @@ const Toolbar: React.FC<ToolbarProps> = ({
     title: exmapleTitle,
     js: sourceCode,
     html: playground.container || '<div id="container" />',
+    // 预填的 package.json 代码
+    json: JSON.stringify({
+      dependencies: deps,
+      devDependencies,
+      ...playground.json,
+    }),
   };
 
   const stackblitzPrefillConfig = {
