@@ -384,16 +384,26 @@ export default function Template({
       </React.Fragment>
     ));
 
-  const onAnchorLinkChange = debounce((currentActiveLink: string) => {
-    if (currentActiveLink) {
-      const link = document.querySelector(`a[href='${currentActiveLink}']`);
-      if (link) {
-        const anchor = link?.parentNode as Element;
-        anchor.scrollIntoView({
-          block: 'center',
-        });
-      }
-    }
+  const onAnchorLinkChange = debounce((activeLink: string) => {
+    if (!activeLink) return;
+    // We could update URL hash on scroll
+    window.history.replaceState({}, '', activeLink);
+    const anchorElem = document.querySelector(
+      `.${styles.toc} a[href='${activeLink}']`,
+    )?.parentNode as HTMLElement | null;
+    const tocContentElem = document.querySelector<HTMLElement>(
+      `.${styles.apiAnchor}`,
+    );
+    // We can no longer use Element.scrollIntoView
+    // when using a plain `position: sticky` for table of contents
+    // because it will try to scroll the main article as well
+    tocContentElem?.scrollTo({
+      top:
+        Number(anchorElem?.offsetTop) -
+        window.innerHeight / 2 -
+        Number(anchorElem?.clientHeight),
+      behavior: 'smooth',
+    });
   }, 300);
 
   return (
@@ -406,16 +416,15 @@ export default function Template({
       >
         {menuSider}
         <Article className={styles.markdown}>
-          <Affix offsetTop={8}>
-            <div className={styles.toc}>
-              <Anchor
-                className={styles.apiAnchor}
-                onChange={onAnchorLinkChange}
-              >
-                {renderAnchorLinks(anchorLinks)}
-              </Anchor>
-            </div>
-          </Affix>
+          <div className={styles.toc}>
+            <Anchor
+              affix={false}
+              className={styles.apiAnchor}
+              onChange={onAnchorLinkChange}
+            >
+              {renderAnchorLinks(anchorLinks)}
+            </Anchor>
+          </div>
           <div className={styles.main}>
             <h1>
               {frontmatter.title}
