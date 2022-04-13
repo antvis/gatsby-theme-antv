@@ -52,7 +52,12 @@ function initDocSearchV2({
 }
 
 const Search: React.FC<SearchProps> = ({ docsearchOptions }) => {
-  const versionV3 = docsearchOptions?.versionV3;
+  const {
+    apiKey = '194b1be7fb1254c787f4e036912af3eb',
+    indexName = 'antv',
+    versionV3 = false,
+    appId = 'BH4D9OD16A',
+  } = docsearchOptions || {};
   const { t, i18n } = useTranslation();
   useEffect(() => {
     if (typeof window !== 'undefined' && !versionV3) {
@@ -68,11 +73,7 @@ const Search: React.FC<SearchProps> = ({ docsearchOptions }) => {
   return (
     <label className={styles.search} htmlFor="search" id="search">
       {versionV3 ? (
-        <DocSearch
-          appId={docsearchOptions?.appId}
-          indexName={docsearchOptions?.indexName}
-          apiKey={docsearchOptions?.apiKey}
-        />
+        <DocSearch appId={appId} indexName={indexName} apiKey={apiKey} />
       ) : (
         <>
           <SearchOutlined className={styles.icon} />
