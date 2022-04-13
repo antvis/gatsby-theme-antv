@@ -6,6 +6,7 @@
 
 // You can delete this file if you're not using it
 import 'normalize.css/normalize.css';
+import '@docsearch/css';
 import 'prism-themes/themes/prism-base16-ateliersulphurpool.light.css';
 import 'prismjs/plugins/command-line/prism-command-line.css';
 import 'rc-drawer/assets/index.css';

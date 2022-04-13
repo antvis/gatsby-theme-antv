@@ -75,7 +75,9 @@ const Layout: React.FC<LayoutProps> = ({ children, location, footerProps }) => {
           }
           docsearchOptions {
             apiKey
+            appId
             indexName
+            versionV3
           }
           versions
           ecosystems {

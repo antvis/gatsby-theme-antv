@@ -1,27 +1,32 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SearchOutlined } from '@ant-design/icons';
+import docsearch from '@docsearch/js';
+
 import styles from './Search.module.less';
 
 export interface SearchProps {
+  // algolia 搜索配置
   docsearchOptions?: {
+    versionV3?: boolean; // 目前有两个版本的 docsearch.js，V2.x 和 V3.x，此开关决定用哪一个版本的搜索框，根据申请到的参数版本决定，二者互不兼容，详情见 https://docsearch.algolia.com/
+    appId?: string; // V3.x 版本 docsearch 需要appId, V2.x 版不需要。
     apiKey: string;
     indexName: string;
   };
 }
 
-function initDocSearch({
-  docsearch,
+function initDocSearchV2({
+  docsearchV2,
   lang,
   docsearchOptions,
 }: {
-  docsearch: any;
+  docsearchV2: any;
   lang: string;
   docsearchOptions: SearchProps['docsearchOptions'];
 }) {
   const { apiKey = '194b1be7fb1254c787f4e036912af3eb', indexName = 'antv' } =
     docsearchOptions || {};
-  docsearch({
+  docsearchV2({
     apiKey,
     indexName,
     inputSelector: `.${styles.input}`,
@@ -49,10 +54,20 @@ function initDocSearch({
 const Search: React.FC<SearchProps> = ({ docsearchOptions }) => {
   const { t, i18n } = useTranslation();
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      import('docsearch.js').then(({ default: docsearch }) => {
-        initDocSearch({
-          docsearch,
+    if (typeof window === 'undefined') {
+      return;
+    }
+    if (docsearchOptions?.versionV3) {
+      docsearch({
+        container: '#search',
+        apiKey: docsearchOptions?.apiKey,
+        indexName: docsearchOptions?.indexName,
+        appId: docsearchOptions?.appId,
+      });
+    } else {
+      import('docsearch.js').then(({ default: docsearchV2 }) => {
+        initDocSearchV2({
+          docsearchV2,
           lang: i18n.language,
           docsearchOptions,
         });
@@ -60,7 +75,7 @@ const Search: React.FC<SearchProps> = ({ docsearchOptions }) => {
     }
   }, []);
   return (
-    <label className={styles.search} htmlFor="search">
+    <label className={styles.search} htmlFor="search" id="search">
       <SearchOutlined className={styles.icon} />
       <input className={styles.input} id="search" placeholder={t('搜索…')} />
     </label>
