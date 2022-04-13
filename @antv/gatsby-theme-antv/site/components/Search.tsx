@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SearchOutlined } from '@ant-design/icons';
-import docsearch from '@docsearch/js';
+import { DocSearch } from '@docsearch/react';
 
 import styles from './Search.module.less';
 
@@ -52,19 +52,10 @@ function initDocSearchV2({
 }
 
 const Search: React.FC<SearchProps> = ({ docsearchOptions }) => {
+  const versionV3 = docsearchOptions?.versionV3;
   const { t, i18n } = useTranslation();
   useEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-    if (docsearchOptions?.versionV3) {
-      docsearch({
-        container: '#search',
-        apiKey: docsearchOptions?.apiKey,
-        indexName: docsearchOptions?.indexName,
-        appId: docsearchOptions?.appId,
-      });
-    } else {
+    if (typeof window !== 'undefined' && !versionV3) {
       import('docsearch.js').then(({ default: docsearchV2 }) => {
         initDocSearchV2({
           docsearchV2,
@@ -76,8 +67,22 @@ const Search: React.FC<SearchProps> = ({ docsearchOptions }) => {
   }, []);
   return (
     <label className={styles.search} htmlFor="search" id="search">
-      <SearchOutlined className={styles.icon} />
-      <input className={styles.input} id="search" placeholder={t('搜索…')} />
+      {versionV3 ? (
+        <DocSearch
+          appId={docsearchOptions?.appId}
+          indexName={docsearchOptions?.indexName}
+          apiKey={docsearchOptions?.apiKey}
+        />
+      ) : (
+        <>
+          <SearchOutlined className={styles.icon} />
+          <input
+            className={styles.input}
+            id="search"
+            placeholder={t('搜索…')}
+          />
+        </>
+      )}
     </label>
   );
 };
