@@ -60,7 +60,7 @@ const Search: React.FC<SearchProps> = ({ docsearchOptions }) => {
   } = docsearchOptions || {};
   const { t, i18n } = useTranslation();
   useEffect(() => {
-    if (typeof window !== 'undefined' && !docsearchOptions?.versionV3) {
+    if (typeof window !== 'undefined' && !versionV3) {
       import('docsearch.js').then(({ default: docsearchV2 }) => {
         initDocSearchV2({
           docsearchV2,
