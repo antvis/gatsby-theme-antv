@@ -453,6 +453,8 @@ exports.sourceNodes = ({ actions }) => {
 
   createTypes(`
     type DocsearchOptions {
+      versionV3: Boolean
+      appId: String
       apiKey: String
       indexName: String
     }

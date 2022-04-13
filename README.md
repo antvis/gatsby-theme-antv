@@ -92,6 +92,13 @@ module.exports = {
     isAntVSite: false, //是否是AntV官网，header样式footer和图表详情页均为定制
     galleryMenuCloseAll: false, // 是否默认收起 gallery 页面所有 menu
     showSearch: true, // 是否展示搜索框
+    docsearchOptions: { // algolia 搜索配置
+      versionV3: false, // 目前有两个版本的 docsearch.js，V2.x 和 V3.x，此开关决定用哪一个版本的搜索框，根据申请到的参数版本决定，二者互不兼容，详情见 https://docsearch.algolia.com/
+      appId: 'xxxx', // V3.x 版本 docsearch 需要appId, V2.x 版不需要。
+      apiKey: 'xxxxxx',
+      indexName: 'xxx',
+
+    }
     showChinaMirror: true, // 是否展示国内镜像链接
     showLanguageSwitcher: true, // 用于定义是否展示语言切换
     showAntVProductsCard: true, // 是否展示 AntV 系列产品的卡片链接
@@ -101,6 +108,7 @@ module.exports = {
     themeSwitcher: 'g2', // 是否在demo页展示主题切换, 取值为'g2' | 'g2plot' 如果不设置则不展示主题切换工具
     showAPIDoc: true, // 是否在demo页展示API文档
     showExampleDemoTitle: true, // 有截图的是否要展示 title 名称
+
     mdPlayground: {
       // markdown 文档中的 playground 若干设置
       splitPaneMainSize: '62%',
@@ -165,28 +173,24 @@ import Companies from '@antv/gatsby-theme-antv/site/components/Companies';
 const Layout = () => {
   const features = [
     {
-      icon:
-        'https://gw.alipayobjects.com/zos/basement_prod/5dbaf094-c064-4a0d-9968-76020b9f1510.svg',
+      icon: 'https://gw.alipayobjects.com/zos/basement_prod/5dbaf094-c064-4a0d-9968-76020b9f1510.svg',
       title: 'xxxxx',
       description: 'xxxxxxxxxxxxxxxxxxxxxxxxx',
     },
     {
-      icon:
-        'https://gw.alipayobjects.com/zos/basement_prod/0a0371ab-6bed-41ad-a99b-87a5044ba11b.svg',
+      icon: 'https://gw.alipayobjects.com/zos/basement_prod/0a0371ab-6bed-41ad-a99b-87a5044ba11b.svg',
       title: 'xxxxx',
       description: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     },
     {
-      icon:
-        'https://gw.alipayobjects.com/zos/basement_prod/716d0bc0-e311-4b28-b79f-afdd16e8148e.svg',
+      icon: 'https://gw.alipayobjects.com/zos/basement_prod/716d0bc0-e311-4b28-b79f-afdd16e8148e.svg',
       title: 'xxxxx',
       description: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
     },
   ];
   const cases = [
     {
-      logo:
-        'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
+      logo: 'https://gw.alipayobjects.com/mdn/rms_23b644/afts/img/A*2Ij9T76DyCcAAAAAAAAAAABkARQnAQ',
       title: '灯塔专业版',
       description:
         '深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金深入金融的基金',
