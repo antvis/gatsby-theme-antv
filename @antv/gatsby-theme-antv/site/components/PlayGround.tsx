@@ -210,9 +210,9 @@ insertCss(`;
   };
 
   useEffect(() => {
-    if (currentExample || !examples) return;
+    if (currentExample || !examples || !exampleSections?.examples?.length) return;
 
-    let defaultExample = examples[0];
+    let defaultExample = exampleSections.examples[0];
     const pathName = location.pathname.split('/');
     const dirname = pathName.slice(2).join('\\/');
     const fullname = `${pathName.slice(3).join('\\/')}\\/demo\\/${location.hash?.replace('#', '').replace('/', '\\/')}`;
