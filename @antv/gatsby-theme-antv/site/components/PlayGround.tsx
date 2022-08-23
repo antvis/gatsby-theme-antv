@@ -210,7 +210,7 @@ insertCss(`;
   };
 
   useEffect(() => {
-    if (currentExample || !examples || !exampleSections?.examples.length) return;
+    if (currentExample || !examples || !exampleSections?.examples?.length) return;
 
     let defaultExample = exampleSections.examples[0];
     const pathName = location.pathname.split('/');
