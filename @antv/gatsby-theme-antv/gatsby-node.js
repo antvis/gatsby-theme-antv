@@ -222,7 +222,12 @@ exports.createPages = async ({ actions, graphql, reporter, store }) => {
     const source = fs.readFileSync(item.absolutePath, 'utf8');
     const { code } = transform(source, {
       filename: item.absolutePath,
-      presets: ['react', 'typescript', 'es2015', 'stage-3'],
+      presets: ['react', 'typescript', 'es2015', [
+        'stage-3', 
+        {
+          decoratorsLegacy: true,
+        }
+      ]],
       plugins: ['transform-modules-umd'],
       babelrc: false,
     });
